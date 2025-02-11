@@ -1,0 +1,61 @@
+\documentclass[dvipdfmx]{standalone}
+
+\usepackage{tikz}
+
+\usetikzlibrary{
+    arrows.meta,
+    calc,
+    positioning,
+    shapes.geometric,
+}
+
+\definecolor{cA}{HTML}{0072BD}
+\definecolor{cB}{HTML}{EDB120}
+\definecolor{cC}{HTML}{77AC30}
+\definecolor{cD}{HTML}{D95319}
+\definecolor{cE}{HTML}{7E2F8E}
+
+\begin{document}
+\begin{tikzpicture}
+    \coordinate (v0) at (0,0);
+
+    \draw[cA!50!white,very thick,rounded corners=10pt] (-4.42,-3.3) rectangle (-1.58,-2.07);
+    \draw[cA!50!white,very thick,rounded corners=10pt] (-1.42,-3.3) rectangle (+1.42,-2.07);
+    \draw[cA!50!white,very thick,rounded corners=10pt] (+1.58,-3.3) rectangle (+4.42,-2.07);
+
+    \node[align=center] (v21) at (-3,-2.5) {\colorbox{white}{\textbf{証明1}}\\$\sum_{j=1}^{i} a_j x^*_j < a_{i+1}$\\を導いて証明};
+    \node[align=center] (v22) at ( 0,-2.5) {\colorbox{white}{\textbf{証明2}}\\$i=1$の場合に\\着目し帰納法};
+    \node[align=center] (v23) at (+3,-2.5) {\colorbox{white}{\textbf{証明3}}\\貪欲以外が上記\\両替などで改善可};
+
+    \draw[-{Stealth[length=3mm]},thick] (v0) -- (v21);
+    \draw[-{Stealth[length=3mm]},thick] (v0) -- (v22);
+    \draw[-{Stealth[length=3mm]},thick] (v0) -- (v23);
+
+    \draw[cA,fill=cA!10!white,ultra thick,rounded corners=10pt] (-2.8,-1) rectangle (2.8,1);
+    \node[cA,above] at (0,1) {\textbf{倍数条件: $\frac{a_{i+1}}{a_i}$が2以上の整数}};
+
+    \node[align=center] at (v0) {
+        \textbf{
+            \begin{tabular}{ccc}
+                $a_i$円                  &  & $a_{i+1}$円 \\[1.5ex]
+                $-\frac{a_{i+1}}{a_i}$枚 &  & $+1$枚
+            \end{tabular}
+        }
+    };
+
+    % \coordinate (u0) at (0,-5.5);
+    % \draw[cB!50!white,very thick,rounded corners=10pt] (-3.1,-5.5-3.3) rectangle (+3.1,-5.5-2.07);
+    % \node[align=center] (u2) at (0,-5.5-2.5) {\colorbox{white}{\textbf{証明}}\\硬貨の種類数に関する帰納法\\種類数を増やしても貪欲解は悪化しない};
+    % \draw[-{Stealth[length=3mm]},thick] (u0) -- (u2);
+    % \draw[cB,fill=cB!10!white,ultra thick,rounded corners=10pt] (-2.8,-5.5-1) rectangle (2.8,-5.5+1);
+    % \node[cB,above] at (0,-5.5+1) {\textbf{緩和条件: $\mathrm{GRE}_i(\delta_i) < \rho_i$}};
+    % \node[align=center] at (u0) {
+    %     \textbf{
+    %         \begin{tabular}{ccc}
+    %             $\delta_{i}$円分               & $a_i$円     & $a_{i+1}$円 \\[1.5ex]
+    %             +$\mathrm{GRE}_i(\delta_i)$枚 & $-\rho_i$枚 & $+1$枚
+    %         \end{tabular}
+    %     }
+    % };
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,114 @@
+{
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "pdflatex*2",
+            "tools": [
+                "pdflatex",
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "pdflatex&bibtex",
+            "tools": [
+                "pdflatex",
+                "bibtex",
+                "pdflatex",
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "ptex2pdf*2",
+            "tools": [
+                "ptex2pdf",
+                "ptex2pdf",
+            ]
+        },
+        {
+            "name": "ptex2pdf&pbibtex",
+            "tools": [
+                "ptex2pdf",
+                "pbibtex",
+                "ptex2pdf",
+                "ptex2pdf"
+            ]
+        },
+        {
+            "name": "uplatex",
+            "tools": [
+                "ptex2pdf (uplatex)",
+                "ptex2pdf (uplatex)",
+            ]
+        },
+        {
+            "name": "uplatex&pbibtex",
+            "tools": [
+                "ptex2pdf (uplatex)",
+                "pbibtex (uplatex)",
+                "ptex2pdf (uplatex)",
+                "ptex2pdf (uplatex)"
+            ]
+        },
+    ],
+    "cSpell.words": [
+        "argmin",
+        "autonum",
+        "BFGS",
+        "bmatrix",
+        "citecolor",
+        "cleveref",
+        "coloneqq",
+        "Cref",
+        "dcases",
+        "Definedness",
+        "Fenchel",
+        "Infimal",
+        "infty",
+        "Kachurovskii",
+        "lder",
+        "Levenberg--Marquardt",
+        "linalg",
+        "linkcolor",
+        "Lipschitz",
+        "mathbb",
+        "mathcal",
+        "mathrel",
+        "mathrm",
+        "mathtools",
+        "nabla",
+        "Nonexpansiveness",
+        "nonsmooth",
+        "Ochs",
+        "olderian",
+        "pbox",
+        "Riesz",
+        "Rockafellar",
+        "subdifferential",
+        "subgradient",
+        "subregular",
+        "Thresholding",
+        "urlcolor",
+        "varnames",
+        "wrapfigure",
+        "Yoshida"
+    ],
+    "latexlint.exceptions": [
+        "Accelerated-gradient-based generalized Levenberg--Marquardt method",
+        "Jean-Jacques",
+        "Well-Definedness",
+    ],
+    "latexlint.userDefinedRules": [
+        "真閉凸",
+        "閉凸真",
+        "Infimal convolution",
+        "1/2",
+        "(?<!(effective|\\[|,)\\s?)domain",
+        "\\\\text\\{if \\}",
+        "\\\\mathrm\\{epi\\} ",
+        "ベクトル空間",
+        "\\(参考",
+        "\\mathrm{dom} f"
+    ],
+    "latexlint.disabledRules": [
+        "LLCref"
+    ]
+}

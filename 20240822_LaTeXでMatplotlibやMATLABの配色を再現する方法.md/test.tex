@@ -1,0 +1,96 @@
+\documentclass[tikz,dvipdfmx,dvipsnames]{standalone}
+
+\usepackage{xcolor}
+
+\definecolor{tabA}{HTML}{1f77b4}
+\definecolor{tabB}{HTML}{ff7f0e}
+\definecolor{tabC}{HTML}{2ca02c}
+\definecolor{tabD}{HTML}{d62728}
+\definecolor{tabE}{HTML}{9467bd}
+\definecolor{tabF}{HTML}{8c564b}
+\definecolor{tabG}{HTML}{e377c2}
+\definecolor{tabH}{HTML}{7f7f7f}
+\definecolor{tabI}{HTML}{bcbd22}
+\definecolor{tabJ}{HTML}{17becf}
+
+\definecolor{matlabBlue}{HTML}{0072BD}
+\definecolor{matlabRed}{HTML}{D95319}
+\definecolor{matlabYellow}{HTML}{EDB120}
+\definecolor{matlabPurple}{HTML}{7E2F8E}
+\definecolor{matlabGreen}{HTML}{77AC30}
+\definecolor{matlabCyan}{HTML}{4DBEEE}
+\definecolor{matlabMaroon}{HTML}{A2142F}
+
+\definecolor{cA}{HTML}{0072BD}
+\definecolor{cB}{HTML}{EDB120}
+\definecolor{cC}{HTML}{77AC30}
+\definecolor{cD}{HTML}{D95319}
+\definecolor{cE}{HTML}{7E2F8E}
+
+\definecolor{viridis0}{RGB}{253,231,36}
+\definecolor{viridis1}{RGB}{157,217,58}
+\definecolor{viridis2}{RGB}{94,201,97}
+\definecolor{viridis3}{RGB}{58,82,139}
+\definecolor{viridis4}{RGB}{69,50,127}
+
+\definecolor{jet0}{RGB}{0,0,127}
+\definecolor{jet1}{RGB}{0,0,254}
+\definecolor{jet2}{RGB}{0,96,255}
+\definecolor{jet3}{RGB}{0,212,255}
+\definecolor{jet4}{RGB}{76,255,170}
+\definecolor{jet5}{RGB}{170,255,76}
+\definecolor{jet6}{RGB}{255,229,0}
+\definecolor{jet7}{RGB}{255,122,0}
+\definecolor{jet8}{RGB}{254,18,0}
+\definecolor{jet9}{RGB}{127,0,0}
+
+\begin{document}
+\begin{tikzpicture}
+    \foreach \x/\y/\color in {
+            0/0/tabA,
+            1/0/tabB,
+            2/0/tabC,
+            3/0/tabD,
+            4/0/tabE,
+            5/0/tabF,
+            6/0/tabG,
+            7/0/tabH,
+            8/0/tabI,
+            9/0/tabJ,
+            0/1/matlabBlue,
+            1/1/matlabRed,
+            2/1/matlabYellow,
+            3/1/matlabPurple,
+            4/1/matlabGreen,
+            5/1/matlabCyan,
+            6/1/matlabMaroon,
+            0/2/cA,
+            1/2/cB,
+            2/2/cC,
+            3/2/cD,
+            4/2/cE,
+            0/3/viridis0,
+            1/3/viridis1,
+            2/3/viridis2,
+            3/3/viridis3,
+            4/3/viridis4,
+            0/4/jet0,
+            1/4/jet1,
+            2/4/jet2,
+            3/4/jet3,
+            4/4/jet4,
+            5/4/jet5,
+            6/4/jet6,
+            7/4/jet7,
+            8/4/jet8,
+            9/4/jet9}{
+            \draw[draw=\color,fill=\color] (1.2*\x, -1.5*\y) circle (0.5);
+        }
+
+    \node[anchor=west] at (-1, 0.75-1.5*0) {\textcolor{cA}{tab10 colors}};
+    \node[anchor=west] at (-1, 0.75-1.5*1) {\textcolor{cB}{matlab colors}};
+    \node[anchor=west] at (-1, 0.75-1.5*2) {\textcolor{cC}{custom colors}};
+    \node[anchor=west] at (-1, 0.75-1.5*3) {\textcolor{cD}{viridis colors}};
+    \node[anchor=west] at (-1, 0.75-1.5*4) {\textcolor{cE}{jet colors}};
+\end{tikzpicture}
+\end{document}
