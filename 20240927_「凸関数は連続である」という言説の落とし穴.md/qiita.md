@@ -78,11 +78,11 @@ f(\alpha x + (1 - \alpha) y) \leq \alpha f(x) + (1 - \alpha) f(y) \\
 
 言い換えると、次と等価です。
 
-**$\mathrm{dom} ~ f$ が実数全域となる （i.e. $\pm \infty$ に値を取らない) 凸関数は連続である。**
+**$\mathrm{dom} ~ f$ が実数全域となる （i.e. $\pm \infty$ に値を取らない） 凸関数は連続である。**
 
 直感的には、各点の回りで適切な近傍が取れるので、変な不連続性が生じない、ということです。
 
-$ax+b, x^2, \| x \|, e^x$ などの関数が該当します。ただし、$1/x$ や $-\log x$ すら、この「$\mathrm{dom} ~ f$ が実数全域となる」という条件を**満たさない**ことに注意して下さい。
+$ax+b, x^2, \lVert x \rVert, e^x$ などの関数が該当します。ただし、$1/x$ や $-\log x$ すら、この「$\mathrm{dom} ~ f$ が実数全域となる」という条件を**満たさない**ことに注意して下さい。
 
 ### 「dom fが実数全域となる凸関数は連続である」の証明
 
@@ -143,7 +143,7 @@ $r$ は任意だったので、$r \to 0$ とすれば、$f(x) \to f(\overline{x}
 まず、エピグラフを定義します。関数 $f\colon \mathbb{R}^n \to \mathbb{R}$ の **エピグラフ(epigraph)** は次のように定義されます。
 
 ```math
-\mathrm{epi} ~ f = \lbrace (x, t) \in \mathbb{R}^{n+1} \mathrel{\mid} x \in \mathrm{dom} ~ f, ~ f(x) \leq t \rbrace
+\mathrm{epi}\ f = \lbrace (x, t) \in \mathbb{R}^{n+1} \mathrel{\mid} x \in \mathrm{dom} ~ f, ~ f(x) \leq t \rbrace
 ```
 
 <img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/c551751d-3df4-46f9-1d15-4b67e2101075.png" alt="epi">
@@ -206,7 +206,7 @@ $g\in \mathbb{R}^n$ と $\gamma \in \mathbb{R}$ に対して、
 
 ```math
 \begin{align*}
-\phi(y,g,\gamma) &:= \langle g, y \rangle - \frac{\gamma}{2} \| y \|_2^2 \\\\
+\phi(y,g,\gamma) &:= \langle g, y \rangle - \frac{\gamma}{2} \lVert y \rVert_2^2 \\\\
 \psi(g,\gamma) &:= \sup_{y \in \mathbb{R}^n} \phi(y,g,\gamma)
 \end{align*}
 ```
@@ -218,7 +218,7 @@ $\psi(g,\gamma)$ の具体的な値は以下のようになります。
 ```math
 \psi(g,\gamma) = \begin{cases}
 0 & g=0,~\gamma=0\\
-\frac{\| g \|_2^2}{2\gamma} & \gamma > 0\\
+\frac{\lVert g \rVert_2^2}{2\gamma} & \gamma > 0\\
 \infty & \text{otherwise}
 \end{cases}
 ```
@@ -235,9 +235,9 @@ $\phi(y,0,0) = 0$ より $\psi(0,0) = 0$ です。
 
 ```math
 \begin{align*}
-\psi(g,\gamma) &= \sup_{y \in \mathbb{R}^n} \left( \langle g, y \rangle - \frac{\gamma}{2} \| y \|_2^2 \right) \\
-&= \sup_{y \in \mathbb{R}^n} \left( -\frac{\gamma}{2} \left\| y - \frac{g}{\gamma} \right\|_2^2 + \frac{\| g \|_2^2}{2\gamma} \right) \\
-&= \frac{\| g \|_2^2}{2\gamma}
+\psi(g,\gamma) &= \sup_{y \in \mathbb{R}^n} \left( \langle g, y \rangle - \frac{\gamma}{2} \lVert y \rVert_2^2 \right) \\
+&= \sup_{y \in \mathbb{R}^n} \left( -\frac{\gamma}{2} \left\lVert y - \frac{g}{\gamma} \right\rVert_2^2 + \frac{\lVert g \rVert_2^2}{2\gamma} \right) \\
+&= \frac{\lVert g \rVert_2^2}{2\gamma}
 \end{align*}
 ```
 
@@ -249,15 +249,15 @@ $g\neq 0,~\gamma \leq 0$ の場合、$y_\alpha = \alpha g$ とすると、
 
 ```math
 \begin{align*}
-\phi(y_\alpha,g,\gamma) &= \langle g, \alpha g \rangle - \frac{\gamma}{2} \| \alpha g \|_2^2 \\
-&= \alpha \| g \|_2^2 - \frac{\gamma}{2} \alpha^2 \| g \|_2^2 \\
+\phi(y_\alpha,g,\gamma) &= \langle g, \alpha g \rangle - \frac{\gamma}{2} \lVert \alpha g \rVert_2^2 \\
+&= \alpha \lVert g \rVert_2^2 - \frac{\gamma}{2} \alpha^2 \lVert g \rVert_2^2 \\
 &\to \infty \quad (\alpha \to \infty)
 \end{align*}
 ```
 
 より、$\psi(g,\gamma)=\infty$ です。
 
-$g=0,~\gamma < 0$ の場合、$\phi(y,0,\gamma) = -\frac{\gamma}{2} \| y \|_2^2$ より、$\psi(0,\gamma)=\infty$ です。
+$g=0,~\gamma < 0$ の場合、$\phi(y,0,\gamma) = -\frac{\gamma}{2} \lVert y \rVert_2^2$ より、$\psi(0,\gamma)=\infty$ です。
 
 以上より、$\psi(g,\gamma)=\infty$ です。
 
@@ -428,7 +428,7 @@ f(x_k) \leq (1-\alpha_k) f(\overline{x}) + \alpha_k f(\overline{y}_2)
 
 $f$ が閉凸関数ならば下半連続であることを示します。
 
-$\overline{x}$ に収束する任意の点列 $\lbrace x_k \rbrace \subseteq \mathrm{dom} ~ f$ に対し、点列 $\lbrace (x_k, f(x_k)) \rbrace \subseteq \mathrm{epi} ~ f$ を考えます。
+$\overline{x}$ に収束する任意の点列 $\lbrace x_k \rbrace \subseteq \mathrm{dom} ~ f$ に対し、点列 $\lbrace (x_k, f(x_k)) \rbrace \subseteq \mathrm{epi}\ f$ を考えます。
 
 ```math
 \liminf_{k \to \infty} f(x_k) =: \overline{f} \geq f(\overline{x})
@@ -442,12 +442,12 @@ $\overline{f}$ の値に基づく場合分けを行います。なお、$\overli
 
 $\liminf$ の性質[^supInf]より、ある部分列 $\lbrace f(x_{k_j}) \rbrace$ が $\overline{f} \in \mathbb{R}$ に収束します。$\lbrace x_k \rbrace$ は $\overline{x}$ に収束する点列でした。なので、収束部分列の性質[^subArray]として、$x_{k_j}$ も $\overline{x}$ に収束します。以上より、$\lbrace (x_{k_j}, f(x_{k_j})) \rbrace$ は $(\overline{x}, \overline{f})$ に収束します。
 
-ここで、閉凸関数の定義より $\mathrm{epi} ~ f$ は閉集合である為、その内で定義される任意の点列は、極限を持つならばそれは $\mathrm{epi} ~ f$ 内に存在します。
+ここで、閉凸関数の定義より $\mathrm{epi}\ f$ は閉集合である為、その内で定義される任意の点列は、極限を持つならばそれは $\mathrm{epi}\ f$ 内に存在します。
 
-よって、点列 $\lbrace (x_{k_j}, f(x_{k_j})) \rbrace$ は $(\overline{x}, \overline{f})$ という極限を持つため、それは $\mathrm{epi} ~ f$ 内に存在します。つまり、
+よって、点列 $\lbrace (x_{k_j}, f(x_{k_j})) \rbrace$ は $(\overline{x}, \overline{f})$ という極限を持つため、それは $\mathrm{epi}\ f$ 内に存在します。つまり、
 
 ```math
-(\overline{x}, \overline{f}) \in \mathrm{epi} ~ f
+(\overline{x}, \overline{f}) \in \mathrm{epi}\ f
 \iff
 \overline{f} \geq f(\overline{x})
 ```
@@ -456,9 +456,9 @@ $\liminf$ の性質[^supInf]より、ある部分列 $\lbrace f(x_{k_j}) \rbrace
 
 * $\overline{f} = -\infty$ の場合
 
-条件より $\liminf_{k \to \infty} f(x_k) = -\infty$ です。$\overline{x} \in \mathrm{dom} ~ f$ なので $f(\overline{x})-1$ は固定された実数値です。よって、ある部分点列 $\lbrace x_{k_j} \rbrace$ が存在し、$f(x_{k_j}) \leq f(\overline{x})-1$ が成り立ちます。$\mathrm{epi} ~ f$ の定義より $\lbrace (x_{k_j}, f(\overline{x})-1) \rbrace \subseteq \mathrm{epi} ~ f$ で、収束先は $(\overline{x}, f(\overline{x})-1)$ です。
+条件より $\liminf_{k \to \infty} f(x_k) = -\infty$ です。$\overline{x} \in \mathrm{dom} ~ f$ なので $f(\overline{x})-1$ は固定された実数値です。よって、ある部分点列 $\lbrace x_{k_j} \rbrace$ が存在し、$f(x_{k_j}) \leq f(\overline{x})-1$ が成り立ちます。$\mathrm{epi}\ f$ の定義より $\lbrace (x_{k_j}, f(\overline{x})-1) \rbrace \subseteq \mathrm{epi}\ f$ で、収束先は $(\overline{x}, f(\overline{x})-1)$ です。
 
-先程と同様に閉性よりこれは $(\overline{x}, f(\overline{x})-1) \in \mathrm{epi} ~ f$ を導きます。
+先程と同様に閉性よりこれは $(\overline{x}, f(\overline{x})-1) \in \mathrm{epi}\ f$ を導きます。
 
 しかし、これは $f(\overline{x}) \leq f(\overline{x})-1 \iff 0 \leq -1$ を意味し矛盾です。なので、そもそもの仮定が誤りだと分かります。
 

@@ -1,0 +1,12 @@
+{
+    "proximalOperatorRef": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/e2324fbe-e50a-03dc-2b8b-5ead5494eee5.png",
+    "convexConjugateWiki": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/1812d220-4bff-aff1-63c7-a9496d7b0e21.png",
+    "infimalConvolution": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/0d1a53cd-7935-65d6-4088-eb6dbff882d3.png",
+    "convexConjugate": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/a407e54b-9291-42ad-6e63-c5ca29e5cfc3.png",
+    "Huber": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/2dc2792c-46bd-aa08-d614-463f53a90955.png",
+    "softThresholding": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/1ffa3b33-ef13-8e51-6188-9d9b49d8e3d1.png",
+    "proximalOperator": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/af5bd425-a6c6-aeb7-197d-0d3324a224e1.png",
+    "Huber2": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/a6982f28-eff5-9375-b5af-53f0edc16467.png",
+    "subgradient": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/c14e59e0-10b9-9f75-2f0f-086e7a138a82.png",
+    "generalMoreauEnvelope": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/5a562da9-b66a-81fc-91ed-e2f748e744a1.png"
+}

@@ -709,3 +709,5 @@ Rieszの表現定理の主張内容は、ヒルベルト空間 $V$ と、任意�
 [^RockafellarConvex]: Rockafellar, R. T. (1970). Convex analysis. Princeton university press. [link](https://books.google.co.jp/books?hl=en&lr=&id=J6uPzgEACAAJ&oi=fnd&pg=PR9&dq=rockafellar+convex+analysis&ots=3Z9J9Q6J9v&sig=8Q6Z9J9Q6)
 
 [^Nesterov]: Nesterov, Y. (2018). Lectures on convex optimization (Vol. 137, pp. 5-9). Berlin: Springer. [link](https://link-springer-com.utokyo.idm.oclc.org/book/10.1007/978-3-319-91578-4)
+
+[^proximalOperatorRef]: Nagahara, M. (2020). Algorithms for convex optimization. In Security risk management for the Internet of Things: Technologies and techniques for IoT security, privacy and data protection (Chapter 4). [link](https://www.researchgate.net/publication/345481682_4_Algorithms_for_Convex_Optimization)
