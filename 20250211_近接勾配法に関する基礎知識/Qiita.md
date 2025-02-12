@@ -24,7 +24,7 @@ f(x) - f(x_0) \geq  \langle v, x - x_0 \rangle \quad \text{for all } x \in \math
 
 を満たす $v \in \mathbb{R}^n$ は $f$ の[劣勾配](https://en.wikipedia.org/wiki/Subderivative#The_subgradient) (subderivative, subgradient) と呼ばれ、その集合 $\partial f(x)$ は [劣微分](https://en.wikipedia.org/wiki/Subderivative) (subdifferential) と呼ばれます。
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/c14e59e0-10b9-9f75-2f0f-086e7a138a82.png" alt="subgradient">
+<img width="100%" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/c14e59e0-10b9-9f75-2f0f-086e7a138a82.png" alt="subgradient">
 
 ## Convex Conjugate
 
@@ -39,7 +39,7 @@ f(x) - f(x_0) \geq  \langle v, x - x_0 \rangle \quad \text{for all } x \in \math
 
 下図のように $n=1$ の場合、$f$（赤線）に対する傾き $x$ の接線（青点線）の最小切片に $-1$ をかけたものが $f^*$ （緑線）です。図の右側で $y$ 軸が下向きなことに注意して下さい。
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/a407e54b-9291-42ad-6e63-c5ca29e5cfc3.png" alt="convexConjugate">
+<img width="100%" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/1812d220-4bff-aff1-63c7-a9496d7b0e21.png" alt="convexConjugate">
 
 （文献[^conjugate]より引用）
 
@@ -87,7 +87,7 @@ Infimal convolution は、次のように定義されます。
 \end{align*}
 ```
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/0d1a53cd-7935-65d6-4088-eb6dbff882d3.png" alt="infimalConvolution">
+<img width="100%" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/0d1a53cd-7935-65d6-4088-eb6dbff882d3.png" alt="infimalConvolution">
 
 図は、$f$ (黒線) と $g=\frac{1}{2}\lVert \cdot \rVert_2^2$ のinfimal convolutionを示しています。各黒点が $(y,f(y))$ に対応しており、infimal convolutionでは $f(y)+g(x-y)$ (青点線) の $\inf$ を取ります。
 
@@ -215,7 +215,7 @@ $(x,t) = (x_f+x_g, t_f+t_g) \in \mathrm{epi}\ f \oplus \mathrm{epi}\ g$ に対�
 
 となり、下図のオレンジ線のようになります。
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/2dc2792c-46bd-aa08-d614-463f53a90955.png" alt="Huber">
+<img width="100%" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/2dc2792c-46bd-aa08-d614-463f53a90955.png" alt="Huber">
 
 図から明らかなように、Huber loss function は、$\lVert \cdot \rVert_1$ と $\frac{1}{2} \lVert \cdot \rVert_2^2$ の infimal convolution として表現できます。
 
@@ -279,7 +279,7 @@ S(x) \mathrel{\vcenter{:}}=
 
 また、「成分毎に定義」と書いたように、2次元の場合も定義できて、下図のようになります。
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/a6982f28-eff5-9375-b5af-53f0edc16467.png" alt="Huber2">
+<img width="100%" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/a6982f28-eff5-9375-b5af-53f0edc16467.png" alt="Huber2">
 
 ## Proximal Operator
 
@@ -289,7 +289,7 @@ $f\colon \mathbb{R}^n \to \mathbb{R} \cup \lbrace+\infty\rbrace$ を閉真凸関
 \mathrm{prox}_{f}(v) \mathrel{\vcenter{:}}= \arg\min_{x \in \mathrm{R}^n} \left\lbrace f(x) + \frac{1}{2} \lVert x - v \rVert_2^2 \right\rbrace
 ```
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/af5bd425-a6c6-aeb7-197d-0d3324a224e1.png" alt="proximalOperator">
+<img width="100%" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/e2324fbe-e50a-03dc-2b8b-5ead5494eee5.png" alt="proximalOperator">
 
 この図では、各色の丸点が $(v,f(v))$ を、その色の点線が $f(x)+\frac{1}{2}\lVert x-v \rVert_2^2$ を示しています。proximal operator は、この関数の最小解である、星印の位置を返します。
 
@@ -313,7 +313,7 @@ $f(x)$ が閉真凸関数であることから、この関数は閉真[強凸](h
 
 以上より、この関数は唯一の最小値を持ち、$\mathrm{prox}_{f}(v)$ は well-defined です。
 
-この証明のどこが非自明なのか分かりにくいですが、1次元の場合では
+この証明で、それぞれの仮定が何の為にあるのか、ということを1次元の場合で考えると、
 
 - $f$ が閉でないと、$x<0$ で $+\infty$, $x=0$ で $1$, $x>0$ で $\frac{1}{2}x^2$ という関数
 - $f$ が真(凸)でないと、$f(x)=+\infty$ という定数関数
@@ -362,7 +362,7 @@ $f$ に定数倍のパラメータ $\lambda$ を掛けたものに対する prox
 
 このことから、proximal operator はこれらの中間的な操作だと解釈できます。
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/e2324fbe-e50a-03dc-2b8b-5ead5494eee5.png" alt="proximalOperatorRef">
+<img width="100%" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/e2324fbe-e50a-03dc-2b8b-5ead5494eee5.png" alt="proximalOperatorRef">
 
 （文献[^proximalOperatorRef]より引用）
 
@@ -406,7 +406,7 @@ Proximal operator は、firm nonexpansiveness と呼ばれる次の性質を持�
 \end{equation*}
 ```
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/af5bd425-a6c6-aeb7-197d-0d3324a224e1.png" alt="proximalOperator">
+<img width="100%" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/e2324fbe-e50a-03dc-2b8b-5ead5494eee5.png" alt="proximalOperator">
 
 $n=1$ の場合を上に再掲しました。これは $y>x$ に対して $p_y - p_x \leq y-x$、つまり、☆間の距離は○間の距離より短いことを示しており、全体が縮小写像のようになっていることに対応します。
 
@@ -449,7 +449,7 @@ M_{\lambda f}(v) \mathrel{\vcenter{:}}= \inf_{u \in \mathbb{R}^n} \left\lbrace f
 
 （Proximal operatorで $\arg\min$ が使われている為、私は混乱しました。文献によってもこの辺りは $\min$ を使うか $\inf$ を使うか揺れているようです。）
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/5a562da9-b66a-81fc-91ed-e2f748e744a1.png" alt="generalMoreauEnvelope">
+<img width="100%" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/5a562da9-b66a-81fc-91ed-e2f748e744a1.png" alt="generalMoreauEnvelope">
 
 （文献[^generalMoreauEnvelope]より引用）
 
@@ -564,7 +564,7 @@ Moreau envelope $M_{\lambda f}$ は、$\lambda f$ と $\frac{1}{2} \lVert \cdot 
 
 ざっくりとした説明としては、線形写像は行列を用いた $\phi_A(v)=Av=u$ でいう $\phi_A$ のことですが、線形汎関数は $\phi_a(v)=\langle v, a \rangle =u$ でいう $\phi_a$ のことを指し、この $\phi_a$ 全体が $V (\ni v)$ の代数的双対空間 $V^*$ を構成します。
 
-線形汎関数 (linear functional) は、線形空間 $V$ から体 $F$ への線形写像と定義されます。体 $F$ 上の線形空間 $V$ の**代数的双対空間 (algebraic dual space)** $V^*$ は $V$ 上の線形汎関数 $\phi \colon V \to F$ 全体の成す集合 $\mathcal{L}(V,F)$ です。
+線形汎関数 (linear functional) は、線形空間 $V$ から体 $F$（本記事では $\mathbb{R}$ または $\mathbb{C}$ とする）への線形写像と定義されます。体 $F$ 上の線形空間 $V$ の**代数的双対空間 (algebraic dual space)** $V^*$ は $V$ 上の線形汎関数 $\phi \colon V \to F$ 全体の成す集合 $\mathcal{L}(V,F)$ です。
 
 $F$ が体であることから、
 
@@ -613,7 +613,7 @@ $\ell^2$ 上の線形汎関数 $\phi \in V^* = \mathcal{L}(\ell^2,\mathbb{C})$ �
 
 続いて、[連続的双対](https://ja.wikipedia.org/wiki/%E9%80%A3%E7%B6%9A%E7%9A%84%E5%8F%8C%E5%AF%BE%E7%A9%BA%E9%96%93)（文献[^LinearAlgebra] Section 7.A）を取り上げます。
 
-体 $F$ 上の位相線形空間 $V$ の**連続的双対空間 (continuous dual space, topological dual space)** は、連続線形汎関数 $\phi\colon V \to F$ 全体の集合であり、$V'$ と書きます。連続という条件が加わるので、$V' \subseteq V^*$ です。なお、[線形作用素において連続性は有界性と同値です](https://mathlandscape.com/operator/#toc7)。
+位相線形空間 $V$ の**連続的双対空間 (continuous dual space, topological dual space)** は、その係数体 $F$ （本記事では $\mathbb{R}$ または $\mathbb{C}$ とする）への連続線形汎関数 $\phi\colon V \to F$ 全体の集合であり、$V'$ と書きます。連続という条件が加わるので、$V' \subseteq V^*$ です。
 
 同じく二乗総和可能な無限複素数列の集合 $\ell^2$
 
@@ -639,9 +639,9 @@ Rieszの表現定理の主張内容は、ヒルベルト空間 $V$ と、任意�
 
 とできるということであり、即ち $V \cong V^*$ を意味します。
 
-なお、$\ell^2$ は $\ell^p$ 空間の内[ヒルベルト空間であるような唯一の空間](https://ja.wikipedia.org/wiki/%E6%95%B0%E5%88%97%E7%A9%BA%E9%96%93#%E2%84%93p_%E7%A9%BA%E9%96%93%E3%81%A8%E7%A9%BA%E9%96%93_c0_%E3%81%AE%E6%80%A7%E8%B3%AA)であり、また $\mathbb{R}^n$ はヒルベルト空間なので、$(\mathbb{R}^n)' \cong \mathbb{R}^n$ です。
+（なお、$\ell^2$ は $\ell^p$ 空間の内[ヒルベルト空間であるような唯一の空間](https://ja.wikipedia.org/wiki/%E6%95%B0%E5%88%97%E7%A9%BA%E9%96%93#%E2%84%93p_%E7%A9%BA%E9%96%93%E3%81%A8%E7%A9%BA%E9%96%93_c0_%E3%81%AE%E6%80%A7%E8%B3%AA)であり、また $\mathbb{R}^n$ はヒルベルト空間なので、$(\mathbb{R}^n)' \cong \mathbb{R}^n$ です。）
 
-この $X$ がノルム線形空間である場合には、$X$ の双対空間にもノルムが
+この $X$ がさらにノルム線形空間である場合には、$X$ の双対空間にもノルムが
 
 ```math
 \begin{equation*}
@@ -649,7 +649,7 @@ Rieszの表現定理の主張内容は、ヒルベルト空間 $V$ と、任意�
 \end{equation*}
 ```
 
-で定まり、これは[双対ノルム (dual norm)](https://en.wikipedia.org/wiki/Dual_norm)と呼ばれ、連続的双対空間はそのような場面で最適化文脈でも登場します。
+で定まります。これは[双対ノルム (dual norm)](https://en.wikipedia.org/wiki/Dual_norm)と呼ばれ、連続的双対空間はそのような場面で最適化文脈でも登場します。
 
 ### 凸共役
 
@@ -657,7 +657,7 @@ Rieszの表現定理の主張内容は、ヒルベルト空間 $V$ と、任意�
 
 [Wiki](https://ja.wikipedia.org/wiki/%E5%87%B8%E5%85%B1%E5%BD%B9%E6%80%A7)では、次のような記述がされています。
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/1812d220-4bff-aff1-63c7-a9496d7b0e21.png" alt="convexConjugateWiki">
+<img width="100%" src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/1812d220-4bff-aff1-63c7-a9496d7b0e21.png" alt="convexConjugateWiki">
 
 ここで、定義に代数的双対空間 $X^\*$ が登場しています。
 

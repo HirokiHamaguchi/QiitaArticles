@@ -66,8 +66,6 @@ def main():
         date = created_at[:10].replace("-", "")
         path = os.path.join(dirname, date + "_" + title)
         print(path)
-        if date != "20210225":
-            continue
         success = create_directory(path)
         if not success:
             continue
