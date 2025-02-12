@@ -49,13 +49,13 @@ def process_lines(lines, links):
             if url.startswith("http"):
                 src = url
                 width = "100%"
-            elif any(alt in link["alt"] for link in links):
-                link = next(link for link in links if alt in link["alt"])
+            elif any(alt == link["alt"] for link in links):
+                link = next(link for link in links if alt == link["alt"])
                 src = link["src"]
                 width = "100%"
             else:
                 raise ValueError(f"Image not found: {alt}")
-            res.append(f'<img width="{width}" src="{src}" alt="{alt}">')
+            res.append(f'<img width={width} src="{src}" alt="{alt}">')
         elif line.strip() == "<!-- ignore -->":
             nextIgnore = True
         else:
