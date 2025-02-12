@@ -74,11 +74,11 @@ def main():
         else:
             save_article(path, item["body"])
 
-        img_urls = re.findall(
-            r"https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/.*?\.(?:png|jpeg|jpg)",
-            item["body"],
-        )
-        download_images(path, img_urls)
+        # img_urls = re.findall(
+        #     r"https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/.*?\.(?:png|jpeg|jpg)",
+        #     item["body"],
+        # )
+        # download_images(path, img_urls)
 
 
 if __name__ == "__main__":

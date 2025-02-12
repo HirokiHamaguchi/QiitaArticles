@@ -802,7 +802,7 @@ PADAone さんという方による「イベントループとプロミスチェ
 
 また、この記事で繰り返し出てくる動画というのが以下の Philip Roberts 氏による『What the heck is the event loop anyway?』という動画です。
 
-<iframe width="573" height="322" src="https://www.youtube.com/embed/8aGhZQkoFbQ" title="イベントループとは一体何ですか？ | Philip Roberts | JSConf EU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="573" height="322" src="https://www.youtube.com/embed/8aGhZQkoFbQ" title="イベントループとは一体何ですか? | Philip Roberts | JSConf EU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 非常に分かりやすい動画でした。素人の私からしても、一見の価値がある動画だと断言できます。22:30 辺りからが、今回の問題と特に関連があります。
 
