@@ -1,6 +1,5 @@
 import re
 import os
-import sys
 import pyperclip
 import json
 
@@ -47,8 +46,16 @@ def process_lines(lines, links):
                 continue
             alt = line[line.find("[") + 1 : line.find("]")]
             url = line[line.find("(") + 1 : line.find(")")]
-            src = url if url.startswith("http") else links[alt]
-            res.append(f'<img width=100% src="{src}" alt="{alt}">')
+            if url.startswith("http"):
+                src = url
+                width = "100%"
+            elif any(alt in link["alt"] for link in links):
+                link = next(link for link in links if alt in link["alt"])
+                src = link["src"]
+                width = "100%"
+            else:
+                raise ValueError(f"Image not found: {alt}")
+            res.append(f'<img width="{width}" src="{src}" alt="{alt}">')
         elif line.strip() == "<!-- ignore -->":
             nextIgnore = True
         else:
