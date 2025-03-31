@@ -2,6 +2,8 @@
 
 本記事では、近接勾配法に関する数学的な基礎知識の一部をまとめます。
 
+近接勾配法のアルゴリム自体は少ししか扱わないので、そちらを探される方は文献[^proximalGradientRef1],[^proximalGradientRef2],[^proximalGradientRef3]などを参照して下さい。
+
 ## Epigraph and Subgradient
 
 $f$ の[エピグラフ](https://ja.wikipedia.org/wiki/%E3%82%A8%E3%83%94%E3%82%B0%E3%83%A9%E3%83%95_(%E6%95%B0%E5%AD%A6)) (epigraph) は
@@ -158,7 +160,7 @@ $(x,t) = (x_f+x_g, t_f+t_g) \in \mathrm{epi}\ f \oplus \mathrm{epi}\ g$ に対�
 
 このことからinfimal convolution $f \mathrel{\square} g$ は **epi-sum (epi-addition)** とも呼ばれます。なお、epi-multiplication という操作も同じ文献などで記述されています。
 
-### Convex Conjugateに対する性質
+### Convex Conjugate に対する性質
 
 文献[^Beck] Theorem 4.16 などで述べられている有名な性質として、proper な（凸とは限らない）関数 $f,g$ に対し、
 
@@ -283,7 +285,7 @@ S(x) \mathrel{\vcenter{:}}=
 
 ## Proximal Operator
 
-$f\colon \mathbb{R}^n \to \mathbb{R} \cup \lbrace+\infty\rbrace$ を閉真凸関数とします。[proximal operator](https://en.wikipedia.org/wiki/Proximal_operator) （参考[1](https://www.akshayagrawal.com/lecture-notes/html/proximal.html),[2](https://people.orie.cornell.edu/dsd95/teaching/orie6300/lec25.pdf)）は、次のように定義されます。
+$f\colon \mathbb{R}^n \to \mathbb{R} \cup \lbrace+\infty\rbrace$ を閉真凸関数とします。[近接写像](https://en.wikipedia.org/wiki/Proximal_operator) (proximal operator) （参考[1](https://www.akshayagrawal.com/lecture-notes/html/proximal.html),[2](https://people.orie.cornell.edu/dsd95/teaching/orie6300/lec25.pdf)）は、次のように定義されます。
 
 ```math
 \mathrm{prox}_{f}(v) \mathrel{\vcenter{:}}= \arg\min_{x \in \mathrm{R}^n} \left\lbrace f(x) + \frac{1}{2} \lVert x - v \rVert_2^2 \right\rbrace
@@ -324,7 +326,7 @@ $f(x)$ が閉真凸関数であることから、この関数は閉真[強凸](h
 
 なお、$\mathrm{dom}\ f = \mathbb{R}^n$ である場合は、[Wiki](https://en.wikipedia.org/wiki/Convex_function#Properties_of_strongly-convex_functions)にあるようにもっと自明です。
 
-### Proximal Operatorの直感的な理解
+### Proximal Operator の直感的な理解
 
 $f$ に定数倍のパラメータ $\lambda$ を掛けたものに対する proximal operator は、
 
@@ -366,7 +368,7 @@ $f$ に定数倍のパラメータ $\lambda$ を掛けたものに対する prox
 
 （文献[^proximalOperatorRef]より引用）
 
-### Proximal Operatorでの劣勾配
+### Proximal Operator での劣勾配
 
 また、$p_v = \mathrm{prox}_{\lambda f}(v)$ とすると、次の性質が成り立ちます。
 
@@ -453,7 +455,7 @@ M_{\lambda f}(v) \mathrel{\vcenter{:}}= \inf_{u \in \mathbb{R}^n} \left\lbrace f
 
 （文献[^generalMoreauEnvelope]より引用）
 
-### Infimal Convolutionとの関係
+### Infimal Convolution との関係
 
 Moreau envelope $M_{\lambda f}$ は、$\lambda f$ と $\frac{1}{2} \lVert \cdot \rVert_2^2$ の infimal convolution として表現できます。
 
@@ -469,7 +471,7 @@ Moreau envelope $M_{\lambda f}$ は、$\lambda f$ と $\frac{1}{2} \lVert \cdot 
 
 です。
 
-### Moreau Envelopeの勾配
+### Moreau Envelope の勾配
 
 下半連続な真凸関数 $f$ に対して、Moreau envelope $M_{\lambda f}$ の勾配は、次のように表現できます。
 
@@ -553,6 +555,114 @@ Moreau envelope $M_{\lambda f}$ は、$\lambda f$ と $\frac{1}{2} \lVert \cdot 
 以上より、勾配が導出されました。
 
 </details>
+
+## Proximal Gradient Method
+
+近接勾配法(Proximal Gradient Method)と、それに関連する諸定義を少しだけ記述します。文献[^Beck] Chapter 10で紹介されている内容です。
+
+### Proximal Gradient Method の更新則
+
+まず、以下のcomposite minimization problem を考えます。
+
+```math
+\begin{equation*}
+    \min_{x \in \mathbb{R}^n} \left\lbrace f(x) + g(x) \right\rbrace
+\end{equation*}
+```
+
+ただし、
+
+- $g \colon \mathbb{R}^n \to (-\infty, +\infty]$ は閉真凸関数
+- $f \colon \mathbb{R}^n \to (-\infty, +\infty]$ は閉真関数かつ、$\mathrm{dom}\ f$ が凸集合で、$\mathrm{dom}\ g \subseteq \mathrm{int}(\mathrm{dom}\ f)$ を満たす
+- $f$ はリプシッツ連続である
+
+とします。
+
+ここで、この問題を解く為に生成する点列を考えます。$x^k$ を現在の点、$t_k$ を正の定数として、次のように更新則を定義します。
+
+```math
+    x^{k+1} = \arg\min_{x \in \mathbb{R}^n} \left\lbrace f(x^k) + \left\langle \nabla f(x^k), x - x^k \right\rangle + g(x) + \frac{1}{2t_k} \lVert x - x^k \rVert^2 \right\rbrace
+```
+
+右辺の中身に注目すると、
+
+- $f(x^k)+ \left\langle \nabla f(x^k), x - x^k \right\rangle$ は $f$ の線形近似です。
+- $g(x)$ は そのまま持ってきただけです。
+- 最後の $\frac{1}{2t_k} \lVert x - x^k \rVert^2$ は、$x^k$ からの距離を小さくするような働きを持ち、**近接項**(prox term)と呼ばれます。一種の正則化項です。
+
+一階微分の情報を基にこのような部分問題を考えるのは、かなり自然な発想です。
+
+**近接勾配法** (proximal gradient method) とは一般に、初期点 $x^0 \in \mathrm{int}(\mathrm{dom}\ f)$ を与え、$k=0,1,\ldots$ に対して、上記の更新則で最適化していく手法のことを指します。直線探索と組合せることも勿論可能です。
+
+### Prox-Grad Operator
+
+ここで、$x^{k+1}$ は次のように表現できます。
+
+```math
+\begin{align*}
+    x^{k+1} &= \arg\min_{x \in \mathbb{R}^n} \left\lbrace t_k g(x) + \frac{1}{2} \lVert x - (x^k - t_k \nabla f(x^k)) \rVert^2 \right\rbrace \\
+            &= \mathrm{prox}_{t_k g}\left(x^k - t_k \nabla f(x^k)\right)
+\end{align*}
+```
+
+ここに、近接写像である $\mathrm{prox}_{t_k g}$ が出てきました。
+これを踏まえると、確かに近接項・近接勾配法・近接写像はそれぞれ深い関係にあることがよく分かります。
+
+また、一般に、
+
+```math
+  T_L^{f,g} (x) \mathrel{\vcenter{:}}= \mathrm{prox}_{\frac{1}{L} g}\left(x - \frac{1}{L} \nabla f(x)\right)
+```
+
+と定義することで、$L_k = 1/t_k$ とすると、近接勾配法の更新則は
+
+```math
+x^{k+1} = T_{L_k}^{f,g}(x^k)
+```
+
+とも簡潔に表現できます。この $T_L^{f,g}$ は、**prox-grad operator** と呼ばれます。
+
+### Gradient Mapping
+
+この $T_L^{f,g}$ を用いると、次の **gradient mapping** $\mathcal{G}_L^{f,g} \colon \mathrm{int}(\mathrm{dom}\ f) \to \mathbb{R}^n$ を定義できます。
+
+```math
+\mathcal{G}_L^{f,g}(x) \mathrel{\vcenter{:}}= L \left(x - T_L^{f,g}(x)\right)
+```
+
+先程の話と合わせると、
+
+```math
+\begin{align*}
+    x^{k+1} &= \mathrm{prox}_{t_k g}\left(x^k - t_k \nabla f(x^k)\right) \\
+            &= T_{L_k}^{f,g}(x^k) \\
+            &= x^k - \frac{1}{L_k} \mathcal{G}_{L_k}^{f,g}(x^k)
+\end{align*}
+```
+
+となっており、一般の最急降下法では $x^{k+1} = x^k - \frac{1}{L_k} \nabla f(x^k)$ であることを踏まえると、このgradient mapping は、通常の勾配演算子 $\nabla f(x^k)$ の一般化に対応していると見做せます。
+
+実際、$g(x)=0$ の場合、
+
+```math
+\begin{align*}
+\mathcal{G}_L^{f,0}(x) &= L \left(x - T_L^{f,0}(x)\right) \\
+                    &= L \left(x - \left(x - \frac{1}{L} \nabla f(x)\right)\right) \\
+                    &= \nabla f(x)
+\end{align*}
+```
+
+なので、勾配に一致します。
+
+1次元の場合の図も示しておきます。$T_L^{f,g}$ が次の点 $x^{k+1}$ に、$\mathcal{G}_L^{f,g}$ が勾配の一般化にそれぞれ対応していることが見て取れるかと思います。
+
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/d864deb8-4e68-46c9-82b8-c35650892d5e.png" alt="gradientMapping">
+
+余談ですが、このGradient Mappingは [Zhu, H. (2025). An Inexact Proximal Newton Method for Nonconvex Composite Minimization. Journal of Scientific Computing, 102(3), 79.](https://doi.org/10.1007/s10915-025-02805-4) という最近の論文の理論解析でも用いられています。すごい！
+
+<font color="gray">
+そして更なる余談として、私が2か月間くらいやっていた研究は、この論文により完全に破壊されました、悲しい！
+</font>
 
 ## Duality
 
@@ -711,3 +821,9 @@ Rieszの表現定理の主張内容は、ヒルベルト空間 $V$ と、任意�
 [^Nesterov]: Nesterov, Y. (2018). Lectures on convex optimization (Vol. 137, pp. 5-9). Berlin: Springer. [link](https://link-springer-com.utokyo.idm.oclc.org/book/10.1007/978-3-319-91578-4)
 
 [^proximalOperatorRef]: Nagahara, M. (2020). Algorithms for convex optimization. In Security risk management for the Internet of Things: Technologies and techniques for IoT security, privacy and data protection (Chapter 4). [link](https://www.researchgate.net/publication/345481682_4_Algorithms_for_Convex_Optimization)
+
+[^proximalGradientRef1]: Yamagen, Sakam. (2018). 近接勾配法とproximal operator. 甲斐性なしのブログ. [link](https://yamagensakam.hatenablog.com/entry/2018/02/14/075106)
+
+[^proximalGradientRef2]: Masashi, Sekino. (2018). 近接勾配法（Proximal Gradient Method）. Qiita. [link](https://qiita.com/msekino/items/9f217fcd735513627f65)
+
+[^proximalGradientRef3]: 数理システム, NTT. (2024). 近接勾配法 — 数理最適化用語集. [link] (https://www.msi.co.jp/solution/nuopt/docs/glossary/articles/ProximalGradientMethod.html)

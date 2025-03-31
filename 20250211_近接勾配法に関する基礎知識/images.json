@@ -38,5 +38,9 @@
     {
         "src": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/5a562da9-b66a-81fc-91ed-e2f748e744a1.png",
         "alt": "generalMoreauEnvelope"
+    },
+    {
+        "src": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/d864deb8-4e68-46c9-82b8-c35650892d5e.png",
+        "alt": "gradientMapping"
     }
 ]
