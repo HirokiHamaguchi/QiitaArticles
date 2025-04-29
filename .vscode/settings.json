@@ -65,7 +65,8 @@
         "\\\\mathrm\\{epi\\} ",
         "ベクトル空間",
         "\\(参考",
-        "\\mathrm{dom} f"
+        "\\mathrm{dom} f",
+        "utokyo\\.idm"
     ],
     "latexlint.disabledRules": [
         "LLCref"
