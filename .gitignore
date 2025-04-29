@@ -4,3 +4,4 @@ node_modules
 *.synctex.gz
 *.txt
 *.blend
+*/secret
