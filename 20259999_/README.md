@@ -2,103 +2,703 @@
 
 ## 概要
 
-以下の問題について解説します。
-
-$$
-\begin{align*}
-    \min_x \quad & \sum_{i=1}^n w_i (y_i - x_i)^2\\
-    \text{s.t.} \quad & x_1 \leq x_2 \leq \dots \leq x_n
-\end{align*}
-$$
+単調非減少という制約付きの最小二乗法である **Isotonic Regression** (**単調回帰**)について、本記事では解説します。
 
 ![scipy_IR](scipy_IR.png)
 
 ## 導入
 
-Isotonic Regression または Monotonic Regression (単調回帰) とは、訓練データに対する重み付き最小二乗近似となる数列を、単調非減少という制約付きで求める手法です。
+**Isotonic Regression** または **Monotonic Regression** (**単調回帰**) とは、訓練データに対する重み付き最小二乗近似となる数列を、単調非減少という制約付きで求める手法です。
 
-[^1] 及び [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.isotonic_regression.html) では、$n$ 点からなるデータ $y$ とその重み $w$ が与えられたとき、以下の最適化問題を解くこととして定義されています:
+文献[^1] 及び [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.isotonic_regression.html) では、$n$ 点からなるデータ $y=\{y_i\}_{i=1}^{n}$ と正の重み $w=\{w_i\}_{i=1}^{n}$ が与えられたとき、以下の最適化問題の解となる回帰値 $x=\{x_i\}_{i=1}^{n}$ を求めることと定義されます。
 
 $$
 \begin{align*}
-    \min_x \quad & \sum_{i=1}^n w_i (y_i - x_i)^2\\
+    \min_{x} \quad & \sum_{i=1}^n w_i (y_i - x_i)^2\\
     \text{s.t.} \quad & x_1 \leq x_2 \leq \dots \leq x_n
 \end{align*}
 $$
 
-[Wikipedia](https://en.wikipedia.org/wiki/Isotonic_regression) 及び [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.isotonic.IsotonicRegression.html#sklearn.isotonic.IsotonicRegression) では、観測されるデータ点の添字についてより一般化した定義を採用しています。また、重み $w_i$ は全て1であるとし、目的関数は通常の最小二乗問題に帰着されることも多いです。
+なお、[Wikipedia](https://en.wikipedia.org/wiki/Isotonic_regression) 及び [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.isotonic.IsotonicRegression.html#sklearn.isotonic.IsotonicRegression) では、観測されるデータの添字部分についてより一般化した定義を採用していますが、本記事では上記のみを扱います。
 
-このように定義される Isotonic Regression は、様々な応用があり重要な手法となっています。本記事ではその基礎的内容に焦点を当てます。
+また、この問題で重み $w_i$ は全て1であるとし、
+$$
+\begin{align*}
+    \min_x \quad & \sum_{i=1}^n (y_i - x_i)^2\\
+    \text{s.t.} \quad & x_1 \leq x_2 \leq \dots \leq x_n
+\end{align*}
+$$
+と、目的関数自体は通常の最小二乗問題に帰着されることも多いです。本質的には特に変わりません。
+
+このように定義される Isotonic Regression は、確率的分類（probabilistic classification）や、麻酔学や毒性学における連続的な用量反応関係（dose-response relationship）の推定という応用がある重要な手法となっています ([Wiki-Applications](https://en.wikipedia.org/wiki/Isotonic_regression#Applications))。
+
+![dose-response](https://upload.wikimedia.org/wikipedia/commons/8/8c/Dose_response_curve_stimulation.jpg)
+用量-反応曲線 [By Jamgoodman - Own work, CC BY-SA 4.0](https://commons.wikimedia.org/w/index.php?curid=79749638)
+
+本記事では Isotonic Regression の基礎的内容に焦点を当てます。構成は以下の通りです。
+
+* [手法](#手法)の節では、Isotonic Regression として著名な **PAVA (Pool Adjacent Violators Algorithm)** を紹介します。実装寄りの話をします。
+* [正当性の証明](#正当性の証明)では、PAVA の正当性を証明します。理論寄りの話をします。
+* [議論](#議論)では、関連事項を述べます。PAVAの発展と、本記事執筆の経緯(東大院試)に触れます。
 
 ## 手法
 
-前節で定義された問題に対しては、PAVA (Pool Adjacent Violators Algorithm) と呼ばれるアルゴリズムが知られています。本節では、PAVA のアルゴリズムを説明し、また。
-
-### 先行研究による実装
-
-導入でも述べたように、Isotonic Regression に対する解法は、scikit-learn や SciPy という OSS でも実装されています。
+Isotonic Regression では一般に、最適化問題を解くのに **Pool Adjacent Violators Algorithm (PAVA)** というアルゴリズムを用います。導入でも述べたようにscikit-learn や SciPy という OSS でもこれは利用されています。
 
 ```python
 from sklearn.isotonic import IsotonicRegression
 from scipy.optimize import isotonic_regression
 ```
 
-執筆時では、sklearn は内部で SciPy を呼び出しています。
-SciPy は内部で PAVA というPybindによる C++ 実装を呼び出しています。そしてこの PAVA は文献[^1] に基づいています。
+より詳細に述べると、執筆時点では、scikit-learn は内部で SciPy を[呼び出し](https://github.com/scikit-learn/scikit-learn/blob/98ed9dc73a86f5f11781a0e21f24c8f47979ec67/sklearn/isotonic.py#L159)、SciPy は内部で `pava` という Pybind を[呼び出し](https://github.com/scipy/scipy/blob/0f1fd4a7268b813fa2b844ca6038e4dfdf90084a/scipy/optimize/_isotonic.py#L141)、 `pava` は文献[^1] に基づき、文献[^1] はその実装を R の package である [monotone](https://cran.r-project.org/web/packages/monotone/index.html) として公開しています。
 
-文献[^1] はその実装を下記のページで公開しており、R のpackage (monotone) として公開されています。
+### 擬似コード
 
-https://cran.r-project.org/web/packages/monotone/index.html
+PAVA (Pool Adjacent Violators Algorithm) の擬似コードは以下のようになります。これは文献[^1]や文献[^3]でPAVAの初出とされている1955年の文献[^5]、および文献[^4] Section 3に基づきます。
 
-この実装自体は本記事で取り扱いません。詳しくは上記リンクおよび文献[^1] を直接ご参照下さい。
+1. データ $y=\{y_i\}_{i=1}^n$ を $n$ 個のブロックに分割する。
+2. 隣接する (**Adjacent**) 2つのブロックで、前者の $y_i$ に関する重み付き平均が、後者のそれより大きいもの (**Violators**) を、あれば見つける。
+3. それらのブロックを結合する(**Pool**)。
+4. 2と3の操作を繰り返す。
 
-### PAVA のアルゴリズム
+> in short: if there is a violation, pool.
+> (つまり、違反があるなら、統合せよ。)
+(文献[^1]より)
 
-PAVAという時、本質的には全て同じで、実装上の工夫に主な違いがあるという認識でいます(要確認)
+### ビジュアライズ
 
-[ajtulloch/Isotonic.jl](https://github.com/ajtulloch/Isotonic.jl
-)というレポジトリでは Julia の実装があり、以下が実装されています:
+先にPAVAのビジュアライズ結果をお見せします。
 
-* Linear PAVA (fastest)
-* Pooled PAVA (slower)
-* Active Set (slowest)
+![pava](pava.gif)
 
-R のパッケージ isotone
+<font color="#1f77b4">青い点が訓練データ $y=\{y_i\}_{i=1}^{n}$</font> で、<font color="2ca02c">緑の点が順次定められていく単調回帰 $x=\{x_i\}_{i=1}^{n}$</font> です。隣接するブロックどうしに<font color="red">制約違反(赤矢印)</font>がなくなったら終了で、<font color="ff7f0e">オレンジが出力される結果</font>を表しています。
+
+### 実装
+
+実装をしていきます。PAVAには非常に沢山のバリエーションがあり、基本的な流れは結局同じですが、実装の詳細は異なる点には注意が必要です。[monotone](https://cran.r-project.org/web/packages/monotone/index.html) の`src/legacyC.c`で全てのC言語実装が見られます。
+
+![alt text](image.png)
+ (文献[^1]より。)
+
+アルゴリズム毎の特徴的な違いとしては、以下が挙げられます。
+
+* 違反の見つけ方
+  * 古い手法だと最悪計算量が $O(n^2)$ になるものもあります。
+  * 近年の手法は大抵 $O(n)$ で済みます。
+* up-and-down-blocks implementation (文献[^6] Section.8など) についての差異
+  * ブロックをマージするときに、後のブロック(Forward Check)と前のブロック(Backward Check)が制約違反しているかどうかを最大何個までチェックするか。
+* in-place かどうか
+  * 空間計算量の定数倍改善に寄与します。
+  * 補助メモリの有無も実装によって変わります。
+* Blockクラスを実装するか
+  * 単に実装だけの話ですが、この表では`jbkpava`だけがBlockクラスを実装しています。可読性が高くて好きです。
+
+ここではまず、SciPyでも用いられている`monotone`と呼ばれるPAVAの実装を示します。[monotone package](https://cran.r-project.org/web/packages/monotone/index.html) には以下のC言語のコードが包含されています ([GPL-3](https://cran.r-project.org/web/licenses/GPL-3)ライセンスですのでご注意下さい)。
+
+<details><summary>既存研究のコード</summary>
+
+```c
+#include <stdlib.h>
+
+void monotoneC( int *n, double* x, double* w )
+// Function monotone(),
+// performs simple linear ordered monotone regression
+// Copyright (C) 2020 Frank M.T.A. Busing (e-mail: busing at fsw dot leidenuniv dot nl)
+// This function is free software:
+// you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
+// as published by the Free Software Foundation.
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+// You should have received a copy of the GNU General Public License along with this function.
+// If not, see <https://www.gnu.org/licenses/>.
+{
+  double* rx = &x[-1];
+  double* rw = &w[-1];
+  size_t* idx = ( size_t* ) calloc( *n + 1, sizeof( size_t ) );
+  idx[0] = 0;
+  idx[1] = 1;
+  size_t b = 1;
+  double xbm1 = rx[b];
+  double wbm1 = rw[b];
+  for ( size_t i = 2; i <= *n; i++ ) {
+    b++;
+    double xb = rx[i];
+    double wb = rw[i];
+    if ( xbm1 > xb ) {
+      b--;
+      double sb = wbm1 * xbm1 + wb * xb;
+      wb += wbm1;
+      xb = sb / wb;
+      while ( i < *n && xb >= rx[i + 1] ) {
+        i++;
+        sb += rw[i] * rx[i];
+        wb += rw[i];
+        xb = sb / wb;
+      }
+      while ( b > 1 && rx[b - 1] > xb ) {
+        b--;
+        sb += rw[b] * rx[b];
+        wb += rw[b];
+        xb = sb / wb;
+      }
+    }
+    rx[b] = xbm1 = xb;
+    rw[b] = wbm1 = wb;
+    idx[b] = i;
+  }
+  size_t from = *n;
+  for ( size_t k = b; k > 0; k-- ) {
+    const size_t to = idx[k - 1] + 1;
+    const double xk = rx[k];
+    for ( size_t i = from; i >= to; i-- ) rx[i] = xk;
+    from = to - 1;
+  }
+  free( idx );
+} // monotone
+```
+
+</details>
+
+これをPythonに翻訳したのが以下です(こちらも翻訳の都合上、[GPL-3](https://cran.r-project.org/web/licenses/GPL-3)ライセンスです)。
+
+<details><summary>Pythonに翻訳したコード</summary>
+
+```python
+import numpy as np
+from typing import Union
+
+
+def pava_translated(y: np.ndarray, w: Union[np.ndarray, None] = None) -> np.ndarray:
+    # Original code Copyright (C) 2022 by Frank Busing, Juan Claramunt Gonzalez.
+    # https://CRAN.R-project.org/package=monotone
+    # Translated into Python by Hiroki Hamaguchi.
+    # This code is licensed under the GNU GPL v3.
+    x = np.asarray(y, dtype=np.float64).copy()
+    if w is None:
+        w = np.ones_like(x, dtype=np.float64)
+    else:
+        w = np.asarray(w, dtype=np.float64)
+
+    n = len(x)
+    idx = [0, 1] + [0] * (n - 1)
+    b = 1
+    xbm1 = x[b - 1]
+    wbm1 = w[b - 1]
+    i = 2
+
+    while i <= n:
+        xb = x[i - 1]
+        wb = w[i - 1]
+        if xbm1 > xb:
+            sb = wbm1 * xbm1 + wb * xb
+            wb += wbm1
+            xb = sb / wb
+            while i < n and xb >= x[i]:
+                i += 1
+                sb += w[i - 1] * x[i - 1]
+                wb += w[i - 1]
+                xb = sb / wb
+            while b > 1 and x[b - 2] > xb:
+                b -= 1
+                sb += w[b - 1] * x[b - 1]
+                wb += w[b - 1]
+                xb = sb / wb
+        else:
+            b += 1
+        x[b - 1] = xbm1 = xb
+        w[b - 1] = wbm1 = wb
+        idx[b] = i
+        i += 1
+
+    result = np.zeros(n, dtype=x.dtype)
+    from_idx = n
+    for k in range(b, 0, -1):
+        to_idx = idx[k - 1] + 1
+        for i in range(from_idx, to_idx - 1, -1):
+            result[i - 1] = x[k - 1]
+        from_idx = to_idx - 1
+    return result
+```
+
+</details>
+
+一方、本記事では説明の簡潔さの為、一番単純で可読性が高いと思われる`pooledpava`と同じロジックを`jbkpava`のようにBlockクラスを用いた実装をPAVAとして採用することにします。先述の通り本質は殆ど何も変わりません。
+
+前小節のビジュアライズ結果もこれに基づくので、このコードは先程の動作を達成する自然な実装だと理解して貰えれば、本記事の理解には十分です。
+
+なお、これ以降に登場するコードは全てPublic Domainとします。
+
+```python
+class Block:
+    def __init__(self, value: float, weight: float, start_idx: int):
+        self.total_value = weight * value
+        self.total_weight = weight
+        self.start_idx = start_idx
+        self.end_idx = start_idx
+        self.mean = self.total_value / self.total_weight
+
+    def merge(self, other: "Block"):
+        assert self.end_idx + 1 == other.start_idx
+        self.total_value += other.total_value
+        self.total_weight += other.total_weight
+        self.end_idx = other.end_idx
+        self.mean = self.total_value / self.total_weight
+
+
+def pava_readable(y: np.ndarray, w: Union[np.ndarray, None] = None) -> np.ndarray:
+    x = np.asarray(y, dtype=np.float64)
+    if w is None:
+        w = np.ones_like(x, dtype=np.float64)
+    else:
+        w = np.asarray(w, dtype=np.float64)
+
+    blocks = []
+    for i in range(len(x)):
+        blocks.append(Block(x[i], w[i], i))
+        while len(blocks) >= 2 and blocks[-2].mean >= blocks[-1].mean:
+            last = blocks.pop()
+            blocks[-1].merge(last)
+
+    result = np.zeros_like(x)
+    for block in blocks:
+        result[block.start_idx : block.end_idx + 1] = block.mean
+    return result
+```
+
+このコードの正当性はランダムテストにより検証済みです。
+
+<details><summary>テスト・ビジュアライザ</summary>
+
+```python
+from sklearn.isotonic import IsotonicRegression
+from sklearn.utils import check_random_state
+
+
+def make_problem(n: int, seed: int) -> np.ndarray:
+    rs = check_random_state(seed)
+    y = rs.randint(-50, 50, size=(n,)) + 50.0 * np.log1p(np.arange(n))
+    return y
+
+
+def f(x: np.ndarray, y: np.ndarray) -> float:
+    return np.sum(np.abs(x - y))
+
+
+def trial(y: np.ndarray) -> None:
+    ir = IsotonicRegression()
+
+    x1 = ir.fit_transform(np.arange(len(y)), y)
+    x2 = pava_translated(y)
+    x3 = pava_readable(y)
+
+    # print(f"SciPy: {f(x1,y):.3f} | Translated: {f(x2,y):.3f} | Readable: {f(x3,y):.3f}")
+
+    assert np.allclose(x1, x2)
+    assert np.allclose(x1, x3)
+
+
+def test():
+    for n in [1, 2, 5, 10, 100, 1000]:
+        for seed in range(100):
+            y = make_problem(n, seed)
+            trial(y)
+
+        # special case1: y is increasing
+        y = np.arange(n)
+        trial(y)
+
+        # special case2: y is decreasing
+        y = -np.arange(n)
+        trial(y)
+        print(f"n={n} passed")
+
+
+test()
+```
+
+```python
+import matplotlib.pyplot as plt
+import seaborn as sns
+import os
+import japanize_matplotlib
+from matplotlib.collections import LineCollection
+
+
+sns.set_context("notebook")
+sns.set_style("darkgrid")
+
+# font size
+plt.rcParams.update(
+    {
+        "font.size": 20,
+        "axes.titlesize": 20,
+        "axes.labelsize": 20,
+        "xtick.labelsize": 20,
+        "ytick.labelsize": 20,
+        "legend.fontsize": 20,
+        "figure.titlesize": 20,
+    }
+)
+
+japanize_matplotlib.japanize()
+
+
+y = make_problem(30, 0)
+
+ir = IsotonicRegression()
+x = ir.fit_transform(np.arange(len(y)), y)
+
+segments = [[[i, y[i]], [i, x[i]]] for i in range(len(y))]
+lc = LineCollection(segments, zorder=1)
+lc.set_array(np.ones(len(y)))
+lc.set_linewidths(np.full(len(y), 0.5))  # type: ignore
+
+fig, ax0 = plt.subplots(figsize=(8, 4))
+ax0.plot(np.arange(len(y)), y, "C0.", markersize=12, zorder=3)
+ax0.plot(np.arange(len(x)), x, "C1.-", markersize=12, zorder=2)
+ax0.add_collection(lc)
+ax0.legend(("訓練データ $y_i$", "単調回帰 $x_i$"), loc="lower right")
+ax0.set_title(f"単調回帰 ($n={len(x)}$, $w_i=1$)")
+ax0.set_xlabel("index $i$")
+ax0.set_ylabel("$x_i$  and  $y_i$")
+
+plt.savefig(os.path.join(os.getcwd(), "scipy_IR.png"), bbox_inches="tight", dpi=300)
+plt.close()
+```
+
+```python
+import imageio.v2 as imageio
+from typing import List
+
+frame_dir = "frames"
+os.makedirs(frame_dir, exist_ok=True)
+frame_count = 0
+
+
+def plot_blocks(
+    y: np.ndarray,
+    w: np.ndarray,
+    blocks: List[Block],
+    show_violated: bool,
+    result: Union[np.ndarray, None] = None,
+    save_frame: bool = True,
+) -> None:
+    global frame_count
+    fig, ax = plt.subplots(figsize=(8, 4))
+    ax.plot(np.arange(len(y)), y, "C0.", markersize=12)
+
+    if result is None:
+        for block in blocks:
+            xs = np.array(range(block.start_idx, block.end_idx + 1))
+            ax.plot(xs, [block.mean] * len(xs), "C2.-", markersize=12)
+    else:
+        ax.plot(np.arange(len(result)), result, "C1.-", markersize=12)
+
+    if show_violated and (len(blocks) >= 2 and blocks[-2].mean >= blocks[-1].mean):
+        x1 = blocks[-2].end_idx
+        x2 = blocks[-1].start_idx
+        x1, x2 = x1 + (x2 - x1) * 0.1, x2 - (x2 - x1) * 0.1
+        y1 = blocks[-2].mean
+        y2 = blocks[-1].mean
+        y1, y2 = y1 + (y2 - y1) * 0.1, y2 - (y2 - y1) * 0.1
+
+        plt.annotate(
+            "",
+            xy=(x2, y2),
+            xytext=(x1, y1),
+            arrowprops=dict(arrowstyle="->", lw=2, color="red"),
+        )
+        plt.text(
+            (x1 + x2) / 2,
+            (y1 + y2) / 2 + 20,
+            "Violated!",
+            fontsize=20,
+            color="red",
+        )
+
+    ax.set_xlabel("index $i$")
+    ax.set_ylabel("$x_i$  and  $y_i$")
+
+    if save_frame:
+        filename = os.path.join(frame_dir, f"frame_{frame_count:03d}.png")
+        plt.tight_layout()
+        plt.savefig(filename, bbox_inches="tight", dpi=300)
+        frame_count += 1
+
+    plt.close()
+
+
+def pava_vis(y: np.ndarray, w: Union[np.ndarray, None] = None) -> np.ndarray:
+    x = np.asarray(y, dtype=np.float64)
+    if w is None:
+        w = np.ones_like(y, dtype=np.float64)
+    else:
+        w = np.asarray(w, dtype=np.float64)
+
+    n = len(x)
+    blocks: List[Block] = []
+    plot_blocks(x, w, blocks, False)
+
+    for i in range(n):
+        blocks.append(Block(x[i], w[i], i))
+        plot_blocks(x, w, blocks, False)
+        while len(blocks) >= 2 and blocks[-2].mean >= blocks[-1].mean:
+            plot_blocks(x, w, blocks, True)
+            last = blocks.pop()
+            blocks[-1].merge(last)
+            plot_blocks(x, w, blocks, False)
+
+    result = np.zeros_like(x)
+    for block in blocks:
+        result[block.start_idx : block.end_idx + 1] = block.mean
+    plot_blocks(x, w, blocks, False, result)
+    return result
+
+
+def make_gif(output_path: str, duration: float) -> None:
+    images = []
+    files = sorted(os.listdir(frame_dir))
+    for file in files:
+        if file.endswith(".png"):
+            img = imageio.imread(os.path.join(frame_dir, file))
+            images.append(img)
+    imageio.mimsave(output_path, images, fps=1 / duration, loop=0)
+
+
+y = make_problem(10, 5)
+result = pava_vis(y)
+make_gif("pava.gif", duration=0.75)
+```
+
+</details>
+
+## 正当性の証明
+
+本節では、前節の PAVA が確かに Isotonic Regression の最適解を求めることを証明します。
+1990年の Math. Program. に掲載された文献[^4]を基調とする、**KKT条件**と**有効制約法**を用いた証明です。尤も、元証明はかなり煩雑なので、厳密性を失わない範囲内で簡略化します。
+
+以下の説明ではある程度の基礎知識を仮定してしまいますが、場合によっては次の資料も参考にして下さい。特に1つ目は私の指導教員である武田先生の講義資料で分かりやすいと思います。
+
+https://www.or.mist.i.u-tokyo.ac.jp/takeda/Surikogaku/mathprog_2016.pdf
+
+https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
+
+### 解の一意性
+
+証明の前に、Isotonic Regression が解く問題に、解の一意性があることを述べます。問題は以下でした。
+
+$$
+\begin{align*}
+    \min_x \quad & \sum_{i=1}^n w_i (y_i - x_i)^2\\
+    \text{s.t.} \quad & x_1 \leq x_2 \leq \dots \leq x_n
+\end{align*}
+$$
+
+これは非空な閉凸集合(下図)上の真凸な二次関数を最小化する問題です。その為、最適解が存在し、かつ一意に定まることが分かります。
+
+![constraints_3d](constraints_3d.png)
+($n=3$ の場合の実行可能領域 $x_1 \leq x_2 \leq x_3$ の図示)
+
+厳密には色々言う必要がありますが、本筋ではないので省略します。以下ではこれを前提とします。
+
+(なお、細かいですが、「最適解が存在し、かつ一意に定まる」と言うにあたり、
+
+* 実行可能領域が閉でない(例: $x_1 < x_2$)と最適解が存在しない
+* 真凸でない(例: $w_1=0$)と最適解が一意に定まらない
+* 二次関数ではない(例: 目的関数が $1/x$ のように $\inf$ を達成しない)と最適解が一意に定まらない
+
+ことがそれぞれあり得ることには注意が必要です。)
+
+<font color="red">校閲者向け質問: この凸最適化問題が唯一の最適解を持つ、ということは簡潔に言えますか (or 有名な文献はありますか)</font>
+
+### KKT条件
+
+続いて、最適解の構造を調べるために、[KKT条件](https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%AB%E3%83%BC%E3%82%B7%E3%83%A5%E3%83%BB%E3%82%AF%E3%83%BC%E3%83%B3%E3%83%BB%E3%82%BF%E3%83%83%E3%82%AB%E3%83%BC%E6%9D%A1%E4%BB%B6)を考えます。一般に、最適化問題において、ある $x^* \in \mathbb{R}^n$ がその最適解ならば、$x^*$ はKKT条件を必ず満たします。なのでKKT条件は最適性の必要条件として知られています。
+
+今回の凸最適化問題は[Slater条件](https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%AE%E6%9D%A1%E4%BB%B6)という制約想定を満たしているので、[KKT条件の充足が最適性の必要十分条件になります](https://www.stat.cmu.edu/~ryantibs/convexopt-F15/lectures/12-kkt.pdf)。よって、このKKT条件だけを考えれば良いです。
+
+今回解くべき最適化問題は、標準的な形式で表すと、
+$$
+\begin{align*}
+    \min_x \quad & f(x) \coloneqq \sum_{i=1}^n w_i (y_i - x_i)^2\\
+    \text{s.t.} \quad & g_i(x) \coloneqq x_i - x_{i+1} \leq 0 \quad (i=1,\dots,n-1)
+\end{align*}
+$$
+となります。その双対問題はLagrange乗数 $v = \{v_i\}_{i=1}^{n-1}$ を用いて、以下のように表せます。
+$$
+\begin{align*}
+    \max_v \quad & \left(\min_x L(x,v) \coloneqq f(x) + \sum_{i=1}^{n-1} v_i g_i(x)\right)\\
+    \text{s.t.} \quad & v_i \geq 0 \quad (i=1,\dots,n-1)
+\end{align*}
+$$
+と表せます。これらの双対ギャップは強双対性より0です。
+
+以上より、[KKT条件の公式](https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%AB%E3%83%BC%E3%82%B7%E3%83%A5%E3%83%BB%E3%82%AF%E3%83%BC%E3%83%B3%E3%83%BB%E3%82%BF%E3%83%83%E3%82%AB%E3%83%BC%E6%9D%A1%E4%BB%B6#%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6)を当てはめると、以下の条件を満たす $x, v$ が存在すれば、$x$ は最適解だと分かります。
+
+* 停留性: $-\nabla f(x^*) = \sum_{i=1}^{n-1} v_i \nabla g_i(x^*)$、つまり:
+
+$$
+\begin{align*}
+    -2w_1 (x_1 - y_1) &= v_1,\\
+    -2w_2 (x_2 - y_2) &= -v_1 + v_2,\\
+    \vdots &  \\
+    -2w_{n-1} (x_{n-1} - y_{n-1}) &= -v_{n-2} + v_{n-1},\\
+    -2w_n (x_n - y_n) &= -v_{n-1}
+\end{align*}
+$$
+
+* スラック変数に関する条件(相補性条件): $v_i g_i(x^*) = v_i (x_i - x_{i+1}) = 0$ ($i=1,\dots,n-1$)
+* 主問題の実行可能条件: $g_i(x^*) = x_i - x_{i+1} \leq 0$ ($i=1,\dots,n-1$)
+* 双対問題の実行可能条件: $v_i \geq 0$ ($i=1,\dots,n-1$)
+
+つまり、これまでの議論をまとめると、**上記の4条件をPAVAの出力が満たすことをチェックすれば証明が完了する**、ということです。
+
+### 有効制約法
+
+続いて、有効制約法について述べます。結論から述べると、PAVAは **dual-feasible active-set method** であるというのが、PAVAの正当性証明の要点です(文献[^4] Theorem 4)。
+
+[有効制約法](https://www.msi.co.jp/solution/nuopt/docs/glossary/articles/ActiveSetMethod.html)は、特に二次計画問題を解くのに用いられる手法で、等号を達成する (active) 不等式制約の集合 (active-set) を更新して、最適解を求める方法です。
+
+教科書[^7] Section 16.5では、
+
+> Active-set methods for QP come in three varieties: primal, dual, and primal-dual.
+>
+> (二次計画問題の有効制約法には、主、双対、主-双対の3種類があります。)
+
+と記述されています。今回は、その `dual` にあたるものを考えています。
+
+具体的には、
+
+1. $g_i(x)=x_i - x_{i+1} = 0$ と等号を達成する (active) 不等式制約の集合 (active-set) を $J$ とする。
+2. 有効制約が $J$ という条件の下で、KKT条件を満たす解 $x, v$ を求める(quasi-stationary pointと文献[^4]では呼ぶ)。特に、今回は解が常に双対問題の実行可能条件を満たす(ここが `dual` の由来)。
+3. 解が主問題の実行可能条件 (primal) も満たす時、双対ギャップが0なので、最適解が得られたと分かる
+4. そうでない場合、$J$ を更新して、1.に戻る
+
+というのが、今回の有効制約法の流れです。なお、Lagrange乗数 $v$ は陽には計算しないことには注意してください。$x$ のみをアルゴリズム中では計算しています。
+
+### 証明
+
+では証明をしていきます。証明は3つのステップに分かれます。
+
+1. あるブロック $B$ に対応する部分問題の解 $x, v$ がどのようなものかを調べる。
+2. 有効制約 $J$ に対応する解 $x, v$ が、KKT条件に関する停留性、相補性条件、双対問題の実行可能条件を満たすことを示す。
+3. PAVAが停止した時、有効制約 $J$ に対応する解が主問題の実行可能条件も満たすこと、つまりKKT条件を満たし最適解であることを示す。
+
+#### 証明-1
+
+あるブロック $B$ に対応する部分問題の解を求めます(文献[^4] Theorem 1)。ここでいうブロックとは、添字の連続部分列であり、$B={p,p+1,\dots,q}$ とします。つまり、$x_p = x_{p+1} = \dots = x_q$ です。
+
+つまり、以下の問題を考えています。
+
+$$
+\begin{equation*}
+    \min_{\bar{x} \in \mathbb{R}} \quad   \sum_{i=p}^q w_i (y_i - \bar{x})^2
+\end{equation*}
+$$
+
+単なる二次式の最小化問題なので、これの最適解 $\bar{x}^*$ は
+$$
+\begin{equation*}
+\bar{x}^* = \frac{\sum_{i=p}^q w_i y_i}{\sum_{i=p}^q w_i}
+\end{equation*}
+$$
+と求まります。これはブロック $B$ 内における $y$ の重み付き平均であり、[実装](#実装)を参照して頂ければ分かる通り、PAVAは正にこれをブロックのマージで求めています。
+
+また、Lagrange乗数 $v$ はKKT条件の停留性より、
+
+$$
+\begin{align*}
+    -2w_p (x_p - y_p) &= v_p,\\
+    -2w_{p+1} (x_{p+1} - y_{p+1}) &= -v_p + v_{p+1},\\
+    \vdots &  \\
+    -2w_{q-1} (x_{q-1} - y_{q-1}) &= -v_{q-2} + v_{q-1},\\
+    -2w_q (x_q - y_q) &= -v_{q-1}
+\end{align*}
+$$
+
+#### 証明-2
+
+#### 証明-3
+
+PAVAが停止した時の出力が最適解であることを示します。
+
+PAVAの停止性自体はアルゴリズムより自明です。また、最終的な解が主問題の実行可能条件を満たすこと、つまり、各ブロックについてその重み付き平均が単調非減少であることは、帰納法より簡単に示せます。
+
+以上より、アルゴリズムの各ステップにおける解はとある有効制約 $J$ に対応した解なので、証明-2と合わせると、出力される解はKKT条件を全て満たすことが分かります。
+
+これは[KKT条件](#kkt条件)で述べた通り、出力が最適解であることを意味するので、PAVAの正当性が示されました。
+
+## 議論
+
+本節では、いくつかの関連した話題を述べます。
+
+### 発展
+
+Isotonic Regression が扱う最適化問題はかなりシンプルでしたが、その発展が複数知られています。詳しくは文献を参照して頂きたいですが、以下に2つ例を挙げます。
+
+1つ目が、**Centered Isotonic Regression** です。
+平滑性を導入したもののようで([Wikipedia](https://en.wikipedia.org/wiki/Isotonic_regression#Centered_isotonic_regression))、R package の [cir](https://cran.r-project.org/web/packages/cir/index.html) で実装されているようです。導入で述べた用量反応関係に関する研究である文献[^2]でも扱われています。
+
+2つ目が、**Bregman functions** による発展です。[SciPyのコメント](https://github.com/scipy/scipy/blob/0f1fd4a7268b813fa2b844ca6038e4dfdf90084a/scipy/optimize/_isotonic.py#L70)に以下の記述を見つけたので引用します。
+
+> Most interestingly, the solution stays the same if the squared loss is replaced by the wide class of Bregman functions which are the unique class of strictly consistent scoring functions for the mean, ...
+>
+> (最も興味深いことに、二乗損失がブレグマン関数という広範なクラスの関数に置き換えられても、解は変わりません。ブレグマン関数は、平均に対して厳密に一貫したスコアリング関数として一意に定まるクラスです。)
+
+(和訳は筆者による)
+
+詳しくは文献[^3]をご参照下さい。
+
+### 院試
+
+最後に、かなり個人的な事情となりますが、東京大学 大学院 情報理工学系研究科 数理情報学専攻の院試について触れます。
+
+その過去問では、Isotonic Regressionが出題されたことがあります。執筆現在では[こちら](https://www.i.u-tokyo.ac.jp/edu/course/mi/admission.shtml)で公開されている、2020年度の入試問題の大問5です。本記事の議論より、観測データ $y$ に要素を1つ追加するとどうなるかを部分的に問うた(1)は、その証明が可能です。また回帰問題を解けと求めている(2)は、PAVAを解答すれば良いと分かります。
+
+しかし、この誘導は不親切で、ミスリーディングと言わざるを得ません。アルゴリズムの説明で述べた通り、1点を追加するという行為に対する最適解の変化はかなり複雑で、(1)の方針から(2)を解答するにはかなりのギャップが存在します。ブロックの考え方を用いた誘導にするのがせめて自然です。このような事情から、部分的な作問ミスか、あるいは捨て問であることが疑われます。
+
+……とは言え、それが想定解の可能性を否定しきれないのもまた事実です。
+
+本記事を以って、2年間以上の長きにわたり私が誤った[過去問解答](https://github.com/HirokiHamaguchi/GraduateSchoolEntranceExamination)を公開し続けてきたことに対する贖罪とし、この記事を結びます。
+
+## 謝辞
+
+本記事は、私の作成した過去問解答に対する友人からの指摘を契機として執筆しました。
+
+また、本記事の校正を行って頂いた
+<font color="red">............</font>
+に感謝申し上げます。
+
+## 参考文献
+
+日本語のネット記事でIsotonic Regressionを詳細に扱ったものは殆どないと認識していますが、以下の記事では触れられており、参考にさせて頂きました。
+
+https://qiita.com/dai08srhg/items/eb08fc98e7149748a9d5
+
+https://jp.corp-sansan.com/mimi/2018/02/monotonic_constraints.html
+
+また、以下のレポジトリでは PAVA の Julia の実装があります。
+
+https://github.com/ajtulloch/Isotonic.jl
+
+さらに、R のパッケージ isotone も PAVA などを取り扱っています。
 
 https://cran.r-project.org/web/packages/isotone/index.html
 
 https://cran.r-project.org/web/packages/isotone/vignettes/isotone.pdf
 
-https://link-springer-com.utokyo.idm.oclc.org/article/10.1007/bf01580873
+[^1]: [Busing, F. M. T. A. (2022). Monotone Regression: A Simple and Fast O(n) PAVA Implementation. Journal of Statistical Software, Code Snippets, 102(1), 1–25.](https://doi.org/10.18637/jss.v102.c01)
 
-## 正当性の証明
+[^2]: [Oron, A. P., & Flournoy, N. (2017). Centered Isotonic Regression: Point and Interval Estimation for Dose–Response Studies. Statistics in Biopharmaceutical Research, 9(3), 258–267.](https://doi.org/10.1080%2F19466315.2017.1286256)
 
-本節では、PAVA の正当性を証明します。
-ここからは数理最適化的な視点からの説明となります。
+[^3]: [Jordan, A. I., Mühlemann, A., & Ziegel, J. F. (2022). Characterizing the optimal solutions to the isotonic regression problem for identifiable functionals. Annals of the Institute of Statistical Mathematics, 1-26.](https://doi.org/10.1007/s10463-021-00808-0) (なお、これは[Optimal solutions to the isotonic regression problem](https://doi.org/10.48550/arXiv.1904.04761)と同一と思われます)
 
-凸集合上の凸関数の最適化問題となっている為、この問題の解は一意に定まります。
+[^4]: [Best, M. J., & Chakravarti, N. (1990). Active set algorithms for isotonic regression; a unifying framework. Mathematical Programming, 47(1), 425-439.](https://doi.org/10.1007/BF01580873)
 
-![constraints_3d](constraints_3d.png)
+[^5]: [Ayer, M., Brunk, H. D., Ewing, G. M., Reid, W. T., & Silverman, E. (1955). An empirical distribution function for sampling with incomplete information. The annals of mathematical statistics, 641-647.](https://doi.org/10.1214/aoms/1177728423)
 
-Pool Adjacent Violators Algorithm (PAVA) と呼ばれるアルゴリズムが有名です。
-このアルゴリズムの説明および正当性の証明を本記事では行います。
+[^6]: [Kruskal, J. B. (1964). Nonmetric multidimensional scaling: a numerical method. Psychometrika, 29(2), 115-129.](https://doi.org/10.1007/BF02289694)
 
-$$
-\min \sum_{i=1}^n (y_i - f(x_i))^2 \quad \text{s.t.} \quad f(x_1) \leq f(x_2) \leq \cdots \leq f(x_n)
-$$
-
-## 議論
-
-Centered Isotonic Regression という発展も知られています。 ([Wikipedia](https://en.wikipedia.org/wiki/Isotonic_regression#Centered_isotonic_regression), [R package "cir"](https://cran.r-project.org/web/packages/cir/index.html), 文献[^2]など)
-
-これは平滑性を導入したもののようです。
-
-## 参考文献
-
-Isotonic Regression を扱ったQiita上の先行記事として、以下を参照させて頂きました。
-
-https://qiita.com/dai08srhg/items/eb08fc98e7149748a9d5
-
-[^1]: Busing, F. M. T. A. (2022). Monotone Regression: A Simple and Fast O(n) PAVA Implementation. Journal of Statistical Software, Code Snippets, 102(1), 1–25. https://doi.org/10.18637/jss.v102.c01
-
-[^2]: Oron, A. P., & Flournoy, N. (2017). Centered Isotonic Regression: Point and Interval Estimation for Dose–Response Studies. Statistics in Biopharmaceutical Research, 9(3), 258–267. https://doi.org/10.1080%2F19466315.2017.1286256
+[^7]: [Nocedal, J., & Wright, S. J. (Eds.). (1999). Numerical optimization. New York, NY: Springer New York.](https://doi.org/10.1007/978-0-387-40065-5)

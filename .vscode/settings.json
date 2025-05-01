@@ -66,7 +66,8 @@
         "ベクトル空間",
         "\\(参考",
         "\\mathrm{dom} f",
-        "utokyo\\.idm"
+        "utokyo\\.idm",
+        "chatgpt"
     ],
     "latexlint.disabledRules": [
         "LLCref"
