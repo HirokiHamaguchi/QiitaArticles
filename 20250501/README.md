@@ -394,6 +394,12 @@ for x, y, name, desc in data:
     ax0.set_xlabel("index $i$")
     ax0.set_ylabel("$x_i$  and  $y_i$")
 
+    x_pos = list(range(len(x)))
+    if len(x_pos) > 10:
+        x_pos = [0, 9, 19, 29]
+    x_labels = [str(i + 1) for i in x_pos]
+    plt.xticks(ticks=x_pos, labels=x_labels)
+
     if desc:
         ax0.text(2, -0.3, desc, ha="center", va="top", fontsize=20)
 
@@ -459,6 +465,9 @@ def plot_blocks(
 
     ax.set_xlabel("index $i$")
     ax.set_ylabel("$x_i$  and  $y_i$")
+    x_pos = [0, 2, 4, 6, 8]
+    x_labels = [str(i + 1) for i in x_pos]
+    plt.xticks(ticks=x_pos, labels=x_labels)
 
     if save_frame:
         filename = os.path.join(frame_dir, f"frame_{frame_count:03d}.png")
@@ -828,9 +837,7 @@ Isotonic Regression が扱う最適化問題はかなりシンプルでしたが
 
 本記事は、私の作成した過去問解答に対する友人からの指摘を契機として執筆しました。
 
-また、本記事の校正を行って頂いた
-<font color="red">............</font>
-に感謝申し上げます。
+また、本記事を公開前に読んで頂き、貴重なアドバイスを下さった方々に感謝申し上げます。
 
 ## 参考文献
 

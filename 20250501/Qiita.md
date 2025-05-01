@@ -4,7 +4,7 @@
 
 単調非減少という制約付きの最小二乗法である **Isotonic Regression** (**単調回帰**)について、本記事では解説します。
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/3154f9fc-e430-4854-9ba2-b5f477dfac2b.png" alt="scipy_IR">
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/06349ee7-d06a-44fe-891f-6607fafb8632.png" alt="scipy_IR">
 
 ## 導入
 
@@ -74,7 +74,7 @@ PAVA (Pool Adjacent Violators Algorithm) の擬似コードは以下のように
 
 先にPAVAのビジュアライズ結果をお見せします。
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/83b1616c-a144-40a5-b851-1d30eb4ce48a.gif" alt="pava">
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/2b40ab96-d406-4c96-b57e-ead2949620c8.gif" alt="pava">
 
 <font color="#1f77b4">青い点が訓練データ $y=\lbrace y_i \rbrace_{i=1}^{n}$</font> で、<font color="2ca02c">緑の点が順次定められていく単調回帰 $x=\lbrace x_i \rbrace_{i=1}^{n}$</font> です。隣接するブロックどうしに<font color="red">制約違反(赤矢印)</font>がなくなったら終了で、<font color="ff7f0e">オレンジが出力される結果</font>を表しています。
 
@@ -388,6 +388,12 @@ for x, y, name, desc in data:
     ax0.set_xlabel("index $i$")
     ax0.set_ylabel("$x_i$  and  $y_i$")
 
+    x_pos = list(range(len(x)))
+    if len(x_pos) > 10:
+        x_pos = [0, 9, 19, 29]
+    x_labels = [str(i + 1) for i in x_pos]
+    plt.xticks(ticks=x_pos, labels=x_labels)
+
     if desc:
         ax0.text(2, -0.3, desc, ha="center", va="top", fontsize=20)
 
@@ -452,6 +458,9 @@ def plot_blocks(
 
     ax.set_xlabel("index $i$")
     ax.set_ylabel("$x_i$  and  $y_i$")
+    x_pos = [0, 2, 4, 6, 8]
+    x_labels = [str(i + 1) for i in x_pos]
+    plt.xticks(ticks=x_pos, labels=x_labels)
 
     if save_frame:
         filename = os.path.join(frame_dir, f"frame_{frame_count:03d}.png")
@@ -625,13 +634,13 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 
 以下の具体例も参考にして下さい。
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/c7bfcaf0-f013-432a-87cf-8c65fcb7c82a.png" alt="p1">
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/6ac04acd-65a6-41a1-b91f-b06efae9429f.png" alt="p1">
 (初期解)
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/d6e09276-85cc-4eef-b03f-de72438d83b3.png" alt="p2">
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/0a8d8f3f-a85f-4d72-9b22-0b04ddb86b48.png" alt="p2">
 (有効制約 $J$ の更新。停留性などの3条件は各ステップで満たしている。)
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/34ce68a0-aab1-46ac-be13-62d16480736a.png" alt="p3">
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/c45d97ca-66e2-4129-8fdd-76d2a88eb925.png" alt="p3">
 (PAVAが停止するとき、主問題の実行可能条件も満たしている。)
 
 #### 証明-1
@@ -839,9 +848,7 @@ Isotonic Regression が扱う最適化問題はかなりシンプルでしたが
 
 本記事は、私の作成した過去問解答に対する友人からの指摘を契機として執筆しました。
 
-また、本記事の校正を行って頂いた
-<font color="red">............</font>
-に感謝申し上げます。
+また、本記事を公開前に読んで頂き、貴重なアドバイスを下さった方々に感謝申し上げます。
 
 ## 参考文献
 
