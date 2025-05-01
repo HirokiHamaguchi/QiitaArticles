@@ -1,38 +1,40 @@
-# Isotonic Regression (単調回帰) と Pool Adjacent Violators Algorithm (PAVA) について
+<!-- markdownlint-disable MD041 -->
 
 ## 概要
 
 単調非減少という制約付きの最小二乗法である **Isotonic Regression** (**単調回帰**)について、本記事では解説します。
 
-![scipy_IR](scipy_IR.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/3154f9fc-e430-4854-9ba2-b5f477dfac2b.png" alt="scipy_IR">
 
 ## 導入
 
 **Isotonic Regression** または **Monotonic Regression** (**単調回帰**) とは、訓練データに対する重み付き最小二乗近似となる数列を、単調非減少という制約付きで求める手法です。
 
-文献[^1] 及び [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.isotonic_regression.html) では、$n$ 点からなるデータ $y=\{ y_i \}_{i=1}^{n}$ と正の重み $w=\{ w_i \}_{i=1}^{n}$ が与えられたとき、以下の最適化問題の解となる回帰値 $x=\{ x_i \}_{i=1}^{n}$ を求めることと定義されます。
+文献[^1] 及び [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.isotonic_regression.html) では、$n$ 点からなるデータ $y=\lbrace y_i \rbrace_{i=1}^{n}$ と正の重み $w=\lbrace w_i \rbrace_{i=1}^{n}$ が与えられたとき、以下の最適化問題の解となる回帰値 $x=\lbrace x_i \rbrace_{i=1}^{n}$ を求めることと定義されます。
 
-$$
+```math
 \begin{align*}
     \min_{x} \quad & \sum_{i=1}^n w_i (y_i - x_i)^2\\
     \text{s.t.} \quad & x_1 \leq x_2 \leq \dots \leq x_n
 \end{align*}
-$$
+```
 
 なお、[Wikipedia](https://en.wikipedia.org/wiki/Isotonic_regression) 及び [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.isotonic.IsotonicRegression.html#sklearn.isotonic.IsotonicRegression) では、観測されるデータの添字部分についてより一般化した定義を採用していますが、本記事では上記のみを扱います。
 
 また、重み $w_i$ が全て1である、つまり、
-$$
+
+```math
 \begin{align*}
     \min_x \quad & \sum_{i=1}^n (y_i - x_i)^2\\
     \text{s.t.} \quad & x_1 \leq x_2 \leq \dots \leq x_n
 \end{align*}
-$$
+```
+
 と、目的関数自体は通常の最小二乗問題に帰着されることも多いです。本質的には特に変わりません。
 
 このように定義される Isotonic Regression は、確率的分類（probabilistic classification）や、麻酔学や毒性学における連続的な用量反応関係（dose-response relationship）の推定という応用がある重要な手法となっています ([Wiki-Applications](https://en.wikipedia.org/wiki/Isotonic_regression#Applications))。
 
-![dose-response](https://upload.wikimedia.org/wikipedia/commons/8/8c/Dose_response_curve_stimulation.jpg)
+<img width=100% src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Dose_response_curve_stimulation.jpg" alt="dose-response">
 
 用量-反応曲線 [By Jamgoodman - Own work, CC BY-SA 4.0](https://commons.wikimedia.org/w/index.php?curid=79749638)
 
@@ -57,7 +59,7 @@ from scipy.optimize import isotonic_regression
 
 PAVA (Pool Adjacent Violators Algorithm) の擬似コードは以下のようになります。これは文献[^1]や文献[^3]でPAVAの初出とされている1955年の文献[^5]、および文献[^4] Section 3に基づきます。
 
-1. データ $y=\{ y_i \}_{i=1}^n$ を $n$ 個のブロックに分割する。
+1. データ $y=\lbrace y_i \rbrace_{i=1}^n$ を $n$ 個のブロックに分割する。
 2. 隣接する (**Adjacent**) 2つのブロックで、前者の $y_i$ に関する重み付き平均が、後者のそれより大きいもの (**Violators**) を、あれば見つける。
 3. それらのブロックを結合する(**Pool**)。
 4. 2と3の操作を繰り返す。
@@ -72,15 +74,15 @@ PAVA (Pool Adjacent Violators Algorithm) の擬似コードは以下のように
 
 先にPAVAのビジュアライズ結果をお見せします。
 
-![pava](pava.gif)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/83b1616c-a144-40a5-b851-1d30eb4ce48a.gif" alt="pava">
 
-<font color="#1f77b4">青い点が訓練データ $y=\{ y_i \}_{i=1}^{n}$</font> で、<font color="2ca02c">緑の点が順次定められていく単調回帰 $x=\{ x_i \}_{i=1}^{n}$</font> です。隣接するブロックどうしに<font color="red">制約違反(赤矢印)</font>がなくなったら終了で、<font color="ff7f0e">オレンジが出力される結果</font>を表しています。
+<font color="#1f77b4">青い点が訓練データ $y=\lbrace y_i \rbrace_{i=1}^{n}$</font> で、<font color="2ca02c">緑の点が順次定められていく単調回帰 $x=\lbrace x_i \rbrace_{i=1}^{n}$</font> です。隣接するブロックどうしに<font color="red">制約違反(赤矢印)</font>がなくなったら終了で、<font color="ff7f0e">オレンジが出力される結果</font>を表しています。
 
 ### 実装
 
 実装をしていきます。PAVAには非常に沢山のバリエーションがあり、基本的な流れは結局同じですが、実装の詳細は異なる点には注意が必要です。[monotone](https://cran.r-project.org/web/packages/monotone/index.html) の`src/legacyC.c`で全てのC言語実装が見られます。
 
-![pava_table](pava_table.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/198fa074-bb5d-49aa-b230-a108edcc5c2f.png" alt="pava_table">
 
 (文献[^1]より。)
 
@@ -173,7 +175,6 @@ void monotoneC( int *n, double* x, double* w )
 import numpy as np
 from typing import Union
 
-
 def pava_translated(y: np.ndarray, w: Union[np.ndarray, None] = None) -> np.ndarray:
     # Original code Copyright (C) 2022 by Frank Busing, Juan Claramunt Gonzalez.
     # https://CRAN.R-project.org/package=monotone
@@ -250,7 +251,6 @@ class Block:
         self.end_idx = other.end_idx
         self.mean = self.total_value / self.total_weight
 
-
 def pava_readable(y: np.ndarray, w: Union[np.ndarray, None] = None) -> np.ndarray:
     x = np.asarray(y, dtype=np.float64)
     if w is None:
@@ -288,16 +288,13 @@ def pava_readable(y: np.ndarray, w: Union[np.ndarray, None] = None) -> np.ndarra
 from sklearn.isotonic import IsotonicRegression
 from sklearn.utils import check_random_state
 
-
 def make_problem(n: int, seed: int) -> np.ndarray:
     rs = check_random_state(seed)
     y = rs.randint(-50, 50, size=(n,)) + 50.0 * np.log1p(np.arange(n))
     return y
 
-
 def f(x: np.ndarray, y: np.ndarray) -> float:
     return np.sum(np.abs(x - y))
-
 
 def trial(y: np.ndarray) -> None:
     ir = IsotonicRegression()
@@ -310,7 +307,6 @@ def trial(y: np.ndarray) -> None:
 
     assert np.allclose(x1, x2)
     assert np.allclose(x1, x3)
-
 
 def test():
     for n in [1, 2, 5, 10, 100, 1000]:
@@ -327,7 +323,6 @@ def test():
         trial(y)
         print(f"n={n} passed")
 
-
 test()
 ```
 
@@ -337,7 +332,6 @@ import seaborn as sns
 import os
 import japanize_matplotlib
 from matplotlib.collections import LineCollection
-
 
 sns.set_context("notebook")
 sns.set_style("darkgrid")
@@ -370,13 +364,13 @@ x2 = np.array([1.5, 1.5, 4, 3, 5])
 x3 = np.array([1.5, 1.5, 3.5, 3.5, 5])
 
 data.append(
-    (x1, y, "p1.png", r"$J$:$\{\}$      $B$の集合:$\{\{1\},\{2\},\{3\},\{4\},\{5\}\}$")
+    (x1, y, "p1.png", r"$J$:$\lbrace\rbrace$      $B$の集合:$\lbrace\lbrace1\rbrace,\lbrace2\rbrace,\lbrace3\rbrace,\lbrace4\rbrace,\lbrace5\rbrace\rbrace$")
 )
 data.append(
-    (x2, y, "p2.png", r"$J$:$\{1\}$      $B$の集合:$\{\{1,2\},\{3\},\{4\},\{5\}\}$")
+    (x2, y, "p2.png", r"$J$:$\lbrace1\rbrace$      $B$の集合:$\lbrace\lbrace1,2\rbrace,\lbrace3\rbrace,\lbrace4\rbrace,\lbrace5\rbrace\rbrace$")
 )
 data.append(
-    (x3, y, "p3.png", r"$J$:$\{1,3\}$      $B$の集合:$\{\{1,2\},\{3,4\},\{5\}\}$")
+    (x3, y, "p3.png", r"$J$:$\lbrace1,3\rbrace$      $B$の集合:$\lbrace\lbrace1,2\rbrace,\lbrace3,4\rbrace,\lbrace5\rbrace\rbrace$")
 )
 
 for x, y, name, desc in data:
@@ -408,7 +402,6 @@ from typing import List
 frame_dir = "frames"
 os.makedirs(frame_dir, exist_ok=True)
 frame_count = 0
-
 
 def plot_blocks(
     y: np.ndarray,
@@ -468,7 +461,6 @@ def plot_blocks(
 
     plt.close()
 
-
 def pava_vis(y: np.ndarray, w: Union[np.ndarray, None] = None) -> np.ndarray:
     x = np.asarray(y, dtype=np.float64)
     if w is None:
@@ -495,7 +487,6 @@ def pava_vis(y: np.ndarray, w: Union[np.ndarray, None] = None) -> np.ndarray:
     plot_blocks(x, w, blocks, False, result)
     return result
 
-
 def make_gif(output_path: str) -> None:
     images = []
     files = sorted(os.listdir(frame_dir))
@@ -506,7 +497,6 @@ def make_gif(output_path: str) -> None:
             img = imageio.imread(os.path.join(frame_dir, file))
             images.append(img)
     imageio.mimsave(output_path, images, fps=1.5, loop=0)
-
 
 y = make_problem(10, 5)
 result = pava_vis(y)
@@ -529,16 +519,16 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 
 証明の前に、Isotonic Regression が解く問題に、解の一意性があることを述べます。問題は以下でした。
 
-$$
+```math
 \begin{align*}
     \min_x \quad & \sum_{i=1}^n w_i (y_i - x_i)^2\\
     \text{s.t.} \quad & x_1 \leq x_2 \leq \dots \leq x_n
 \end{align*}
-$$
+```
 
 これは非空な閉凸集合(下図)上の真凸な二次関数を最小化する問題です。その為、最適解が存在し、かつ一意に定まることが分かります。
 
-![constraints_3d](constraints_3d.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/73662578-e8d7-495c-bf85-da7871096966.png" alt="constraints_3d">
 
 ($n=3$ の場合の実行可能領域 $x_1 \leq x_2 \leq x_3$ の図示)
 
@@ -561,26 +551,30 @@ $$
 今回の凸最適化問題は[Slater条件](https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%AE%E6%9D%A1%E4%BB%B6)という制約想定を満たしているので、[KKT条件の充足が最適性の必要十分条件になります](https://www.stat.cmu.edu/~ryantibs/convexopt-F15/lectures/12-kkt.pdf)。よって、このKKT条件だけを考えれば良いです。
 
 今回解くべき最適化問題は、標準的な形式で表すと、
-$$
+
+```math
 \begin{align*}
-    \min_x \quad & f(x) \coloneqq \sum_{i=1}^n w_i (y_i - x_i)^2\\
-    \text{s.t.} \quad & g_i(x) \coloneqq x_i - x_{i+1} \leq 0 \quad (i=1,\dots,n-1)
+    \min_x \quad & f(x) \mathrel{\vcenter{:}}= \sum_{i=1}^n w_i (y_i - x_i)^2\\
+    \text{s.t.} \quad & g_i(x) \mathrel{\vcenter{:}}= x_i - x_{i+1} \leq 0 \quad (i=1,\dots,n-1)
 \end{align*}
-$$
-となります。その双対問題はLagrange乗数 $v = \{ v_i \}_{i=1}^{n-1}$ を用いて、以下のように表せます。
-$$
+```
+
+となります。その双対問題はLagrange乗数 $v = \lbrace v_i \rbrace_{i=1}^{n-1}$ を用いて、以下のように表せます。
+
+```math
 \begin{align*}
-    \max_v \quad & \left(\min_x L(x,v) \coloneqq f(x) + \sum_{i=1}^{n-1} v_i g_i(x)\right)\\
+    \max_v \quad & \left(\min_x L(x,v) \mathrel{\vcenter{:}}= f(x) + \sum_{i=1}^{n-1} v_i g_i(x)\right)\\
     \text{s.t.} \quad & v_i \geq 0 \quad (i=1,\dots,n-1)
 \end{align*}
-$$
+```
+
 これらの双対ギャップは強双対性より0です。
 
 以上より、[KKT条件の公式](https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%AB%E3%83%BC%E3%82%B7%E3%83%A5%E3%83%BB%E3%82%AF%E3%83%BC%E3%83%B3%E3%83%BB%E3%82%BF%E3%83%83%E3%82%AB%E3%83%BC%E6%9D%A1%E4%BB%B6#%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6)を当てはめると、以下の条件を満たす $x, v$ が存在すれば、その $x$ は最適解だと分かります。
 
 * 停留性: 以下の条件を満たす:
 
-$$
+```math
 \begin{align*}
     -\nabla f(x^*) &= \sum_{i=1}^{n-1} v_i \nabla g_i(x^*)\\
     \text{i.e.,} &\\
@@ -590,7 +584,7 @@ $$
     -2w_{n-1} (x_{n-1} - y_{n-1}) &= -v_{n-2} + v_{n-1},\\
     -2w_n (x_n - y_n) &= -v_{n-1}
 \end{align*}
-$$
+```
 
 * スラック変数に関する条件(相補性条件): $v_i g_i(x^*) = v_i (x_i - x_{i+1}) = 0$ ($i=1,\dots,n-1$)
 * 主問題の実行可能条件: $g_i(x^*) = x_i - x_{i+1} \leq 0$ ($i=1,\dots,n-1$)
@@ -631,38 +625,40 @@ $$
 
 以下の具体例も参考にして下さい。
 
-![p1](p1.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/c7bfcaf0-f013-432a-87cf-8c65fcb7c82a.png" alt="p1">
 (初期解)
 
-![p2](p2.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/d6e09276-85cc-4eef-b03f-de72438d83b3.png" alt="p2">
 (有効制約 $J$ の更新。停留性などの3条件は各ステップで満たしている。)
 
-![p3](p3.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/34ce68a0-aab1-46ac-be13-62d16480736a.png" alt="p3">
 (PAVAが停止するとき、主問題の実行可能条件も満たしている。)
 
 #### 証明-1
 
-あるブロック $B$ に対応する部分問題の解を求めます(文献[^4] Theorem 1)。ここでいうブロックとは、添字の連続部分列であり、$B = \{ p,p+1,\dots,q \}$ だとします。つまり、$x_p = x_{p+1} = \dots = x_q$ が条件です。
+あるブロック $B$ に対応する部分問題の解を求めます(文献[^4] Theorem 1)。ここでいうブロックとは、添字の連続部分列であり、$B = \lbrace p,p+1,\dots,q \rbrace$ だとします。つまり、$x_p = x_{p+1} = \dots = x_q$ が条件です。
 
 言い換えると、以下の問題を考えています。
 
-$$
+```math
 \begin{equation*}
     \min_{\bar{x} \in \mathbb{R}} \quad   \sum_{i=p}^q w_i (y_i - \bar{x})^2
 \end{equation*}
-$$
+```
 
 これは単なる二次式の最小化問題なので、最適解 $\bar{x}^*$ は
-$$
+
+```math
 \begin{equation*}
 \bar{x}^* = \frac{\sum_{i=p}^q w_i y_i}{\sum_{i=p}^q w_i}
 \end{equation*}
-$$
+```
+
 と求まります。これはブロック $B$ 内における $y$ の重み付き平均であり、[実装の節](#実装)を参照して頂ければ分かる通り、PAVAは正にこれをブロックのマージで求めています。以下ではこの値を$\mathrm{Av}(B)$と表記します。
 
 また、Lagrange乗数 $v$ はKKT条件の停留性より、
 
-$$
+```math
 \begin{align*}
     -2w_p (x_p - y_p) &= v_p,\\
     -2w_{p+1} (x_{p+1} - y_{p+1}) &= -v_p + v_{p+1},\\
@@ -670,24 +666,28 @@ $$
     -2w_{q-1} (x_{q-1} - y_{q-1}) &= -v_{q-2} + v_{q-1},\\
     -2w_q (x_q - y_q) &= -v_{q-1}
 \end{align*}
-$$
+```
 
 を満たします。ここで $x_p = x_{p+1} = \dots = x_q = \mathrm{Av}(B)$ を代入すると、
-$$
+
+```math
 \begin{align*}
     v_p &= 2w_p (y_p - \mathrm{Av}(B))\\
     v_{p+1} &= 2(w_p+w_{p+1}) \left(\frac{y_p w_p + y_{p+1} w_{p+1}}{w_p+w_{p+1}} - \mathrm{Av}(B)\right)\\
     \vdots &
 \end{align*}
-$$
-つまり、$B_{p,i}=\{ p,\dots,i \}$, $B_{i+1,q}=\{ i+1,\dots,q \}$ という記法のもと、
-$$
+```
+
+つまり、$B_{p,i}=\lbrace p,\dots,i \rbrace$, $B_{i+1,q}=\lbrace i+1,\dots,q \rbrace$ という記法のもと、
+
+```math
 \begin{align*}
     v_i &= 2 \left( \sum_{j=p}^i w_j \right) \left(\mathrm{Av}(B_{p,i}) - \mathrm{Av}(B)\right)\\
         &= 2 \left( \sum_{j=i+1}^q w_j \right) \left(\mathrm{Av}(B) - \mathrm{Av}(B_{i+1,q})\right)
 \end{align*}
-$$
-と各 $i \in \{ p,\dots,q \}$ で一意に定まります。なお、上の2式目は $\mathrm{Av}(B)$ を代入する順序を逆向きにすると簡単に得られ、これは証明-2で必要な表式です。
+```
+
+と各 $i \in \lbrace p,\dots,q \rbrace$ で一意に定まります。なお、上の2式目は $\mathrm{Av}(B)$ を代入する順序を逆向きにすると簡単に得られ、これは証明-2で必要な表式です。
 
 以上で、ブロック $B$ に対応する部分問題の解が求まりました。
 
@@ -695,18 +695,18 @@ $$
 
 KKT条件に関する3条件がPAVAの各ステップで満たされることを示します。
 
-まず、任意の有効制約 $J$ に対応する解を、各ブロック毎に[証明-1](#証明-1)で求めたものにセットし、かつこの時点で未定な $v_i$ を全て0にセットすることで定義します。例えば、先程の具体例で $J=\{ 1,3 \}$ のとき、
+まず、任意の有効制約 $J$ に対応する解を、各ブロック毎に[証明-1](#証明-1)で求めたものにセットし、かつこの時点で未定な $v_i$ を全て0にセットすることで定義します。例えば、先程の具体例で $J=\lbrace 1,3 \rbrace$ のとき、
 
-$$
+```math
 \begin{gather*}
-x_1 = x_2 = \mathrm{Av}(\{ 1,2 \}) \\
-x_3 = x_4 = \mathrm{Av}(\{ 3,4 \}) \\
+x_1 = x_2 = \mathrm{Av}(\lbrace 1,2 \rbrace) \\
+x_3 = x_4 = \mathrm{Av}(\lbrace 3,4 \rbrace) \\
 x_5 = y_5\\
-v_1 = 2w_1 (y_1 - \mathrm{Av}(\{ 1,2 \})), \quad  v_2 = 0 \\
-v_3 = 2w_3 (y_3 - \mathrm{Av}(\{ 3,4 \})), \quad v_4 = 0 \\
+v_1 = 2w_1 (y_1 - \mathrm{Av}(\lbrace 1,2 \rbrace)), \quad  v_2 = 0 \\
+v_3 = 2w_3 (y_3 - \mathrm{Av}(\lbrace 3,4 \rbrace)), \quad v_4 = 0 \\
 v_5 = 2w_3 (y_5 - y_5) = 0
 \end{gather*}
-$$
+```
 
 となります。
 すると、どのような $J$ であるかに関わらず、停留性はその定義より、また相補性条件 $v_i g_i(x) = 0$ もブロック内では $g_i(x)=0$ を、ブロックの境目および末尾の $i=n$ では $v_i = 0$ を満たすことより、それぞれの成立は明らかです。
@@ -717,61 +717,72 @@ $$
 
 まず、PAVAの初期解では、各 $y_i$ 毎にブロックになっていたので、$v_i=0$ が全ての $i$ に対して成立し、主張は自明です。
 
-次に、PAVAの各マージ過程に注目します。[実装](#実装)におけるマージでは、最後から2番目のブロック $B_2 = \{ p_2, \dots, q_2 \}$ と最後のブロック $B_1 = \{ p_1, \dots, q_1 \}$ をマージして新しいブロック $B$ を生成していました。このとき、マージを行う条件より、
-$$
+次に、PAVAの各マージ過程に注目します。[実装](#実装)におけるマージでは、最後から2番目のブロック $B_2 = \lbrace p_2, \dots, q_2 \rbrace$ と最後のブロック $B_1 = \lbrace p_1, \dots, q_1 \rbrace$ をマージして新しいブロック $B$ を生成していました。このとき、マージを行う条件より、
+
+```math
 \begin{equation*}
 \mathrm{Av}(B_2) \geq \mathrm{Av}(B_1)
 \end{equation*}
-$$
+```
+
 が成立しています。特に、重みが正であることから、
-$$
+
+```math
 \begin{equation*}
 \mathrm{Ab}(B_2) \geq \mathrm{Av}(B) \geq \mathrm{Av}(B_1)
 \end{equation*}
-$$
+```
+
 です。
 
 ここで、マージ前のLagrange乗数を $v_i$、マージ後のLagrange乗数を $v'_i$ とすると、[証明-1](#証明-1)より以下のそれぞれの場合について、$v'_i \geq 0$ が成立することが分かります。
 
 ##### 最後から2番目のブロック内について
 
-$$
+```math
 \begin{equation*}
     v_i = 2 \left( \sum_{j=p_2}^{i} w_j \right) \left(\mathrm{Av}(B_{p_2,i}) - \mathrm{Av}(B_2)\right) \geq 0
 \end{equation*}
-$$
+```
+
 が元々言えていたので、マージ後の
-$$
+
+```math
 \begin{equation*}
     v'_i = 2 \left( \sum_{j=p_2}^i w_j \right) \left(\mathrm{Av}(B_{p_2,i}) - \mathrm{Av}(B)\right) \geq 0
 \end{equation*}
-$$
+```
+
 も、$\mathrm{Av}(B_2) \geq \mathrm{Av}(B)$ より成立します。
 
 ##### 最後のブロック内について
 
-$$
+```math
 \begin{equation*}
     v_i = 2 \left( \sum_{j=i+1}^{q_1} w_j \right) \left(\mathrm{Av}(B_1) - \mathrm{Av}(B_{i+1,q_1})\right) \geq 0
 \end{equation*}
-$$
+```
+
 が元々言えていたので、マージ後の
-$$
+
+```math
 \begin{equation*}
     v'_i = 2 \left( \sum_{j=i+1}^{q_1} w_j \right) \left(\mathrm{Av}(B) - \mathrm{Av}(B_{i+1,q_1})\right) \geq 0
 \end{equation*}
-$$
+```
+
 も、$\mathrm{Av}(B) \geq \mathrm{Av}(B_1)$ より成立します。
 
 ##### 2つのブロックの境目について
 
 境目とはつまり $i=q_2$ であり、
 
-$$
+```math
 \begin{equation*}
    v'_i = 2 \left( \sum_{j=p_2}^{q_2} w_j \right) \left(\mathrm{Av}(B_2) - \mathrm{Av}(B)\right) \geq 0
 \end{equation*}
-$$
+```
+
 が、$\mathrm{Av}(B_2) \geq \mathrm{Av}(B)$ より成立します。
 
 以上より、全ての場合で双対問題の実行可能条件 $v_i \geq 0$ が帰納的に成立することが分かります。

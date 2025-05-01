@@ -67,9 +67,29 @@
         "\\(参考",
         "\\mathrm{dom} f",
         "utokyo\\.idm",
-        "chatgpt"
+        "chatgpt",
+        "停留性条件"
     ],
     "latexlint.disabledRules": [
         "LLCref"
+    ],
+    "cSpell.words": [
+        "asarray",
+        "Biopharmaceutical",
+        "Brunk",
+        "Chakravarti",
+        "Claramunt",
+        "Flournoy",
+        "functionals",
+        "Kruskal",
+        "leidenuniv",
+        "Mühlemann",
+        "Nocedal",
+        "Nonmetric",
+        "Oron",
+        "Psychometrika",
+        "Silverman",
+        "stdlib",
+        "Ziegel"
     ]
 }
