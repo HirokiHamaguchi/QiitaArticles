@@ -344,28 +344,48 @@ plt.rcParams.update(
 
 japanize_matplotlib.japanize()
 
-
-y = make_problem(30, 0)
+data = []
 
 ir = IsotonicRegression()
+y = make_problem(30, 0)
 x = ir.fit_transform(np.arange(len(y)), y)
+data.append((x, y, "scipy_IR.png", None))
 
-segments = [[[i, y[i]], [i, x[i]]] for i in range(len(y))]
-lc = LineCollection(segments, zorder=1)
-lc.set_array(np.ones(len(y)))
-lc.set_linewidths(np.full(len(y), 0.5))  # type: ignore
+y = np.array([2, 1, 4, 3, 5])
+x1 = np.array([2, 1, 4, 3, 5])
+x2 = np.array([1.5, 1.5, 4, 3, 5])
+x3 = np.array([1.5, 1.5, 3.5, 3.5, 5])
 
-fig, ax0 = plt.subplots(figsize=(8, 4))
-ax0.plot(np.arange(len(y)), y, "C0.", markersize=12, zorder=3)
-ax0.plot(np.arange(len(x)), x, "C1.-", markersize=12, zorder=2)
-ax0.add_collection(lc)
-ax0.legend(("訓練データ $y_i$", "単調回帰 $x_i$"), loc="lower right")
-ax0.set_title(f"単調回帰 ($n={len(x)}$, $w_i=1$)")
-ax0.set_xlabel("index $i$")
-ax0.set_ylabel("$x_i$  and  $y_i$")
+data.append(
+    (x1, y, "p1.png", r"$J$:$\{\}$      $B$の集合:$\{\{1\},\{2\},\{3\},\{4\},\{5\}\}$")
+)
+data.append(
+    (x2, y, "p2.png", r"$J$:$\{1\}$      $B$の集合:$\{\{1,2\},\{3\},\{4\},\{5\}\}$")
+)
+data.append(
+    (x3, y, "p3.png", r"$J$:$\{1,3\}$      $B$の集合:$\{\{1,2\},\{3,4\},\{5\}\}$")
+)
 
-plt.savefig(os.path.join(os.getcwd(), "scipy_IR.png"), bbox_inches="tight", dpi=300)
-plt.close()
+for x, y, name, desc in data:
+    segments = [[[i, y[i]], [i, x[i]]] for i in range(len(y))]
+    lc = LineCollection(segments, zorder=1)
+    lc.set_array(np.ones(len(y)))
+    lc.set_linewidths(np.full(len(y), 0.5))  # type: ignore
+
+    fig, ax0 = plt.subplots(figsize=(8, 4))
+    ax0.plot(np.arange(len(y)), y, "C0.", markersize=12, zorder=3)
+    ax0.plot(np.arange(len(x)), x, "C1.-", markersize=12, zorder=2)
+    ax0.add_collection(lc)
+    ax0.legend(("訓練データ $y_i$", "単調回帰 $x_i$"), loc="lower right")
+    ax0.set_title(f"単調回帰 ($n={len(x)}$, $w_i=1$)")
+    ax0.set_xlabel("index $i$")
+    ax0.set_ylabel("$x_i$  and  $y_i$")
+
+    if desc:
+        ax0.text(2, -0.3, desc, ha="center", va="top", fontsize=20)
+
+    plt.savefig(os.path.join(os.getcwd(), name), bbox_inches="tight", dpi=300)
+    plt.close()
 ```
 
 ```python
@@ -392,9 +412,15 @@ def plot_blocks(
     if result is None:
         for block in blocks:
             xs = np.array(range(block.start_idx, block.end_idx + 1))
-            ax.plot(xs, [block.mean] * len(xs), "C2.-", markersize=12)
+            ax.plot(xs, [block.mean] * len(xs), "C2.-", markersize=12, zorder=2)
     else:
-        ax.plot(np.arange(len(result)), result, "C1.-", markersize=12)
+        ax.plot(np.arange(len(result)), result, "C1.-", markersize=12, zorder=2)
+
+        segments = [[[i, y[i]], [i, result[i]]] for i in range(len(y))]
+        lc = LineCollection(segments, zorder=1)
+        lc.set_array(np.ones(len(y)))
+        lc.set_linewidths(np.full(len(y), 0.5))  # type: ignore
+        ax.add_collection(lc)
 
     if show_violated and (len(blocks) >= 2 and blocks[-2].mean >= blocks[-1].mean):
         x1 = blocks[-2].end_idx
@@ -580,11 +606,22 @@ $$
 
 ### 証明
 
-では証明をしていきます。証明は3つのステップに分かれます。
+では証明をしていきます。少し天下り的ですが、証明は3つのステップに分かれます。
 
 1. あるブロック $B$ に対応する部分問題の解 $x, v$ がどのようなものかを調べる。
 2. 有効制約 $J$ に対応する解 $x, v$ が、KKT条件に関する停留性、相補性条件、双対問題の実行可能条件を満たすことを示す。
 3. PAVAが停止した時、有効制約 $J$ に対応する解が主問題の実行可能条件も満たすこと、つまりKKT条件を満たし最適解であることを示す。
+
+以下の具体例も参考にして下さい。
+
+![p1](p1.png)
+(初期解)
+
+![p2](p2.png)
+($J$ の更新 停留性などの3条件は満たしている)
+
+![p3](p3.png)
+(PAVAの停止 主問題の実行可能条件も満たしている)
 
 #### 証明-1
 
@@ -618,7 +655,25 @@ $$
 \end{align*}
 $$
 
+を満たします。ここで $x_p = x_{p+1} = \dots = x_q = \bar{x}^*$ を代入すると、
+$$
+\begin{align*}
+    v_p &= -2w_p (\bar{x}^* - y_p)\\
+    v_{p+1} &= -2w_{p+1} (\bar{x}^* - y_{p+1}) + v_p\\
+    \vdots &  \\
+    v_{q-1} &= -2w_{q-1} (\bar{x}^* - y_{q-1}) + v_{q-2}\\
+    v_q &= -2w_q (\bar{x}^* - y_q) + v_{q-1}
+\end{align*}
+$$
+と一意に定まります。
+
+以上で、ブロック $B$ に対応する部分問題の解が求まりました。
+
 #### 証明-2
+
+有効制約 $J$ に対応する解 $x, v$ が、KKT条件に関する停留性、相補性条件、双対問題の実行可能条件を満たすことを示します。
+
+まず、この $J$ に対応する解とは、各ブロック毎に[証明-1](#証明-1)で求めたものにセットすることであり、
 
 #### 証明-3
 
