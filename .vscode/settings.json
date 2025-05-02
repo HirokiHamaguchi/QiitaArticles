@@ -68,17 +68,20 @@
         "\\mathrm{dom} f",
         "utokyo\\.idm",
         "chatgpt",
-        "停留性条件"
+        "停留性条件",
+        "Amz-Security-Token"
     ],
     "latexlint.disabledRules": [
         "LLCref"
     ],
     "cSpell.words": [
         "asarray",
+        "Bauschke",
         "Biopharmaceutical",
         "Brunk",
         "Chakravarti",
         "Claramunt",
+        "Combettes",
         "Flournoy",
         "functionals",
         "Kruskal",
@@ -90,6 +93,7 @@
         "Psychometrika",
         "Silverman",
         "stdlib",
+        "yabe",
         "Ziegel"
     ]
 }

@@ -10,7 +10,7 @@
 
 **Isotonic Regression** または **Monotonic Regression** (**単調回帰**) とは、訓練データに対する重み付き最小二乗近似となる数列を、単調非減少という制約付きで求める手法です。
 
-文献[^1] 及び [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.isotonic_regression.html) では、$n$ 点からなるデータ $y=\lbrace y_i \rbrace_{i=1}^{n}$ と正の重み $w=\lbrace w_i \rbrace_{i=1}^{n}$ が与えられたとき、以下の最適化問題の解となる回帰値 $x=\lbrace x_i \rbrace_{i=1}^{n}$ を求めることと定義されます。
+文献[^monotone] 及び [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.isotonic_regression.html) では、$n$ 点からなるデータ $y=\lbrace y_i \rbrace_{i=1}^{n}$ と正の重み $w=\lbrace w_i \rbrace_{i=1}^{n}$ が与えられたとき、以下の最適化問題の解となる回帰値 $x=\lbrace x_i \rbrace_{i=1}^{n}$ を求めることと定義されます。
 
 ```math
 \begin{align*}
@@ -53,11 +53,11 @@ from sklearn.isotonic import IsotonicRegression
 from scipy.optimize import isotonic_regression
 ```
 
-より詳細に述べると、執筆時点では、scikit-learn は内部で SciPy を[呼び出し](https://github.com/scikit-learn/scikit-learn/blob/98ed9dc73a86f5f11781a0e21f24c8f47979ec67/sklearn/isotonic.py#L159)、SciPy は内部で `pava` という Pybind を[呼び出し](https://github.com/scipy/scipy/blob/0f1fd4a7268b813fa2b844ca6038e4dfdf90084a/scipy/optimize/_isotonic.py#L141)、 `pava` は文献[^1] に基づき、文献[^1] はその実装を R の package である [monotone](https://cran.r-project.org/web/packages/monotone/index.html) として公開しています。
+より詳細に述べると、執筆時点では、scikit-learn は内部で SciPy を[呼び出し](https://github.com/scikit-learn/scikit-learn/blob/98ed9dc73a86f5f11781a0e21f24c8f47979ec67/sklearn/isotonic.py#L159)、SciPy は内部で `pava` という Pybind を[呼び出し](https://github.com/scipy/scipy/blob/0f1fd4a7268b813fa2b844ca6038e4dfdf90084a/scipy/optimize/_isotonic.py#L141)、 `pava` は文献[^monotone] に基づき、文献[^monotone] はその実装を R の package である [monotone](https://cran.r-project.org/web/packages/monotone/index.html) として公開しています。
 
 ### 擬似コード
 
-PAVA (Pool Adjacent Violators Algorithm) の擬似コードは以下のようになります。これは文献[^1]や文献[^3]でPAVAの初出とされている1955年の文献[^5]、および文献[^4] Section 3に基づきます。
+PAVA (Pool Adjacent Violators Algorithm) の擬似コードは以下のようになります。これは文献[^monotone]や文献[^Characterizing]でPAVAの初出とされている1955年の文献[^firstPAVA]、および文献[^MathProg] Section 3に基づきます。
 
 1. データ $y=\lbrace y_i \rbrace_{i=1}^n$ を $n$ 個のブロックに分割する。
 2. 隣接する (**Adjacent**) 2つのブロックで、前者の $y_i$ に関する重み付き平均が、後者のそれより大きいもの (**Violators**) を、あれば見つける。
@@ -68,7 +68,7 @@ PAVA (Pool Adjacent Violators Algorithm) の擬似コードは以下のように
 >
 > (つまり、違反があるなら、統合せよ。)
 
-(文献[^1]より) (和訳は筆者による)
+(文献[^monotone]より) (和訳は筆者による)
 
 ### ビジュアライズ
 
@@ -84,14 +84,14 @@ PAVA (Pool Adjacent Violators Algorithm) の擬似コードは以下のように
 
 <img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/198fa074-bb5d-49aa-b230-a108edcc5c2f.png" alt="pava_table">
 
-(文献[^1]より。)
+(文献[^monotone]より。)
 
 アルゴリズム毎の特徴的な違いとしては、以下が挙げられます。
 
 * 違反の見つけ方
   * 古い手法だと最悪計算量が $O(n^2)$ になるものもあります。
   * 近年の手法は大抵 $O(n)$ で済みます。
-* up-and-down-blocks implementation (文献[^6] Section 8など) についての差異
+* up-and-down-blocks implementation (文献[^UpDown] Section 8など) についての差異
   * ブロックをマージするときに、後のブロック(Forward Check)と前のブロック(Backward Check)が制約違反しているかどうかを最大何個までチェックするか。
 * in-place かどうか
   * 空間計算量の定数倍改善に寄与します。
@@ -101,7 +101,7 @@ PAVA (Pool Adjacent Violators Algorithm) の擬似コードは以下のように
 
 ここではまず、SciPyでも用いられている`monotone`と呼ばれるPAVAの実装を示します。[monotone package](https://cran.r-project.org/web/packages/monotone/index.html) には以下のC言語のコードが包含されています ([GPL-3](https://cran.r-project.org/web/licenses/GPL-3)ライセンスですのでご注意下さい)。
 
-<details><summary>既存研究のコード</summary>
+<details><summary>既存研究のコード (クリックして展開)</summary>
 
 ```c
 #include <stdlib.h>
@@ -169,7 +169,7 @@ void monotoneC( int *n, double* x, double* w )
 
 これをPythonに翻訳したのが以下です(こちらも翻訳の都合上、[GPL-3](https://cran.r-project.org/web/licenses/GPL-3)ライセンスです)。
 
-<details><summary>Pythonに翻訳したコード</summary>
+<details><summary>Pythonに翻訳したコード (クリックして展開)</summary>
 
 ```python
 import numpy as np
@@ -273,16 +273,16 @@ def pava_readable(y: np.ndarray, w: Union[np.ndarray, None] = None) -> np.ndarra
 
 簡単に説明すると、
 
-* `Block`のstackである`blocks`を用意する
+* `Block` の stack である `blocks` を用意する
 * $i=0$ として、 `Block(x[i], w[i], i)` を `blocks` に追加する
-* `blocks`の末尾2つが制約違反しているなら(`blocks[-2].mean >= blocks[-1].mean`)、両者をマージし、その重み付き平均をブロック内の答えとする
+* `blocks` の末尾2つが制約違反しているなら(`blocks[-2].mean >= blocks[-1].mean`)、両者をマージし、その重み付き平均をブロック内の答えとする
 * $i \gets i+1$ として、最後まで上記の手続きを繰り返す
 
 ということをしています。
 
 なお、これらのコードはランダムテストにより検証済みです。
 
-<details><summary>テスト・ビジュアライザ</summary>
+<details><summary>テスト・ビジュアライザ (クリックして展開)</summary>
 
 ```python
 from sklearn.isotonic import IsotonicRegression
@@ -516,7 +516,7 @@ make_gif("pava.gif")
 
 ## 正当性の証明
 
-本節では、前節の PAVA が確かに Isotonic Regression の最適解を求めることを証明します。1990年の Math. Program. に掲載された文献[^4]を基調とする、**KKT条件**と**有効制約法**を用いた証明です。尤も、元証明はかなり煩雑なので、厳密性を失わない範囲内で簡略化します。
+本節では、前節の PAVA が確かに Isotonic Regression の最適解を求めることを証明します。1990年の Math. Program. に掲載された文献[^MathProg]を基調とする、**KKT条件**と**有効制約法**を用いた証明です。尤も、元証明はかなり煩雑なので、厳密性を失わない範囲内で簡略化します。
 
 以下の説明ではある程度の基礎知識を仮定してしまいますが、場合によっては次の資料も参考にして下さい。特に1つ目は私の指導教員である武田先生の講義資料で分かりやすいと思います。
 
@@ -535,29 +535,43 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 \end{align*}
 ```
 
-これは非空な閉凸集合(下図)上の真凸な二次関数を最小化する問題です。その為、最適解が存在し、かつ一意に定まることが分かります。
+これは非空な閉凸集合(下図)上の真凸な二次関数を最小化する問題です。その為、最適解が存在し、かつ一意に定まることが分かります。以下ではこれを前提とします。
 
 <img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/73662578-e8d7-495c-bf85-da7871096966.png" alt="constraints_3d">
 
 ($n=3$ の場合の実行可能領域 $x_1 \leq x_2 \leq x_3$ の図示)
 
-厳密には色々言う必要がありますが、本筋ではないので省略します。以下ではこれを前提とします。
+<details><summary>より詳細な証明 (クリックして展開)</summary>
 
-(なお、細かいですが、「最適解が存在し、かつ一意に定まる」と言うにあたり、
+「非空な閉凸集合上の真凸な二次関数を最小化する問題」に最適解が存在すると言うには、少し注意が必要です。
 
 * 実行可能領域が閉でない(例: $x_1 < x_2$)と最適解が存在しない
 * 真凸でない(例: $w_1=0$)と最適解が一意に定まらない
 * 二次関数ではない(例: 目的関数が $1/x$ のように $\inf$ を達成しない)と最適解が一意に定まらない
 
-ことがそれぞれあり得ることには注意が必要です。)
+ことがそれぞれあり得るからです。
 
-<font color="red">校閲者向け質問: この凸最適化問題が唯一の最適解を持つ、ということは簡潔に言えますか (or 有名な文献はありますか)</font>
+ほぼ同値の命題の証明が文献[^Nesterov] Theorem 2.2.10 に載っており、本命題は以下のようにして証明されます。
+
+真凸な二次関数は[強凸](https://en.wikipedia.org/wiki/Convex_function#Strongly_convex_functions)です。適当なレベルセットを取ると、強凸性よりそれは有界で、特に制約の閉性より有界閉集合となります。つまり、このレベルセットはコンパクトです。[コンパクト集合上の連続関数は最小値を持つ](https://ja.wikipedia.org/wiki/%E6%9C%80%E5%A4%A7%E5%80%A4%E6%9C%80%E5%B0%8F%E5%80%A4%E5%AE%9A%E7%90%86#%E4%BD%8D%E7%9B%B8%E7%A9%BA%E9%96%93%E8%AB%96%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E5%AE%9A%E5%BC%8F%E5%8C%96)ので、最適解は存在します。解の一意性は真凸性より明らかです。
+
+よって、主張が成り立ちます。
+
+なお、この証明における「強凸」というのは少し強すぎる十分条件となります。有界性を言うだけならば、coercive (文献[^coercive] Definition 11.11)、つまり、
+
+```math
+\begin{equation*}
+    \lim_{\lVert x \rVert \to +\infty} f(x) = +\infty
+\end{equation*}
+```
+
+で十分です。今回はこれを用いてもあまり簡略化されませんが、もう少し一般的にも議論出来るということは記しておきます。
+
+</details>
 
 ### KKT条件
 
-続いて、最適解の構造を調べるために、[KKT条件](https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%AB%E3%83%BC%E3%82%B7%E3%83%A5%E3%83%BB%E3%82%AF%E3%83%BC%E3%83%B3%E3%83%BB%E3%82%BF%E3%83%83%E3%82%AB%E3%83%BC%E6%9D%A1%E4%BB%B6)を考えます。一般に、最適化問題において、ある $x^* \in \mathbb{R}^n$ がその最適解ならば、$x^*$ はKKT条件を必ず満たします。なのでKKT条件は最適性の必要条件として知られています。
-
-今回の凸最適化問題は[Slater条件](https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%AE%E6%9D%A1%E4%BB%B6)という制約想定を満たしているので、[KKT条件の充足が最適性の必要十分条件になります](https://www.stat.cmu.edu/~ryantibs/convexopt-F15/lectures/12-kkt.pdf)。よって、このKKT条件だけを考えれば良いです。
+続いて、最適解の構造を調べるために、[KKT条件](https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%AB%E3%83%BC%E3%82%B7%E3%83%A5%E3%83%BB%E3%82%AF%E3%83%BC%E3%83%B3%E3%83%BB%E3%82%BF%E3%83%83%E3%82%AB%E3%83%BC%E6%9D%A1%E4%BB%B6)を考えます。
 
 今回解くべき最適化問題は、標準的な形式で表すと、
 
@@ -568,7 +582,7 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 \end{align*}
 ```
 
-となります。その双対問題はLagrange乗数 $v = \lbrace v_i \rbrace_{i=1}^{n-1}$ を用いて、以下のように表せます。
+となります。その双対問題はLagrange乗数 $v = \lbrace v_i \rbrace_{i=1}^{n-1}$ を用いて、
 
 ```math
 \begin{align*}
@@ -577,15 +591,30 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 \end{align*}
 ```
 
-これらの双対ギャップは強双対性より0です。
+となります。
 
-以上より、[KKT条件の公式](https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%AB%E3%83%BC%E3%82%B7%E3%83%A5%E3%83%BB%E3%82%AF%E3%83%BC%E3%83%B3%E3%83%BB%E3%82%BF%E3%83%83%E3%82%AB%E3%83%BC%E6%9D%A1%E4%BB%B6#%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6)を当てはめると、以下の条件を満たす $x, v$ が存在すれば、その $x$ は最適解だと分かります。
+今回の凸最適化問題は[Slater条件](https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%AE%E6%9D%A1%E4%BB%B6)という制約想定を満たします。
 
-* 停留性: 以下の条件を満たす:
+一般に、微分可能な関数による制約想定を満した最適化問題において、ある $x^\* \in \mathbb{R}^n$ がその最適解ならば、あるLagrange乗数 $v^\*$ が存在して、$(x^\*, v^\*)$ はKKT条件を満たします。つまり、KKT条件は最適性の必要条件です(文献[^yabe] 定理5.3)。
+
+さらに、$g_i(x) \leq 0$ と $v_i \geq 0$ より、
 
 ```math
 \begin{align*}
-    -\nabla f(x^*) &= \sum_{i=1}^{n-1} v_i \nabla g_i(x^*)\\
+    &\sum_{i=1}^{n-1} v_i g_i(x) = 0 \\
+    \iff & \forall i \in \lbrace1,\dots,n-1\rbrace, \; v_i g_i(x) = 0
+\end{align*}
+```
+
+です。Slater条件を満たすならば双対ギャップが0、つまり主問題と双対問題の最適値が一致する(文献[^yabe] 定理5.8)ことより、$(x^\*, v^\*)$ は相補性条件も満たさなければなりません。よって、KKT条件の充足が最適性の必要十分条件になります。
+
+以上より、$x \in \mathbb{R}^n$ が最適解であることは、あるLagrange乗数 $v \in \mathbb{R}^{n-1}$ が存在して、以下の4条件を満たすことと同値です。
+
+* **停留性**: 以下の条件を満たす:
+
+```math
+\begin{align*}
+    -\nabla f(x) &= \sum_{i=1}^{n-1} v_i \nabla g_i(x)\\
     \text{i.e.,} &\\
     -2w_1 (x_1 - y_1) &= v_1,\\
     -2w_2 (x_2 - y_2) &= -v_1 + v_2,\\
@@ -595,19 +624,20 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 \end{align*}
 ```
 
-* スラック変数に関する条件(相補性条件): $v_i g_i(x^*) = v_i (x_i - x_{i+1}) = 0$ ($i=1,\dots,n-1$)
-* 主問題の実行可能条件: $g_i(x^*) = x_i - x_{i+1} \leq 0$ ($i=1,\dots,n-1$)
-* 双対問題の実行可能条件: $v_i \geq 0$ ($i=1,\dots,n-1$)
+* スラック変数に関する条件(**相補性条件**): $v_i g_i(x) = v_i (x_i - x_{i+1}) = 0$
+* **主問題の実行可能条件**: $g_i(x) = x_i - x_{i+1} \leq 0$
+* **双対問題の実行可能条件**: $v_i \geq 0$
+* (ただし、$i=1,\dots,n-1$)
 
-つまり、これまでの議論をまとめると、**上記の4条件をPAVAの出力が満たすことをチェックすれば証明が完了する**、ということです。
+つまり、これまでの議論をまとめると、**PAVAの出力とそのLagrange乗数が上記の4条件を満たすことをチェックすれば証明が完了する**、ということです。
 
 ### 有効制約法
 
-続いて、有効制約法 (active-set method) について述べます。結論から述べると、PAVAは **dual-feasible active-set method** であるというのが、PAVAの正当性証明の要点です(文献[^4] Theorem 4)。
+続いて、有効制約法 (active-set method) について述べます。結論から述べると、PAVAは **dual-feasible active-set method** であるというのが、PAVAの正当性証明の要点です(文献[^MathProg] Theorem 4)。
 
-[有効制約法](https://www.msi.co.jp/solution/nuopt/docs/glossary/articles/ActiveSetMethod.html)は、特に二次計画問題を解くのに用いられる手法で、等号を達成する (active) 不等式制約の集合 (active-set) を更新して、最適解を求めます。
+[有効制約法](https://www.msi.co.jp/solution/nuopt/docs/glossary/articles/ActiveSetMethod.html)は、主に二次計画問題を解くのに用いられる手法で、等号を達成する (active) 不等式制約の集合 (active-set) を更新して、最適解を求めます。
 
-教科書[^7] Section 16.5では、
+教科書[^activeSet] Section 16.5では、
 
 > Active-set methods for QP come in three varieties: primal, dual, and primal-dual.
 >
@@ -618,7 +648,7 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 具体的には、
 
 1. $g_i(x)=x_i - x_{i+1} = 0$ と等号を達成する (active) 不等式制約の集合 (active-set) を $J$ とする。
-2. 有効制約が $J$ という条件下で、KKT条件を満たす解 $x, v$ を求める(quasi-stationary pointと文献[^4]では呼ぶ)。特に、今回は解が常に双対問題の実行可能条件を満たす(ここが `dual` の由来)。
+2. 有効制約が $J$ という条件下で、KKT条件を満たす解 $(x, v)$ を求める (quasi-stationary pointと文献[^MathProg]では呼ぶ)。特に、今回は解が常に双対問題の実行可能条件を満たす(ここが `dual` の由来)。
 3. 解が主問題の実行可能条件 (primal) も満たすとき、双対ギャップが0なので、最適解が得られたと分かる。
 4. そうでない場合、$J$ を更新して、1.に戻る。
 
@@ -628,8 +658,8 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 
 では証明していきます。少し天下り的ですが、証明は3つのステップに分かれます。
 
-1. あるブロック $B$ に対応する部分問題の解 $x, v$ がどのようなものかを調べる。
-2. PAVAの各ステップで、有効制約 $J$ に対応する解 $x, v$ が、KKT条件に関する停留性・相補性条件・双対問題の実行可能条件を満たすことを示す。
+1. あるブロック $B$ に対応する部分問題の解 $(x, v)$ がどのようなものかを調べる。
+2. PAVAの各ステップで、有効制約 $J$ に対応する解 $(x, v)$ が、KKT条件に関する停留性・相補性条件・双対問題の実行可能条件を満たすことを示す。
 3. PAVAが停止したとき、有効制約 $J$ に対応する解が主問題の実行可能条件も満たすこと、つまりKKT条件を完全に満たし最適解であることを示す。
 
 以下の具体例も参考にして下さい。
@@ -645,7 +675,7 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 
 #### 証明-1
 
-あるブロック $B$ に対応する部分問題の解を求めます(文献[^4] Theorem 1)。ここでいうブロックとは、添字の連続部分列であり、$B = \lbrace p,p+1,\dots,q \rbrace$ だとします。つまり、$x_p = x_{p+1} = \dots = x_q$ が条件です。
+あるブロック $B$ に対応する部分問題の解を求めます(文献[^MathProg] Theorem 1)。ここでいうブロックとは、添字の連続部分列であり、$B = \lbrace p,p+1,\dots,q \rbrace$ だとします。つまり、$x_p = x_{p+1} = \dots = x_q$ が条件です。
 
 言い換えると、以下の問題を考えています。
 
@@ -663,7 +693,7 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 \end{equation*}
 ```
 
-と求まります。これはブロック $B$ 内における $y$ の重み付き平均であり、[実装の節](#実装)を参照して頂ければ分かる通り、PAVAは正にこれをブロックのマージで求めています。以下ではこの値を$\mathrm{Av}(B)$と表記します。
+と求まります。これはブロック $B$ 内における $y$ の重み付き平均であり、[実装の節](#実装)を参照して頂ければ分かる通り、PAVAは正にこれをブロックのマージで求めています。以下ではこの値を $\mathrm{Av}(B)$ と表記します。
 
 また、Lagrange乗数 $v$ はKKT条件の停留性より、
 
@@ -702,7 +732,7 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 
 #### 証明-2
 
-KKT条件に関する3条件がPAVAの各ステップで満たされることを示します。
+KKT条件に関する3条件が PAVA の各ステップで満たされることを示します。
 
 まず、任意の有効制約 $J$ に対応する解を、各ブロック毎に[証明-1](#証明-1)で求めたものにセットし、かつこの時点で未定な $v_i$ を全て0にセットすることで定義します。例えば、先程の具体例で $J=\lbrace 1,3 \rbrace$ のとき、
 
@@ -720,13 +750,13 @@ v_5 = 2w_3 (y_5 - y_5) = 0
 となります。
 すると、どのような $J$ であるかに関わらず、停留性はその定義より、また相補性条件 $v_i g_i(x) = 0$ もブロック内では $g_i(x)=0$ を、ブロックの境目および末尾の $i=n$ では $v_i = 0$ を満たすことより、それぞれの成立は明らかです。
 
-よってあとは、PAVAの各ステップで陰に生成される有効制約 $J$ に対して、これが双対問題の実行可能条件 $v_i \geq 0$ も満たすこと(文献[^4] Lemma 3)を示せば、3条件の成立が示せます。
+よってあとは、PAVA の各ステップで陰に生成される有効制約 $J$ に対して、これが双対問題の実行可能条件 $v_i \geq 0$ も満たすこと(文献[^MathProg] Lemma 3)を示せば、3条件の成立が示せます。
 
 ---
 
-まず、PAVAの初期解では、各 $y_i$ 毎にブロックになっていたので、$v_i=0$ が全ての $i$ に対して成立し、主張は自明です。
+まず、PAVA の初期解では、各 $y_i$ 毎にブロックになっていたので、$v_i=0$ が全ての $i$ に対して成立し、主張は自明です。
 
-次に、PAVAの各マージ過程に注目します。[実装](#実装)におけるマージでは、最後から2番目のブロック $B_2 = \lbrace p_2, \dots, q_2 \rbrace$ と最後のブロック $B_1 = \lbrace p_1, \dots, q_1 \rbrace$ をマージして新しいブロック $B$ を生成していました。このとき、マージを行う条件より、
+次に、PAVA の各マージ過程に注目します。[実装](#実装)におけるマージでは、最後から2番目のブロック $B_2 = \lbrace p_2, \dots, q_2 \rbrace$ と最後のブロック $B_1 = \lbrace p_1, \dots, q_1 \rbrace$ をマージして新しいブロック $B$ を生成していました。このとき、マージを行う条件より、
 
 ```math
 \begin{equation*}
@@ -798,13 +828,13 @@ v_5 = 2w_3 (y_5 - y_5) = 0
 
 ---
 
-よって、PAVAの各ステップで、KKT条件に関する停留性・相補性条件・双対問題の実行可能条件が成立することが分かりました。
+よって、PAVA の各ステップで、KKT条件に関する停留性・相補性条件・双対問題の実行可能条件が成立することが分かりました。
 
 #### 証明-3
 
-PAVAが停止した時の出力が最適解であることを示します。
+PAVA が停止した時の出力が最適解であることを示します。
 
-PAVAの停止性自体はアルゴリズムより自明です。また、最終的な解が主問題の実行可能条件を満たすこと、つまり、各ブロックについてその重み付き平均が単調非減少であることは、帰納法より簡単に示せます。
+PAVA の停止性自体はアルゴリズムより自明です。また、最終的な解が主問題の実行可能条件を満たすこと、つまり、各ブロックについてその重み付き平均が単調非減少であることは、帰納法より簡単に示せます。
 
 以上より、証明-2と合わせると、出力される解はKKT条件を完全に満たすことが分かります。
 
@@ -819,7 +849,7 @@ PAVAの停止性自体はアルゴリズムより自明です。また、最終�
 Isotonic Regression が扱う最適化問題はかなりシンプルでしたが、その発展が複数知られています。詳しくは文献を参照して頂きたいですが、以下に2つ例を挙げます。
 
 1つ目が、**Centered Isotonic Regression** です。
-平滑性を導入したもののようで([Wikipedia](https://en.wikipedia.org/wiki/Isotonic_regression#Centered_isotonic_regression))、R package の [cir](https://cran.r-project.org/web/packages/cir/index.html) で実装されているようです。[導入](#導入)で述べた用量反応関係に関する研究である文献[^2]でも扱われています。
+平滑性を導入したもののようで([Wikipedia](https://en.wikipedia.org/wiki/Isotonic_regression#Centered_isotonic_regression))、R package の [cir](https://cran.r-project.org/web/packages/cir/index.html) で実装されているようです。[導入](#導入)で述べた用量反応関係に関する研究である文献[^CIR]でも扱われています。
 
 2つ目が、**Bregman functions** による発展です。
 [SciPyのコメント](https://github.com/scipy/scipy/blob/0f1fd4a7268b813fa2b844ca6038e4dfdf90084a/scipy/optimize/_isotonic.py#L70)に以下の記述を見つけたので引用します。
@@ -830,7 +860,7 @@ Isotonic Regression が扱う最適化問題はかなりシンプルでしたが
 
 (和訳は筆者による)
 
-詳しくは文献[^3]をご参照下さい。
+詳しくは文献[^Characterizing]をご参照下さい。
 
 ### 院試
 
@@ -840,7 +870,7 @@ Isotonic Regression が扱う最適化問題はかなりシンプルでしたが
 
 しかし、この誘導は不親切で、ミスリーディングと言わざるを得ません。アルゴリズムの説明で述べた通り、1点を追加するという行為に対する最適解の変化はかなり複雑で、(1)の方針から(2)を解答するにはかなりのギャップが存在します。ブロックの考え方を用いた誘導にするのがせめて自然です。このような事情から、部分的な作問ミスか、あるいは捨て問であることが疑われます。
 
-……とは言え、PAVAを解答として想定されていた可能性を否定しきれないのもまた事実です。
+……とは言え、PAVA を解答として想定されていた可能性を否定しきれないのもまた事実です。
 
 本記事を以って、2年間以上の長きにわたり私が誤った[過去問解答](https://github.com/HirokiHamaguchi/GraduateSchoolEntranceExamination)を公開し続けてきたことに対する贖罪とし、この記事を結びます。
 
@@ -852,7 +882,7 @@ Isotonic Regression が扱う最適化問題はかなりシンプルでしたが
 
 ## 参考文献
 
-日本語のネット記事でIsotonic Regressionを詳細に扱ったものは殆どないと認識していますが、以下の記事では触れられており、参考にさせて頂きました。
+日本語のネット記事で Isotonic Regression を詳細に扱ったものは殆どないと認識していますが、以下の記事では触れられており、参考にさせて頂きました。
 
 https://qiita.com/dai08srhg/items/eb08fc98e7149748a9d5
 
@@ -868,16 +898,22 @@ https://cran.r-project.org/web/packages/isotone/index.html
 
 https://cran.r-project.org/web/packages/isotone/vignettes/isotone.pdf
 
-[^1]: [Busing, F. M. T. A. (2022). Monotone Regression: A Simple and Fast O(n) PAVA Implementation. Journal of Statistical Software, Code Snippets, 102(1), 1–25.](https://doi.org/10.18637/jss.v102.c01)
+[^monotone]: [Busing, F. M. T. A. (2022). Monotone Regression: A Simple and Fast O(n) PAVA Implementation. Journal of Statistical Software, Code Snippets, 102(1), 1–25.](https://doi.org/10.18637/jss.v102.c01)
 
-[^2]: [Oron, A. P., & Flournoy, N. (2017). Centered Isotonic Regression: Point and Interval Estimation for Dose–Response Studies. Statistics in Biopharmaceutical Research, 9(3), 258–267.](https://doi.org/10.1080%2F19466315.2017.1286256)
+[^CIR]: [Oron, A. P., & Flournoy, N. (2017). Centered Isotonic Regression: Point and Interval Estimation for Dose–Response Studies. Statistics in Biopharmaceutical Research, 9(3), 258–267.](https://doi.org/10.1080%2F19466315.2017.1286256)
 
-[^3]: [Jordan, A. I., Mühlemann, A., & Ziegel, J. F. (2022). Characterizing the optimal solutions to the isotonic regression problem for identifiable functionals. Annals of the Institute of Statistical Mathematics, 1-26.](https://doi.org/10.1007/s10463-021-00808-0) (なお、これは[Optimal solutions to the isotonic regression problem](https://doi.org/10.48550/arXiv.1904.04761)と同一と思われます)
+[^Characterizing]: [Jordan, A. I., Mühlemann, A., & Ziegel, J. F. (2022). Characterizing the optimal solutions to the isotonic regression problem for identifiable functionals. Annals of the Institute of Statistical Mathematics, 1-26.](https://doi.org/10.1007/s10463-021-00808-0) (なお、これは[Optimal solutions to the isotonic regression problem](https://doi.org/10.48550/arXiv.1904.04761)と同一と思われます)
 
-[^4]: [Best, M. J., & Chakravarti, N. (1990). Active set algorithms for isotonic regression; a unifying framework. Mathematical Programming, 47(1), 425-439.](https://doi.org/10.1007/BF01580873)
+[^MathProg]: [Best, M. J., & Chakravarti, N. (1990). Active set algorithms for isotonic regression; a unifying framework. Mathematical Programming, 47(1), 425-439.](https://doi.org/10.1007/BF01580873)
 
-[^5]: [Ayer, M., Brunk, H. D., Ewing, G. M., Reid, W. T., & Silverman, E. (1955). An empirical distribution function for sampling with incomplete information. The annals of mathematical statistics, 641-647.](https://doi.org/10.1214/aoms/1177728423)
+[^firstPAVA]: [Ayer, M., Brunk, H. D., Ewing, G. M., Reid, W. T., & Silverman, E. (1955). An empirical distribution function for sampling with incomplete information. The annals of mathematical statistics, 641-647.](https://doi.org/10.1214/aoms/1177728423)
 
-[^6]: [Kruskal, J. B. (1964). Nonmetric multidimensional scaling: a numerical method. Psychometrika, 29(2), 115-129.](https://doi.org/10.1007/BF02289694)
+[^UpDown]: [Kruskal, J. B. (1964). Nonmetric multidimensional scaling: a numerical method. Psychometrika, 29(2), 115-129.](https://doi.org/10.1007/BF02289694)
 
-[^7]: [Nocedal, J., & Wright, S. J. (Eds.). (1999). Numerical optimization. New York, NY: Springer New York.](https://doi.org/10.1007/978-0-387-40065-5)
+[^activeSet]: [Nocedal, J., & Wright, S. J. (Eds.). (1999). Numerical optimization. Springer.](https://doi.org/10.1007/978-0-387-40065-5)
+
+[^Nesterov]: [Nesterov, Y. (2018). Lectures on convex optimization (Vol. 137, pp. 5-9). Springer.](https://doi.org/10.1007/978-3-319-91578-4)
+
+[^coercive]: [Bauschke, H. H., & Combettes, P. L. (2017). Convex Analysis and Monotone Operator Theory in Hilbert Spaces. Springer.](https://doi.org/10.1007/978-3-319-48311-5)
+
+[^yabe]: [矢部博. (2006). 最適化とその応用, 数理工学社.](https://www.saiensu.co.jp/search/?isbn=978-4-86481-111-8&y=2024)
