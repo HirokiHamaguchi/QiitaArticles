@@ -54,7 +54,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import matplotlib.animation as animation
-from typing import List,Tuple 
+from typing import List,Tuple
 from matplotlib import gridspec
 from gym.wrappers import Monitor
 from pyvirtualdisplay import Display
@@ -801,7 +801,7 @@ data_id = make_vis_data(cities, route)
 
 最後にご紹介するのが、局所探索法のところでちらっと紹介させて頂いた**誘導局所探索法**です。これについても文言だけではありますが、ほんの少し触れておきます。
 
-ここで紹介する手法は、教科書のp.308の他、[この論文](https://pdf.sciencedirectassets.com/271700/1-s2.0-S0377221799X00646/1-s2.0-S037722179800099X/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEIj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIQC1EMT3QjTavp9wNIe3jblER0OSBQ9DPwjXFlu2txTgkQIgejI77IcoPoQ8UN8azVjyDUbFBxwZUvgU33SfCmzAxBQq%2BgMIERAEGgwwNTkwMDM1NDY4NjUiDMd%2FAFAWCyXIO9DOEirXA0iUox9xA89D6q%2B7ZkPEZkdBNFZ3ppRNFYmRqd76J5ryAG4b7luUQeTlWtnen8nLC4IftYOeejgdvU19JL%2FoLL0RK1rZYdnHkolE0RKIwnwvcKMiEwciAPM0%2FSpF2g7edfbbbTHk%2BTPcrgTd7wemlxGtAsPJK9vgblcosEtfR93j0%2BPHTE3Gc00edmGSt0E%2FbTRXfE3aeM3FQkjaBih8RR6fXZB9ZMNNr%2B9qMiEgZyZoabtKT3vWRguP1IcPRtqommRHRVFFBzOTxNZc03zOhOr%2BX3qdVfnj7xcwSx1D5xI33z9kYZC9OgPhSfI2KoRwB%2F24qOPOGvG%2Bo7kEzhm6ESO60sbCrPcjHKps4mTXVpd5VbIJKQLG7bNuET0hMowC1qpkHzjblPOL7f5fumuDrAxx4GDvWJNryE8QJmhDFC3K0Jt6zE500QrF0JTTjbL4U4nZRrTff%2B2j77qvJvFlEWxUI2R6jHx4fCbo0%2BJhPM5X7IyTZ8OEDPYtebpyP5cKvnrrDjxNGItdFggKxAXcIlFsWxL9EZshD67jEaxNHiTJ29aV7yilyzOq3tB3nCHP9BMCLyVmM9rQD9LOETH%2F2mnmhOaBp1Cz%2BLhbtFig3cnrUodE9nAVrDCy0%2BCRBjqlATBlDoZwicoqd%2Fl0GJj4Q%2F4sFFBh3Gg7bf5yYuRfNVUwZFEQJ%2FVf8y4Y4hiTEtiYr3ITuOltbs4Rb%2F35rBTb47j7FTvJHqh2ImXbsIsm4INxZvveemQIEohzDap6ezErTgZv%2BHR3yVe%2BxMchigJREqvqrh0fwMUaVK2PStv0fGtFVUxzQWkhEzEFW0Jvb5r05fPSvQnOTuZA58dhHXqi7xeYDmOb6w%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220321T083621Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTY6HMM53XI%2F20220321%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=f26a23053fefec8d833301e2fef0f5e0700c1e8f495323ac5e1e9481be34a695&hash=833e9705d0a8eac4d5abe9ef406f2d322f6e9ae89f1f0e48e661805325894f76&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S037722179800099X&tid=spdf-9b489d39-2f73-4e24-a2cf-328d2ce650a9&sid=6a53a06e98f1a543500b2e7713148d50b208gxrqa&type=client&ua=500006525b0303070c00&rr=6ef55bffce411eb8)の13頁あたりなどでも紹介されている手法でもあります。(Voudouris, C., & Tsang, E. (1999). Guided local search and its application to the traveling salesman problem. European journal of operational research, 113(2), 469-499.)
+ここで紹介する手法は、教科書のp.308の他、[この論文](https://doi.org/10.1016/S0377-2217(98)00099-X)の13頁あたりなどでも紹介されている手法でもあります。(Voudouris, C., & Tsang, E. (1999). Guided local search and its application to the traveling salesman problem. European journal of operational research, 113(2), 469-499.)
 
 具体的に書くと、今までの解法では距離の計算に隣接行列(都市間の距離を表す行列、ここではDとします)を用いてきましたが、それの代わりに、
 
@@ -1296,7 +1296,7 @@ HTML(anim.to_html5_video())
 >
 > ```math
 > \begin {align}
->     &p(\Delta_{AB}, T)p(\Delta_{BC} , T)  \\ 
+>     &p(\Delta_{AB}, T)p(\Delta_{BC} , T)  \\
 >     &= e^{\Delta_{AB}/T}e^{\Delta_{BC} /T} \\
 >     &= e^{(\Delta_{AB}+\Delta_{BC} )/T}   \\
 >     &= e^{\Delta_{AC} /T}  \\
@@ -1821,7 +1821,7 @@ def show_video():
         mp4 = mp4list[0]
         video = io.open(mp4, 'r+b').read()
         encoded = base64.b64encode(video)
-        ipythondisplay.display(HTML(data='''<video alt="test" autoplay 
+        ipythondisplay.display(HTML(data='''<video alt="test" autoplay
                 loop controls style="height: 400px;">
                 <source src="data:video/mp4;base64,{0}" type="video/mp4" />
              </video>'''.format(encoded.decode('ascii'))))
@@ -2048,7 +2048,7 @@ def GA(num_of_generations):
         # Step3. (突然変異)
         # 現在の集団Pから選んだ解、もしくはStep2で生成した解の集合Q1から選んだ解にランダムな変形を加えて新たな解の集合Q2を生成する
         Q2=mutation(np.concatenate((P,Q1)))
-        # Step4. 
+        # Step4.
         # 集合 P∪Q1∪Q2 の最良解をx'とする f(x') <= f(x^♮)ならば、x^♮=x'とする
         P_Q1_Q2=np.concatenate((P,Q1,Q2))
         x_dash=P_Q1_Q2[get_best_idx(P_Q1_Q2)]
@@ -2262,7 +2262,7 @@ def GA(num_of_generations):
         # Step3. (突然変異)
         # 現在の集団Pから選んだ解、もしくはStep2で生成した解の集合Q1から選んだ解にランダムな変形を加えて新たな解の集合Q2を生成する。
         Q2=mutation(np.concatenate((P,Q1)))
-        # Step4. 
+        # Step4.
         # 集合 $P∪Q1∪Q2$ の最良解をx'とする。f(x') <= f(x^♮)ならば、x^♮=x'とする。
         P_Q1_Q2=np.concatenate((P,Q1,Q2))
         x_dash=P_Q1_Q2[get_best_idx(P_Q1_Q2)]
