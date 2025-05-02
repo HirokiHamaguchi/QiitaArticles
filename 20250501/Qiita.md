@@ -535,7 +535,7 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 \end{align*}
 ```
 
-これは非空な閉凸集合(下図)上の真凸な二次関数を最小化する問題です。その為、最適解が存在し、かつ一意に定まることが分かります。以下ではこれを前提とします。
+これは非空な閉凸集合(下図)上の狭義凸な二次関数を最小化する問題です。その為、最適解が存在し、かつ一意に定まることが分かります。以下ではこれを前提とします。
 
 <img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/73662578-e8d7-495c-bf85-da7871096966.png" alt="constraints_3d">
 
@@ -543,17 +543,17 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 
 <details><summary>より詳細な証明 (クリックして展開)</summary>
 
-「非空な閉凸集合上の真凸な二次関数を最小化する問題」に最適解が存在すると言うには、少し注意が必要です。
+「非空な閉凸集合上の狭義凸な二次関数を最小化する問題」に最適解が存在すると言うには、少し注意が必要です。
 
 * 実行可能領域が閉でない(例: $x_1 < x_2$)と最適解が存在しない
-* 真凸でない(例: $w_1=0$)と最適解が一意に定まらない
+* 狭義凸でない(例: $w_1=0$)と最適解が一意に定まらない
 * 二次関数ではない(例: 目的関数が $1/x$ のように $\inf$ を達成しない)と最適解が一意に定まらない
 
 ことがそれぞれあり得るからです。
 
 ほぼ同値の命題の証明が文献[^Nesterov] Theorem 2.2.10 に載っており、本命題は以下のようにして証明されます。
 
-真凸な二次関数は[強凸](https://en.wikipedia.org/wiki/Convex_function#Strongly_convex_functions)です。適当なレベルセットを取ると、強凸性よりそれは有界で、特に制約の閉性より有界閉集合となります。つまり、このレベルセットはコンパクトです。[コンパクト集合上の連続関数は最小値を持つ](https://ja.wikipedia.org/wiki/%E6%9C%80%E5%A4%A7%E5%80%A4%E6%9C%80%E5%B0%8F%E5%80%A4%E5%AE%9A%E7%90%86#%E4%BD%8D%E7%9B%B8%E7%A9%BA%E9%96%93%E8%AB%96%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E5%AE%9A%E5%BC%8F%E5%8C%96)ので、最適解は存在します。解の一意性は真凸性より明らかです。
+狭義凸な二次関数は[強凸](https://en.wikipedia.org/wiki/Convex_function#Strongly_convex_functions)です。適当なレベルセットを取ると、強凸性よりそれは有界で、特に制約の閉性より有界閉集合となります。つまり、このレベルセットはコンパクトです。[コンパクト集合上の連続関数は最小値を持つ](https://ja.wikipedia.org/wiki/%E6%9C%80%E5%A4%A7%E5%80%A4%E6%9C%80%E5%B0%8F%E5%80%A4%E5%AE%9A%E7%90%86#%E4%BD%8D%E7%9B%B8%E7%A9%BA%E9%96%93%E8%AB%96%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E5%AE%9A%E5%BC%8F%E5%8C%96)ので、最適解は存在します。解の一意性は狭義凸性より明らかです。
 
 よって、主張が成り立ちます。
 
@@ -606,7 +606,7 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 \end{align*}
 ```
 
-です。Slater条件を満たすならば双対ギャップが0、つまり主問題と双対問題の最適値が一致する(文献[^yabe] 定理5.8)ことより、$(x^\*, v^\*)$ は相補性条件も満たさなければなりません。よって、KKT条件の充足が最適性の必要十分条件になります。
+です。Slater条件を満たすならば双対ギャップが0、つまり主問題と双対問題の最適値が一致する(文献[^yabe] 定理5.8)ことより、目的関数を見比べると $(x^\*, v^\*)$ は相補性条件を満たすことが分かります。よって、KKT条件の充足が最適性の必要十分条件になります。
 
 以上より、$x \in \mathbb{R}^n$ が最適解であることは、あるLagrange乗数 $v \in \mathbb{R}^{n-1}$ が存在して、以下の4条件を満たすことと同値です。
 
@@ -652,7 +652,7 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 3. 解が主問題の実行可能条件 (primal) も満たすとき、双対ギャップが0なので、最適解が得られたと分かる。
 4. そうでない場合、$J$ を更新して、1.に戻る。
 
-というのが、今回の有効制約法の流れです。なお、Lagrange乗数 $v$ は陽には計算しないことには注意してください。$x$ のみをアルゴリズム中では計算します。
+というのが、今回の有効制約法の流れです。なお、Lagrange乗数 $v$ は陽には計算しないことに注意してください。$x$ のみをアルゴリズム中では計算します。
 
 ### 証明
 
@@ -711,8 +711,8 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 
 ```math
 \begin{align*}
-    v_p &= 2w_p (y_p - \mathrm{Av}(B))\\
-    v_{p+1} &= 2(w_p+w_{p+1}) \left(\frac{y_p w_p + y_{p+1} w_{p+1}}{w_p+w_{p+1}} - \mathrm{Av}(B)\right)\\
+    v_p &= 2w_p (y_p - \mathrm{Av}(B)), \\
+    v_{p+1} &= 2(w_p+w_{p+1}) \left(\frac{y_p w_p + y_{p+1} w_{p+1}}{w_p+w_{p+1}} - \mathrm{Av}(B)\right), \\
     \vdots &
 \end{align*}
 ```
@@ -738,16 +738,17 @@ KKT条件に関する3条件が PAVA の各ステップで満たされること�
 
 ```math
 \begin{gather*}
-x_1 = x_2 = \mathrm{Av}(\lbrace 1,2 \rbrace) \\
-x_3 = x_4 = \mathrm{Av}(\lbrace 3,4 \rbrace) \\
-x_5 = y_5\\
-v_1 = 2w_1 (y_1 - \mathrm{Av}(\lbrace 1,2 \rbrace)), \quad  v_2 = 0 \\
-v_3 = 2w_3 (y_3 - \mathrm{Av}(\lbrace 3,4 \rbrace)), \quad v_4 = 0 \\
+x_1 = x_2 = \mathrm{Av}(\lbrace 1,2 \rbrace), \\
+x_3 = x_4 = \mathrm{Av}(\lbrace 3,4 \rbrace), \\
+x_5 = y_5,\\
+v_1 = 2w_1 (y_1 - \mathrm{Av}(\lbrace 1,2 \rbrace)), \quad  v_2 = 0, \\
+v_3 = 2w_3 (y_3 - \mathrm{Av}(\lbrace 3,4 \rbrace)), \quad v_4 = 0, \\
 v_5 = 2w_3 (y_5 - y_5) = 0
 \end{gather*}
 ```
 
 となります。
+
 すると、どのような $J$ であるかに関わらず、停留性はその定義より、また相補性条件 $v_i g_i(x) = 0$ もブロック内では $g_i(x)=0$ を、ブロックの境目および末尾の $i=n$ では $v_i = 0$ を満たすことより、それぞれの成立は明らかです。
 
 よってあとは、PAVA の各ステップで陰に生成される有効制約 $J$ に対して、これが双対問題の実行可能条件 $v_i \geq 0$ も満たすこと(文献[^MathProg] Lemma 3)を示せば、3条件の成立が示せます。
