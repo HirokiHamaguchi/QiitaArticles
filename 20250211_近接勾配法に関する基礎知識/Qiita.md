@@ -78,7 +78,7 @@ https://qiita.com/wosugi/items/8d5a407a0a0434aaabeb
 
 続いて、[極小畳み込み](https://en.wikipedia.org/wiki/Convex_conjugate#Infimal_convolution)（infimal convolution）について述べます。
 
-"infimalとは[下限の](https://eow.alc.co.jp/search?q=infimal)という意味を持つ英単語で、この概念に関する["Earliest(?) work"](https://angms.science/doc/CVX/Epigraph.pdf)は1919年ともされています。
+"infimal"とは[下限の](https://eow.alc.co.jp/search?q=infimal)という意味を持つ英単語で、この概念に関する["Earliest(?) work"](https://angms.science/doc/CVX/Epigraph.pdf)は1919年ともされています。
 
 Infimal convolution は、次のように定義されます。
 
@@ -412,7 +412,7 @@ Proximal operator は、firm nonexpansiveness と呼ばれる次の性質を持�
 
 $n=1$ の場合を上に再掲しました。これは $y>x$ に対して $p_y - p_x \leq y-x$、つまり、☆間の距離は○間の距離より短いことを示しており、全体が縮小写像のようになっていることに対応します。
 
-Firm nonexpansiveness の証明をします。[Proximal Operatorでの劣勾配](#proximal-operatorでの劣勾配)で示したように、
+Firm nonexpansiveness の証明をします。[Proximal Operatorでの劣勾配](#proximal-operator-での劣勾配)で示したように、
 
 ```math
 \begin{align*}
@@ -658,10 +658,10 @@ x^{k+1} = T_{L_k}^{f,g}(x^k)
 
 <img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/d864deb8-4e68-46c9-82b8-c35650892d5e.png" alt="gradientMapping">
 
-余談ですが、このGradient Mappingは [Zhu, H. (2025). An Inexact Proximal Newton Method for Nonconvex Composite Minimization. Journal of Scientific Computing, 102(3), 79.](https://doi.org/10.1007/s10915-025-02805-4) という最近の論文の理論解析でも用いられています。すごい！
+余談ですが、このGradient Mappingは [Zhu, H. (2025). An Inexact Proximal Newton Method for Nonconvex Composite Minimization. Journal of Scientific Computing, 102(3), 79.](https://doi.org/10.1007/s10915-025-02805-4) という最近の論文の理論解析でも用いられています。すごい!
 
 <font color="gray">
-そして更なる余談として、私が2か月間くらいやっていた研究は、この論文により完全に破壊されました、悲しい！
+そして更なる余談として、私が2か月間くらいやっていた研究は、この論文により完全に破壊されました、悲しい!
 </font>
 
 ## Duality
@@ -802,28 +802,28 @@ Rieszの表現定理の主張内容は、ヒルベルト空間 $V$ と、任意�
 
 本記事は修士課程における勉強目的で作成しており、指導教員の方々に感謝申し上げます。
 
-[^RockafellarVariational]: Rockafellar, R. T., & Wets, R. J. B. (2009). Variational analysis (Vol. 317). Springer Science & Business Media. [link](https://books.google.co.jp/books?hl=en&lr=&id=JSREAAAAQBAJ&oi=fnd&pg=PA1&dq=VARIATIONAL+ANALYSIS&ots=wL7P6H3p60&sig=sMhjlVD7brGuk7DVEXf2BcNP8bI&redir_esc=y#v=onepage&q=VARIATIONAL%20ANALYSIS&f=false)
+[^RockafellarVariational]: [Rockafellar, R. T., & Wets, R. J. B. (2009). Variational analysis (Vol. 317). Springer Science & Business Media.](https://books.google.co.jp/books?hl=en&lr=&id=JSREAAAAQBAJ&oi=fnd&pg=PA1&dq=VARIATIONAL+ANALYSIS&ots=wL7P6H3p60&sig=sMhjlVD7brGuk7DVEXf2BcNP8bI&redir_esc=y#v=onepage&q=VARIATIONAL%20ANALYSIS&f=false)
 
-[^conjugate]: Ochs, P. (2015). Long term motion analysis for object level grouping and nonsmooth optimization methods (Doctoral dissertation, PhD thesis, Albert-Ludwigs-Universität Freiburg). [link](https://www.researchgate.net/publication/279825155_Long_term_motion_analysis_for_object_level_grouping_and_nonsmooth_optimization_methods)
+[^conjugate]: [Ochs, P. (2015). Long term motion analysis for object level grouping and nonsmooth optimization methods (Doctoral dissertation, PhD thesis, Albert-Ludwigs-Universität Freiburg).](https://www.researchgate.net/publication/279825155_Long_term_motion_analysis_for_object_level_grouping_and_nonsmooth_optimization_methods)
 
-[^epi_sum]: Ioffe, A. D., & Tihomirov, V. M. (2009). Theory of Extremal Problems: Theory of Extremal Problems. Elsevier. [link](https://books.google.co.jp/books?id=iDRVxznSxUsC&pg=PA168&redir_esc=y&hl=ja#v=onepage&q&f=false)
+[^epi_sum]: [Ioffe, A. D., & Tihomirov, V. M. (2009). Theory of Extremal Problems: Theory of Extremal Problems. Elsevier.](https://books.google.co.jp/books?id=iDRVxznSxUsC&pg=PA168&redir_esc=y&hl=ja#v=onepage&q&f=false)
 
-[^TheProximalAverage]: Bauschke, H. H., Goebel, R., Lucet, Y., & Wang, X. (2008). The proximal average: basic theory. SIAM Journal on Optimization, 19(2), 766-785. [link](https://epubs-siam-org.utokyo.idm.oclc.org/doi/10.1137/070687542)
+[^TheProximalAverage]: [Bauschke, H. H., Goebel, R., Lucet, Y., & Wang, X. (2008). The proximal average: basic theory. SIAM Journal on Optimization, 19(2), 766-785.](https://doi.org/10.1137/070687542)
 
-[^Beck]: Beck, A. (2017). First-order methods in optimization. Society for Industrial and Applied Mathematics. [link](https://epubs-siam-org.utokyo.idm.oclc.org/doi/10.1137/1.9781611974997)
+[^Beck]: [Beck, A. (2017). First-order methods in optimization. Society for Industrial and Applied Mathematics.](https://doi.org/10.1137/1.9781611974997)
 
-[^generalMoreauEnvelope]: Tibshirani, R. J., Fung, S. W., Heaton, H., & Osher, S. (2024). Laplace Meets Moreau: Smooth Approximation to Infimal Convolutions Using Laplace's Method. arXiv preprint arXiv:2406.02003. [link](https://www.researchgate.net/figure/llustration-of-the-Moreau-envelope-f-l-f-2_fig1_381158237)
+[^generalMoreauEnvelope]: [Tibshirani, R. J., Fung, S. W., Heaton, H., & Osher, S. (2024). Laplace Meets Moreau: Smooth Approximation to Infimal Convolutions Using Laplace's Method. arXiv preprint arXiv:2406.02003.](https://www.researchgate.net/figure/llustration-of-the-Moreau-envelope-f-l-f-2_fig1_381158237)
 
-[^LinearAlgebra]: Axler, S. (2015). Linear algebra done right. springer. [link](https://link-springer-com.utokyo.idm.oclc.org/book/10.1007/978-3-031-41026-0)
+[^LinearAlgebra]: [Axler, S. (2015). Linear algebra done right. springer.](https://doi.org/10.1007/978-3-031-41026-0)
 
-[^RockafellarConvex]: Rockafellar, R. T. (1970). Convex analysis. Princeton university press. [link](https://books.google.co.jp/books?hl=en&lr=&id=J6uPzgEACAAJ&oi=fnd&pg=PR9&dq=rockafellar+convex+analysis&ots=3Z9J9Q6J9v&sig=8Q6Z9J9Q6)
+[^RockafellarConvex]: [Rockafellar, R. T. (1970). Convex analysis. Princeton university press.](https://books.google.co.jp/books?hl=en&lr=&id=J6uPzgEACAAJ&oi=fnd&pg=PR9&dq=rockafellar+convex+analysis&ots=3Z9J9Q6J9v&sig=8Q6Z9J9Q6)
 
-[^Nesterov]: Nesterov, Y. (2018). Lectures on convex optimization (Vol. 137, pp. 5-9). Berlin: Springer. [link](https://link-springer-com.utokyo.idm.oclc.org/book/10.1007/978-3-319-91578-4)
+[^Nesterov]: [Nesterov, Y. (2018). Lectures on convex optimization (Vol. 137, pp. 5-9). Berlin: Springer.](https://doi.org/10.1007/978-3-319-91578-4)
 
-[^proximalOperatorRef]: Nagahara, M. (2020). Algorithms for convex optimization. In Security risk management for the Internet of Things: Technologies and techniques for IoT security, privacy and data protection (Chapter 4). [link](https://www.researchgate.net/publication/345481682_4_Algorithms_for_Convex_Optimization)
+[^proximalOperatorRef]: [Nagahara, M. (2020). Algorithms for convex optimization. In Security risk management for the Internet of Things: Technologies and techniques for IoT security, privacy and data protection (Chapter 4).](https://www.researchgate.net/publication/345481682_4_Algorithms_for_Convex_Optimization)
 
-[^proximalGradientRef1]: Yamagen, Sakam. (2018). 近接勾配法とproximal operator. 甲斐性なしのブログ. [link](https://yamagensakam.hatenablog.com/entry/2018/02/14/075106)
+[^proximalGradientRef1]: [Yamagen, Sakam. (2018). 近接勾配法とproximal operator. 甲斐性なしのブログ.](https://yamagensakam.hatenablog.com/entry/2018/02/14/075106)
 
-[^proximalGradientRef2]: Masashi, Sekino. (2018). 近接勾配法（Proximal Gradient Method）. Qiita. [link](https://qiita.com/msekino/items/9f217fcd735513627f65)
+[^proximalGradientRef2]: [Masashi, Sekino. (2018). 近接勾配法（Proximal Gradient Method）. Qiita.](https://qiita.com/msekino/items/9f217fcd735513627f65)
 
-[^proximalGradientRef3]: 数理システム, NTT. (2024). 近接勾配法 — 数理最適化用語集. [link] (https://www.msi.co.jp/solution/nuopt/docs/glossary/articles/ProximalGradientMethod.html)
+[^proximalGradientRef3]: [数理システム, NTT. (2024). 近接勾配法 - 数理最適化用語集.](https://www.msi.co.jp/solution/nuopt/docs/glossary/articles/ProximalGradientMethod.html)
