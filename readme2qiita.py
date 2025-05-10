@@ -72,8 +72,9 @@ def replace_patterns(res):
     res = res.replace("\\coloneqq", "\\mathrel{\\vcenter{:}}=").replace(
         "{dcases}", "{cases}"
     )
-    if re.search(r"\\{[a-zA-Z0-9]", res):
-        print("Warning: \\{[a-zA-Z0-9] found. Add space after {")
+    for line in res.splitlines():
+        if re.search(r"\\{[a-zA-Z0-9]", line):
+            print(r"Warning: Add space after \{[a-zA-Z0-9] in line: " + line)
     res = res.replace("\\{", "\\lbrace").replace("\\}", "\\rbrace")
     if res.count("\\,"):
         print("Warning: \\, found. Use \\ instead.")

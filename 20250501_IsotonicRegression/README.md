@@ -275,7 +275,7 @@ def pava_readable(y: np.ndarray, w: Union[np.ndarray, None] = None) -> np.ndarra
 
 * `Block` の stack である `blocks` を用意する
 * $i=0$ として、 `Block(x[i], w[i], i)` を `blocks` に追加する
-* `blocks` の末尾2つが制約違反しているなら(`blocks[-2].mean >= blocks[-1].mean`)、両者をマージし、その重み付き平均をブロック内の答えとする
+* `blocks` の末尾2つが制約違反しているなら(`blocks[-2].mean >= blocks[-1].mean`)、両者をマージし、その重み付き平均をブロック内の答えとすることを繰り返す
 * $i \gets i+1$ として、最後まで上記の手続きを繰り返す
 
 ということをしています。
