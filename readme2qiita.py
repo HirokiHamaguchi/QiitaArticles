@@ -1,7 +1,8 @@
-import re
-import os
-import pyperclip
 import json
+import os
+import re
+
+import pyperclip  # type: ignore[import]
 
 
 def get_target_directory(date_str, base_dir):
@@ -15,6 +16,18 @@ def get_target_directory(date_str, base_dir):
             "The directory matching the date string is not unique or does not exist."
         )
     return os.path.join(base_dir, matching_dirs[0])
+
+
+def get_latest_modified_directory(base_dir):
+    candidates = [
+        d
+        for d in os.listdir(base_dir)
+        if os.path.isdir(os.path.join(base_dir, d)) and d.startswith("20")
+    ]
+    if not candidates:
+        raise ValueError("No directories starting with '20' found.")
+    latest = max(candidates, key=lambda d: os.path.getmtime(os.path.join(base_dir, d)))
+    return os.path.join(base_dir, latest)
 
 
 def read_file(file_path):
@@ -96,10 +109,18 @@ def replace_vertical_bars(res):
 
 
 def main():
-    date_str = input("Enter the date string (e.g., 20000101): ")
     base_dir = os.path.dirname(__file__)
-    target_dir = get_target_directory(date_str, base_dir)
-    print(f"Target directory: {target_dir}")
+    target_dir = get_latest_modified_directory(base_dir)
+    target_dir_core = target_dir.split(os.sep)[-1]
+    is_data_correct = (
+        input(f"Do you want to convert the file {target_dir_core}? (y/n): ")
+        .strip()
+        .lower()
+    )
+    if is_data_correct not in ("y", ""):
+        date_str = input("Enter the date string (e.g., 20000101): ")
+        target_dir = get_target_directory(date_str, base_dir)
+        print(f"Target directory: {target_dir}")
 
     assert os.path.exists(os.path.join(target_dir, "README.md"))
     assert os.path.exists(os.path.join(target_dir, "images.json"))

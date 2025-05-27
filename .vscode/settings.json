@@ -68,7 +68,8 @@
         "utokyo\\.idm",
         "chatgpt",
         "停留性条件",
-        "Amz-Security-Token"
+        "Amz-Security-Token",
+        "VSCode"
     ],
     "latexlint.disabledRules": [
         "LLCref"
