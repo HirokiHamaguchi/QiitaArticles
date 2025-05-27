@@ -1,4 +1,4 @@
-# VS Codeでファイル毎にLaTeXのレシピを設定する方法
+<!-- markdownlint-disable MD041 -->
 
 VS Codeで[LaTeX Workshop](https://github.com/James-Yu/LaTeX-Workshop)を使用している場合、`.tex`ファイルの先頭に以下のようなコメントを追加することで、レシピを指定できます。
 
@@ -45,7 +45,7 @@ VS Codeで[LaTeX Workshop](https://github.com/James-Yu/LaTeX-Workshop)を使用�
 
 この内容を当該記事のように設定することで、下図のように複数のレシピが登録されます。
 
-![recipes](recipes.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/c5a319fd-9c04-430f-9a2c-9493aaa4c896.png" alt="recipes">
 
 `latex-workshop.latex.recipe.default`という[設定](https://github.com/James-Yu/LaTeX-Workshop/wiki/Compile#latex-workshoplatexrecipedefault)でデフォルトの"first"を指定していると、これらレシピのうち、先頭にある`ptex2pdf (uplatex)*2`がautoBuildにおいて使われます。
 
