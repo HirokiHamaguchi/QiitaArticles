@@ -1,108 +1,45 @@
 {
+    //latexmkのビルドレシピ
     "latex-workshop.latex.recipes": [
-        // {
-        //     "name": "pdflatex*2",
-        //     "tools": [
-        //         "pdflatex",
-        //         "pdflatex"
-        //     ]
-        // },
-        // {
-        //     "name": "pdflatex&bibtex",
-        //     "tools": [
-        //         "pdflatex",
-        //         "bibtex",
-        //         "pdflatex",
-        //         "pdflatex"
-        //     ]
-        // },
-        // {
-        //     "name": "ptex2pdf*2",
-        //     "tools": [
-        //         "ptex2pdf",
-        //         "ptex2pdf",
-        //     ]
-        // },
-        // {
-        //     "name": "ptex2pdf&pbibtex",
-        //     "tools": [
-        //         "ptex2pdf",
-        //         "pbibtex",
-        //         "ptex2pdf",
-        //         "ptex2pdf"
-        //     ]
-        // },
+        //bibTexを使用しない場合のレシピ
         {
-            "name": "uplatex",
+            "name": "ptex2pdf (uplatex)*2",
             "tools": [
-                "ptex2pdf (uplatex)",
-                "ptex2pdf (uplatex)",
-            ]
-        },
-        {
-            "name": "uplatex&pbibtex",
-            "tools": [
-                "ptex2pdf (uplatex)",
-                "pbibtex (uplatex)",
                 "ptex2pdf (uplatex)",
                 "ptex2pdf (uplatex)"
             ]
         },
+        //bibTexを使用する場合のレシピ
+        {
+            "name": "ptex2pdf (uplatex) -> bibtex -> ptex2pdf (uplatex) *2",
+            "tools": [
+                "ptex2pdf (uplatex)",
+                "pbibtex",
+                "ptex2pdf (uplatex)",
+                "ptex2pdf (uplatex)"
+            ]
+        }
     ],
-    "latexlint.exceptions": [
-        "Accelerated-gradient-based generalized Levenberg--Marquardt method",
-        "Jean-Jacques",
-        "Well-Definedness",
-        "Change-Making",
+    //latexmkのビルドツール
+    "latex-workshop.latex.tools": [
+        {
+            "name": "ptex2pdf (uplatex)",
+            "command": "ptex2pdf",
+            "args": [
+                "-interaction=nonstopmode",
+                "-l",
+                "-u",
+                "-ot",
+                "-kanji=utf8 -synctex=1",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "pbibtex",
+            "command": "pbibtex",
+            "args": [
+                "%DOCFILE%"
+            ]
+        }
     ],
-    "latexlint.userDefinedRules": [
-        "真閉凸",
-        "閉凸真",
-        "1/2",
-        "(?<!(effective|\\[|,)\\s?)domain",
-        "\\\\text\\{if \\}",
-        "\\\\mathrm\\{epi\\} ",
-        "ベクトル空間",
-        "\\(参考",
-        "\\mathrm{dom} f",
-        "utokyo\\.idm",
-        "chatgpt",
-        "停留性条件",
-        "Amz-Security-Token"
-    ],
-    "latexlint.disabledRules": [
-        "LLCref"
-    ],
-    "cSpell.words": [
-        "asarray",
-        "Bauschke",
-        "Biopharmaceutical",
-        "Brunk",
-        "Chakravarti",
-        "Claramunt",
-        "Combettes",
-        "Elsevier",
-        "Extremal",
-        "Flournoy",
-        "functionals",
-        "Kenjiro",
-        "Kruskal",
-        "leidenuniv",
-        "Masashi",
-        "Mühlemann",
-        "Nagahara",
-        "Nocedal",
-        "Nonconvex",
-        "Nonmetric",
-        "Oron",
-        "Psychometrika",
-        "Sakam",
-        "Sekino",
-        "Silverman",
-        "stdlib",
-        "Sugimoto",
-        "yabe",
-        "Yamagen",
-        "Ziegel"
-    ]
 }
