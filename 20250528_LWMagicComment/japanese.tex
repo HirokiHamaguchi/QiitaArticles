@@ -1,0 +1,16 @@
+%!LW recipe=ptex2pdf (uplatex) -> bibtex -> ptex2pdf (uplatex) *2
+
+\documentclass[a4paper,12pt]{jlreq}
+
+\title{サンプル}
+\author{Hiroki Hamaguchi}
+
+\begin{document}
+\maketitle
+
+常にbibtexを走らせたい\cite{sample}。
+
+\bibliographystyle{jplain}
+\bibliography{sample}
+
+\end{document}
