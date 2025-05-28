@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD041 -->
 
-VS Codeで[LaTeX Workshop](https://github.com/James-Yu/LaTeX-Workshop)を使用している場合、`.tex`ファイルの先頭に以下のようなコメントを追加することで、レシピを指定できます。
+VS Codeで[LaTeX Workshop](https://github.com/James-Yu/LaTeX-Workshop)を使用している場合、`.tex`ファイルの先頭に以下のようなコメントを追加することで、レシピ ($\approx$ コンパイル方法) を指定できます。
 
 ```tex
 %!LW recipe=recipe-name
