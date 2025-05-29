@@ -26,7 +26,18 @@ def get_latest_modified_directory(base_dir):
     ]
     if not candidates:
         raise ValueError("No directories starting with '20' found.")
-    latest = max(candidates, key=lambda d: os.path.getmtime(os.path.join(base_dir, d)))
+
+    def get_dir_latest_file_mtime(dir_path):
+        mtime = os.path.getmtime(dir_path)
+        for root, _, files in os.walk(dir_path):
+            for file in files:
+                file_path = os.path.join(root, file)
+                mtime = max(mtime, os.path.getmtime(file_path))
+        return mtime
+
+    latest = max(
+        candidates, key=lambda d: get_dir_latest_file_mtime(os.path.join(base_dir, d))
+    )
     return os.path.join(base_dir, latest)
 
 
