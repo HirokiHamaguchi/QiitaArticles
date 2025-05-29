@@ -28,9 +28,37 @@ https://dictionary.cambridge.org/ja/
 
 ### 一般用語
 
-#### Algebra
+#### scalar
 
-uk  /ˈæl.dʒə.brə/ us  /ˈæl.dʒə.brə/
+スカラーとよく言われますが、発音はスケイラに近いです。
+
+参考: 教本 p.17
+
+#### vector
+
+ベクタに近い発音です。
+
+参考: 教本 p.17
+
+#### matrix
+
+メイトリクスに近い発音です。
+
+参考: 教本 p.24
+
+#### eigenvalue
+
+アイゲンバリューに近い発音です。
+
+参考: 教本 p.24
+
+#### eigenvector
+
+アイゲンベクターに近い発音です。
+
+参考: 教本 p.24
+
+#### algebra
 
 最初のアにアクセントがある。
 
@@ -44,36 +72,7 @@ uk  /ˈæl.dʒə.brə/ us  /ˈæl.dʒə.brə/
 
 参考: [河東先生のHP](https://www.ms.u-tokyo.ac.jp/~yasuyuki/english2.htm)
 
-#### scalar
-
-scalar スケイラ
-
-スカラーとよく言われますが、発音は全然別です。これは知らないと恐らく一切聞き取れもしないと思います。ちなみにこの読みが衝撃過ぎて本記事を執筆しました。
-
-参考: 教本 p.17
-
-#### vector
-
-vector ベクタ
-
-参考: 教本 p.17
-
-#### matrix
-
-matrix メイトリクス
-
-参考: 教本 p.24
-
-#### eigen
-
-eigenvalue アイゲンバリュー
-eigenvector アイゲンベクター
-
-参考: 教本 p.24
-
 #### tensor
-
-tensor
 
 #### dimension
 
@@ -81,11 +80,54 @@ tensor
 
 #### affine
 
-affine アファイン
+affine
+アファインに近い発音です。
+
+#### quasi
+
+それぞれクワジ、クワザイに近い発音です。
+
+クワジ派 [YouTube-SciPy](https://youtu.be/VIoWzHlz7k8?t=724)
+
+クワザイ派 [YouTube](https://www.youtube.com/watch?v=CjCBzOwHa3s&t=608s) (恐らくこの方はインドっぽい?)
+
+#### pseudo
+
+シュードに近い発音です。
+
+pseudo-inverse 一般化逆行列 (Moore–Penrose inverse とも)
+
+$$
+A=U\Sigma V^\top \implies A^+ = V \Sigma^+ U^\top
+$$
+where
+$$
+\Sigma^+ = \mathrm{diag}(\sigma_1^{-1}, \sigma_2^{-1}, \ldots, \sigma_r^{-1}, 0, \ldots, 0)
+$$
+
+参考: [高校数学の美しい物語](https://manabitimes.jp/math/2746)
+
+#### chaos
+
+ケイオスに近い発音です。
+
+カオス理論 数的誤差のため予測が困難とされている、二重振り子などの複雑な現象を扱う理論
 
 #### wolfe
 
-orthogonal）ポアソン（Poisson）分布フーリエ（Fourier）解析
+orthogonal 分布フーリエ（Fourier）解析
+
+#### height
+
+ハイト(高さ)
+
+#### anti
+
+エンタイ,エンティ(反~)
+
+#### relative
+
+レラティブ(相対)
 
 ラプラス（Laplace）変換 パラメトリック（parametric）イメージ（image：像）
 
@@ -93,25 +135,50 @@ orthogonal）ポアソン（Poisson）分布フーリエ（Fourier）解析
 
 イデアル（ideal：イデアル）
 
-### 人名
+### 固有名詞
 
 #### Hermitian
 
-Hermitean ハーミシャン
+ハーミシャンに近い発音です。
 
 参考: 教本 p.76
 
 #### Jacobian
 
-Jacobian ジャコビアン
+ジャコビアンに近い発音です。
 
 参考: 教本 p.76
 
 #### Erdos
 
+#### Poisson
+
+Poisson distribution ポアソン分布 ($P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}$)
+
+USの方の発音だと、soʊnにアクセントがあります。
+日本訛りだとpwəにアクセントがあると思います。
+
+#### Banach
+
+#### Hausdorff
+
+#### Wasserstein
+
+$$
+W_p(\mu, \nu) = \inf_{\gamma \in \Gamma(\mu, \nu)} \left(\mathbf{E}_{(x, y) \sim \gamma} d(x, y)^p \right)^\frac{1}{p}
+$$
+
+($\Gamma(\mu, \nu)$ がカップリング、つまり、よくある堆積した土の例でいうところの移動方法の集合なので、堆積を移動する最小コストを表す)
+
+参考: [Wikipedia](https://en.wikipedia.org/wiki/Wasserstein_metric)
+
+#### Gaussian
+
+ゴーシアン???
+
 #### Barzilai
 
-Barzilai バジライ
+バジライに近い発音です。
 
 参考: [YouTube](https://www.youtube.com/watch?v=thtr1yH4Z38&t=27s), [forvo](https://forvo.com/search/Barzilai), [How To Pronounce](https://www.howtopronounce.com/barzilai)
 
@@ -120,12 +187,41 @@ Barzilai バジライ
 Borwein ボォー(ル)ウェイン
 
 Barzilai--Borwein法のBorweinさんです。
+個人的事情から本記事の[おまけ](#おまけ-barzilai--borwein法)で数理的な解説をしています。
 
-Borwein積分のBorweinさん親子と子供側と同一人物でもあります。
+[Borwein積分](https://en.wikipedia.org/wiki/Borwein_integral)のBorweinさん親子と子供側と同一人物でもあります。
 
-https://en.wikipedia.org/wiki/Borwein_integral
+$$
+\begin{align*}
+  & \int_0^\infty \frac{\sin(x)}{x}\frac{\sin(x/3)}{x/3}\cdots\frac{\sin(x/15)}{x/15} \, \mathrm{d}x \\
+={}& \frac{467807924713440738696537864469}{935615849440640907310521750000}~\pi \\
+\approx{}& \frac \pi 2 - 2.31\times 10^{-11}.
+\end{align*}
+$$
 
 参考: [YouTube (By 3Blue1Brown)](https://youtu.be/851U557j6HE?t=220), [How To Pronounce](https://www.howtopronounce.com/borwein)
+
+#### Zorn
+
+Zorn's lemma: 半順序集合Pは、その全ての鎖(つまり、全順序部分集合)がPに上界を持つとする。このとき、Pは少なくともひとつの極大元を持つ。([Wikipedia](https://ja.wikipedia.org/wiki/%E3%83%84%E3%82%A9%E3%83%AB%E3%83%B3%E3%81%AE%E8%A3%9C%E9%A1%8C))
+
+日本語だとツォルンの補題とよく言われますが、英語ではゾーンに近い発音のこともあるようです。
+
+[Zornさん](https://en.wikipedia.org/wiki/Max_August_Zorn)がドイツ人であり、German: [tsɔʁn]とあることから、日本語の方が本来に近い発音かもしれません。
+
+参考: [YouTube](https://www.youtube.com/watch?v=f8Rv2PHxAwQ&t=222s)
+
+####
+
+https://x.com/banban7866/status/1083747445597585408
+
+#### Springer
+
+出版社
+
+https://ell.stackexchange.com/a/192428
+
+https://x.com/mirucaaura/status/1427144163082924032
 
 ## 数式の読み方
 
@@ -161,11 +257,13 @@ https://librivox.org/uploads/xx-nonproject/Handbook%20for%20Spoken%20Mathematics
 
 いろいろ調べる過程で、自分が知らなかった英単語をいくつか見かけたので、記しておきます。
 
-### 一般
+### 基礎
 
 #### contrapositive
 
 対偶
+
+#### tautology
 
 #### reciprocal
 
@@ -186,6 +284,8 @@ homo homeo
 自己準同型
 
 industryと同根らしいです。
+
+#### idempotent
 
 #### nilpotent
 
@@ -217,12 +317,6 @@ radiusの複数形
 
 参考: 上記ツイートのリプライ
 
-#### chaos theory
-
-カオス理論 ケイオス
-
-参考: Twitter
-
 #### entire function
 
 整関数
@@ -233,6 +327,12 @@ https://ja.wikipedia.org/wiki/%E6%95%B4%E9%96%A2%E6%95%B0
 関数全体ではない。
 
 参考: 私の友人の鍵垢ツイート
+
+#### annihilator
+
+(アナイアレイター)
+
+参考: https://x.com/Keyneqq/status/1037263459514114048
 
 #### denote
 
@@ -260,7 +360,31 @@ https://sorabalab.com/glossary/glossary.html
 
 ## 最後に
 
-以上です。面白い例をご存じの方は、是非教えてください。
+以上です。
+
+**他にも面白い例をご存じの方は、是非教えてください!!!**
+
+---
+
+最後に少しだけ補足です。
+
+特に[発音](#発音)のような一覧を見ると全部覚えるの怠いなぁと私は思うのですが、英語を話すときにこれらを全て厳守する必要はないと思っています。よく言われていることですが、訛りや文法の間違いは文意が正確に伝わる限り許容されがちです。
+
+ただ、私は特にリスニングで発音の違いに苦労しています。お恥ずかしながら私は未だに英語の発音が聞き取れない/聞き慣れない正しい発音に気を取られて文意を掴み損ねる、ということがあります。ただ、予めその傾向を把握しておけば、楽に聞き取れることも増えると思います。
+
+例えば、インドの方の発音は、[quasi](#quasi)の節でも暗示されているように、イギリス英語の影響を受けていることが多いです。18世紀頃から1947年8月15日のインド独立まで、イギリスの植民地だった影響と思われます。また、[Wiki](https://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%B3%E3%83%89%E8%8B%B1%E8%AA%9E)によると、"R"を強く発音する傾向があるらしいです(water（水）- ウォータル)。
+
+また、フランスの方の発音は、イギリス英語的な傾向に加え、フランス語の影響も当然受けているので、"R"や"H"の音が特徴的です。例えば、"hospital"（病院）は、オスピタルのように発音される方が多いらしいです([参考](https://qa.speakbuddy.jp/qa/247))。実際私もHessianの"H"が抜かれている発音を聞いたことがあります。
+
+私は全く詳しくないものの、「インド・ヨーロッパ語族」に英語、インドのサンスクリット語・ヒンディー語、フランス語は分類されていますが、語派としては異なるらしく、特にフランス語はロマンス語派に分類されるようです。英語はゲルマン語派に分類されます。
+
+![Sekai-no-gengo](https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Sekai-no-gengo.png/1200px-Sekai-no-gengo.png?20081022180809)
+
+Auf at Japanese Wikipedia, [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/), via Wikimedia Commons
+
+こういった傾向も踏まえた上で、辞書的な発音を知っておくことは、数学的主張の理解に有効だと思います。
+
+本記事が皆様の数学に関する英語の理解に役立てば幸いです。
 
 ## おまけ Barzilai--Borwein法
 
