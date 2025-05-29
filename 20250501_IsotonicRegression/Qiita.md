@@ -537,10 +537,6 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 
 これは非空な閉凸集合(下図)上の狭義凸な二次関数を最小化する問題です。その為、最適解が存在し、かつ一意に定まることが分かります。以下ではこれを前提とします。
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/73662578-e8d7-495c-bf85-da7871096966.png" alt="constraints_3d">
-
-($n=3$ の場合の実行可能領域 $x_1 \leq x_2 \leq x_3$ の図示)
-
 <details><summary>より詳細な証明 (クリックして展開)</summary>
 
 「非空な閉凸集合上の狭義凸な二次関数を最小化する問題」に最適解が存在すると言うには、少し注意が必要です。
@@ -568,6 +564,12 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 で十分です。今回はこれを用いてもあまり簡略化されませんが、もう少し一般的にも議論出来るということは記しておきます。
 
 </details>
+
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/73662578-e8d7-495c-bf85-da7871096966.png" alt="constraints_3d">
+
+($n=3$ の場合の実行可能領域 $x_1 \leq x_2 \leq x_3$ の図示)
+
+(余談ですが、この実行可領域はIsotonic Coneと呼ばれる錐であり、Isotonic Regressionはこの錐上へのEuclidean Projectionだとも理解できます(文献[^finiteDimensional] 1.8.15))
 
 ### KKT条件
 
@@ -916,5 +918,7 @@ https://cran.r-project.org/web/packages/isotone/vignettes/isotone.pdf
 [^Nesterov]: [Nesterov, Y. (2018). Lectures on convex optimization (Vol. 137, pp. 5-9). Springer.](https://doi.org/10.1007/978-3-319-91578-4)
 
 [^coercive]: [Bauschke, H. H., & Combettes, P. L. (2017). Convex Analysis and Monotone Operator Theory in Hilbert Spaces. Springer.](https://doi.org/10.1007/978-3-319-48311-5)
+
+[^finiteDimensional]: [Facchinei, F., & Pang, J. S. (Eds.). (2003). Finite-dimensional variational inequalities and complementarity problems. New York, NY: Springer New York.](https://doi.org/10.1007/b97543)
 
 [^yabe]: [矢部博. (2006). 最適化とその応用, 数理工学社.](https://www.saiensu.co.jp/search/?isbn=978-4-86481-111-8&y=2024)
