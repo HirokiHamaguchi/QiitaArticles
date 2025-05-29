@@ -135,6 +135,12 @@ orthogonal 分布フーリエ（Fourier）解析
 
 イデアル（ideal：イデアル）
 
+#### annihilator
+
+(アナイアレイター)
+
+参考: https://x.com/Keyneqq/status/1037263459514114048
+
 ### 固有名詞
 
 #### Hermitian
@@ -211,10 +217,6 @@ Zorn's lemma: 半順序集合Pは、その全ての鎖(つまり、全順序部�
 
 参考: [YouTube](https://www.youtube.com/watch?v=f8Rv2PHxAwQ&t=222s)
 
-####
-
-https://x.com/banban7866/status/1083747445597585408
-
 #### Springer
 
 出版社
@@ -227,11 +229,11 @@ https://x.com/mirucaaura/status/1427144163082924032
 
 ### 一般
 
-#### equal
+#### 等号
 
 https://ejje.weblio.jp/content/equal
 
-#### power
+#### 累乗
 
 $x^2$
 $x^3$
@@ -239,19 +241,17 @@ $x^n$
 $10^5$
 $10^-5$
 
-#### root
+#### 根
 
 $\sqrt{2}$
 $\sqrt[3]{2}$
 $\sqrt[n]{2}$
 
-#### other
+#### 他
 
 https://librivox.org/uploads/xx-nonproject/Handbook%20for%20Spoken%20Mathematics.pdf
 
-#### bar
-
-集合記号
+#### 集合記号
 
 ## その他
 
@@ -271,10 +271,6 @@ https://www.etymonline.com/word/reciprocal
 
 ### 線形代数
 
-#### non-singular
-
-non-singular
-
 #### homomorphism
 
 homo homeo
@@ -291,21 +287,21 @@ industryと同根らしいです。
 
 ### 最適化
 
-#### strictly convex
+#### 狭義凸
 
-狭義凸 ($f(tx + (1-t)y) < tf(x) + (1-t)f(y)$ と等号のない不等式で凸不等式を満たす関数)
+strictly convex: $f(tx + (1-t)y) < tf(x) + (1-t)f(y)$ と等号のない不等式で凸不等式を満たす関数
 
-「真に凸」と言いますが「真凸」と訳すと誤訳です。
+「真に凸」と言いますが"strictly convex"を「真凸」と訳すと誤訳です。
 
 参考: 私のやらかし
 
-#### proper convex
+#### 真凸
 
-真凸 (少なくとも一つの $x$ に対して $f(x) < \infty$ が成立し、全ての $x$ に対して $f(x) \geq -\infty$ が成立する凸関数)
+proper convex: 少なくとも一つの $x$ に対して $f(x) < \infty$ が成立し、全ての $x$ に対して $f(x) \geq -\infty$ が成立する凸関数
 
 参考: [Wiki](https://ja.wikipedia.org/wiki/%E7%9C%9F%E5%87%B8%E5%87%BD%E6%95%B0)
 
-### Twitter
+### ツイート
 
 #### radii
 
@@ -317,9 +313,9 @@ radiusの複数形
 
 参考: 上記ツイートのリプライ
 
-#### entire function
+#### 整関数
 
-整関数
+entire function
 
 https://ja.wikipedia.org/wiki/%E6%95%B4%E9%96%A2%E6%95%B0
 
@@ -328,13 +324,7 @@ https://ja.wikipedia.org/wiki/%E6%95%B4%E9%96%A2%E6%95%B0
 
 参考: 私の友人の鍵垢ツイート
 
-#### annihilator
-
-(アナイアレイター)
-
-参考: https://x.com/Keyneqq/status/1037263459514114048
-
-#### denote
+#### 定義の仕方
 
 Let A (数式) denote B (内容).
 
