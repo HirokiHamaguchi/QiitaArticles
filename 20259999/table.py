@@ -80,7 +80,7 @@ def add_pronunciation_to_readme():
         lines = file.readlines()
         for i, line in enumerate(lines):
             res.append(line.strip())
-            if re.match(r"#{2,}\s[a-z]+", line.strip()):
+            if re.match(r"#{2,}\s[a-zA-Z]+", line.strip()):
                 word = line.strip().lstrip("#").strip()
                 if i + 2 < len(lines) and (
                     lines[i + 2].startswith(word) or lines[i + 2].startswith("<!--")
