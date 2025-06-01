@@ -4,9 +4,9 @@
 
 本記事は以下の節から構成されます。
 
-1. [発音](#発音) 数学にまつわる英単語の発音など
-2. [数式の読み方](#数式の読み方) 数式・記法の非自明な読み方
-3. [その他](#その他) 筆者が知らなかった単語など
+1. [発音](#発音) 数学にまつわる英単語の発音
+2. [難単語](#難単語) 筆者が知らなかった単語
+3. [数式](#数式) 数式・記法の非自明な読み方
 
 この記事は筆者が例を見つけたときに更新する可能性があります。
 
@@ -62,25 +62,27 @@ matrix | UK ˈmeɪ.trɪks | US ˈmeɪ.trɪks | [link](https://dictionary.cambrid
 
 参考3: [Wiktionary](https://en.wiktionary.org/wiki/matrix#English) (IPA(key): /ˈmeɪ.tɹɪks/, enPR: māʹtrĭks と記載しており、マトリックスに近い発音も2番目ではあるが載せている)
 
-#### eigenvalue
-
-<!-- No pronunciation found -->
-
-[German-English dictionary](https://dictionary.cambridge.org/dictionary/german-english/eigen)では ˈaiɡən と表記される。
-
-アイゲンバリューに近い発音。エイゲンではない。
-
-固有値を意味するが、eigenはドイツ語で"own"の意味。
-
-参考: 教本 p.24
-
 #### eigenvector
 
 <!-- No pronunciation found -->
 
 アイゲンベクターに近い発音。エイゲンではない。
 
-固有ベクトルを意味する。
+[German-English dictionary](https://dictionary.cambridge.org/dictionary/german-english/eigen)では ˈaiɡən と表記される。
+
+固有ベクトルを意味する。線形空間上の線形変換 $A$ に対し、$Ax = \lambda x$ を満たす $x\neq 0$ のこと。
+
+eigenはドイツ語で"own"の意味。
+
+参考: 教本 p.24
+
+#### eigenvalue
+
+<!-- No pronunciation found -->
+
+アイゲンバリューに近い発音。エイゲンではない。
+
+固有値を意味する。
 
 参考: 教本 p.24
 
@@ -92,6 +94,8 @@ algebra | UK ˈæl.dʒə.brə | US ˈæl.dʒə.brə | [link](https://dictionary.
 
 最初のアにアクセントがある。
 
+代数を意味する。
+
 参考: [河東先生のHP](https://www.ms.u-tokyo.ac.jp/~yasuyuki/english2.htm)
 
 #### finite
@@ -100,6 +104,8 @@ finite | UK ˈfaɪ.naɪt | US ˈfaɪ.naɪt | [link](https://dictionary.cambridge
 
 ファイナイトに近い発音。
 
+有限を意味する形容詞。
+
 参考: [河東先生のHP](https://www.ms.u-tokyo.ac.jp/~yasuyuki/english2.htm)
 
 #### infinite
@@ -107,6 +113,8 @@ finite | UK ˈfaɪ.naɪt | US ˈfaɪ.naɪt | [link](https://dictionary.cambridge
 infinite | UK ˈɪn.fɪ.nət | US ˈɪn.fə.nət | [link](https://dictionary.cambridge.org/dictionary/english/infinite)
 
 インフィニットに近い発音。finiteとの違いに注意。
+
+無限を意味する形容詞。
 
 infinite | UK ˈɪn.fɪ.nət | US ˈɪn.fə.nət | [link](https://dictionary.cambridge.org/dictionary/english/infinite)
 
@@ -146,11 +154,17 @@ tensor | UK ˈten.sər | US ˈten.sɚ | [link](https://dictionary.cambridge.org/
 
 テンサ(ー)に近い発音。テンソルではない。
 
+行列の一般化であり、[テンソル積](https://ja.wikipedia.org/wiki/%E3%83%86%E3%83%B3%E3%82%BD%E3%83%AB%E7%A9%8D)や[普遍性](https://manabitimes.jp/math/1845)によって定義される。
+
 #### affine
 
 affine | UK əˈfaɪn | US əˈfaɪn | [link](https://en.wiktionary.org/wiki/affine), [link2](https://ejje.weblio.jp/content/affine#google_vignette)
 
 (ア)ファインに近い発音。アフィンではない。
+
+線形変換と平行移動を組み合わせたもの($x \mapsto Ax+b$)を指す。
+
+[ラテン語で「類似・関連」を意味するaffinisに由来する](https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%86%99%E5%83%8F)。
 
 #### pseudo
 
@@ -178,7 +192,7 @@ chaos | UK ˈkeɪ.ɒs | US ˈkeɪ.ɑːs | [link](https://dictionary.cambridge.or
 
 ケイオスに近い発音。カオスではない。
 
-カオス理論: 数的誤差のため予測が困難とされている、二重振り子などの複雑な現象を扱う理論
+chaos theory: カオス理論。数的誤差のため予測が困難とされている、二重振り子などの複雑な現象を扱う理論。
 
 #### anti
 
@@ -203,7 +217,7 @@ image | UK ˈɪm.ɪdʒ | US ˈɪm.ɪdʒ | [link](https://dictionary.cambridge.or
 
 イミッジに近い発音。イメージではない。
 
-image: (写像の)像
+写像の像を意味する。
 
 #### remainder
 
@@ -211,9 +225,9 @@ remainder | UK rɪˈmeɪn.dər | US rɪˈmeɪn.dɚ | [link](https://dictionary.c
 
 リメインダーに近い発音。リマインダーではない。
 
-リマインダー(スケジュールやメモの内容を思い出させる機能)は、英語でreminderと綴る。
+剰余を意味する。
 
-remainder: 剰余
+リマインダー(スケジュールやメモの内容を思い出させる機能)は、英語でreminderと綴る。
 
 #### suffice
 
@@ -221,7 +235,9 @@ suffice | UK səˈfaɪs | US səˈfaɪs | [link](https://dictionary.cambridge.or
 
 サファイスに近い発音。サフィスではない。
 
-It suffices to say that ...: ～と言えば十分である
+It suffices to say that ~: ~と言えば十分である
+
+個人的な衝撃度ランキング2位でした(1位は[scalar](#scalar))。[例文](https://ejje.weblio.jp/content/suffice)をたくさん聞くと矯正されるかも知れません。
 
 ### 複数の発音が許容されている用語
 
@@ -251,7 +267,15 @@ quasi | UK ˈkweɪ.zaɪ- | US /ˈkwɑː.zaɪ-/ /ˌkweɪ·zɑɪ/ /kwɑzi-/ | [lin
 
 <!-- No pronunciation found -->
 
-ハーミシャンに近い発音。
+[Wiktionary](https://en.wiktionary.org/wiki/Hermitian)は /hɜː(ɹ)ˈmɪʃən/
+
+[Oxford English Dictionary](https://www.oed.com/dictionary/hermitian_adj)は /həːˈmɪʃən/ (British English)
+
+[Merriam-Webster](https://www.merriam-webster.com/dictionary/Hermitian%20matrix)は /ˌhər-ˈmi-shən-/
+
+どれが最も一般的かなどは不明だが、ハーミシャンに近い発音。エルミートではない。
+
+Hermitian matrix: エルミート行列。複素正方行列 $A$ が $A = A^\dagger (\coloneqq \bar{A^\top})$ を満たすとき、エルミート行列と呼ぶ。
 
 参考: 教本 p.76
 
@@ -267,28 +291,35 @@ quasi | UK ˈkweɪ.zaɪ- | US /ˈkwɑː.zaɪ-/ /ˌkweɪ·zɑɪ/ /kwɑzi-/ | [lin
 
 <!-- No pronunciation found -->
 
+[Wiki](https://en.wikipedia.org/wiki/Paul_Erd%C5%91s)は /ˈɛrdøːʃ/ だが、これはHungarianの発音。下記のGoogleを信用すると、これはBritish Englishに近い。
+
+Googleで[paul erdos how to pronounce](https://www.google.com/search?q=paul+erdos+how+to+pronounce&rlz=1C1ONGR_jaJP1163JP1163&oq=erdos+how+to+pr&gs_lcrp=EgZjaHJvbWUqCAgBEAAYFhgeMgYIABBFGDkyCAgBEAAYFhgeMggIAhAAGBYYHjIICAMQABgWGB4yCAgEEAAYFhgeMggIBRAAGBYYHjIICAYQABgWGB4yCAgHEAAYFhgeMggICBAAGBYYHjIICAkQABgWGB7SAQgzNTAyajBqN6gCALACAA&sourceid=chrome&ie=UTF-8)と検索すると、2025年6月現在、American Englishでは "ehr·duhsh" と発音するとされており、日本語のエルド(ィ)シュに近い発音である。[日本語版Wiki](https://ja.wikipedia.org/wiki/%E3%83%9D%E3%83%BC%E3%83%AB%E3%83%BB%E3%82%A8%E3%83%AB%E3%83%87%E3%82%B7%E3%83%A5)の表記はポール・エルデシュ。
+
+Erdos--Renyi model: [ランダムグラフに関するモデル](https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93R%C3%A9nyi_model)であり、$n$ 頂点 $M$ 辺の $G(n,M)$ と、$n$ 頂点辺生成確率 $p$ の $G(n,p)$ がある。
+
+Erdos number: [Erdos number](https://en.wikipedia.org/wiki/Erd%C5%91s_number)は、数学者Erdosさんとの共著距離を表す。Erdosさんと共著した人は1、Erdosさんと共著した人と共著した人は2、というように定義される。
+
 #### Poisson
 
 Poisson distribution ポアソン分布 ($P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}$)
 
-USの方の発音だと、soʊnにアクセントがあります。
-日本だとpwəにアクセントがあると思います。
-
-#### Fourier
-
-<!-- No pronunciation found -->
-
-#### Banach
-
-<!-- No pronunciation found -->
-
-#### Hausdorff
-
-<!-- No pronunciation found -->
+USの方の発音だと、soʊnにアクセントがある。日本だとpwəにアクセントがあると思われる。
 
 #### Wasserstein
 
 <!-- No pronunciation found -->
+
+steinの部分について、"aɪ"の音で発音することに注意。
+
+Wasserstein計量で有名なRussian-Americanの数学者の[Leonid Nisonovich Vaserstein](https://en.wikipedia.org/wiki/Leonid_Vaserstein)さんだが、このWassersteinの綴りは[ドイツ語由来らしい](https://ja.wikipedia.org/wiki/%E3%83%AF%E3%83%83%E3%82%B5%E3%83%BC%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%B3%E8%A8%88%E9%87%8F)。
+
+同じくドイツ生まれのアルバート・アインシュタインさんの綴りもAlbert Einsteinである。
+
+参考1: [YouTube - How to Pronounce Stein](https://www.youtube.com/watch?v=ho-TH0d_0rc)
+
+参考2: [YouTube - Introduction to the Wasserstein distance](https://www.youtube.com/watch?v=CDiol4LG2Ao)
+
+参考3: [How To Pronounce Wasserstein](https://www.howtopronounce.com/wasserstein)
 
 $$
 W_p(\mu, \nu) = \inf_{\gamma \in \Gamma(\mu, \nu)} \left(\mathbf{E}_{(x, y) \sim \gamma} d(x, y)^p \right)^\frac{1}{p}
@@ -302,17 +333,17 @@ $$
 
 Gaussian | UK ˈɡaʊ.si.ən dɪs.trɪˌbjuː.ʃən | US ˈɡaʊ.si.ən dɪs.trɪˌbjuː.ʃən | [link](https://dictionary.cambridge.org/dictionary/english/Gaussian)
 
-ゴーシアン???
+ガウシアンに近い発音。日本人ならば大抵は正解の発音をしていると思います。
+
+外国籍の方がゴーシアンやゴッシャンに近い発音をされるのを聞いたことがあり、そういう訛りもあるのだと知らないと推測がかなり難しいです。
 
 #### Zorn
 
-Zorn's lemma: 半順序集合Pは、その全ての鎖(つまり、全順序部分集合)がPに上界を持つとする。このとき、Pは少なくともひとつの極大元を持つ。([Wikipedia](https://ja.wikipedia.org/wiki/%E3%83%84%E3%82%A9%E3%83%AB%E3%83%B3%E3%81%AE%E8%A3%9C%E9%A1%8C))
-
-日本語だとツォルンの補題とよく言われますが、英語ではゾーンに近い発音のこともあるようです。
-
-尤も、[Zornさん](https://en.wikipedia.org/wiki/Max_August_Zorn)がドイツ人であり、リンク先にGerman: [tsɔʁn]とあることから、日本語の方が本来に近い発音かもしれません。
+英語ではゾーンに近い発音のこともある。日本語だとツォルンとよく言われる。尤も、[Max August Zorn](https://en.wikipedia.org/wiki/Max_August_Zorn)さんがドイツ人であり、リンク先に"German: tsɔʁn"とあることから、日本語の方が本来に近い発音かも知れない。
 
 参考: [YouTube](https://www.youtube.com/watch?v=f8Rv2PHxAwQ&t=222s)
+
+Zorn's lemma: 半順序集合Pは、その全ての鎖(つまり、全順序部分集合)がPに上界を持つとする。このとき、Pは少なくともひとつの極大元を持つ。([Wikipedia](https://ja.wikipedia.org/wiki/%E3%83%84%E3%82%A9%E3%83%AB%E3%83%B3%E3%81%AE%E8%A3%9C%E9%A1%8C))
 
 #### Barzilai
 
@@ -343,49 +374,9 @@ $$
 
 参考: [YouTube-3Blue1Brown](https://youtu.be/851U557j6HE?t=220), [How To Pronounce](https://www.howtopronounce.com/borwein)
 
-#### Springer
-
-Springer | UK ˌwelʃ ˌsprɪŋ.ə ˈspæn.jəl | US ˌwelʃ ˌsprɪŋ.ɚ ˈspæn.jəl | [link](https://dictionary.cambridge.org/dictionary/english/Springer)
-
-出版社
-
-https://ell.stackexchange.com/a/192428
-
-https://x.com/mirucaaura/status/1427144163082924032
-
-## 数式の読み方
+## 難単語
 
 ### 一般
-
-#### 等号
-
-https://ejje.weblio.jp/content/equal
-
-#### 累乗
-
-$x^2$
-$x^3$
-$x^n$
-$10^5$
-$10^-5$
-
-#### 根
-
-$\sqrt{2}$
-$\sqrt[3]{2}$
-$\sqrt[n]{2}$
-
-#### 他
-
-https://librivox.org/uploads/xx-nonproject/Handbook%20for%20Spoken%20Mathematics.pdf
-
-#### 集合記号
-
-## その他
-
-いろいろ調べる過程で、自分が知らなかった英単語をいくつか見かけたので、記しておきます。
-
-### 基礎
 
 #### contrapositive
 
@@ -403,21 +394,34 @@ reciprocal | UK rɪˈsɪp.rə.kəl | US rɪˈsɪp.rə.kəl | [link](https://dict
 
 https://www.etymonline.com/word/reciprocal
 
-### 線形代数
+(inverse?)
 
-#### homomorphism
+### 写像
+
+#### morphism
 
 <!-- No pronunciation found -->
 
-homo homeo
+| 用語                    | 意味（簡単な説明）                        |
+| --------------------- | -------------------------------- |
+| **homomorphism**      | 構造を保つ写像（同型射の総称、特に群や環でよく使う）       |
+| **isomorphism**       | 同型写像（構造を完全に保存する写像、逆写像が存在する）      |
+| **endomorphism**      | 自己準同型（同じ対象への写像）                  |
+| **automorphism**      | 自己同型（同じ対象の同型写像）                  |
+| **monomorphism**      | モノ射（単射に対応する概念）                   |
+| **epimorphism**       | エピ射（全射に対応する概念）                   |
+| **bimorphism**        | モノ射かつエピ射                         |
+| **quasi-isomorphism** | 準同型（導来圏などで使われる概念、準同型射）           |
+| **diffeomorphism**    | 微分同相写像（微分可能かつ逆写像も微分可能）           |
+| **homeomorphism**     | 同相写像（位相空間の構造を保つ）                 |
+| **anti-isomorphism**  | 反同型写像（構造を逆順で保存する写像）              |
+| **bi-isomorphism**    | 双同型（双方向の同型性を持つ写像、例えば双有理写像）       |
+| **polymorphism**      | 多相性（型理論や論理学で使われることが多い）           |
+| **semimorphism**      | 準同型的な写像（文脈依存で使用される）              |
+| **congruomorphism**   | 合同射（代数構造で合同関係を尊重する写像、あまり一般的ではない） |
+| **anemomorphism** (稀) | （特殊な圏論的な用語、必要なら詳しく解説します）         |
 
-#### endomorph
-
-endomorph | UK ˈen.də.mɔːf | US ˈen.doʊ.mɔːrf | [link](https://dictionary.cambridge.org/dictionary/english/endomorph)
-
-自己準同型
-
-industryと同根らしいです。
+自己準同型 industryと同根らしいです。
 
 #### idempotent
 
@@ -465,8 +469,7 @@ entire function
 
 https://ja.wikipedia.org/wiki/%E6%95%B4%E9%96%A2%E6%95%B0
 
-複素数平面の全域で定義される正則函数を指す。
-関数全体ではない。
+複素数平面の全域で定義される正則函数を指す。関数全体ではない。
 
 参考: 私の友人の鍵垢ツイート
 
@@ -484,15 +487,81 @@ https://x.com/sesiru8/status/1325372621169463296
 
 参考用に、数学における英語の用語がまとまったサイトをいくつか列挙しておきます。
 
-Hyper Collocation
-
-https://hypcol.marutank.net/ja/
-
----
+Hyper Collocation: https://hypcol.marutank.net/ja/ arXivでの共起表現や用例を調べることができる
 
 https://www.ryugakusite.com/article/high_school_math/
 
 https://sorabalab.com/glossary/glossary.html
+
+## 数式
+
+特にこの節は追記予定です。
+
+### 基本的数式
+
+#### 等号
+
+$x=y$
+
+これの読み方は、
+
+1. $x$ equal $y$
+2. $x$ equals $y$
+3. $x$ equals to $y$
+4. $x$ is equal to $y$
+
+のどれが正しいか?
+
+2の $x$ equals $y$ が基本的にはequalの三人称単数現在形としての動詞用法として最も正しい。
+
+4の $x is equal to y$ も叙述的用法の形容詞として正しいが、やや冗長とされる。
+
+1の $x equal y$ は、sがないので文法的に誤りである。
+
+3の $x equals to y$ は、動詞用法としての"equals"と形容詞用法としての"be equal to"が混ざっている。動詞用法では"to"は不要である。
+
+参考1: [Weblio](https://ejje.weblio.jp/content/equal)
+
+参考2: [Cambridge Dictionary](https://dictionary.cambridge.org/dictionary/english/equal#google_vignette)
+
+#### 累乗
+
+$x^2$: x squared
+
+$x^3$: x cubed
+
+$x^n$: x to the power (of) n / x raised to the n th power / x raised to the power of n / the n th power of b / x to the n (th)
+
+$2^16$: two to the sixteen(th)
+
+底数はbaseと呼ばれ、指数はexponentと呼ばれる。
+
+参考1: [Wikipedia-Exponentiation](https://en.wikipedia.org/wiki/Exponentiation)
+
+> The exponent is usually shown as a superscript to the right of the base as bn or in computer code as $b^n$. This binary operation is often read as "b to the power n"; it may also be referred to as "b raised to the nth power", "the nth power of b", or, most briefly, "b to the n".
+
+参考2: [StackExchange](https://english.stackexchange.com/questions/74169/how-to-read-exponential-expressions-e-g-216)
+
+> The more common way to say it (in math class or in a mathematical presentation) is a ellipsis of the first: "two to the sixteenth" or just as commonly "two to the sixteen" depending on how rapid speech you are using.
+
+参考3: [https://www.youtube.com/watch?v=zdu8dII7zRE](https://www.youtube.com/watch?v=zdu8dII7zRE)
+
+#### 根
+
+$\sqrt{2}$: the square root of two
+
+$\sqrt[3]{2}$: the cube root of two
+
+$\sqrt[n]{2}$: the nth root of two
+
+<!--
+
+#### 他
+
+https://librivox.org/uploads/xx-nonproject/Handbook%20for%20Spoken%20Mathematics.pdf
+
+#### 集合記号
+ -->
 
 ## 最後に
 

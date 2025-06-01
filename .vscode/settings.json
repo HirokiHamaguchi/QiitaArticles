@@ -75,6 +75,7 @@
         "LLCref"
     ],
     "cSpell.words": [
+        "affinis",
         "asarray",
         "Barzilai",
         "Bauschke",
@@ -105,6 +106,7 @@
         "Silverman",
         "stdlib",
         "Sugimoto",
+        "Wasserstein",
         "yabe",
         "Yamagen",
         "Ziegel"
