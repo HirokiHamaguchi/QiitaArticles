@@ -292,7 +292,11 @@ Hermitian matrix: エルミート行列。複素正方行列 $A$ が $A = A^\dag
 
 <!-- No pronunciation found -->
 
-ジャコビアンに近い発音。
+[Wiktionary](https://en.wiktionary.org/wiki/Jacobian#English)には /jɑːˈkəʊ.bi.ən/ /d͡ʒəˈkoʊ.bi.ən/ が載っている。
+
+ジャコ(ウ)ビアンに近い発音。ヤコビアンではない。
+
+Jacobian matrix: ヤコビ行列。 $J=\left(\frac{\partial f_i}{\partial x_j}\right)_{i,j}$
 
 参考: 教本 p.76
 
@@ -328,7 +332,7 @@ Erdos number: [Erdos number](https://en.wikipedia.org/wiki/Erd%C5%91s_number)は
 
 Wolfram | UK ˈwʊl.frəm | US ˈwʊl.frəm | [link](https://dictionary.cambridge.org/dictionary/english/Wolfram)
 
-ウルフラムに近い発音とウォルフラムに近い発音を聞いたことがあり、その中間に近い。そもそもこの"wʊ"の音が日本人に難しいという話もある気がします(要出典)。
+ウルフラムに近い発音とウォルフラムに近い発音を聞いたことがあり、その中間に近い。そもそもこの"wʊ"の音が日本人に難しいという話もある気がします(要出典)。Wolfe条件で有名な[Philip Wolfe](https://en.wikipedia.org/wiki/Philip_Wolfe_(mathematician))さんの名前も同じ発音。
 
 [wood](https://dictionary.cambridge.org/dictionary/english/wood): /wʊd/
 
@@ -460,7 +464,7 @@ strictly convex: $f(tx + (1-t)y) < tf(x) + (1-t)f(y)$ と等号のない不等�
 
 proper convex: 少なくとも一つの $x$ に対して $f(x) < \infty$ が成立し、全ての $x$ に対して $f(x) \geq -\infty$ が成立する凸関数
 
-参考: [Wiki](https://ja.wikipedia.org/wiki/%E7%9C%9F%E5%87%B8%E5%87%BD%E6%95%B0)
+参考: [Wikipedia - 真凸函数](https://ja.wikipedia.org/wiki/%E7%9C%9F%E5%87%B8%E5%87%BD%E6%95%B0)
 
 ### ツイート
 
