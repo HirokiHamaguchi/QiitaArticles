@@ -276,7 +276,7 @@ quasi | UK ˈkweɪ.zaɪ- | US /ˈkwɑː.zaɪ-/ /ˌkweɪ·zɑɪ/ /kwɑzi-/ | [lin
 
 [Merriam-Webster](https://www.merriam-webster.com/dictionary/Hermitian%20matrix)は /ˌhər-ˈmi-shən-/
 
-どれが最も一般的かなどは不明だが、ハーミシャンに近い発音。エルミートではない。
+どれが最も一般的かなどは不明だが、ハーミシャンに近い発音、あるいは、ハーマイシャンに近い発音、あるいは(h)エァーミシャンに近い発音。エルミートではない。
 
 Hermitian matrix: エルミート行列。複素正方行列 $A$ が $A = A^\dagger (\coloneqq \bar{A^\top})$ を満たすとき、エルミート行列と呼ぶ。
 
@@ -418,7 +418,7 @@ $P \implies Q$
 
 reciprocal | UK rɪˈsɪp.rə.kəl | US rɪˈsɪp.rə.kəl | [link](https://dictionary.cambridge.org/dictionary/english/reciprocal)
 
-reciprocal は 「逆数」を意味する。 $\frac{1}{x}$ のこと。
+reciprocal は 「逆数」を意味する。$\frac{1}{x}$ のこと。
 
 inverse は 「逆」を意味する。$x \mapsto e^x$ に対して $x \mapsto \log x$ のような関数の逆写像を指す。
 
@@ -600,7 +600,7 @@ https://librivox.org/uploads/xx-nonproject/Handbook%20for%20Spoken%20Mathematics
 
 また、フランスの方の発音は、イギリス英語的な傾向に加え、フランス語の影響も当然受けているので、"R" や "H" の音が特徴的です。例えば、"hospital"（病院）は、オスピタルのように発音される方が多いらしいです([参考](https://qa.speakbuddy.jp/qa/247))。実際私も Hessian の "H" が抜かれている発音を聞いたことがあります。
 
-以上の英語・ヒンディー語・フランス語はいずれも「インド・ヨーロッパ語族」に分類されていますが、語派としては異なり、英語はゲルマン語派に、フランス語はロマンス語派に分類されるようです。共通点と差異の両方を歴史に見出すことが出来ます。
+以上の英語・ヒンディー語・フランス語はいずれも「インド・ヨーロッパ語族」に分類されていますが、語派としては異なり、英語はゲルマン語派に、フランス語はロマンス語派に分類されるようです。共通点と差異の両方を歴史に見出せます。
 
 ![Sekai-no-gengo](https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Sekai-no-gengo.png/1200px-Sekai-no-gengo.png?20081022180809)
 
