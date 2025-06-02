@@ -56,6 +56,12 @@ matrix | UK ˈmeɪ.trɪks | US ˈmeɪ.trɪks | [link](https://dictionary.cambrid
 
 メイトリクスに近い発音。マトリックスではない、と言われることが多い。
 
+複数形は matrices | UK /-trɪ.siːz/ となっている。
+
+[Weblio](https://ejje.weblio.jp/content/matrixes#google_vignette)には matrixes /ˈmetrɪksɪz(米国英語), ˈmeɪtrɪksɪz(英国英語)/ も掲載されている。
+
+辞書的な発音を踏まえると matrices の方が自然に思える。
+
 参考1: 教本 p.24
 
 参考2: [YouTube-3Blue1Brown](https://youtu.be/XkY2DOUCWMU?t=93) (メイトリクスに近い発音をしている)
