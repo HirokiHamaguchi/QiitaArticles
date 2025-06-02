@@ -4,9 +4,9 @@
 
 本記事は以下の節から構成されます。
 
-1. [発音](#発音) 数学にまつわる英単語の発音
-2. [難単語](#難単語) 筆者が知らなかった単語
-3. [数式](#数式) 数式・記法の非自明な読み方
+1. [発音](#発音) 間違えやすい発音の英単語
+2. [難単語](#難単語) 筆者にとっての難単語
+3. [数式](#数式) 非自明な数式などの読み方
 
 この記事は筆者が例を見つけたときに更新する可能性があります。
 
@@ -261,6 +261,7 @@ quasi | UK ˈkweɪ.zaɪ- | US /ˈkwɑː.zaɪ-/ /ˌkweɪ·zɑɪ/ /kwɑzi-/ | [lin
 クワジ・クワザイに近い発音を私は聞いたことがあります。
 
 参考1: クワジ派 [YouTube - SciPy](https://www.youtube.com/watch?v=VIoWzHlz7k8&t=724s)
+
 参考2: クワザイ派 [YouTube - Dr Ganguli](https://www.youtube.com/watch?v=CjCBzOwHa3s&t=595s)
 
 ### 固有名詞
@@ -363,9 +364,11 @@ $$
 
 英語ではゾーンに近い発音のこともある。日本語だとツォルンとよく言われる。尤も、[Max August Zorn](https://en.wikipedia.org/wiki/Max_August_Zorn)さんがドイツ人であり、リンク先に"German: tsɔʁn"とあることから、日本語の方が本来に近い発音かも知れない。
 
-参考: [YouTube](https://www.youtube.com/watch?v=f8Rv2PHxAwQ&t=222s)
+参考1: [YouTube](https://www.youtube.com/watch?v=f8Rv2PHxAwQ&t=222s)
 
-Zorn's lemma: 半順序集合 $P$ は、その全ての鎖(つまり、全順序部分集合)が $P$ に上界を持つとする。このとき、$P$ は少なくともひとつの極大元を持つ。([Wikipedia](https://ja.wikipedia.org/wiki/%E3%83%84%E3%82%A9%E3%83%AB%E3%83%B3%E3%81%AE%E8%A3%9C%E9%A1%8C))
+Zorn's lemma: 半順序集合 $P$ は、その全ての鎖(つまり、全順序部分集合)が $P$ に上界を持つとする。このとき、$P$ は少なくともひとつの極大元を持つ。
+
+参考2: [Wikipedia - ツォルンの補題](https://ja.wikipedia.org/wiki/%E3%83%84%E3%82%A9%E3%83%AB%E3%83%B3%E3%81%AE%E8%A3%9C%E9%A1%8C)
 
 #### Barzilai
 
@@ -419,7 +422,7 @@ reciprocal は 「逆数」を意味する。 $\frac{1}{x}$ のこと。
 
 inverse は 「逆」を意味する。$x \mapsto e^x$ に対して $x \mapsto \log x$ のような関数の逆写像を指す。
 
-(最適化が専門の人間としては) Hessian inverse が $(\nabla^2 f)^{-1}$ であるので混乱しそうになるが、基本は日本語と変わらない。
+Hessian inverse が $(\nabla^2 f)^{-1}$ であるので混乱しそうになるが、基本は日本語と変わらず、逆関数か逆数かの違い。
 
 参考: [Stack Exchange](https://math.stackexchange.com/questions/3531287/what-is-the-difference-between-inverse-and-reciprocal)
 
