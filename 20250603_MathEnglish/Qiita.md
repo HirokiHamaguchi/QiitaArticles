@@ -588,6 +588,20 @@ $\sqrt[3]{2}$: the cube root of two
 
 $\sqrt[n]{2}$: the $n$-th root of two
 
+#### 負の値
+
+-10などの負の値について、"minus ten"と読むのが一般的とされていますが、"negative ten"と読む方が良いという話があります。
+
+$15-10=5$ における"-"はminusと読みます。
+
+参考1: [StackExchange](https://ell.stackexchange.com/questions/153157/negative-numbers-minus-or-negative)
+
+> It is good mathematical practice to distinguish between positive and negative numbers
+> ……(中略)……
+> it is very common for people, even mathematicians, to use "minus" in speech
+
+参考2: penta_mathさんからの情報。ありがとうございます。
+
 <!--
 
 #### 他
