@@ -1,4 +1,4 @@
-# 英語での読み方が難しい数学の用語・記法
+<!-- markdownlint-disable MD041 -->
 
 英語での読み方が難しい数学の用語・記法をまとめます。
 
@@ -135,9 +135,11 @@ annihilate | UK əˈnaɪ.ə.leɪt | US əˈnaɪ.ə.leɪt | [link](https://dictio
 零化イデアルおよび零化域を指す。
 
 > $F$ 上のベクトル空間 $V$ の部分集合 $S$ に対し、$S$ の $V^\*$ における**零化域** $S^{\circ}$ は、任意の $s \in S$ に対して $[f, s] = 0$ を満たす線型汎函数 $f \in V^\*$ 全体の成す集合と定義される。すなわち、$S^{\circ}$ は $S$ への制限が消えているような線型汎函数
-> $$
+>
+> ```math
 > f\colon V \to F \quad (f|_S = 0)
-> $$
+> ```
+>
 > 全てからなる。
 
 ([Wikipedia-双対ベクトル空間](https://ja.wikipedia.org/wiki/%E5%8F%8C%E5%AF%BE%E3%83%99%E3%82%AF%E3%83%88%E3%83%AB%E7%A9%BA%E9%96%93#%E5%95%86%E7%A9%BA%E9%96%93%E3%81%A8%E9%9B%B6%E5%8C%96%E5%9F%9F)より引用)
@@ -186,13 +188,15 @@ pseudo | UK sjuː.dəʊ- | US suː.doʊ- | [link](https://dictionary.cambridge.o
 
 pseudo-inverse: 一般化逆行列 (Moore–Penrose inverse とも)
 
-$$
+```math
 A=U\Sigma V^\top \implies A^+ = V \Sigma^+ U^\top
-$$
+```
+
 where
-$$
+
+```math
 \Sigma^+ = \mathrm{diag}(\sigma_1^{-1}, \sigma_2^{-1}, \ldots, \sigma_r^{-1}, 0, \ldots, 0)
-$$
+```
 
 参考: [高校数学の美しい物語](https://manabitimes.jp/math/2746)
 
@@ -361,9 +365,9 @@ Wasserstein計量で有名なRussian-Americanの数学者の[Leonid Nisonovich V
 
 参考3: [How To Pronounce Wasserstein](https://www.howtopronounce.com/wasserstein)
 
-$$
+```math
 W_p(\mu, \nu) = \inf_{\gamma \in \Gamma(\mu, \nu)} \left(\mathbf{E}_{(x, y) \sim \gamma} d(x, y)^p \right)^\frac{1}{p}
-$$
+```
 
 ($\Gamma(\mu, \nu)$ がカップリング、つまり、よくある堆積した土の例でいうところの移動方法の集合なので、堆積を移動する最小コストを表す)
 
@@ -399,13 +403,13 @@ Barzilai–Borwein法のBorweinさんです。個人的事情から本記事の[
 
 [Borwein積分](https://en.wikipedia.org/wiki/Borwein_integral)のBorweinさん親子と子供側と同一人物でもあります。
 
-$$
+```math
 \begin{align*}
     & \int_0^\infty \frac{\sin(x)}{x}\frac{\sin(x/3)}{x/3}\cdots\frac{\sin(x/15)}{x/15} \  \mathrm{d}x \\\\
 ={}& \frac{467807924713440738696537864469}{935615849440640907310521750000} \pi \\\\
 \approx{}& \frac \pi 2 - 2.31\times 10^{-11}.
 \end{align*}
-$$
+```
 
 参考1: [YouTube-3Blue1Brown](https://youtu.be/851U557j6HE?t=220)
 
@@ -613,7 +617,7 @@ https://librivox.org/uploads/xx-nonproject/Handbook%20for%20Spoken%20Mathematics
 
 以上の英語・ヒンディー語・フランス語はいずれも「インド・ヨーロッパ語族」に分類されていますが、語派としては異なり、英語はゲルマン語派に、フランス語はロマンス語派に分類されるようです。共通点と差異の両方を歴史に見出せます。
 
-![Sekai-no-gengo](https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Sekai-no-gengo.png/1200px-Sekai-no-gengo.png?20081022180809)
+<img width=100% src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Sekai-no-gengo.png/1200px-Sekai-no-gengo.png?20081022180809" alt="Sekai-no-gengo">
 
 Auf at Japanese Wikipedia, [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/), via Wikimedia Commons
 
@@ -629,44 +633,44 @@ https://en.wikipedia.org/wiki/Barzilai-Borwein_method
 
 Barzilai–Borwein法[^BB]は、凸関数に対する単純な勾配法において、step sizeを次のいずれかに設定する方法です。
 
-$$
+```math
 \alpha_k^{\mathrm{LONG}} = \frac{\langle s_k, s_k \rangle}{\langle s_k, y_k \rangle} \quad \text{or} \quad \alpha_k^{\mathrm{SHORT}} = \frac{\langle s_k, y_k \rangle}{\langle y_k, y_k \rangle}
-$$
+```
 
 準Newton法において、セカント条件 $B_{k+1} s_k = y_k$ が重要であることを前提とします ([参考スライド p.28](https://www.kurims.kyoto-u.ac.jp/coss/coss2023/slides/narushima-lecture.pdf))。
 
 すると、ヘッシアン行列の近似 $B_{k+1}$ として単位行列の定数倍 $1/\alpha I$ を使おうとすると、
 
-$$
+```math
 \begin{align*}
-& \arg\min_{\alpha} \| s_k / \alpha - y_k \|^2\\
+& \arg\min_{\alpha} \lVert s_k / \alpha - y_k \rVert^2\\
 
-={}& \arg\min_{\alpha} (\alpha^{-2} \| s_k\|^2 - 2 \alpha^{-1} \langle s_k, y_k \rangle + \| y_k\|^2)\\
-={}& \frac{\| s_k\|^2}{\langle s_k, y_k \rangle}
+={}& \arg\min_{\alpha} (\alpha^{-2} \lVert s_k\rVert^2 - 2 \alpha^{-1} \langle s_k, y_k \rangle + \lVert y_k\rVert^2)\\
+={}& \frac{\lVert s_k\rVert^2}{\langle s_k, y_k \rangle}
 \end{align*}
-$$
+```
 
 あるいは、
 
-$$
+```math
 \begin{align*}
-& \arg\min_{\alpha} \| s_k - \alpha y_k \|^2\\
-={}& \arg\min_{\alpha} (\| s_k\|^2 - 2 \alpha \langle s_k, y_k \rangle + \alpha^2 \| y_k\|^2)\\
-={}& \frac{\langle s_k, y_k \rangle}{\| y_k\|^2}
+& \arg\min_{\alpha} \lVert s_k - \alpha y_k \rVert^2\\
+={}& \arg\min_{\alpha} (\lVert s_k\rVert^2 - 2 \alpha \langle s_k, y_k \rangle + \alpha^2 \lVert y_k\rVert^2)\\
+={}& \frac{\langle s_k, y_k \rangle}{\lVert y_k\rVert^2}
 \end{align*}
-$$
+```
 
 かを使うのが自然です。これらは正に上記のBarzilai–Borwein法のstep sizeに対応します。
 
 ここで、$\alpha_k^{\mathrm{LONG}}$ と $\alpha_k^{\mathrm{SHORT}}$ の大小関係を考えると、
 
-$$
+```math
 \begin{align*}
-&\| s_k\| \| y_k\| \geq \langle s_k, y_k \rangle \quad \text{(Cauchy–Schwarz)}\\
-\implies{} & \frac{\| s_k\|^2}{\langle s_k, y_k \rangle} \geq \frac{\langle s_k, y_k \rangle}{\| y_k\|^2} \\
+&\lVert s_k\rVert \lVert y_k\rVert \geq \langle s_k, y_k \rangle \quad \text{(Cauchy–Schwarz)}\\
+\implies{} & \frac{\lVert s_k\rVert^2}{\langle s_k, y_k \rangle} \geq \frac{\langle s_k, y_k \rangle}{\lVert y_k\rVert^2} \\
 \implies{} & \alpha_k^{\mathrm{LONG}} \geq \alpha_k^{\mathrm{SHORT}}
 \end{align*}
-$$
+```
 
 であるため、この命名が自然であることも分かります。
 
