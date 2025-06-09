@@ -152,20 +152,6 @@ annihilate | UK əˈnaɪ.ə.leɪt | US əˈnaɪ.ə.leɪt | [link](https://dictio
 
 ### 個人的蒐集
 
-#### column
-
-column | UK ˈkɒl.əm | US ˈkɑː.ləm | [link](https://dictionary.cambridge.org/dictionary/english/column)
-
-USの方はカ(ー)ラムに近い発音。コラムではない。
-
-#### tensor
-
-tensor | UK ˈten.sər | US ˈten.sɚ | [link](https://dictionary.cambridge.org/dictionary/english/tensor)
-
-テンサ(ー)に近い発音。テンソルではない。
-
-行列の一般化であり、[テンソル積](https://ja.wikipedia.org/wiki/%E3%83%86%E3%83%B3%E3%82%BD%E3%83%AB%E7%A9%8D)や[普遍性](https://manabitimes.jp/math/1845)によって定義される。
-
 #### affine
 
 affine | UK əˈfaɪn | US əˈfaɪn | [link](https://en.wiktionary.org/wiki/affine), [link2](https://ejje.weblio.jp/content/affine#google_vignette)
@@ -175,6 +161,66 @@ affine | UK əˈfaɪn | US əˈfaɪn | [link](https://en.wiktionary.org/wiki/aff
 線形変換と平行移動を組み合わせたもの($x \mapsto Ax+b$)を指す。
 
 [ラテン語で「類似・関連」を意味するaffinisに由来する](https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%95%E3%82%A3%E3%83%B3%E5%86%99%E5%83%8F)。
+
+#### algorithm
+
+algorithm | UK ˈæl.ɡə.rɪ.ðəm | US ˈæl.ɡə.rɪ.ðəm | [link](https://dictionary.cambridge.org/dictionary/english/algorithm)
+
+algebraと同じく、最初のアにアクセントがある。ちなみに語源的にも両者は同じとされている。
+
+アルゴリズムを意味する。
+
+参考1: [etymonline - algorithm](https://www.etymonline.com/word/algorithm)
+
+参考2: [etymonline - algebra](https://www.etymonline.com/word/algebra)
+
+#### anti
+
+anti | UK ˈæn.ti | US ˈæn.t̬i | [link](https://dictionary.cambridge.org/dictionary/english/anti)
+
+(ア|エ)ンティに近い発音。アンチではない。
+
+antisymmetric low: 反対称律
+
+#### chaos
+
+chaos | UK ˈkeɪ.ɒs | US ˈkeɪ.ɑːs | [link](https://dictionary.cambridge.org/dictionary/english/chaos)
+
+ケイオスに近い発音。カオスではない。
+
+chaos theory: カオス理論。数的誤差のため予測が困難とされている、二重振り子などの複雑な現象を扱う理論。
+
+#### column
+
+column | UK ˈkɒl.əm | US ˈkɑː.ləm | [link](https://dictionary.cambridge.org/dictionary/english/column)
+
+USの方はカ(ー)ラムに近い発音。コラムではない。
+
+#### gradient
+
+gradient | UK ˈɡreɪ.di.ənt | US ˈɡreɪ.di.ənt | [link](https://dictionary.cambridge.org/dictionary/english/gradient)
+
+グレイディエントに近い発音(eɪの部分に注意)。グラディエントではない。
+
+#### hull
+
+hull | UK hʌl | US hʌl | [link](https://dictionary.cambridge.org/dictionary/english/hull)
+
+ホルとハルの中間に近い発音。フルやハルではない。
+
+convex hull: 凸包
+
+hullは英語で「(穀粒・種などの)外皮、殻、果皮、(特に豆の)さや、(イチゴなどの)へた、おおい、船体」などを意味する。
+
+参考: [Weblio - hull](https://ejje.weblio.jp/content/hull#google_vignette)
+
+#### image
+
+image | UK ˈɪm.ɪdʒ | US ˈɪm.ɪdʒ | [link](https://dictionary.cambridge.org/dictionary/english/image)
+
+イミッジに近い発音。イメージではない。
+
+写像の像を意味する。
 
 #### pseudo
 
@@ -200,22 +246,6 @@ where
 
 参考: [高校数学の美しい物語](https://manabitimes.jp/math/2746)
 
-#### chaos
-
-chaos | UK ˈkeɪ.ɒs | US ˈkeɪ.ɑːs | [link](https://dictionary.cambridge.org/dictionary/english/chaos)
-
-ケイオスに近い発音。カオスではない。
-
-chaos theory: カオス理論。数的誤差のため予測が困難とされている、二重振り子などの複雑な現象を扱う理論。
-
-#### anti
-
-anti | UK ˈæn.ti | US ˈæn.t̬i | [link](https://dictionary.cambridge.org/dictionary/english/anti)
-
-(ア|エ)ンティに近い発音。アンチではない。
-
-antisymmetric low: 反対称律
-
 #### relative
 
 relative | UK ˈrel.ə.tɪv | US ˈrel.ə.t̬ɪv | [link](https://dictionary.cambridge.org/dictionary/english/relative)
@@ -224,14 +254,6 @@ relative | UK ˈrel.ə.tɪv | US ˈrel.ə.t̬ɪv | [link](https://dictionary.cam
 
 relative error: 相対誤差
 relative entropy: 相対エントロピー
-
-#### image
-
-image | UK ˈɪm.ɪdʒ | US ˈɪm.ɪdʒ | [link](https://dictionary.cambridge.org/dictionary/english/image)
-
-イミッジに近い発音。イメージではない。
-
-写像の像を意味する。
 
 #### remainder
 
@@ -242,6 +264,26 @@ remainder | UK rɪˈmeɪn.dər | US rɪˈmeɪn.dɚ | [link](https://dictionary.c
 剰余を意味する。
 
 リマインダー(スケジュールやメモの内容を思い出させる機能)は、英語で reminder と綴る。
+
+#### secant
+
+secant | UK ˈsiː.kənt | US ˈsiː.kənt | [link](https://dictionary.cambridge.org/dictionary/english/secant)
+
+シーカントに近い発音。セカントではない。
+
+secant: 正割 $\sec \theta = \frac{1}{\cos \theta}$
+
+secant line: 割線 円でいうと弦の延長にあたる
+
+secant method: 割線法。数値解析において、関数の根を求める方法の一つ。ニュートン法における接線を割線で代替する。
+
+参考1: [Wikipedia - 三角関数](https://ja.wikipedia.org/wiki/%E4%B8%89%E8%A7%92%E9%96%A2%E6%95%B0)
+
+参考2: [Wikipedia - 割線](https://ja.wikipedia.org/wiki/%E5%89%B2%E7%B7%9A)
+
+> 曲線の割線（かっせん、かつせん、英: secant line, secant; 正割線）は、その曲線と（相異なる）ふたつ以上の点で交わる直線を言う。
+
+参考3: [Wikipedia - 割線法](https://ja.wikipedia.org/wiki/%E5%89%B2%E7%B7%9A%E6%B3%95)
 
 #### suffice
 
@@ -254,6 +296,14 @@ It suffices to say that ~: ~と言えば十分である
 個人的な衝撃度ランキング2位(1位は[scalar](#scalar))でした。sufficientと混同していました。
 
 私と同じようなミスをしていた方は[例文](https://ejje.weblio.jp/content/suffice)をたくさん聞くと矯正されるかも知れません。
+
+#### tensor
+
+tensor | UK ˈten.sər | US ˈten.sɚ | [link](https://dictionary.cambridge.org/dictionary/english/tensor)
+
+テンサ(ー)に近い発音。テンソルではない。
+
+行列の一般化であり、[テンソル積](https://ja.wikipedia.org/wiki/%E3%83%86%E3%83%B3%E3%82%BD%E3%83%AB%E7%A9%8D)や[普遍性](https://manabitimes.jp/math/1845)によって定義される。
 
 ### 複数の発音が許容されている用語
 
@@ -289,6 +339,8 @@ quasi | UK ˈkweɪ.zaɪ- | US /ˈkwɑː.zaɪ-/ /ˌkweɪ·zɑɪ/ /kwɑzi-/ | [lin
 
 どれが最も一般的かなどは不明だが、ハーミシャンに近い発音、あるいは、ハーマイシャンに近い発音、あるいは(h)エァーミシャンに近い発音。エルミートではない。
 
+なお、[Charles Hermite](https://en.wikipedia.org/wiki/Charles_Hermite)さんはフランス人であり、Hermiteの現地読みは [/ɛʁ.mit/](https://en.wiktionary.org/wiki/hermite) と「エルミート」に近い。フランス語では "H" を発音しないことが多い。
+
 Hermitian matrix: エルミート行列。複素正方行列 $A$ が $A = A^\dagger \  (\colon= \bar{A^\top})$ を満たすとき、エルミート行列と呼ぶ。
 
 参考: 教本 p.76
@@ -301,9 +353,13 @@ Hermitian matrix: エルミート行列。複素正方行列 $A$ が $A = A^\dag
 
 ジャコ(ウ)ビアンに近い発音。ヤコビアンではない。
 
+なお、[Carl Gustav Jacob Jacobi](https://en.wikipedia.org/wiki/Carl_Gustav_Jacob_Jacobi)さんはドイツ人であり、Jacobiの現地読みは [/jaˈkoːbi/](https://en.wikipedia.org/wiki/Carl_Gustav_Jacob_Jacobi) と「ヤコビ」に近い。
+
 Jacobian matrix: ヤコビ行列。 $J=\left(\frac{\partial f_i}{\partial x_j}\right)_{i,j}$
 
-参考: 教本 p.76
+参考1: 教本 p.76
+
+参考2: [YouTube - How to pronounce Jacobi (Germany/German)](https://www.youtube.com/watch?v=ZLLEkCUWMTM)
 
 #### Poisson
 
@@ -399,247 +455,9 @@ Zorn's lemma: 半順序集合 $P$ は、その全ての鎖(つまり、全順序
 
 ボォー(ル)ウェインに近い発音。
 
-Barzilai–Borwein法のBorweinさんです。個人的事情から本記事の[おまけ](#おまけ-barzilaiborwein法)で数理的な解説をしています。
+Barzilai–Borwein法のBorweinさんです。
 
-[Borwein積分](https://en.wikipedia.org/wiki/Borwein_integral)のBorweinさん親子と子供側と同一人物でもあります。
-
-```math
-\begin{align*}
-    & \int_0^\infty \frac{\sin(x)}{x}\frac{\sin(x/3)}{x/3}\cdots\frac{\sin(x/15)}{x/15} \  \mathrm{d}x \\\\
-={}& \frac{467807924713440738696537864469}{935615849440640907310521750000} \pi \\\\
-\approx{}& \frac \pi 2 - 2.31\times 10^{-11}.
-\end{align*}
-```
-
-参考1: [YouTube-3Blue1Brown](https://youtu.be/851U557j6HE?t=220)
-
-参考2: [How To Pronounce](https://www.howtopronounce.com/borwein)
-
-## 難単語
-
-### 一般
-
-#### contraposition
-
-<!-- No pronunciation found -->
-
-$P \implies Q$
-
-* 逆 : converse ($Q \implies P$)
-* 裏 : inverse ($\neg P \implies \neg Q$)
-* 対偶 : contraposition ($\neg Q \implies \neg P$)
-
-#### reciprocal
-
-reciprocal | UK rɪˈsɪp.rə.kəl | US rɪˈsɪp.rə.kəl | [link](https://dictionary.cambridge.org/dictionary/english/reciprocal)
-
-reciprocal は 「逆数」を意味する。$\frac{1}{x}$ のこと。
-
-inverse は 「逆」を意味する。$x \mapsto e^x$ に対して $x \mapsto \log x$ のような関数の逆写像を指す。
-
-Hessian inverse が $(\nabla^2 f)^{-1}$ であるので混乱しそうになるが、基本は日本語と変わらず、逆関数か逆数かの違い。
-
-参考: [Stack Exchange](https://math.stackexchange.com/questions/3531287/what-is-the-difference-between-inverse-and-reciprocal)
-
-### 写像
-
-#### morphism
-
-<!-- No pronunciation found -->
-
-[morphism](https://ja.wikipedia.org/wiki/%E5%B0%84_(%E5%9C%8F%E8%AB%96))(射)は、そもそもの数学的な難しさもあるが、特に似た用語が多く混乱しやすい。
-
-* [homomorphism](https://ja.wikipedia.org/wiki/%E6%BA%96%E5%90%8C%E5%9E%8B) | [語源](https://www.etymonline.com/word/homo-) | 準同型写像 $\left( f(x \cdot y) = f(x) \cdot f(y) \right)$
-* [isomorphism](https://ja.wikipedia.org/wiki/%E5%90%8C%E5%9E%8B%E5%86%99%E5%83%8F) | [語源](https://www.etymonline.com/word/iso-) | 同型写像 (逆写像が存在する準同型写像)
-* [endomorphism](https://ja.wikipedia.org/wiki/%E8%87%AA%E5%B7%B1%E6%BA%96%E5%90%8C%E5%9E%8B) | [語源](https://www.etymonline.com/word/endo-) | 自己準同型 (自己への準同型写像)
-* [automorphism](https://ja.wikipedia.org/wiki/%E8%87%AA%E5%B7%B1%E5%90%8C%E5%9E%8B) | [語源](https://www.etymonline.com/word/auto-) | 自己同型 (自己への同型写像)
-* [homeomorphism](https://ja.wikipedia.org/wiki/%E4%BD%8D%E7%9B%B8%E5%90%8C%E5%9E%8B) | [語源](https://www.etymonline.com/word/homeo-) | 同相写像 (位相同型とも。連続かつ全単射であり、逆写像も連続な写像)
-
-### 最適化
-
-#### 狭義凸
-
-strictly convex: $f(tx + (1-t)y) < tf(x) + (1-t)f(y)$ と等号のない不等式で凸不等式を満たす関数
-
-「真に凸」と言いますが"strictly convex"を「真凸」と訳すと誤訳です。「狭義凸」と訳すのが正しいです。
-
-参考: 私のやらかし
-
-#### 真凸
-
-proper convex: 少なくとも一つの $x$ に対して $f(x) < \infty$ が成立し、全ての $x$ に対して $f(x) \geq -\infty$ が成立する凸関数
-
-参考: [Wikipedia - 真凸函数](https://ja.wikipedia.org/wiki/%E7%9C%9F%E5%87%B8%E5%87%BD%E6%95%B0)
-
-### ツイート
-
-#### radii
-
-radii | UK ˈreɪ.di.aɪ | US ˈreɪ.di.aɪ | [link](https://dictionary.cambridge.org/dictionary/english/radii)
-
-radius /ˈreɪ.di.əs/ (半径) の複数形
-
-alumnus (男子卒業生) の複数形 alumni (男子卒業生たち または 男女両方を含む卒業生たち) と同じく、[ラテン語由来](https://www.etymonline.com/word/radius)の複数形。
-
-[Wikipedia](https://en.wikipedia.org/wiki/Radius)は、(radii or radiuses)と書いており、後者の用例もない訳ではない。
-
-参考1: [外来複数形](https://user.keio.ac.jp/~rhotta/hellog/2019-02-20-1.html)
-
-参考2: [Twitter](https://x.com/tenseiYN99/status/1925438036420304931)
-
-#### equilibria
-
-<!-- No pronunciation found -->
-
-equilibria | UK ˌi:kwʌˈlɪbri:ʌ | US iːkwɪˈlɪbɹɪa | [link](https://ejje.weblio.jp/content/equilibria)
-
-上記の発音記号は例外的に Weblio のものを使用。
-
-equilibrium /ìːkwəlíbriəm/ (平衡) の複数形。
-
-参考: 上記ツイートのリプライ
-
-#### 整関数
-
-entire function
-
-https://ja.wikipedia.org/wiki/%E6%95%B4%E9%96%A2%E6%95%B0
-
-複素数平面の全域で定義される正則函数を指す。関数全体ではない。
-
-参考: 私の友人の鍵垢ツイート
-
-#### 定義の仕方
-
-Let A (数式) denote B (内容).
-
-それ以外の使い方は多くの場合に非推奨とされる。
-
-参考: 教本 p.90
-
-https://x.com/sesiru8/status/1325372621169463296
-
-#### 他サイト
-
-参考用に、数学における英語の用語がまとまったサイトをいくつか列挙しておきます。
-
-[Hyper Collocation](https://hypcol.marutank.net/ja/): arXivでの共起表現や用例を調べることができる
-
-https://www.ryugakusite.com/article/high_school_math/
-
-https://sorabalab.com/glossary/glossary.html
-
-## 数式
-
-### 基本的数式
-
-#### 等号
-
-$x=y$
-
-これの読み方は、
-
-1. $x$ equal $y$
-2. $x$ equals $y$
-3. $x$ equals to $y$
-4. $x$ is equal to $y$
-
-のどれが正しいか?
-
-2の $x$ equals $y$ が基本的にはequalの三人称単数現在形としての動詞用法として最も正しい。
-
-4の $x$ is equal to $y$ も叙述的用法の形容詞として正しいが、やや冗長とされる。
-
-1の $x$ equal $y$ は、sがないので文法的に誤りである。
-
-3の $x$ equals to $y$ は、動詞用法としての"equals"と形容詞用法としての"be equal to"が混ざっている。動詞用法では"to"は不要である。
-
-参考1: [Weblio](https://ejje.weblio.jp/content/equal)
-
-参考2: [Cambridge Dictionary](https://dictionary.cambridge.org/dictionary/english/equal#google_vignette)
-
-#### 累乗
-
-$x^2$: $x$ squared
-
-$x^3$: $x$ cubed
-
-$x^n$: $x$ to the power (of) $n$ / $x$ raised to the $n$-th power / $x$ raised to the power of $n$ / the $n$-th power of $x$ / $x$ to the $n$(-th)
-
-$2^{16}$: two to the sixteen(th)
-
-底数はbaseと呼ばれ、指数はexponentと呼ばれる。
-
-参考1: [Wikipedia - Exponentiation](https://en.wikipedia.org/wiki/Exponentiation)
-
-> The exponent is usually shown as a superscript to the right of the base as bn or in computer code as $b^n$. This binary operation is often read as "b to the power n"; it may also be referred to as "b raised to the nth power", "the nth power of b", or, most briefly, "b to the n".
-
-参考2: [StackExchange](https://english.stackexchange.com/questions/74169/how-to-read-exponential-expressions-e-g-216)
-
-> The more common way to say it (in math class or in a mathematical presentation) is a ellipsis of the first: "two to the sixteenth" or just as commonly "two to the sixteen" depending on how rapid speech you are using.
-
-参考3: [YouTube -Powers for Kids](https://www.youtube.com/watch?v=zdu8dII7zRE)
-
-#### 根
-
-$\sqrt{2}$: the square root of two
-
-$\sqrt[3]{2}$: the cube root of two
-
-$\sqrt[n]{2}$: the $n$-th root of two
-
-#### 負の値
-
--10などの負の値について、"negative ten"と読む方が良いという話があります。尤も、数学者においても、"minus ten"と読むのが一般的とされています。
-
-$15-10=5$ における"-"はminusと読みます。
-
-参考1: [StackExchange](https://ell.stackexchange.com/questions/153157/negative-numbers-minus-or-negative)
-
-> It is good mathematical practice to distinguish between positive and negative numbers
-> ……(中略)……
-> it is very common for people, even mathematicians, to use "minus" in speech
-
-参考2: penta_mathさんからの情報。ありがとうございます。
-
-<!--
-
-#### 他
-
-https://librivox.org/uploads/xx-nonproject/Handbook%20for%20Spoken%20Mathematics.pdf
-
-#### 集合記号
--->
-
-## 最後に
-
-以上です。
-
-**他の例をご存じの方は、是非教えてください!**
-
----
-
-最後に少しだけ補足です。
-
-あくまで個人の意見として、英語を話すときに[発音](#発音)で示したことを全て厳守する必要はないと思っています。よく言われていることですが、訛りや文法の間違いは文意が正確に伝わる限り許容されがちです。
-
-ただ、お恥ずかしながら私は未だに英語の発音が聞き取れないことがあります。予めその傾向を把握しておけば、楽に聞き取れることも増えると思います。
-
-例えば、インドの方の発音はイギリス英語の影響を受けていることが多いです。18世紀頃から1947年8月15日のインド独立まで、イギリスの植民地だった影響と思われます。また、[Wikipedia](https://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%B3%E3%83%89%E8%8B%B1%E8%AA%9E)によると、"R" を強く発音する傾向があるらしいです(water（水）- ウォータル)。
-
-また、フランスの方の発音は、イギリス英語的な傾向に加え、フランス語の影響も当然受けているので、"R" や "H" の音が特徴的です。例えば、"hospital"（病院）は、オスピタルのように発音される方が多いらしいです([参考](https://qa.speakbuddy.jp/qa/247))。実際私も Hessian の "H" が抜かれている発音を聞いたことがあります。
-
-以上の英語・ヒンディー語・フランス語はいずれも「インド・ヨーロッパ語族」に分類されていますが、語派としては異なり、英語はゲルマン語派に、フランス語はロマンス語派に分類されるようです。共通点と差異の両方を歴史に見出せます。
-
-<img width=100% src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Sekai-no-gengo.png/1200px-Sekai-no-gengo.png?20081022180809" alt="Sekai-no-gengo">
-
-Auf at Japanese Wikipedia, [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/), via Wikimedia Commons
-
-こういった傾向も踏まえた上で、辞書的な発音を知っておくことは、数学的主張の理解に有効だと思います。
-
-本記事が皆様の数学に関する英語の理解に役立てば幸いです。
-
-## おまけ Barzilai–Borwein法
+<details><summary>Barzilai–Borwein法の解説</summary>
 
 https://en.wikipedia.org/wiki/Barzilai-Borwein_method
 
@@ -691,6 +509,266 @@ Barzilai–Borwein法[^BB]は、凸関数に対する単純な勾配法におい
 なお、このstep sizeはBB step sizeとも呼ばれます[^BBStepSize]。
 
 Rayleigh商との関係でも捉えられます[^rayleigh]。
+
+(以上、Barzilai–Borwein法の説明)
+
+</details>
+
+[Borwein積分](https://en.wikipedia.org/wiki/Borwein_integral)のBorweinさん親子の子供側と同一人物でもあります。
+
+```math
+\begin{align*}
+& \int_0^\infty \frac{\sin(x)}{x}\frac{\sin(x/3)}{x/3}\cdots\frac{\sin(x/15)}{x/15} \  \mathrm{d}x \\\\
+={}& \frac{467807924713440738696537864469}{935615849440640907310521750000} \pi \\\\
+\approx{}& \frac \pi 2 - 2.31\times 10^{-11}.
+\end{align*}
+```
+
+参考1: [YouTube-3Blue1Brown](https://youtu.be/851U557j6HE?t=220)
+
+参考2: [How To Pronounce](https://www.howtopronounce.com/borwein)
+
+## 難単語
+
+### 一般
+
+#### contraposition
+
+<!-- No pronunciation found -->
+
+$P \implies Q$
+
+* 逆 : converse ($Q \implies P$)
+* 裏 : inverse ($\neg P \implies \neg Q$)
+* 対偶 : contraposition ($\neg Q \implies \neg P$)
+
+#### reciprocal
+
+reciprocal | UK rɪˈsɪp.rə.kəl | US rɪˈsɪp.rə.kəl | [link](https://dictionary.cambridge.org/dictionary/english/reciprocal)
+
+reciprocal は 「逆数」を意味する。$\frac{1}{x}$ のこと。
+
+inverse は 「逆」を意味する。$x \mapsto e^x$ に対して $x \mapsto \log x$ のような関数の逆写像を指す。
+
+Hessian inverse が $(\nabla^2 f)^{-1}$ であるので混乱しそうになるが、基本は日本語と変わらず、逆関数か逆数かの違い。
+
+参考: [Stack Exchange](https://math.stackexchange.com/questions/3531287/what-is-the-difference-between-inverse-and-reciprocal)
+
+### 写像
+
+#### morphism
+
+<!-- No pronunciation found -->
+
+[morphism](https://ja.wikipedia.org/wiki/%E5%B0%84_(%E5%9C%8F%E8%AB%96))(射)は、そもそもの数学的な難しさもあるが、特に似た用語が多く混乱しやすい。
+
+* [homomorphism](https://ja.wikipedia.org/wiki/%E6%BA%96%E5%90%8C%E5%9E%8B) | [語源](https://www.etymonline.com/word/homo-) | 準同型写像 $\left( f(x \cdot y) = f(x) \cdot f(y) \right)$
+* [isomorphism](https://ja.wikipedia.org/wiki/%E5%90%8C%E5%9E%8B%E5%86%99%E5%83%8F) | [語源](https://www.etymonline.com/word/iso-) | 同型写像 (逆写像が存在する準同型写像)
+* [endomorphism](https://ja.wikipedia.org/wiki/%E8%87%AA%E5%B7%B1%E6%BA%96%E5%90%8C%E5%9E%8B) | [語源](https://www.etymonline.com/word/endo-) | 自己準同型 (自己への準同型写像)
+* [automorphism](https://ja.wikipedia.org/wiki/%E8%87%AA%E5%B7%B1%E5%90%8C%E5%9E%8B) | [語源](https://www.etymonline.com/word/auto-) | 自己同型 (自己への同型写像)
+* [homeomorphism](https://ja.wikipedia.org/wiki/%E4%BD%8D%E7%9B%B8%E5%90%8C%E5%9E%8B) | [語源](https://www.etymonline.com/word/homeo-) | 同相写像 (位相同型とも。連続かつ全単射であり、逆写像も連続な写像)
+
+### 解析
+
+#### 測度
+
+[測度論](https://ja.wikipedia.org/wiki/%E6%B8%AC%E5%BA%A6%E8%AB%96)は英語で measure theoryである。 measurementではない。
+
+measure: 計量法 物差し 寸法 尺度
+
+measurement: 測量 測定 寸法
+
+参考1: [Weblio - measure](https://ejje.weblio.jp/content/measure)
+
+参考2: [Weblio - measurement](https://ejje.weblio.jp/content/measurement)
+
+<!-- #### 微分 -->
+
+### 最適化
+
+#### 狭義凸
+
+strictly convex: $f(tx + (1-t)y) < tf(x) + (1-t)f(y)$ と等号のない不等式で凸不等式を満たす関数
+
+「真に凸」と言いますが"strictly convex"を「真凸」と訳すと誤訳です。「狭義凸」と訳すのが正しいです。
+
+参考: 私のやらかし
+
+#### 真凸
+
+proper convex: 少なくとも一つの $x$ に対して $f(x) < \infty$ が成立し、全ての $x$ に対して $f(x) \geq -\infty$ が成立する凸関数
+
+参考: [Wikipedia - 真凸函数](https://ja.wikipedia.org/wiki/%E7%9C%9F%E5%87%B8%E5%87%BD%E6%95%B0)
+
+### ツイート
+
+#### radii
+
+radii | UK ˈreɪ.di.aɪ | US ˈreɪ.di.aɪ | [link](https://dictionary.cambridge.org/dictionary/english/radii)
+
+radius /ˈreɪ.di.əs/ (半径) の複数形
+
+alumnus (男子卒業生) の複数形 alumni (男子卒業生たち または 男女両方を含む卒業生たち) と同じく、[ラテン語由来](https://www.etymonline.com/word/radius)の複数形。
+
+[Wikipedia](https://en.wikipedia.org/wiki/Radius)は、(radii or radiuses)と書いており、後者の用例もない訳ではない。
+
+参考1: [外来複数形](https://user.keio.ac.jp/~rhotta/hellog/2019-02-20-1.html)
+
+参考2: [Twitter](https://x.com/tenseiYN99/status/1925438036420304931)
+
+#### equilibria
+
+<!-- No pronunciation found -->
+
+equilibria | UK ˌi:kwʌˈlɪbri:ʌ | US iːkwɪˈlɪbɹɪa | [link](https://ejje.weblio.jp/content/equilibria)
+
+equilibrium /ìːkwəlíbriəm/ (平衡) の複数形。
+
+参考: 上記ツイートのリプライ
+
+#### 整関数
+
+entire function
+
+https://ja.wikipedia.org/wiki/%E6%95%B4%E9%96%A2%E6%95%B0
+
+複素数平面の全域で定義される正則函数を指す。関数全体ではない。
+
+参考: 私の友人の鍵垢ツイート
+
+#### 定義の仕方
+
+Let A (数式) denote B (内容).
+
+それ以外の使い方は多くの場合に非推奨とされる。
+
+参考: 教本 p.90
+
+https://x.com/sesiru8/status/1325372621169463296
+
+#### 競技プログラミング
+
+https://x.com/C7C7LL/status/1033888585148030979
+
+## 数式
+
+### 基本的数式
+
+#### 等号
+
+$x=y$
+
+これの読み方は、
+
+1. $x$ equal $y$
+2. $x$ equals $y$
+3. $x$ equals to $y$
+4. $x$ is equal to $y$
+
+のどれが正しいか?
+
+2の $x$ equals $y$ が基本的にはequalの三人称単数現在形としての動詞用法として最も正しい。
+
+4の $x$ is equal to $y$ も叙述的用法の形容詞として正しいが、やや冗長とされる。
+
+1の $x$ equal $y$ は、sがないので文法的に誤りである。
+
+3の $x$ equals to $y$ は、動詞用法としての"equals"と形容詞用法としての"be equal to"が混ざっている。動詞用法では"to"は不要である。
+
+参考1: [Weblio - equal](https://ejje.weblio.jp/content/equal)
+
+参考2: [Cambridge Dictionary](https://dictionary.cambridge.org/dictionary/english/equal#google_vignette)
+
+#### 累乗
+
+$x^2$: $x$ squared
+
+$x^3$: $x$ cubed
+
+$x^n$: $x$ to the power (of) $n$ / $x$ raised to the $n$-th power / $x$ raised to the power of $n$ / the $n$-th power of $x$ / $x$ to the $n$(-th)
+
+$2^{16}$: two to the sixteen(th)
+
+底数はbaseと呼ばれ、指数はexponentと呼ばれる。
+
+参考1: [Wikipedia - Exponentiation](https://en.wikipedia.org/wiki/Exponentiation)
+
+> The exponent is usually shown as a superscript to the right of the base as bn or in computer code as $b^n$. This binary operation is often read as "b to the power n"; it may also be referred to as "b raised to the nth power", "the nth power of b", or, most briefly, "b to the n".
+
+参考2: [StackExchange](https://english.stackexchange.com/questions/74169/how-to-read-exponential-expressions-e-g-216)
+
+> The more common way to say it (in math class or in a mathematical presentation) is a ellipsis of the first: "two to the sixteenth" or just as commonly "two to the sixteen" depending on how rapid speech you are using.
+
+参考3: [YouTube -Powers for Kids](https://www.youtube.com/watch?v=zdu8dII7zRE)
+
+#### 根
+
+$\sqrt{2}$: the square root of two
+
+$\sqrt[3]{2}$: the cube root of two
+
+$\sqrt[n]{2}$: the $n$-th root of two
+
+#### 負の値
+
+-10などの負の値について、"negative ten"と読む方が良いという話があります。尤も、数学者においても、"minus ten"と読むのが一般的とされています。
+
+$15-10=5$ における"-"はminusと読みます。
+
+参考: [StackExchange](https://ell.stackexchange.com/questions/153157/negative-numbers-minus-or-negative)
+
+> It is good mathematical practice to distinguish between positive and negative numbers
+> ……(中略)……
+> it is very common for people, even mathematicians, to use "minus" in speech
+
+<!--
+
+#### 他
+
+https://librivox.org/uploads/xx-nonproject/Handbook%20for%20Spoken%20Mathematics.pdf
+
+#### 集合記号
+-->
+
+## 他サイト
+
+参考用に、数学における英語の用語がまとまったサイトをいくつか列挙しておきます。
+
+[Hyper Collocation](https://hypcol.marutank.net/ja/): arXivでの共起表現や用例を調べることができる
+
+https://www.ryugakusite.com/article/high_school_math/
+
+https://sorabalab.com/glossary/glossary.html
+
+https://qiita.com/bezeklik/items/ad32492b5c247399dca9
+
+## 最後に
+
+以上です。
+
+**他の例をご存じの方は、是非教えてください!**
+
+---
+
+最後に少しだけ補足です。
+
+あくまで個人の意見として、英語を話すときに[発音](#発音)で示したことを全て厳守する必要はないと思っています。よく言われていることですが、訛りや文法の間違いは文意が正確に伝わる限り許容されがちです。
+
+ただ、お恥ずかしながら私は未だに英語の発音が聞き取れないことがあります。予めその傾向を把握しておけば、楽に聞き取れることも増えると思います。
+
+例えば、インドの方の発音はイギリス英語の影響を受けていることが多いです。18世紀頃から1947年8月15日のインド独立まで、イギリスの植民地だった影響と思われます。また、[Wikipedia](https://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%B3%E3%83%89%E8%8B%B1%E8%AA%9E)によると、"R" を強く発音する傾向があるらしいです(water（水）- ウォータル)。
+
+また、フランスの方の発音は、イギリス英語的な傾向に加え、フランス語の影響も当然受けているので、"R" や "H" の音が特徴的です。例えば、"hospital"（病院）は、オスピタルのように発音される方が多いらしいです([参考](https://qa.speakbuddy.jp/qa/247))。実際私も Hessian の "H" が抜かれている発音を聞いたことがあります。
+
+以上の英語・ヒンディー語・フランス語はいずれも「インド・ヨーロッパ語族」に分類されていますが、語派としては異なり、英語はゲルマン語派に、フランス語はロマンス語派に分類されるようです。共通点と差異の両方を歴史に見出せます。
+
+<img width=100% src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Sekai-no-gengo.png/1200px-Sekai-no-gengo.png?20081022180809" alt="Sekai-no-gengo">
+
+Auf at Japanese Wikipedia, [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/), via Wikimedia Commons
+
+こういった傾向も踏まえた上で、辞書的な発音を知っておくことは、数学的主張の理解に有効だと思います。
+
+本記事が皆様の数学に関する英語の理解に役立てば幸いです。
 
 [^BB]: [Barzilai, J., & Borwein, J. M. (1988). Two-point step size gradient methods. IMA journal of numerical analysis, 8(1), 141-148.](https://academic.oup.com/imajna/article-abstract/8/1/141/802460)
 
