@@ -196,11 +196,15 @@ column | UK ˈkɒl.əm | US ˈkɑː.ləm | [link](https://dictionary.cambridge.o
 
 USの方はカ(ー)ラムに近い発音。コラムではない。
 
+行列の列を意味する。
+
 #### corollary
 
 corollary | UK kəˈrɒl.ər.i | US ˈkɔːr.ə.ler.i | [link](https://dictionary.cambridge.org/dictionary/english/corollary)
 
 UKの方がかなりトリッキーで、形容しがたい発音。コロラリーではない。
+
+系(他の命題や定理から直接導かれる命題)を意味する。
 
 #### gradient
 
