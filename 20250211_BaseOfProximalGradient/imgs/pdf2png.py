@@ -1,13 +1,17 @@
 import glob
 import os
-import fitz
+
+import pymupdf
 
 
 def pdf2png(pdf_file):
-    doc = fitz.open(pdf_file)
+    doc = pymupdf.open(pdf_file)
+    assert len(doc) == 1
+
     page = doc.load_page(0)
-    pixmap = page.get_pixmap(dpi=600)
-    pixmap.save(pdf_file.replace(".pdf", ".png"), "png")
+    pix = page.get_pixmap(dpi=300)  # type: ignore[no-untyped-call]
+    output_file = f"{os.path.splitext(pdf_file)[0]}.png"
+    pix.save(output_file)
 
 
 def main():

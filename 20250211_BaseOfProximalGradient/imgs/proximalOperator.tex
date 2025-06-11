@@ -117,7 +117,7 @@
   \draw[domain=0:2.5, smooth, variable=\x, very thick] plot ({\x}, {1+0.3*(\x)^2});
   \draw[very thick] (2.5,2.875) -- (4,6);
 
-  \foreach \v/\c in {-2/cA,-1/cB,0/cC,1/cD,2/cE} {
+  \foreach \v/\c in {-4/cA,-2/cB,0/cC,2/cD} {
       % # Define the function f
       % def f(x):
       %   if x < -3:
@@ -135,22 +135,16 @@
       \fi
 
       % draw f(x)+(x-v)^2
+      \ifnum \v=-4
+        \draw[\c, domain=-3:-1.268, smooth, variable=\x, dashed, very thick] plot ({\x}, {-\x + 1 +0.5*(\x-\v)^2});
+      \fi
       \ifnum \v=-2
         \draw[\c, domain=-3:0, smooth, variable=\x, dashed, very thick] plot ({\x}, {-\x + 1 +0.5*(\x-\v)^2});
         \draw[\c, domain=0:1.04, smooth, variable=\x, dashed, very thick] plot ({\x}, {1 + 0.3*\x^2 +0.5*(\x-\v)^2});
       \fi
-      \ifnum \v=-1
-        \draw[\c, domain=-3:0, smooth, variable=\x, dashed, very thick] plot ({\x}, {-\x + 1 +0.5*(\x-\v)^2});
-        \draw[\c, domain=0:1.82, smooth, variable=\x, dashed, very thick] plot ({\x}, {1 + 0.3*\x^2 +0.5*(\x-\v)^2});
-      \fi
       \ifnum \v=0
         \draw[\c, domain=-2.3:0, smooth, variable=\x, dashed, very thick] plot ({\x}, {-\x + 1 +0.5*(\x-\v)^2});
         \draw[\c, domain=0:2.5, smooth, variable=\x, dashed, very thick] plot ({\x}, {1 + 0.3*\x^2 +0.5*(\x-\v)^2});
-      \fi
-      \ifnum \v=1
-        \draw[\c, domain=-1.6:0, smooth, variable=\x, dashed, very thick] plot ({\x}, {-\x + 1 +0.5*(\x-\v)^2});
-        \draw[\c, domain=0:2.5, smooth, variable=\x, dashed, very thick] plot ({\x}, {1 + 0.3*\x^2 +0.5*(\x-\v)^2});
-        \draw[\c, domain=2.5:3.02, smooth, variable=\x, dashed, very thick] plot ({\x}, {(6 - 2.875) / (4 - 2.5) * (\x - 2.5) + 2.875 +0.5*(\x-\v)^2});
       \fi
       \ifnum \v=2
         \draw[\c, domain=-0.86:0, smooth, variable=\x, dashed, very thick] plot ({\x}, {-\x + 1 +0.5*(\x-\v)^2});
@@ -159,18 +153,15 @@
       \fi
     }
 
-  \foreach \v/\c in {-2/cA,-1/cB,0/cC,1/cD,2/cE} {
+  \foreach \v/\c in {-4/cA,-2/cB,0/cC,2/cD} {
+      \ifnum \v=-4
+        \node[star, star point height=0.05cm, star point ratio=2.0, scale=0.4, draw=black, fill=\c] at (-3,4) {};
+      \fi
       \ifnum \v=-2
         \node[star, star point height=0.05cm, star point ratio=2.0, scale=0.4, draw=black, fill=\c] at (-1,2.5) {};
       \fi
-      \ifnum \v=-1
-        \node[star, star point height=0.05cm, star point ratio=2.0, scale=0.4, draw=black, fill=\c] at (0,1.5) {};
-      \fi
       \ifnum \v=0
         \node[star, star point height=0.05cm, star point ratio=2.0, scale=0.4, draw=black, fill=\c] at (0,1) {};
-      \fi
-      \ifnum \v=1
-        \node[star, star point height=0.05cm, star point ratio=2.0, scale=0.4, draw=black, fill=\c] at (0.62,1.18752) {};
       \fi
       \ifnum \v=2
         \node[star, star point height=0.05cm, star point ratio=2.0, scale=0.4, draw=black, fill=\c] at (1.24,1.75) {};
