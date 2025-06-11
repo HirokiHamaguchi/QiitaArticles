@@ -39,6 +39,8 @@ f(x) - f(x_0) \geq  \langle v, x - x_0 \rangle \quad \text{for all } x \in \math
 \end{align*}
 ```
 
+(なお $f^*$ の値域は、単なる $\mathbb{R}^n$ というよりその代数的双対だと解釈するのが自然です。[dualityの節](#duality)を参照して下さい。)
+
 下図のように $n=1$ の場合、$f$（赤線）に対する傾き $x$ の接線（青点線）の最小切片に $-1$ をかけたものが $f^*$ （緑線）です。図の右側で $y$ 軸が下向きなことに注意して下さい。
 
 <img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/a407e54b-9291-42ad-6e63-c5ca29e5cfc3.png" alt="convexConjugate">
@@ -68,11 +70,25 @@ f(x) - f(x_0) \geq  \langle v, x - x_0 \rangle \quad \text{for all } x \in \math
 
 と[支持超平面](https://en.wikipedia.org/wiki/Supporting_hyperplane)（青点線）を用いて同様の解釈ができます。
 
-ちなみに、上図では $f$ が下半連続な真凸関数なので $f = f^{**}$ となることが示されており、これは[Fenchel--Moreau theorem](https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B7%E3%82%A7%E3%83%AB%EF%BC%9D%E3%83%A2%E3%83%AD%E3%83%BC%E3%81%AE%E5%AE%9A%E7%90%86)として知られる結果です。
-
 なお、次のKenjiro Sugimotoさんの記事には直感的に分かりやすい動画形式の説明もあります。
 
 https://qiita.com/wosugi/items/8d5a407a0a0434aaabeb
+
+### Fenchel--Moreau Theorem
+
+上図では $f = f^{**}$ となっています。これは[Fenchel--Moreau theorem](https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A7%E3%83%B3%E3%82%B7%E3%82%A7%E3%83%AB%EF%BC%9D%E3%83%A2%E3%83%AD%E3%83%BC%E3%81%AE%E5%AE%9A%E7%90%86)として知られる結果です。
+
+$f \colon \mathbb{R}^n \to \mathbb{R} \cup \lbrace+\infty\rbrace$ において、$f = f^{**}$ であることは、$f \equiv +\infty$ あるいは $f \equiv -\infty$ という例外を除き、$f$ が閉真凸関数であることと同値です。
+
+### Fenchel--Young Inequality
+
+定義を踏まえると当然ですが、任意の $x \in \mathbb{R}^n$, $y \in \mathbb{R}^n$ に対し、
+
+```math
+\langle x, y \rangle \leq f(y) + f^*(x)
+```
+
+が成立します。これは[Fenchel's inequality](https://en.wikipedia.org/wiki/Convex_conjugate#Fenchel's_inequality) または Fenchel--Young inequalityと呼ばれます。
 
 ## Infimal Convolution
 
@@ -105,7 +121,7 @@ Infimal convolution は、次のように定義されます。
 A \oplus B \mathrel{\vcenter{:}}= \left\lbrace a + b \mathrel{|} a \in A, b \in B \right\rbrace
 ```
 
-この前提の下で上図を見ると、$f$ と $g$ の epigraph のMinkowski sum が $f \mathrel{\square} g$ の epigraph と一致、つまり、
+この前提のもとで上図を見ると、$f$ と $g$ の epigraph のMinkowski sum が $f \mathrel{\square} g$ の epigraph と一致、つまり、
 
 ```math
 \mathrm{epi}\ f \oplus \mathrm{epi}\ g = \mathrm{epi}\ (f \mathrel{\square} g)
@@ -291,9 +307,11 @@ $f\colon \mathbb{R}^n \to \mathbb{R} \cup \lbrace+\infty\rbrace$ を閉真凸関
 \mathrm{prox}_{f}(v) \mathrel{\vcenter{:}}= \arg\min_{x \in \mathrm{R}^n} \left\lbrace f(x) + \frac{1}{2} \lVert x - v \rVert_2^2 \right\rbrace
 ```
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/af5bd425-a6c6-aeb7-197d-0d3324a224e1.png" alt="proximalOperator">
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/d840d1d3-2a8c-4fac-88e7-94e821a90dfc.png" alt="proximalOperator">
 
-この図では、各色の丸点が $(v,f(v))$ を、その色の点線が $f(x)+\frac{1}{2}\lVert x-v \rVert_2^2$ を示しています。proximal operator は、この関数の最小解である、星印の位置を返します。
+この図では、各色の丸点が $(v,f(v))$ を、その色の点線が $f(x)+\frac{1}{2}\lVert x-v \rVert_2^2$ を示しています。青色の点の $f(v)$ は $+\infty$ であるので、例外的に適当な位置にあります。
+
+proximal operator は、点線における最小解である星印の位置を返します。特に、青色のように $\mathrm{dom}\ f$ の外側にある場合には大まかに射影演算子のように振る舞い、それ以外の場合には大まかに降下方向に進ませるような演算子として振る舞うことを確認してください。
 
 ### Well-Definedness の証明
 
@@ -408,7 +426,7 @@ Proximal operator は、firm nonexpansiveness と呼ばれる次の性質を持�
 \end{equation*}
 ```
 
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/af5bd425-a6c6-aeb7-197d-0d3324a224e1.png" alt="proximalOperator">
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/d840d1d3-2a8c-4fac-88e7-94e821a90dfc.png" alt="proximalOperator">
 
 $n=1$ の場合を上に再掲しました。これは $y>x$ に対して $p_y - p_x \leq y-x$、つまり、☆間の距離は○間の距離より短いことを示しており、全体が縮小写像のようになっていることに対応します。
 
@@ -664,15 +682,111 @@ x^{k+1} = T_{L_k}^{f,g}(x^k)
 そして更なる余談として、私が2か月間くらいやっていた研究は、この論文により完全に破壊されました、悲しい!
 </font>
 
+## Moreau's Decomposition
+
+Moreau's Decomposition について述べます。 ([この論文](https://pcombet.math.ncsu.edu/mp1.pdf)にも詳しく載っているようです)
+
+### Conjugate Subgradient Theorem
+
+あとの証明で使うため、先に以下の定理を示します(文献[^Beck] Theorem 4.20)。
+
+$f\colon \mathbb{R}^n \to \mathbb{R} \cup \lbrace+\infty\rbrace$ を真凸関数とする。任意の $x \in \mathbb{R}^n$, $y \in \mathbb{R}^n$ に対して、次は同値である:
+
+1. $\langle x, y \rangle = f(x) + f^*(y)$
+2. $y \in \partial f(x)$
+3. $x \in \partial f^*(y)$ (ただし、$f$ はさらに閉であるとする)
+
+証明は以下の通りです。$y \in \partial f(x)$ であることは
+
+```math
+\begin{align*}
+       & f(z) \geq f(x) + \langle y, z - x \rangle\\
+\iff {}& \langle y, x \rangle - f(x) \geq \langle y, z \rangle - f(z) \quad \forall z \in \mathbb{R}^n
+\end{align*}
+```
+
+が成り立つことと同値で、$z$ について $\sup$ を取ると定義より、
+
+```math
+\langle y, x \rangle - f(x) \geq f^*(y)
+```
+
+と同値です。記事序盤で触れた[Fenchel--Young Inequality](#fenchel--young-inequality)より
+
+```math
+\langle y, x \rangle - f(x) \leq f^*(y)
+```
+
+であり、これは $\langle x, y \rangle = f(x) + f^*(y)$ と同値になります。
+
+さらに $f$ が閉であると仮定すると、記事序盤で触れた[Fenchel--Moreau Theorem](#fenchel--moreau-theorem)より $f^{**} = f$ であり、特に
+
+```math
+\begin{align*}
+    & y \in \partial f(x) \\
+\iff {}& \langle y, x \rangle = f(x) + f^*(y) \\
+\iff {}& \langle x, y \rangle = (f^*)(y) + (f^*)^*(x)\\
+\iff {}& x \in \partial f^*(y)
+\end{align*}
+```
+
+となって、定理の主張が示されます。
+
+### Moreau's Decomposition Theorem
+
+Moreau's Decomposition とは、一般に次のような分解を指します(文献[^Beck] Theorem 6.44)。
+
+$f \colon \mathbb{R}^n \to \mathbb{R} \cup \lbrace+\infty\rbrace$ が閉真凸関数であるとき、任意の $x \in \mathbb{R}^n$ に対して、
+
+```math
+\begin{equation*}
+    x = \mathrm{prox}_{f}(x) + \mathrm{prox}_{f^*}(x)
+\end{equation*}
+```
+
+証明は以下の通りです。[Proximal Operatorでの劣勾配](#proximal-operator-での劣勾配)で述べたように、$u=\mathrm{prox}_{f}(x)$ とすると、
+
+```math
+\begin{equation*}
+    x-u \in \partial f(u)
+\end{equation*}
+```
+
+が成立します。 直前で示した[Conjugate Subgradient Theorem](#conjugate-subgradient-theorem)より、
+
+```math
+\begin{equation*}
+    u \in \partial f^*(x-u)
+\end{equation*}
+```
+
+と同値です。これは整理すると、
+
+```math
+\begin{align*}
+         & x-(x-u) \in \partial f^*(x-u) \\
+    \iff {}& x-u = \mathrm{prox}_{f^*}(x) \quad (\because \text{先程と同様の関係式}) \\
+    \iff {}& x = \mathrm{prox}_{f}(x) + \mathrm{prox}_{f^*}(x)
+\end{align*}
+```
+
+となり、主張が示されます。
+
+錐 $\mathcal{K}$ に対する指示関数 $f$ を考えると、$\mathrm{prox}_{f}(x)$ は $\mathcal{K}$ の射影演算子に対応し、$\mathrm{prox}_{f^*}(x^*)$ は極錐 $\mathcal{K}^0$ の射影演算子に対応するので、分解は下図のように直感的理解が可能です。
+
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/60393741-3ecd-4c5c-b2aa-36c5b8686ea3.png" alt="MoreauDecomposition">
+
+図の引用: [リンク](https://candes.su.domains/teaching/math301/Lectures/Moreau-Yosida.pdf)
+
 ## Duality
 
-本記事の最後に、少し近接勾配法と関連が薄い話もありますが、双対を取り上げます。
+Appendixとして、少し近接勾配法と関連が薄い話もありますが、双対を取り上げます。
 
 ### 代数的双対
 
 初めに[代数的双対](https://ja.wikipedia.org/wiki/%E5%8F%8C%E5%AF%BE%E3%83%99%E3%82%AF%E3%83%88%E3%83%AB%E7%A9%BA%E9%96%93#%E5%8F%8C%E5%AF%BE%E7%A9%BA%E9%96%93)（文献[^LinearAlgebra] Definition 3.110）を取り上げます。
 
-ざっくりとした説明としては、線形写像は行列を用いた $\phi_A(v)=Av=u$ でいう $\phi_A$ のことですが、線形汎関数は $\phi_a(v)=\langle v, a \rangle =u$ でいう $\phi_a$ のことを指し、この $\phi_a$ 全体が $V (\ni v)$ の代数的双対空間 $V^*$ を構成します。
+ざっくりとした説明としては、線形汎関数は $\phi_a(v)=\langle v, a \rangle$ のことを指し、この $\phi_a$ 全体が $V (\ni v)$ の代数的双対空間 $V^*$ を構成します。
 
 線形汎関数 (linear functional) は、線形空間 $V$ から体 $F$（本記事では $\mathbb{R}$ または $\mathbb{C}$ とする）への線形写像と定義されます。体 $F$ 上の線形空間 $V$ の**代数的双対空間 (algebraic dual space)** $V^*$ は $V$ 上の線形汎関数 $\phi \colon V \to F$ 全体の成す集合 $\mathcal{L}(V,F)$ です。
 
@@ -685,7 +799,7 @@ $F$ が体であることから、
     (a \phi)(v) &\mathrel{\vcenter{:}}= a \phi(v)
 \end{cases}
 \\
-(\phi \in V^*, \psi \in V^*, v \in V, a \in F)
+(\phi \in V^*, \ \psi \in V^*, \ v \in V, \ a \in F)
 \end{align*}
 ```
 
@@ -717,11 +831,11 @@ $\ell^2$ 上の線形汎関数 $\phi \in V^* = \mathcal{L}(\ell^2,\mathbb{C})$ �
 
 ここで、上記数式の最終行は内積として解釈できますが、実際、$V$ と $V^*$ は[双対対](https://ja.wikipedia.org/wiki/%E5%8F%8C%E5%AF%BE%E7%A9%BA%E9%96%93)と呼ばれる関係にあり、これにより標準内積（双線形形式）が定まります。
 
-有限次元に慣れていると、$\langle x,a \rangle$ が $\phi_a(x) \mathrel{\vcenter{:}}= (\langle \cdot, a \rangle)(x)$ であるなどとはあまり意識しませんが、この辺が Fenchel双対などの話の前提になります。
+有限次元に慣れていると、$\langle x,a \rangle$ が $\phi_a(x) \mathrel{\vcenter{:}}= (\langle \cdot, a \rangle)(x)$ であるなどとはあまり意識しませんが、この辺の話が Fenchel双対の前提になります。
 
-### 連続的双対
+<details><summary>連続的双対</summary>
 
-続いて、[連続的双対](https://ja.wikipedia.org/wiki/%E9%80%A3%E7%B6%9A%E7%9A%84%E5%8F%8C%E5%AF%BE%E7%A9%BA%E9%96%93)（文献[^LinearAlgebra] Section 7.A）を取り上げます。
+[連続的双対](https://ja.wikipedia.org/wiki/%E9%80%A3%E7%B6%9A%E7%9A%84%E5%8F%8C%E5%AF%BE%E7%A9%BA%E9%96%93)（文献[^LinearAlgebra] Section 7.A）についても軽く取り上げます。
 
 位相線形空間 $V$ の**連続的双対空間 (continuous dual space, topological dual space)** は、その係数体 $F$ （本記事では $\mathbb{R}$ または $\mathbb{C}$ とする）への連続線形汎関数 $\phi\colon V \to F$ 全体の集合であり、$V'$ と書きます。連続という条件が加わるので、$V' \subseteq V^*$ です。
 
@@ -761,6 +875,10 @@ Rieszの表現定理の主張内容は、ヒルベルト空間 $V$ と、任意�
 
 で定まります。これは[双対ノルム (dual norm)](https://en.wikipedia.org/wiki/Dual_norm)と呼ばれ、連続的双対空間はそのような場面で最適化文脈でも登場します。
 
+(連続的双対については以上です)
+
+</details>
+
 ### 凸共役
 
 上記を前提とすると、[凸共役](#convex-conjugate)の話がほんの少し深く理解できて面白いです。
@@ -771,9 +889,7 @@ Rieszの表現定理の主張内容は、ヒルベルト空間 $V$ と、任意�
 
 ここで、定義に代数的双対空間 $X^\*$ が登場しています。
 
-本記事では[凸共役](#convex-conjugate)において、$X=X^\*=\mathbb{R}^n$ として話をしました。これは連続的双対空間でも述べた通り、$(\mathbb{R}^n)^\*=(\mathbb{R}^n)' \cong \mathbb{R}^n$ であることに由来します。
-
-しかし、その意味する内容は、単に $x^\*$ であるというよりも、寧ろ $\langle \cdot, x^\* \rangle$ という線形汎関数であって、文献[^Nesterov]でもこの違いは明確に区別されるなど、理解に重要な点となります。
+本記事では[凸共役](#convex-conjugate)において、$X$ も $X^\*$ も $\mathbb{R}^n$ として表記していました。しかし、後者の意味する内容は、単にその元であるというよりも、寧ろ線形汎関数であって、文献[^Nesterov]でもこの違いは明確に区別されるなど、理解に重要な点となります。
 
 ### その他の双対
 
@@ -795,8 +911,6 @@ Rieszの表現定理の主張内容は、ヒルベルト空間 $V$ と、任意�
 - [Wolfe Duality](https://en.wikipedia.org/wiki/Wolfe_duality)
 
 などがあります。
-
-今後またきちんと勉強して整理できればと思います。
 
 ## Acknowledgement
 
