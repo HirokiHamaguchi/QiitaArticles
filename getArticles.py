@@ -1,12 +1,15 @@
 import http.client
 import json
 import os
-import re
 import warnings
 
 import requests
 
-ACCESS_TOKEN = "786a8df666e658c18f077097c4df3476071ce411"
+ACCESS_TOKEN = ""
+
+with open("secret/QiitaAPIToken.txt", "r") as f:
+    ACCESS_TOKEN = f.read().strip()
+
 PAGE = "1"
 PAR_PAGE = "100"
 
