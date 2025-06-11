@@ -54,12 +54,13 @@
         "Jean-Jacques",
         "Well-Definedness",
         "Change-Making",
+        "Prox-Grad",
+        "Albert-Ludwigs-Universit"
     ],
     "latexlint.userDefinedRules": [
         "真閉凸",
         "閉凸真",
         "1/2",
-        "(?<!(effective|\\[|,)\\s?)domain",
         "\\\\text\\{if \\}",
         "\\\\mathrm\\{epi\\} ",
         "\\(参考",
@@ -86,6 +87,7 @@
         "Combettes",
         "Elsevier",
         "Extremal",
+        "Fenchel's",
         "Flournoy",
         "forvo",
         "functionals",
