@@ -62,7 +62,6 @@
         "(?<!(effective|\\[|,)\\s?)domain",
         "\\\\text\\{if \\}",
         "\\\\mathrm\\{epi\\} ",
-        "ベクトル空間",
         "\\(参考",
         "\\mathrm{dom} f",
         "utokyo\\.idm",
