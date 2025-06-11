@@ -1,6 +1,7 @@
-import re
 import json
-import pyperclip
+import re
+
+import pyperclip  # type: ignore[import]
 
 # 入力：Markdown形式の画像リンク文字列
 input_text = """

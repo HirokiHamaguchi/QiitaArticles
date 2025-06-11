@@ -1,6 +1,7 @@
 import json
 import os
-from readme2qiita import get_target_directory, read_file
+
+from R2Q import get_target_directory, read_file
 
 
 def main():
