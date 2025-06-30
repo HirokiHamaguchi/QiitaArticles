@@ -152,6 +152,7 @@ def main():
 
     with open(os.path.join(target_dir, "Qiita.md"), "w", encoding="UTF-8") as f:
         f.write(res)
+    os.chmod(os.path.join(target_dir, "Qiita.md"), 0o444)  # Make file read-only
 
     pyperclip.copy(res)
     print("Conversion completed successfully. The output is copied to the clipboard.")
