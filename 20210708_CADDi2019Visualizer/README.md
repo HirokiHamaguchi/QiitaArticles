@@ -1,37 +1,18 @@
 # 概要
-今更ながらCADDi2019の(非公式な)ビジュアライザ、ジェネレーター、テスターを作りました。
 
-# ツールについて
+CADDi2019の(非公式な)ビジュアライザ、ジェネレーター、テスターを作りました。
+
+## ツールについて
+
 まず問題を掲載しておきます。
 
 https://atcoder.jp/contests/caddi2019/tasks/caddi2019_a
 
+簡単に述べると立方体の容器に様々な大きさの球を詰め込む問題です。
 
->**問題文**
-サイズ L×L×L の立方体型の容器がある。この容器に球を詰め込むゲームを行う。
-容器内の点は直交座標系によって表され、容器の頂点の座標のうち一つは 
-(0,0,0) であり、その頂点から最も遠い頂点の座標は (L,L,L) である。
-詰め込める球は N 個あり、球 1、球 2、…、球 N と呼ばれる。球 i の半径は $R_i$ である。
-これらから好きなだけ球を選び、それぞれ容器内の好きな整数座標に配置する (すなわち、球の中心がその整数座標となるように配置する)。
-このとき、球が宙に浮いてもよいが、球が容器からはみ出たり球同士が重なったりしてはならない (球と容器、または球同士が接するのはよい)。
-球の配置に対し、あなたの点数を以下の総和として計算する。
-・ 基礎点: 球 i には基礎点 $P_i$ が定められており、球 i を容器内に設置すると $P_i$ 点を得られる。
-・ ボーナス点: 近くに配置することが好ましい球のペアが M 組与えられる。よりには、4 つの整数の組 ($A_i,B_i,C_i,D_i$) が M 個与えられる。これらはそれぞれ、球 $A_i$ と球 $B_i$ を中心間のユークリッド距離が $C_i$ 以下となるように容器内に配置すると $D_i$ 点を得られることを表す。(距離が $C_i$ を超えるような配置が禁止されはしない。)
->点数をできるだけ多く得られる球の配置を考えよ。最適解を求める必要はない。
-> 
->**入力生成**
-各球 i のパラメータは以下のように決定される。
-・ 球 i の半径 $Ri$ は、1 以上 200 以下の整数としてランダムに決定される。
-・ 基礎点 $P_i$ は、1 以上 $max(1,R^3_i/100)$ 以下の整数としてランダムに決定される。
-また、i 件目のボーナス点のパラメータは以下のように決定される。
-・ $A_i$,$B_i$ は、1 以上 N 以下の 2 つの整数としてランダムで決定される。ただし、等しい値が選ばれた場合は再抽選を行う。その後、$A_i>B_i$ であれば $A_i$ と $B_i$ の値を入れ替える。 
-・ Ci は、$R_{A_i}+R_{B_i}+1$ 以上 $R_{A_i}+R_{B_i}+200$ 以下の整数としてランダムに決定される。
-・ Di は、1 以上 2$R_{A_i}R_{B_i}$ 以下の整数としてランダムに決定される。
+### ビジュアライザについて
 
-
-## ビジュアライザについて
-Blenderを使用して作成しました。(Pythonの形式をしていますが、これだけでは走りません。)
-ただ、この記事にその結果が出てくるので、それを楽しんで頂けたら、というのがこの記事の趣旨です。
+Blenderを使用して作成しました。
 
 <details><summary>ビジュアライザ</summary><div>
 
@@ -211,16 +192,18 @@ def main(color_mode=None, color_parameter=1):
 if __name__ == '__main__':
     main(color_mode='default')
 ```
+
 </div></details>
 
 一例として、私の提出結果をランダムに色付けするモードで表示したのがこちらです。
 (なお、他の例では色に意味があるので注意して下さい)
-<br>
+
 <iframe width="642" height="361" src="https://www.youtube.com/embed/ZGVfP2kmdjg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+### ジェネレーター、テスターについて
 
-## ジェネレーター、テスターについて
-言語はpythonです。不手際があれば連絡していただけると幸いです。
+言語はPythonです。
+
 <details><summary>ジェネレーター</summary><div>
 
 ```python:gen.py
@@ -290,11 +273,12 @@ if __name__ == '__main__':
         print(args)
         print("実行方法が異なります python gen.py 100 などとしてみて下さい")
 ```
+
 </div></details>
 
 <details><summary>テスター</summary><div>
 
-ついでに充填率とかも返します。
+スコア以外に充填率なども返します。
 
 ```python:judge.py
 import sys
@@ -384,37 +368,35 @@ if __name__ == '__main__':
         print("実行方法が異なります python judge.py \"in.txt\" \"out.txt\"としてみて下さい")
 
 ```
+
 </div></details>
 
-# 考察
-**以下この問題のネタバレを含みます。**
-　
-　
-　
-## 要点
-この問題、chokudaiさんが作成されたらしく、要点はほぼ全てこのツイートにまとまっています。
+## 考察
 
+**以下この問題のネタバレを含みます。**
+
+### 要点
+
+この問題、chokudaiさんが作成されたらしく、要点はほぼ全てこのツイートにまとまっています。
 
 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">雑に見積もって、充填率100%の最高効率でも、基礎点は１ケースあたり200万に到達しない、というのが見えていれば、「ボーナス点を高めるゲーム」というのはまぁわかったかもしれません。 <a href="https://twitter.com/hashtag/CADDi2019?src=hash&amp;ref_src=twsrc%5Etfw">#CADDi2019</a></p>&mdash; chokudai(高橋 直大)🍆 (@chokudai) <a href="https://twitter.com/chokudai/status/1109427305128943618?ref_src=twsrc%5Etfw">March 23, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-
 以下では、これを前提に書いていきます。
 
-また、この記事を執筆するにあたり、ある二名の方の解法を非常に参考にさせて頂きました。こういった時にお名前を出していいのか分からなかったので<font color="Silver">(というか本当は一言連絡とかするべきなのかも知れませんが、二年も前なので流石に憚られました。。。)</font>、現時点で一位の方を[Aさん](https://atcoder.jp/contests/caddi2019/submissions/4678912)、他もう一名、私がもの凄く賢いと感じた解法を書かれていた方を[Cさん](https://atcoder.jp/contests/caddi2019/submissions/4668883)と、とりあえず名前を伏せて進めていきます。リンク先がお二人の提出です。(他の方の提出も含め色々見させていただきました。)
+また、この記事を執筆するにあたり、ある二名の方の解法を非常に参考にさせて頂きました。執筆時点で一位の方を[Aさん](https://atcoder.jp/contests/caddi2019/submissions/4678912)、他もう一名、私が非常に賢いと感じた解法を書かれていた方を[Cさん](https://atcoder.jp/contests/caddi2019/submissions/4668883)と、とりあえず名前を伏せて進めていきます。リンク先がお二人の提出です。(他の方の提出も含め色々見させていただきました。)
 
-## Aさんのビジュアライズ
+### Aさんのビジュアライズ
+
 ではまずに、Aさんの提出結果をビジュアライズしてみます。
 
 <br>
 <iframe width="642" height="361" src="https://www.youtube.com/embed/5-6cnJLoxsA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br>
 
-
 凄い。めちゃくちゃぎっしり詰まっていますね。
 また、小さい球が多く使われていることが分かります。
 
-球の色の意味を説明していませんでしたが、それぞれの球が獲得することの出来たボーナス点の割合を<font color="DarkBlue">こ</font><font color="DeepSkyBlue">ん</font><font color="Aqua">な</font><font color="Lime">か</font><font color="Gold">ん</font><font color="OrangeRed">じ</font><font color="Red">で</font>色を付けています。(正確に言うとpltのjet)
-赤い球ほど点が高いです。
+球の色の意味を説明していませんでしたが、それぞれの球が獲得することの出来たボーナス点の割合を<font color="DarkBlue">こ</font><font color="DeepSkyBlue">ん</font><font color="Aqua">な</font><font color="Lime">か</font><font color="Gold">ん</font><font color="OrangeRed">じ</font><font color="Red">で</font>色を付けています(正確に言うとpltのjet)。赤い球ほど点が高いです。
 
 少し考えればわかることですが、やはり真ん中に近い程暖色になりやすいです。これも考察のヒントになるかも知れません。
 
@@ -424,12 +406,11 @@ if __name__ == '__main__':
 <iframe width="702" height="361" src="https://www.youtube.com/embed/iz6k2mqWDdQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br>
 
-
 意外に中には空隙があること、端の方に小さい球が集められている事が分かります。
-まだまだ語るべき点は多いのですが、いったんこの辺で。
 
-## Cさんのビジュアライズ
-では続いてCさん。(見やすさの観点からalphaなどは変えています)
+### Cさんのビジュアライズ
+
+続いてCさん。(見やすさの観点からalphaなどは変えています)
 
 <br>
 <iframe width="642" height="361" src="https://www.youtube.com/embed/cELuUKRsLM4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -437,25 +418,26 @@ if __name__ == '__main__':
 
 随分対照的な結果ですね。
 
-
 Cさんの解法の特徴を端的に表していると思う写真がこちらです。
 ![messageImage_1625715312506.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/8b6e59e6-1f1e-4877-f0e4-69715d44c015.jpeg)
 
 * 敷き詰め方が綺麗
 * 使用している球が大きめ
-* そしてとにかく<font color="Red">赤色</font>が多い!!!
+* そしてとにかく<font color="Red">赤色</font>が多い!
 
 先程のAさんの解法より球の数こそ少ないものの、真っ赤な球がいくつも確認できます。
 
-Cさんの[解法ツイート](https://twitter.com/CuriousFairy315/status/1109427000777695232)によると「方針はまず立方体で敷き詰め、各立方体には1個の球を入れて2swap焼きなまししました」「ループは190万回程度」とのことです。
+Cさんの解法ツイートによると「方針はまず立方体で敷き詰め、各立方体には1個の球を入れて2swap焼きなまししました」「ループは190万回程度」とのことです。
 
 焼きなましをしようにも半径の異なる球どうしを交換しては衝突してしまいそうで、近傍の取り方が難しい気がしていたのですが、なるほど、確かに立方体で最初に区間を区切ればswapも簡単そうです。これだけループを回していれば、球が赤くなる、つまりボーナス点を稼げるのも当然でしょう。
-また、このツイートでも仰っている通り、色々工夫の余地がありそうなので、個人的にはとても好きな解法です。平方分割を応用発展させるようにして「立方分割」をしてみたり、あるいは分割統治法的な要領で、まず1/nサイズの立方体に球を敷き詰めて個々でスコアを最大化させた後、さらにその立方体の箱をswapさせてスコアを最大化させるなど、色々考えられます。
+
+また、このツイートでも仰っている通り、色々工夫の余地がありそうなので、個人的にはとても好きな解法です。平方分割を応用発展させるようにして「立方分割」をしてみたり、あるいは分割統治法的な要領で、まず $1/n$ サイズの立方体に球を敷き詰めて個々でスコアを最大化させた後、さらにその立方体の箱をswapさせてスコアを最大化させるなど、色々考えられます。
 
 (さらに、Cさんの提出には思考過程もまとめられていて読んでいてとても面白かったです。)
 
 それにしても、それぞれの解法の個性が可視化されるのは楽しいですね。
 
-# 最後に
+## 最後に
+
 お読みいただきありがとうございました。
 マラソンに興味のなかった方も、本記事を楽しんで頂けたら幸いです。
