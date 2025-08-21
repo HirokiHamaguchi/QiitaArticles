@@ -409,7 +409,7 @@ Wolfram | UK ˈwʊl.frəm | US ˈwʊl.frəm | [link](https://dictionary.cambridg
 
 <iframe width="575" height="323" src="https://www.youtube.com/embed/0HuhHRYZrIw" title="How to Pronounce /wʊ/ in WOOD, WOULD, WOOL, WOLF, WOMAN - English Pronunciation Lesson" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-[Wolfram Alpha](https://www.wolframalpha.com/): 数式を入力すると計算結果を返してくれるウェブサービス
+[Wolfram Alpha](https://www.wolframalpha.com): 数式を入力すると計算結果を返してくれるウェブサービス
 
 [Stephen Wolfram](https://en.wikipedia.org/wiki/Stephen_Wolfram): Wolfram Alphaの開発者
 
@@ -455,7 +455,7 @@ Zorn's lemma: 半順序集合 $P$ は、その全ての鎖(つまり、全順序
 
 バジライに近い発音。
 
-参考: [YouTube](https://www.youtube.com/watch?v=thtr1yH4Z38&t=27s) / [forvo](https://forvo.com/search/Barzilai) / [How To Pronounce](https://www.howtopronounce.com/barzilai) などの複数サイト
+参考: [YouTube](https://www.youtube.com/watch?v=thtr1yH4Z38&t=27s) / [How To Pronounce](https://www.howtopronounce.com/barzilai) などの複数サイト
 
 #### Borwein
 

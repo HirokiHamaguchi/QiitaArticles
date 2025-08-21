@@ -1,4 +1,4 @@
-# Robustness of Magicの計算方法 (86PiBのL1ノルム最小化問題を解く為には)
+<!-- markdownlint-disable MD041 -->
 
 この記事は[数理最適化 Advent Calendar 2023](https://qiita.com/advent-calendar/2023/mathematical-optimization)の19日目の記事です。
 
@@ -27,7 +27,7 @@ https://github.com/quantum-programming/RoM-handbook/tree/main
 
 ```math
 \begin{align*}
-    \min_{\boldsymbol{x}} & \quad \|\boldsymbol{x}\|_1 \\
+    \min_{\boldsymbol{x}} & \quad \lVert\boldsymbol{x}\rVert_1 \\
     \text{s.t.} & \quad A_n\boldsymbol{x} = \boldsymbol{b}
 \end{align*}
 ```
@@ -39,7 +39,7 @@ $x$は擬確率という量に対応する長さ$|\mathcal{S}_n|$ (定義は後�
 そして、行列$A_n$は次のような形をしています。
 $A_n$は$n$のみによって一意に決まり、$n=1,2$の場合は以下のようになります。
 
-![A_n](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/e3cf3348-566d-a705-8ee8-ec7c360b6e95.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/e3cf3348-566d-a705-8ee8-ec7c360b6e95.png" alt="A_n">
 
 他の$n$についても似たような構造を有してます。つまり、$A_n$は$4^n$行$|\mathcal{S}_n|$列の行列で、1列あたり$2^n$個の$\pm1$が存在する疎行列です。
 
@@ -51,7 +51,7 @@ $A_n$は$n$のみによって一意に決まり、$n=1,2$の場合は以下の�
 
 という性質です。この$|\mathcal{S}_n|$は**非常に爆発的に増加**し、具体的な値は以下の通りです。
 
-| $n$ | $4^n$(行数) | $\|\mathcal{S}_n\|$(列数) | $A_n$(SciPyのCSC形式) |
+| $n$ | $4^n$(行数) | $\lVert\mathcal{S}_n\rVert$(列数) | $A_n$(SciPyのCSC形式) |
 | :---: | :---: | :---: | :---: |
 | 4 | 256 | 36720 | 3MiB |
 | 5 | 1024 | 2423520 | 379MiB |
@@ -92,7 +92,7 @@ LP Solverに行列を投げる前に、どうにかして問題サイズを小�
 ここで重要になるのが**解の疎性**です。
 今回の$L^1$ノルム最小化問題は、基底追跡との別名もありますが、一般に解が疎になることで知られています。LASSOにおける正則化項が$L^1$ノルムであることなどもその事実に対応しています([参考記事](https://yuyumoyuyu.com/2021/01/03/regularizedleastsquares/))。
 
-![L1](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/a04f0b61-e34e-ccf3-2366-3f54485f9a0d.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/a04f0b61-e34e-ccf3-2366-3f54485f9a0d.png" alt="L1">
 (赤線に最も$L^1$距離が近い点、つまり、赤線と青い四角の交差点は、確かに$x_2=0$と解が疎になっている)
 
 (出典: 大関 真之 .“今日からできるスパースモデリング”.京都大学大学院情報学研究科.http://www-adsys.sys.i.kyoto-u.ac.jp/mohzeki/Presentation/lectureslide20150902-3.pdf (最終アクセス日:2023年12月5日))
@@ -110,7 +110,7 @@ LP Solverに行列を投げる前に、どうにかして問題サイズを小�
 
 この関係を図形的に表すと、以下のようになります。
 
-![whyDotIsGood](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/9b55bbf0-376d-5b0e-571c-531a7adec853.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/9b55bbf0-376d-5b0e-571c-531a7adec853.png" alt="whyDotIsGood">
 
 今、$\ket{+Y}$や$\ket{-Z}$などが$A_n$の各列ベクトルに対応しています(ベクトルを3次元の座標に見立てています)。そして、緑の矢印で表しているのが、ベクトル$b$です。
 出来るだけ重み$\boldsymbol{x}$の絶対値の総和が小さくなるに、つまり、$L^1$ノルムが最小になるように、ベクトル$b$を表したいです。
@@ -133,9 +133,9 @@ in Signal and Image Processing”. [Springer](https://link.springer.com/book/10.
 
 実際にRoMと内積には関係があるのかどうか、数値実験で確認してみます。
 
-ランダムに生成した $n=4$ での $\boldsymbol{b}$ に関して、RoMを与える擬確率分布 $\{ x_i \}$ (縦軸)と、対応する行列 $A_n$ の列、つまり、純粋スタビライザー状態 $\sigma_i$ との内積(横軸)の関係を示したのが、以下の図です。
+ランダムに生成した $n=4$ での $\boldsymbol{b}$ に関して、RoMを与える擬確率分布 $\lbrace x_i \rbrace$ (縦軸)と、対応する行列 $A_n$ の列、つまり、純粋スタビライザー状態 $\sigma_i$ との内積(横軸)の関係を示したのが、以下の図です。
 
-![dot_and_coeff_4_edited](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/2220aa20-2cfb-23ce-8da8-5c54c9af7e86.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/2220aa20-2cfb-23ce-8da8-5c54c9af7e86.png" alt="dot_and_coeff_4_edited">
 
 確かに、**内積が大きい列と小さい列において、$x_i$の絶対値が大きくなる**傾向があり、中途半端な内積を持つ列においては、殆ど全ての$x_i$が0になります。
 
@@ -156,7 +156,7 @@ in Signal and Image Processing”. [Springer](https://link.springer.com/book/10.
 
 ここで活用するのは、$A_n$の構造の特殊性です。$A_n$を再掲します。
 
-![A_n](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/e3cf3348-566d-a705-8ee8-ec7c360b6e95.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/e3cf3348-566d-a705-8ee8-ec7c360b6e95.png" alt="A_n">
 
 この図をよく観察すると、$2^n$列ごとにブロックのようなものが形成されていることがお分かりいただけるでしょうか。
 具体的には、$n=2$の最初の4列を取り出すと、図にあるインデックスを用いることで、
@@ -198,14 +198,14 @@ Sylvesterの方法で生成される(正規化されていない)Walsh行列は�
 
 と定義されます。緑を+1、赤を-1として、下図のような行列になります。
 
-![walsh_1234](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/93b36938-96e9-570f-9da5-6845d2dfc649.jpeg)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/93b36938-96e9-570f-9da5-6845d2dfc649.jpeg" alt="walsh_1234">
 
 これと先程の行列を見比べると、確かに同じ構造を有していることが分かります。
 (ちなみにこれは、行列$A_n$がスタビライザー群という群に対応している行列であり、群の各生成元について符号の任意性がある為に、自然に従う性質です)
 
 そしてFWHTとは、この再帰的構造を用いて内積計算自体も再帰的に計算すればその分高速化する、ということを本質としたごく簡単なアルゴリズムです。上の行列($n=2$)と下の図解をよくよく見比べてもらうと、ご理解頂けるかと思います。
 
-![FWHT_algorithm](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/53cd9cb8-737e-166e-f06b-ee851ade7d17.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/53cd9cb8-737e-166e-f06b-ee851ade7d17.png" alt="FWHT_algorithm">
 
 よって、通常掛かるはずの$\mathcal{O}(2^n \times 2^n)$の計算量を$\mathcal{O}(n 2^n)$に抑えられます。
 
@@ -250,7 +250,7 @@ def fwht(a) -> None:
 ここまでくれば、前半戦は終了です。
 内積を計算した上で、内積のtopKとbottomKに着目し、制限された主問題(RMP)を解けば、RoMの非常に良い近似値を得られます。
 
-![approx_7](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/44d0da43-5a56-70fa-c4e6-8ad5e70d0239.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/44d0da43-5a56-70fa-c4e6-8ad5e70d0239.png" alt="approx_7">
 
 図が$n=7$における実験結果です。
 Overlapが内積を用いた手法を表し、Randomがランダムに$A_n$の列を選択した場合を表しています。元の問題に対する制限された主問題のサイズが$K$(横軸)ですが、$K$が増える程、解(縦軸)は小さくなっています。
@@ -278,7 +278,7 @@ https://zenn.dev/jij_inc/articles/8539546423c0c0
 
 ```math
 \begin{align*}
-    \min_{\boldsymbol{x}} & \quad \|\boldsymbol{x}\|_1 \\
+    \min_{\boldsymbol{x}} & \quad \lVert\boldsymbol{x}\rVert_1 \\
     \text{s.t.} & \quad A_n\boldsymbol{x} = \boldsymbol{b}
 \end{align*}
 ```
@@ -288,15 +288,15 @@ https://zenn.dev/jij_inc/articles/8539546423c0c0
 ```math
 \begin{align*}
     \max_{\boldsymbol{y}} & \quad \boldsymbol{b}^\top \boldsymbol{y} \\
-    \text{s.t.} & \quad \left\| A_n^\top \boldsymbol{y} \right\|_\infty \leq 1
+    \text{s.t.} & \quad \left\lVert A_n^\top \boldsymbol{y} \right\rVert_\infty \leq 1
 \end{align*}
 ```
 
-なお、$\left\|\left\| A_n^\top \boldsymbol{y} \right\|\right\|_\infty \leq 1$は$-\boldsymbol{1} \leq A_n^\top \boldsymbol{y} \leq +\boldsymbol{1}$と同値です。
+なお、$\left\lVert\left\rVert A_n^\top \boldsymbol{y} \right\lVert\right\rVert_\infty \leq 1$は$-\boldsymbol{1} \leq A_n^\top \boldsymbol{y} \leq +\boldsymbol{1}$と同値です。
 
 図でイメージするとこんな感じです。
 
-![ImageOfDual](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/d51e4c03-e49e-7e2f-bbf4-007b00a4d7c0.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/d51e4c03-e49e-7e2f-bbf4-007b00a4d7c0.png" alt="ImageOfDual">
 
 この図の意味を説明します。
 まず、(a)は制限された主問題(RMP)を表しています。先程同様、$a_i$が行列$A_n$の列ベクトルに対応しています。主問題は、「**行列$A_n$の各列ベクトル$a_i$を、出来る限り絶対値の総和が小さい重み$x_i$で線形結合して、ベクトル$b$を表せ**」という問題だと解釈出来るのでした。列を制限することは、ベクトル$b$を表すために使える$a_i$を減らすことに相当します。
@@ -318,16 +318,16 @@ https://zenn.dev/jij_inc/articles/8539546423c0c0
 もう一度、先程の図を用いて説明します。
 まず、制限された主問題($a_4$を削った問題)を解いて、対応する双対変数$\boldsymbol{y}$が得られたとします。双対問題において、$a_4$を削ることは、制約を緩和することに対応していたことを思い出して下さい。すると、点$\boldsymbol{y}$がこのような多面体の頂点に来ることが分かります。
 
-![CG_1](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/d13b1afb-b125-2b84-3092-fe74a2c54137.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/d13b1afb-b125-2b84-3092-fe74a2c54137.png" alt="CG_1">
 
-この時、無視した行列$A_n$の列に関する制約は、当然満たされているとは限りません。いくつかの制約に関しては、$\left\| a_i^\top \boldsymbol{y} \right\| > 1$となってしまっていることがあります。この場合、$\boldsymbol{y}$が$a_4$の表す制約(灰色の点線)の外に来てしまっているので、削っていた$a_4$が実は必要な制約であったと分かります。
+この時、無視した行列$A_n$の列に関する制約は、当然満たされているとは限りません。いくつかの制約に関しては、$\left\lVert a_i^\top \boldsymbol{y} \right\rVert > 1$となってしまっていることがあります。この場合、$\boldsymbol{y}$が$a_4$の表す制約(灰色の点線)の外に来てしまっているので、削っていた$a_4$が実は必要な制約であったと分かります。
 
-![CG_2](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/2986a62a-db90-dd4a-7764-385b549d2b67.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/2986a62a-db90-dd4a-7764-385b549d2b67.png" alt="CG_2">
 
 そこで、この**違反している制約だけを追加した問題**を考えます。実装上は、主問題側で列を増やして再最適化するだけです。
 すると、再最適化の結果として、今度はきちんと制約を全て満たした解が得られます。
 
-![CG_3](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/723b0cdd-487c-539a-2c4f-4959d2f43914.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/723b0cdd-487c-539a-2c4f-4959d2f43914.png" alt="CG_3">
 
 強双対定理より、この解は元の主問題の解と一致します。つまり、**双対変数が発見する「違反した制約」を加える**という操作をすると、双対問題の最適値がより小さくなる、すなわち、**主問題における最適値もより小さくなる**ということが分かります。
 
@@ -369,11 +369,11 @@ http://dopal.cs.uec.ac.jp/okamotoy/lect/2022/ip/lect11.pdf
 制限された主問題のサイズを表すパラメータ$K$は、下表のように設定しました。
 これは各イテレーション毎の、新たに追加する列数の上限にも対応しています。実装では、途中途中で不要な列というのも出てくるのでそれらは捨てています。
 
-![KTable](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/653956b1-0aa5-ac7e-cd80-9ac07906a07a.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/653956b1-0aa5-ac7e-cd80-9ac07906a07a.png" alt="KTable">
 
 動作結果は以下の通りです。
 
-![列生成法の動作結果](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/6864c3d5-ff59-87b7-ab6f-2dc95fd58c01.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/6864c3d5-ff59-87b7-ab6f-2dc95fd58c01.png" alt="列生成法の動作結果">
 
 左図が$n=7$、右図が$n=8$における実験結果です。
 列生成法のイテレーション数(横軸)毎に目的関数値と制約の違反数が減少しています。
@@ -457,7 +457,7 @@ $\genfrac{[}{]}{0pt}{}{n}{k}_2$でq=2の場合のq二項係数を表すとする
 この定理が一体何を言っているかについてご説明します。
 冒頭でもお見せした行列$A_n$を再掲します。
 
-![A_n](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/e3cf3348-566d-a705-8ee8-ec7c360b6e95.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/e3cf3348-566d-a705-8ee8-ec7c360b6e95.png" alt="A_n">
 
 この定理の主張内容を言い換えると、**$A_n$から任意に2つの列をとってきて、その内積を計算すると、期待値が丁度1になる**、ということを言っています。確かに、$n=1$の場合だと、確率$1/6$で内積が2、$4/6$で内積が1、$1/6$で内積が0となり、期待値は0になります。より$n$が大きくなっても、期待値は丁度1になります。
 
@@ -500,11 +500,9 @@ $\genfrac{[}{]}{0pt}{}{n}{k}_2$でq=2の場合のq二項係数を表すとする
 ```Python
 import time
 
-
 def log(i, d):
     # ANSIエスケープシーケンスを使ったカーソル移動
     print(f"\033[1F\033[0K i = {i}, d = {d}")
-
 
 def main():
     t0 = time.perf_counter()
@@ -521,7 +519,6 @@ def main():
     t1 = time.perf_counter()
 
     print(f"duration = {t1 - t0}[ms]")
-
 
 if __name__ == "__main__":
     main()
@@ -560,7 +557,6 @@ def topK_argpartition(data, k):
     args = np.argpartition(data, -k)[-k:]
     return data[args]
 
-
 def topK_threshold(data, k):
     # 適切な閾値を事前情報から推定
     threshold = 0.99
@@ -576,25 +572,22 @@ def topK_threshold(data, k):
 この簡単な措置だけでも、実はかなりの高速化に繋がります。
 次のグラフがその実験結果です。
 
-![argpartition](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/a4f7c8f4-a58a-13dc-0887-72990a41590d.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/a4f7c8f4-a58a-13dc-0887-72990a41590d.png" alt="argpartition">
 
 <details><summary>実験コード</summary>
 
 ```Python
 import numpy as np
 
-
 def topK_argsort(data, k):
     # O(N log N)
     args = np.argsort(data)[-k:]
     return data[args]
 
-
 def topK_argpartition(data, k):
     # O(N)
     args = np.argpartition(data, -k)[-k:]
     return data[args]
-
 
 def topK_threshold(data, k):
     # 適切な閾値を事前情報から推定
@@ -606,7 +599,6 @@ def topK_threshold(data, k):
     else:
         # 閾値を超えるデータがk個以上ある場合(成功)
         return topK_argpartition(data_large, k)
-
 
 def main():
     import time
@@ -671,7 +663,6 @@ def main():
     plt.legend(loc="upper left")
     plt.title("topK argpartition vs. topK threshold")
     plt.savefig("argpartition.png")
-
 
 if __name__ == "__main__":
     main()

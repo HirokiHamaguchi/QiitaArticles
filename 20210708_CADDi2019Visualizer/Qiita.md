@@ -1,4 +1,4 @@
-# 概要
+<!-- markdownlint-disable MD041 -->
 
 CADDi2019の(非公式な)ビジュアライザ、ジェネレーター、テスターを作りました。
 
@@ -31,7 +31,6 @@ OUTPUT_PATH = "out.txt"
 
 COLOR_MAP = get_color_map('jet')
 
-
 def blender_delete() -> None:
     for c_collection in bpy.context.scene.collection.children:
         if c_collection.name == "DONT DELETE":
@@ -41,7 +40,6 @@ def blender_delete() -> None:
         bpy.context.scene.collection.objects.unlink(item)
     for _ in range(3):
         bpy.ops.outliner.orphans_purge()
-
 
 def blender_init() -> None:  # 枠となる箱の設置
     bpy.ops.mesh.primitive_uv_sphere_add(radius=0)  # 番号調整
@@ -58,10 +56,8 @@ def blender_init() -> None:  # 枠となる箱の設置
         .inputs[0].default_value = (0, 0, 0, 1)
     bpy.context.active_object.data.materials.append(mat)
 
-
 def get_color(level: float) -> tuple:
     return COLOR_MAP[int(level*255)]
-
 
 def put_sphere(i: int, radius: int, location: tuple,
                point: int = None, actual_point: int = None) -> None:
@@ -88,7 +84,6 @@ def put_sphere(i: int, radius: int, location: tuple,
             .inputs[0].default_value = (get_color(min(1, actual_point/point)))
     bpy.context.active_object.data.materials.append(mat)
     bpy.context.object.active_material.blend_method = 'BLEND'
-
 
 def visualize(XYZs: list, points: list, actual_points: list) -> None:
     global RPs, ABCDs, orders
@@ -144,7 +139,6 @@ def visualize(XYZs: list, points: list, actual_points: list) -> None:
     print("boolean finished!")
     """
 
-
 def main(color_mode=None, color_parameter=1):
     global RPs, ABCDs, orders
 
@@ -188,7 +182,6 @@ def main(color_mode=None, color_parameter=1):
 
     visualize(XYZs, points, actual_points)
 
-
 if __name__ == '__main__':
     main(color_mode='default')
 ```
@@ -219,7 +212,6 @@ NUM_OF_SEEDS = 100
 FOLDER_NAME = 'gen'
 
 L, N, M = 1000, 1000, 100000
-
 
 def main(NUM_OF_SEEDS=NUM_OF_SEEDS):
     if not os.path.exists(FOLDER_NAME):
@@ -257,7 +249,6 @@ def main(NUM_OF_SEEDS=NUM_OF_SEEDS):
     else:
         print("\ndone!")
 
-
 if __name__ == '__main__':
     args = sys.argv
     if len(args) == 1:
@@ -290,7 +281,6 @@ INPUT_PATH = 'in.txt'
 OUTPUT_PATH = 'out.txt'
 
 L, N, M = 1000, 1000, 100000
-
 
 def main(INPUT_PATH=INPUT_PATH, OUTPUT_PATH=OUTPUT_PATH):
     score = 0
@@ -355,7 +345,6 @@ def main(INPUT_PATH=INPUT_PATH, OUTPUT_PATH=OUTPUT_PATH):
     print(f"filling rate: {volume/L**3:%}")
     print(f"number of used spheres: {cnt}/{N}")
 
-
 if __name__ == '__main__':
     args = sys.argv
     if len(args) == 1:
@@ -417,7 +406,7 @@ if __name__ == '__main__':
 随分対照的な結果ですね。
 
 Cさんの解法の特徴を端的に表していると思う写真がこちらです。
-![messageImage_1625715312506.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/8b6e59e6-1f1e-4877-f0e4-69715d44c015.jpeg)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/8b6e59e6-1f1e-4877-f0e4-69715d44c015.jpeg" alt="messageImage_1625715312506.jpg">
 
 * 敷き詰め方が綺麗
 * 使用している球が大きめ

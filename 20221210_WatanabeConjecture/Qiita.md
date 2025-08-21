@@ -1,4 +1,4 @@
-# とある論文の未証明予想を解きました
+<!-- markdownlint-disable MD041 -->
 
 この記事は[東京大学工学部応用物理学系2学科(物工/計数)Advent Calendar 2022](https://adventar.org/calendars/7701)の11日目のものです。
 
@@ -92,9 +92,9 @@ $75÷5=15,15÷5=3$で、3は5で割り切れないので、答えは2回です�
 
 これも、modさえ知っていれば非常に単純な概念で、
 
-$$
+```math
     mx \equiv 1 \mod{n}
-$$
+```
 
 を満たすような$x$のことを、$\bmod n$における$m$の逆元と言います。
 特に、これを$m^{-1} \mod n$と表記することにします。
@@ -116,9 +116,11 @@ $3^{-1}\mod{10}$を考えてみます。
 それではこれを証明してみます。ここでは十分性だけ示します。
 
 まず、一般に$0 < m < n $が互いに素ならば、
-$$
+
+```math
 \exists{x,y\in\mathbb{Z}} \quad \mathrm{s.t.} \quad mx+ny=1
-$$
+```
+
 となります。
 (これはユークリッドの互除法の過程を逆に辿れば証明が可能です)
 
@@ -126,9 +128,11 @@ $x=qn+r$とします。
 $q,r$はそれぞれ商と余りです。
 
 すると、
-$$
+
+```math
 mr=1-n(y+mq) \equiv 1 \mod{n}
-$$
+```
+
 となります。
 よって、$m^{-1} \equiv r\mod{n}$だと分かるので、主張が証明されました。
 
@@ -150,9 +154,9 @@ $$
 
 $1 \leq a_1,a_2 \leq N-1$を満たす任意の整数$N,a_1,a_2$に対し、
 
-$$
+```math
     \exists b_1,b_2 \quad \mathrm{s.t.} \quad \frac{\mathrm{gcd}(a_1,N)}{\mathrm{gcd}(a_1,a_2,N)}\frac{a_2+b_2N}{a_1+b_1N}\in \mathbb{Z}
-$$
+```
 
 となるか。
 
@@ -162,10 +166,10 @@ $$
 
 必ず題意は成立する。以下証明を述べる。
 
-$$
+```math
     a_1=\prod_{i=1}^{k}{p_i^{e_{i_1}}}, \quad \\
     a_2=\left(\prod_{i=1}^{k}{p_i^{e_{i_2}}}\right) q_{a_2}
-$$
+```
 
 とおく。
 
@@ -175,18 +179,20 @@ $q_{a_2}$は素数とは限らないが$a_1$と互いに素となる。
 
 この時、題意は
 
-$$
+```math
     \exists b_{i_1},b_{i_2}(1 \leq i \leq k) \quad \mathrm{s.t.} \quad \frac{\mathrm{gcd}(a_1,N)}{\mathrm{gcd}(a_1,a_2,N)}\left(\prod_{i=1}^{k}{\frac{p_i^{e_{i_2}}+b_{i_2}N}{p_i^{e_{i_1}}+b_{i_1}N}}\right)q_{a_2}\in \mathbb{Z}
-$$
+```
 
 と変形しても構わない。
 
 理由は以下の通り。
 
 例えば分母に関して言えば、
-$$
+
+```math
     \prod_{i=1}^{k}{(p_i^{e_{i_1}}+b_{i_1}N)} \equiv \prod_{i=1}^{k}{p_i^{e_{i_1}}} \equiv a_1 \mod{N}
-$$
+```
+
 となる。
 
 よって、元の$a_1+b_1N$の形に変形が可能である。分子に関しても同様。
@@ -196,9 +202,11 @@ $$
 特に、$\mathrm{gcd}$同士の分数となっている箇所に関して言えば、分母が分子の約数なので、整数であることは明らか。
 
 なので、以下、各$i$について、
-$$
+
+```math
     \frac{p_i^{e_{i_2}}+b_{i_2}N}{p_i^{e_{i_1}}+b_{i_1}N}
-$$
+```
+
 が整数になるかどうか考えていく。
 
 $e_{i_2} \geq e_{i_1}$の時は明らか。
@@ -206,9 +214,9 @@ $e_{i_2} \geq e_{i_1}$の時は明らか。
 
 以下、$e_{i_2} < e_{i_1}$とする。
 
-$$
+```math
     \displaystyle\frac{\mathrm{gcd}(a_1,N)}{\mathrm{gcd}(a_1,a_2,N)}\displaystyle\frac{p_i^{e_{i_2}}+b_{i_2}N}{p_i^{e_{i_1}}+b_{i_1}N}
-$$
+```
 
 に関して、これが整数になることを示せばよい。
 (正確には、$\mathrm{gcd}$の部分は他の$i$と共用なので、注意が必要)
@@ -226,9 +234,9 @@ $p_i^{\min(e_{i_1},f)-\min(e_{i_1},e_{i_2},f)}=p_i^{\min(e_{i_1},f)-\min(e_{i_2}
 
 示すべきは、
 
-$$
+```math
     \displaystyle\frac{p_i^{e_{i_2}-f}+b_{i_2}N^\prime}{p_i^{e_{i_1}-f}+b_{i_1}N^\prime}\in \mathbb{Z}
-$$
+```
 
 である。
 
@@ -241,9 +249,9 @@ $N^\prime$が$p_i$と互いに素のため、特に$p_i^{e_{i_1}-f}$とも互い
 
 よって、条件を満たす$b_{i_2}$が求まり、
 
-$$
+```math
     b_{i_2} \equiv -p_i^{e_{i_2}-f} (N^\prime)^{-1} \pmod{p_i^{e_{i_1}-f}}
-$$
+```
 
 を満たす任意の整数とすればよい。
 
@@ -251,11 +259,11 @@ $$
 
 示すべきは、
 
-$$
+```math
     p^{f-e_{i_2}}\displaystyle\frac{p_i^{e_{i_2}}+b_{i_2} p_i^f N^\prime}{p_i^{e_{i_1}}+b_{i_1} p_i^f N^\prime}\in \mathbb{Z}\\
     \Leftrightarrow p^{f-e_{i_2}}\displaystyle\frac{p_i^{e_{i_2}}(1+b_{i_2} p_i^{f-e_{i_2}} N^\prime)}{p_i^f(p_i^{e_{i_1}-f}+b_{i_1}N^\prime)}\in \mathbb{Z}\\
     \Leftrightarrow \displaystyle\frac{1+b_{i_2} p_i^{f-e_{i_2}} N^\prime}{p_i^{e_{i_1}-f}+b_{i_1}N^\prime}\in \mathbb{Z}\\
-$$
+```
 
 である。
 
@@ -264,18 +272,18 @@ $$
 
 その為に、$p_i^{e_{i_1}-f}+N^\prime$と$p_i^{f-e_{i_2}}N^\prime$が互いに素であることを示す。
 
-$$
+```math
     \mathrm{gcd}(p_i^{e_{i_1}-f}+N^\prime,p_i)=1 \land
     \mathrm{gcd}(p_i^{e_{i_1}-f}+N^\prime,N^\prime)=1
-$$
+```
 
 であれば良いが、これは、$N^\prime$と$p_i$が互いに素ということより共に成立する。
 
 以上より、modの逆元が存在するため、$b_{i_2}$は
 
-$$
+```math
     b_{i_2} \equiv -(p_i^{f-e_{i_2}}N^\prime)^{-1} \pmod{p_i^{e_{i_1}-f}+N^\prime}
-$$
+```
 
 を満たす任意の整数とすればよい。
 
@@ -283,15 +291,15 @@ $$
 
 示すべきは、
 
-$$
+```math
     p_i^{e_{i_1}-e_{i_2}}\displaystyle\frac{1+b_{i_2}p_i^{f-e_{i_2}}N^\prime}{p_i^{e_{i_1}-e_{i_2}}+b_{i_1}p_i^{f-e_{i_2}}N^\prime}\in \mathbb{Z}
-$$
+```
 
 であり、$b_{i_1}=b_{i_2}=0$とおくと、
 
-$$
+```math
     \displaystyle\frac{p_i^{e_{i_1}-e_{i_2}}}{p_i^{e_{i_1}-e_{i_2}}}=1\\
-$$
+```
 
 より明らか。
 
@@ -299,9 +307,9 @@ $$
 
 これを全ての$1 \leq i\leq k$について行う事で、
 
-$$
+```math
     \exists b_{i_1},b_{i_2} \quad \mathrm{s.t.} \quad \frac{\mathrm{gcd}(a_1,N)}{\mathrm{gcd}(a_1,a_2,N)}\left(\prod_{i=1}^{k}{\frac{p_i^{e_{i_2}}+b_{i_2}N}{p_i^{e_{i_1}}+b_{i_1}N}}\right)q_{a_2}\in \mathbb{Z}
-$$
+```
 
 が示され、題意は成立となる。
 
@@ -360,9 +368,11 @@ https://mathlog.info/articles/216
 [4] 雪江明彦. 代数学群論. 日本評論社, 2010年.
 
 > modの逆元に関する話で参照させて頂きました。本書では
-> $$
-> n\in\mathbb{Z}_{>0} \Rightarrow (\mathbb{Z}/n\mathbb{Z})^{\times}=\{\bar{m}|0<m<n,\mathrm{gcd}(m,n)=1\}
-> $$
+>
+> ```math
+> n\in\mathbb{Z}_{>0} \Rightarrow (\mathbb{Z}/n\mathbb{Z})^{\times}=\lbrace\bar{m}|0<m<n,\mathrm{gcd}(m,n)=1\rbrace
+> ```
+>
 > が証明されていますが、本記事ではその一部を使用させて頂きました。
 
 [5] drken(株式会社NTTデータ数理システム). "「1000000007 で割ったあまり」の求め方を総特集！ 〜 逆元から離散対数まで 〜". 2021年01月31日. Qiita

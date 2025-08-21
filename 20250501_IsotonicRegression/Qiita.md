@@ -364,13 +364,13 @@ x2 = np.array([1.5, 1.5, 4, 3, 5])
 x3 = np.array([1.5, 1.5, 3.5, 3.5, 5])
 
 data.append(
-    (x1, y, "p1.png", r"$J$:$\lbrace\rbrace$      $B$の集合:$\lbrace\lbrace1\rbrace,\lbrace2\rbrace,\lbrace3\rbrace,\lbrace4\rbrace,\lbrace5\rbrace\rbrace$")
+    (x1, y, "p1.png", r"$J$:$\lbrace \rbrace$      $B$の集合:$\lbrace \lbrace 1 \rbrace, \lbrace 2 \rbrace, \lbrace 3 \rbrace, \lbrace 4 \rbrace, \lbrace 5 \rbrace \rbrace$")
 )
 data.append(
-    (x2, y, "p2.png", r"$J$:$\lbrace1\rbrace$      $B$の集合:$\lbrace\lbrace1,2\rbrace,\lbrace3\rbrace,\lbrace4\rbrace,\lbrace5\rbrace\rbrace$")
+    (x2, y, "p2.png", r"$J$:$\lbrace 1 \rbrace$      $B$の集合:$\lbrace \lbrace 1,2 \rbrace, \lbrace 3 \rbrace ,\lbrace 4 \rbrace, \lbrace 5 \rbrace \rbrace$")
 )
 data.append(
-    (x3, y, "p3.png", r"$J$:$\lbrace1,3\rbrace$      $B$の集合:$\lbrace\lbrace1,2\rbrace,\lbrace3,4\rbrace,\lbrace5\rbrace\rbrace$")
+    (x3, y, "p3.png", r"$J$:$\lbrace 1,3 \rbrace$      $B$の集合:$\lbrace \lbrace 1,2 \rbrace,\lbrace 3,4 \rbrace, \lbrace 5 \rbrace \rbrace$")
 )
 
 for x, y, name, desc in data:
@@ -604,7 +604,7 @@ https://qiita.com/taka_horibe/items/0c9b0993e0bd1c0135fa
 ```math
 \begin{align*}
     &\sum_{i=1}^{n-1} v_i g_i(x) = 0 \\
-    \iff & \forall i \in \lbrace1,\dots,n-1\rbrace, \; v_i g_i(x) = 0
+    \iff {} & \forall i \in \lbrace 1,\dots,n-1 \rbrace, \; v_i g_i(x) = 0
 \end{align*}
 ```
 

@@ -1,4 +1,4 @@
-# 概要
+<!-- markdownlint-disable MD041 -->
 
 :::note warn
 注意書き
@@ -48,11 +48,11 @@ https://atcoder.jp/contests/ahc014/tasks/ahc014_a
 
 先の**前提A_1**で考えた正方形について、(あくまで独自の用語ですが)**縦横格子**と**斜め格子**の二つに分類して考えることが出来る、つまり、傾いていない正方形と傾いている正方形でそれぞれ分類して考えることが可能で、どの辺を使用するかということは**それぞれ独立に決めて良い**、ということは多くの方に直感的に理解して頂けることかと思います。
 
-![レイヤー分離.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/d07f1287-eee4-557f-e81a-f91624a9ee94.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/d07f1287-eee4-557f-e81a-f91624a9ee94.png" alt="レイヤー分離.png">
 
 ところで、この縦横格子ですが、辺を重複しないような最も綺麗な(最密充填な)敷き詰め方は、偶奇性(以下**パリティ**と書きます)に注目すると以下の2パターン存在します。分かりやすさの為、正方形内部に色を付けています。
 
-![縦横格子_combined.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/89306797-9b21-bdfd-7834-044e28397f8f.jpeg)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/89306797-9b21-bdfd-7834-044e28397f8f.jpeg" alt="縦横格子_combined.jpg">
 
 この時、一方のパリティに属する正方形を採用すると、**他方のパリティに属する正方形は最大4つ失われてしまう**ということがご覧いただけるでしょうか。
 上下左右の辺を、それぞれ一つずつ他方のパリティに属する正方形が使用している場合に、あわせて4つの損失ということです。
@@ -65,7 +65,7 @@ https://atcoder.jp/contests/ahc014/tasks/ahc014_a
 斜め格子についても考えてみます。
 同様に、辺の集合を被らせないということを意識すると、x座標に関するパリティによって以下の2パターンに分類することが可能です。
 
-![斜め格子_combined.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/325453f4-607e-683d-f312-e4ca804eb7ef.jpeg)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/325453f4-607e-683d-f312-e4ca804eb7ef.jpeg" alt="斜め格子_combined.jpg">
 
 これまた、一方のパリティに属する正方形を採用すると、他方のパリティに属する正方形は右上、右下、左下、左上の最大4つが失われてしまいます。
 
@@ -91,7 +91,7 @@ https://atcoder.jp/contests/ahc014/tasks/ahc014_a
 
 (余談ですが、私は最初の3日間はビジュアライザを自分で移植してずっと手動解を作り続けていました。その過程を経ても、やはりどうにも雪崩以上に強い現象は存在しないだろうということが確認できたので、それなりに自信をもって考察することが出来ました。ビジュアライザの作成はそういった実装前の考察にも役立つので、個人的にはお勧めです)
 
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/bc1e8bc5-bf23-01c5-8a4c-3d373fbd7077.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/bc1e8bc5-bf23-01c5-8a4c-3d373fbd7077.png" alt="image.png">
 
 #### 前提A_4 雪崩の発生条件を整理する
 
@@ -114,7 +114,7 @@ https://atcoder.jp/contests/ahc014/tasks/ahc014_a
 例えば、以下のような場合を考えてみます。
 左が上手く雪崩を発生させられた場合、右が他方のパリティが混入してしまった場合の概念図です。
 
-![2A0848F3-20F8-465D-9711-2124CA0A2EA6.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/97d5bd1e-aed6-487b-0f2f-c2d4c14f0ab9.jpeg)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/97d5bd1e-aed6-487b-0f2f-c2d4c14f0ab9.jpeg" alt="2A0848F3-20F8-465D-9711-2124CA0A2EA6.jpg">
 
 少し試せばすぐ分かることですが、一個でも<font color="Red">他方のパリティを有する正方形</font>を使用してしまうと、その時点で<font color="RoyalBlue">雪崩</font>は完全にストップしてしまい、<font color="Orange">本来得られるはずだった得点</font>が完全に失われてしまいます。特に、外側であればあるほどスコアの重みは大きかったので、その損失は絶大です。
 
@@ -340,7 +340,7 @@ https://qiita.com/takapt0226/items/b2f6d1d77a034b529e21
 正直全く気が付きませんでした。
 自己ベストは管理してそれとの比較は常に表示していましたが、それでも気がつかなかったので、ここはちょっと仕方ないと思っている節があります。
 
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/79fa6b1e-befb-780b-8b84-16758af32883.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/79fa6b1e-befb-780b-8b84-16758af32883.png" alt="image.png">
 
 やはり、自分が最も考えていたことの延長線上に、局所的な更新に強い焼き鈍しという解が見えていたので、そこまで突っ切れていたらなと思ってしまいます。
 

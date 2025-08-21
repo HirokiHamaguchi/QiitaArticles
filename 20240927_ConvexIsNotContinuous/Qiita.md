@@ -37,7 +37,7 @@
 | :---: | :---: |
 | ![convex](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/3b35d51e-3099-9339-cdec-493933834844.png) | ![non_convex](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/4206d582-2506-f89d-e23e-ff8b9179a9f2.png) |
 
-(Wikipedia「[凸集合](https://ja.wikipedia.org/wiki/%E5%87%B8%E9%9B%86%E5%90%88)」より引用 / [CheCheDaWaff](https://commons.wikimedia.org/wiki/File:Convex_polygon_illustration1.svg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0&gt), via Wikimedia Commons)
+(Wikipedia「[凸集合](https://ja.wikipedia.org/wiki/%E5%87%B8%E9%9B%86%E5%90%88)」より引用 / [CheCheDaWaff](https://commons.wikimedia.org/wiki/File:Convex_polygon_illustration1.svg), CC BY-SA 4.0, via Wikimedia Commons)
 
 また、拡大実数に値を取る関数 $f\colon \mathbb{R} \to \mathbb{R} \cup \lbrace \pm\infty \rbrace$ の **domain** は次のように定義されます。
 

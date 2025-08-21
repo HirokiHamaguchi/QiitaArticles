@@ -121,6 +121,81 @@ def replace_vertical_bars(res):
     return res2
 
 
+def convert_readme_to_qiita(target_dir, copy_to_clipboard=False):
+    content = read_file(os.path.join(target_dir, "README.md"))
+
+    images_json_path = os.path.join(target_dir, "images.json")
+    links = load_json(images_json_path) if os.path.exists(images_json_path) else []
+
+    lines = content.splitlines()
+    if not lines or not lines[0].startswith("# "):
+        raise ValueError("README.md doesn't start with '# '")
+
+    if len(lines) < 2 or lines[1].strip() != "":
+        raise ValueError("README.md format is unexpected")
+
+    lines = lines[2:]
+
+    res = process_lines(lines, links)
+    res = replace_patterns(res)
+    res = replace_vertical_bars(res)
+
+    qiita_path = os.path.join(target_dir, "Qiita.md")
+
+    if os.path.exists(qiita_path):
+        os.chmod(qiita_path, 0o666)
+
+    with open(qiita_path, "w", encoding="UTF-8") as f:
+        f.write(res)
+    os.chmod(qiita_path, 0o444)
+
+    if copy_to_clipboard:
+        pyperclip.copy(res)
+
+    return res
+
+
+def convert_directory_to_qiita(target_dir):
+    if not os.path.exists(os.path.join(target_dir, "README.md")):
+        print(f"Skipping {target_dir}: README.md not found")
+        return False
+
+    try:
+        convert_readme_to_qiita(target_dir)
+        print(f"Successfully converted {target_dir}")
+        return True
+    except Exception as e:
+        print(f"Error converting {target_dir}: {e}")
+        return False
+
+
+def run_all():
+    base_dir = os.path.dirname(__file__)
+
+    directories = [
+        d
+        for d in os.listdir(base_dir)
+        if os.path.isdir(os.path.join(base_dir, d)) and d.startswith("20")
+    ]
+
+    if not directories:
+        print("No directories starting with '20' found.")
+        return
+
+    directories.sort()
+    print(f"Found {len(directories)} directories starting with '20'")
+
+    success_count = 0
+    for directory in directories:
+        target_dir = os.path.join(base_dir, directory)
+        if convert_directory_to_qiita(target_dir):
+            success_count += 1
+
+    print(
+        f"\nConversion completed. {success_count}/{len(directories)} directories successfully converted."
+    )
+
+
 def main():
     base_dir = os.path.dirname(__file__)
     target_dir = get_latest_modified_directory(base_dir)
@@ -135,28 +210,13 @@ def main():
         target_dir = get_target_directory(date_str, base_dir)
         print(f"Target directory: {target_dir}")
 
-    assert os.path.exists(os.path.join(target_dir, "README.md"))
-    assert os.path.exists(os.path.join(target_dir, "images.json"))
+    if not os.path.exists(os.path.join(target_dir, "README.md")):
+        raise FileNotFoundError("README.md not found")
 
-    content = read_file(os.path.join(target_dir, "README.md"))
-    links = load_json(os.path.join(target_dir, "images.json"))
-
-    lines = content.splitlines()
-    assert lines[0].startswith("# ")
-    assert lines[1].strip() == ""
-    lines = lines[2:]
-
-    res = process_lines(lines, links)
-    res = replace_patterns(res)
-    res = replace_vertical_bars(res)
-
-    with open(os.path.join(target_dir, "Qiita.md"), "w", encoding="UTF-8") as f:
-        f.write(res)
-    os.chmod(os.path.join(target_dir, "Qiita.md"), 0o444)  # Make file read-only
-
-    pyperclip.copy(res)
+    convert_readme_to_qiita(target_dir, copy_to_clipboard=True)
     print("Conversion completed successfully. The output is copied to the clipboard.")
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    run_all()
