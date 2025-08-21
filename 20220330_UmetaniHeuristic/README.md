@@ -1276,10 +1276,6 @@ HTML(anim.to_html5_video())
 
 焼き鈍し法に関する他のビジュアライズ結果としては、多点スタートのところでお見せしたtouristのAHC002の解の最後や、tspのところでお見せした動画のSimulated Annealingの部分などが挙げられます。これらでも、似たようなことが確認できるかと思います。他にも[AHC009](https://atcoder.jp/contests/ahc009)や[AHC001](https://atcoder.jp/contests/ahc001)というコンテストでも焼き鈍しをしている方が多かったです。
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/AHC001?src=hash&amp;ref_src=twsrc%5Etfw">#AHC001</a> お疲れ様でした．<br>暫定スコア 486.9 億点，148位でした．<br><br>焼き鈍しです．ときどき形を矯正したり破壊したりして，いいスコアになる state を探しました．<br>typescript でビジュアライザを作って，スコアが悪い問題を観察しながら進めていました．せっかくなので動画を貼ってみます． <a href="https://t.co/BxxjMkuJb6">pic.twitter.com/BxxjMkuJb6</a></p>&mdash; si (@iiljj) <a href="https://twitter.com/iiljj/status/1371055428021407744?ref_src=twsrc%5Etfw">March 14, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-焼き鈍し法の、ビジュアライズ結果としてのイメージも、掴んで頂けたら幸いです。
-
 #### 遷移確率関数の設計思想
 
 遷移確率関数で出てきたexpについて少しだけ説明します。以下は、[Introduction to Heuristics Contest 解説](https://img.atcoder.jp/intro-heuristics/editorial.pdf)というpdfからの引用です。同じ様な内容、および、より発展的内容が、[焼きなまし法の真実](http://www.colun.net/archives/774)というサイトにも掲載されています。

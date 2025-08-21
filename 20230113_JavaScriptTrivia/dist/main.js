@@ -22,12 +22,12 @@ eval("\r\nvar BUTTON = document.getElementById(\"trigger\");\r\nvar LOADING = do
 
 /******/ 	});
 /************************************************************************/
-/******/ 	
+/******/
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = {};
 /******/ 	__webpack_modules__["./src/index.ts"]();
-/******/ 	
+/******/
 /******/ })()
 ;

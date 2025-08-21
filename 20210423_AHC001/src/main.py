@@ -1,6 +1,7 @@
 # ボロノイ図を使うことも可能か？
 
 import random
+
 # import copy
 # import time
 # import math
@@ -16,12 +17,11 @@ margin = 300  # make_final_img用
 
 
 def convert_rgba_to_tf(img: np.array([], dtype=np.uint8)):  # α(不透明度)でtf判定
-    img = (img[:, :, 3] >= 128)
+    img = img[:, :, 3] >= 128
     return img
 
 
-def convert_bw_to_tf(img: np.array([], dtype=np.uint8),
-                     is_white_background=True):
+def convert_bw_to_tf(img: np.array([], dtype=np.uint8), is_white_background=True):
     img = (img <= 128) if is_white_background else (img >= 128)
     return img
 
@@ -41,14 +41,18 @@ def show_image(img: np.array([], dtype=np.uint8), title="image"):
 
 
 def make_final_img(imgs: np.array, hs: int, ws: int):  # 全てリスト
-    ret = np.zeros((input_img_H+600, input_img_W+600, 4), dtype=np.uint8)
+    ret = np.zeros((input_img_H + 600, input_img_W + 600, 4), dtype=np.uint8)
     for img, h, w in zip(imgs, hs, ws):
         H, W, _ = img.shape
-        ret[h+margin:h+H+margin, w+margin:w+W+margin] += img  # 上下左右にmargin
+        ret[
+            h + margin : h + H + margin, w + margin : w + W + margin
+        ] += img  # 上下左右にmargin
         if not is_test:
             # 以下がFalseならば桁あふれを起こしている可能性がある
-            assert np.all(ret[h+margin:h+H+margin, w+margin:w+W+margin] >= img)
-    ret = ret[margin:input_img_H+margin, margin:input_img_W+margin]
+            assert np.all(
+                ret[h + margin : h + H + margin, w + margin : w + W + margin] >= img
+            )
+    ret = ret[margin : input_img_H + margin, margin : input_img_W + margin]
     return ret
 
 
@@ -61,7 +65,7 @@ def calc_score(img: np.array([], dtype=np.bool)):
     img = img.astype(dtype=np.int8)  # -128~127
     local_input_img = input_img.astype(dtype=np.int8)
     # input_imgの内側1点、外側-10点 internal_border上は追加で100点ボーナス
-    score = img*(local_input_img*11-10+input_img_internal_border*100)
+    score = img * (local_input_img * 11 - 10 + input_img_internal_border * 100)
     if is_test:
         assert np.all(-10 <= score) and np.all(score <= 101)
     print(score.dtype)
@@ -70,15 +74,14 @@ def calc_score(img: np.array([], dtype=np.bool)):
 
 input_img_name = "input_img_test.jpeg"
 input_img_raw = cv2.imread(input_img_name, cv2.IMREAD_GRAYSCALE)
-expansion_rate = 2048/min(input_img_raw.shape)  # 辺が最低でも2048pixelはあるようにする
-input_img_raw = cv2.resize(input_img_raw, None,
-                           fx=expansion_rate, fy=expansion_rate)
+expansion_rate = 2048 / min(input_img_raw.shape)  # 辺が最低でも2048pixelはあるようにする
+input_img_raw = cv2.resize(input_img_raw, None, fx=expansion_rate, fy=expansion_rate)
 input_img = convert_bw_to_tf(input_img_raw, is_white_background=True)
 input_img_H, input_img_W = input_img.shape
 input_img_area = calc_area(input_img)
 if is_test:
     input_img_num_of_True = np.count_nonzero(input_img)
-    input_img_num_of_False = input_img_H*input_img_W-input_img_num_of_True
+    input_img_num_of_False = input_img_H * input_img_W - input_img_num_of_True
     print(f"{input_img_H=},{input_img_W=}")
     print(f"{input_img_num_of_True=}")
     print(f"{input_img_num_of_False=}")
@@ -86,8 +89,7 @@ if is_test:
 
 
 kernel = np.ones((10, 10), np.bool)
-input_img_erosion = ndimage.binary_erosion(input_img,  # 境界内側
-                                           structure=kernel)
+input_img_erosion = ndimage.binary_erosion(input_img, structure=kernel)  # 境界内側
 # XOR np.boolで境界も管理する
 # A and not B   external_borderを除く、内側の境界
 input_img_internal_border = input_img ^ input_img_erosion
@@ -96,8 +98,9 @@ if is_test:
 # show_image(convert_tf_to_bw(external_border))
 
 
-component_imgs = [cv2.imread(f"{i+1}_trimmed_version3.png",
-                             cv2.IMREAD_UNCHANGED)for i in range(47)]
+component_imgs = [
+    cv2.imread(f"{i+1}_trimmed_version3.png", cv2.IMREAD_UNCHANGED) for i in range(47)
+]
 component_imgs_area = [calc_area(img) for img in component_imgs]
 # print(component_imgs_area)
 
@@ -107,8 +110,10 @@ number_of_cats = 47
 random_coordinates = []
 random_coordinates_counter = 0
 while True:
-    random_coordinate = (random.randint(0, input_img_H-1),
-                         random.randint(0, input_img_W-1))
+    random_coordinate = (
+        random.randint(0, input_img_H - 1),
+        random.randint(0, input_img_W - 1),
+    )
     if input_img[random_coordinate[0]][random_coordinate[1]]:
         random_coordinates.append(random_coordinate)
         random_coordinates_counter += 1

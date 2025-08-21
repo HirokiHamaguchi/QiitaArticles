@@ -178,7 +178,7 @@ def reverse_index_for_dijkstra(index,is_for_direction=False):
     x=index%num_of_blocks
     y=index//num_of_blocks
     if is_for_direction:
-        x=(x if x!=num_of_blocks-1 else -1) 
+        x=(x if x!=num_of_blocks-1 else -1)
         y=(index-x)//num_of_blocks
     return (x,y)
 
@@ -205,7 +205,7 @@ for highest_counter in range(1000 if isfinal else 1):
     #ここから先4回同じ構造のコードが続きます。関数とか定義すれば良かったのですが、
     #それぞれの相違を反映させるのが少し面倒なのでこうしました。
     deleting_rate=0.3
-    
+
     dif0=[]#BRIDGE
     dif0_deleted=0
     for X in range(num_of_blocks):
@@ -289,7 +289,7 @@ for highest_counter in range(1000 if isfinal else 1):
     #https://note.nkmk.me/python-scipy-shortest-path/ 参考
     distance=dijkstra(graph, directed=False, indices=[index_for_dijkstra(x,y) for x,y in [(0,0),(0,num_of_blocks-1),(num_of_blocks-1,0),(num_of_blocks-1,num_of_blocks-1)]])
     distance_mid=[distance[i][index_for_dijkstra((num_of_blocks-1)//2,(num_of_blocks-1)//2)] for i in range(4)]
-    
+
     #中央地点に到達可能か
     print("highest_counter:",highest_counter,"  number of reachable corners:",4-distance_mid.count(float('inf')))
     if 4-distance_mid.count(float('inf'))==4:
@@ -333,7 +333,7 @@ dead_end_points=[i for i in range(num_of_blocks**2) if rowcol_flatten.count(i)==
 #スタート地点にもゴール地点にも近くない場所の行き止まりのみに宝箱を設置します
 valid_dead_end_points=[point for point in dead_end_points \
     if (num_of_blocks//3<=reverse_index_for_dijkstra(point)[0]<2*num_of_blocks//3 or num_of_blocks//3<=reverse_index_for_dijkstra(point)[1]<2*num_of_blocks//3) \
-    and (not (num_of_blocks//3<=reverse_index_for_dijkstra(point)[0]<2*num_of_blocks//3 and num_of_blocks//3<=reverse_index_for_dijkstra(point)[1]<2*num_of_blocks//3))]    
+    and (not (num_of_blocks//3<=reverse_index_for_dijkstra(point)[0]<2*num_of_blocks//3 and num_of_blocks//3<=reverse_index_for_dijkstra(point)[1]<2*num_of_blocks//3))]
 
 try:
     treasure_chest=random.choice(valid_dead_end_points)
@@ -399,7 +399,7 @@ with open("C:\\Users\\hari64\\OneDrive\\ドキュメント\\Blender\\blender scr
             txt_file.write("\t\t\t{"+",".join(map(lambda x: str(int(x)), distance_for_txt[k][j]))+"},\n")
         txt_file.write("\t\t},\n")
     txt_file.write("\t};\n\n")
-    
+
 
 ########################################################################
 #ここからbpyで実際にblender上へオブジェクトを配置していきます
@@ -425,7 +425,7 @@ for _ in range(6): #6回繰り返しているのはpurgeがネスト内のもの
 original_collection = bpy.data.collections.new("ORIGINAL"+dt_now)
 bpy.context.scene.collection.children.link(original_collection)
 original_collection = bpy.context.view_layer.layer_collection.children[original_collection.name]
-bpy.context.view_layer.active_layer_collection = original_collection 
+bpy.context.view_layer.active_layer_collection = original_collection
 
 for x in range(-(num_of_blocks-1)//2,(num_of_blocks-1)//2+1):
     for y in range(-(num_of_blocks-1)//2,(num_of_blocks-1)//2+1):
@@ -449,7 +449,7 @@ if not isfinal:
     instance_collection = bpy.data.collections.new("INSTANCE")
     bpy.context.scene.collection.children.link(instance_collection)
     instance_collection = bpy.context.view_layer.layer_collection.children[instance_collection.name]
-    bpy.context.view_layer.active_layer_collection = instance_collection 
+    bpy.context.view_layer.active_layer_collection = instance_collection
 
     for i in range(5):
         bpy.ops.object.empty_add(type='PLAIN_AXES', align='WORLD', location=(0, 0, 0), scale=(1, 1, 1))
@@ -637,7 +637,7 @@ public class Maze_game_manager : MonoBehaviour
 
  public GameObject[] list_of_empty_side = new GameObject[4];
  public GameObject[] list_of_empty_tobo = new GameObject[2]; //tobo-->top and bottom
- 
+
  void Construction(GameObject prefab, float[,] mydata, GameObject parent)
     {
         for (int i = 0; i < mydata.GetLength(0); i++)
@@ -645,14 +645,14 @@ public class Maze_game_manager : MonoBehaviour
             float x = mydata[i, 0];
             float y = mydata[i, 2]; //blenderでのz軸 blenderは右手座標系 unityは左手座標系です
             float z = mydata[i, 1]; //blenderでのy軸
-            float degree = mydata[i, 3]; //blenderでのz軸回転 
+            float degree = mydata[i, 3]; //blenderでのz軸回転
    //右手座標系におけるz軸中心の正方向回転は左手座標系におけるy軸中心の負方向回転
    Instantiate(prefab, new Vector3(x,y,z), Quaternion.Euler(0,-degree,0), parent.transform);
         }
     }
 
     void Start()
- { 
+ {
   List<int> numbers = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7 };
   numbers = numbers.OrderBy(a => Guid.NewGuid()).ToList(); //使用されるデータに重複があってほしくないのでシャッフルの方式をとりました
 
@@ -665,7 +665,7 @@ public class Maze_game_manager : MonoBehaviour
   Construction(prefab_STAIRS,          Constants.dif1s          [numbers[0]], list_of_empty_tobo[0]);
   Construction(prefab_DIAGONAL_STAIRS, Constants.dif1_diags     [numbers[0]], list_of_empty_tobo[0]);
   Construction(prefab_SLOPE,           Constants.dif2s          [numbers[0]], list_of_empty_tobo[0]);
-  Construction(prefab_TREASURE_CHEST,  Constants.treasure_chests[numbers[0]], list_of_empty_tobo[0]); 
+  Construction(prefab_TREASURE_CHEST,  Constants.treasure_chests[numbers[0]], list_of_empty_tobo[0]);
   list_of_empty_tobo[0].transform.rotation = Quaternion.Euler(0, 0, 0); //game startしてすぐ崖は望ましくないのでランダム回転はさせない
 
   //side

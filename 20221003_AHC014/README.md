@@ -80,14 +80,10 @@ https://atcoder.jp/contests/ahc014/tasks/ahc014_a
 ここで、とあるビジュアライザ結果を見てみましょう。
 かえでさんによる[解説記事](https://kaede2020.hatenablog.com/entry/2022/10/01/190044)にも登場していたので、ご存じの方も多いかも知れませんが、しましまさんという方が、初日の時点で極めて高いスコアのビジュアライザ結果を共有されていました。
 
-https://twitter.com/simasima_71/status/1571107473913950209
-
-この画像の特に下部の部分では、どうやら連鎖的に外側へ長方形が伸びていく機構が確認できます。
+その結果では、どうやら連鎖的に外側へ長方形が伸びていく機構が確認できます。
 
 本来の点配置が以下のestieさんのロゴなので、元々点は全くない箇所のはずです。
 このような、無から有を創り出している現象が存在するのだというヒントを、ビジュアライザから得ることが出来ます。
-
-![vis (27).png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/eb87f9b4-6da6-735b-a2cf-1bfd76a7de22.png)
 
 そして、これまた独自の用語で恐縮ですが、その連鎖的に発生していく様に注目して、この現象を**雪崩**と私は勝手に名前を付けて考察していました。以下でもこの用語を使用します。
 
@@ -233,18 +229,16 @@ https://chokudai.hatenablog.com/entry/2017/04/12/055515
 
 https://qiita.com/thun-c/items/058743a25c37c87b8aa4
 
-https://twitter.com/chokudai/status/713979313377255425
-
 なお、普通にchokudaiサーチを使うとメモリを大量に使用するので、ガベージコレクションなどに時間がかかることがあります。
 
 このような場合、ご本人のツイートにあるような対処をとるか、
 
-https://twitter.com/chokudai/status/1575014262115733504
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">たくさん溜まったら頭の数百件とかを取り出して別のヒープに入れ、元のヒープを捨てる</p>&mdash; chokudai(高橋 直大)@AtCoder (@chokudai) <a href="https://twitter.com/chokudai/status/1575014262115733504?ref_src=twsrc%5Etfw">September 28, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-あるいは、c++ではquick_exitを使うと良いと思われます。
+あるいは、C++ではquick_exitを使うと良いと思われます。
 私はこちらを今回採用しました。
 
-https://twitter.com/bowwowforeach/status/1502972081004515331
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">std::quick_exit関数で強制終了すればメモリ解放せず終了できるかもしれません。</p>&mdash; bowwowforeach (@bowwowforeach) <a href="https://twitter.com/bowwowforeach/status/1502972081004515331?ref_src=twsrc%5Etfw">March 13, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 しかし、実を言うと、私の解法におけるchokudaiサーチの得点に対する寄与は5%にもなりません。
 chokudaiサーチの利点の一つに実行時間の管理が楽というのがあり、どうしてもビーム幅次第で時間が余ってしまうのを誤魔化すために採用した苦肉の策のようなものです。

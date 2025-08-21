@@ -1,12 +1,12 @@
-# LaTeXでMatplotlibやMATLABの配色を再現する方法
+<!-- markdownlint-disable MD041 -->
 
 Matplotlibを用いて作成された図と同じ配色を
 
-![AmatPlt.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/7a05e6cb-6e33-3e82-3d02-9077972f7574.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/7a05e6cb-6e33-3e82-3d02-9077972f7574.png" alt="AmatPlt.png">
 
 TikZで再現する方法などについて、本稿では述べます。
 
-![AmatTikZ.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/aa72393e-126f-811f-9150-3be6e5504711.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/aa72393e-126f-811f-9150-3be6e5504711.png" alt="AmatTikZ.png">
 
 ## 目次
 
@@ -40,7 +40,7 @@ https://mathlandscape.com/latex-color/
 CTANにて公開されているxcolorの[公式ドキュメント](https://ctan.org/pkg/xcolor?lang=en)における`4 Colors by Name`節には、既に様々な色が定義されていることが記載されています。
 もし、デフォルトの色パレットで目的が十分達成されるという場合には、それらを使うことをお勧めします。
 
-![xcolor.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/ff61533f-d25e-67de-f051-911699458cd6.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/ff61533f-d25e-67de-f051-911699458cd6.png" alt="xcolor.png">
 
 しかし、本記事では更に追加して、MatplotlibやMATLABの色パレットを定義する方法を紹介します。
 
@@ -58,7 +58,7 @@ https://github.com/matplotlib/matplotlib
 
 tab10とは下図右側のような配色です。([引用元](https://matplotlib.org/stable/users/prev_whats_new/dflt_style_changes.html#colors-in-default-property-cycle))
 
-![dflt_style_changes-1.2x.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/06502a65-771d-6796-8a27-15ab394a1173.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/06502a65-771d-6796-8a27-15ab394a1173.png" alt="dflt_style_changes-1.2x.png">
 
 pltのデフォルトなので、見たことがある方も多いかと思います。通常の原色などと比べてより視認性が高いことが特徴です。
 
@@ -83,7 +83,7 @@ tab10のカラーコードは以下の通りです。
 
 https://www.mathworks.com/help/matlab/creating_plots/specify-plot-colors.html
 
-![matlab.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/2940ee39-9ad2-6322-bf35-d70965597ea7.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/2940ee39-9ad2-6322-bf35-d70965597ea7.png" alt="matlab.png">
 
 ```latex
 \definecolor{matlabBlue}{HTML}{0072BD}
@@ -120,14 +120,11 @@ import matplotlib
 import numpy as np
 from typing import Tuple
 
-
 def floatsToHTML(floats: Tuple[float, float, float]) -> str:
     return "".join(list(map(lambda x: f"{int(x * 255):02x}", floats)))
 
-
 def floatsToRGB(floats: Tuple[float, float, float]) -> str:
     return ",".join(list(map(lambda x: str(int(x * 255)), floats)))
-
 
 def floatsToLaTeX(color: Tuple[float, float, float], idx: int, method: str) -> str:
     if method == "RGB":
@@ -136,7 +133,6 @@ def floatsToLaTeX(color: Tuple[float, float, float], idx: int, method: str) -> s
         return "\\definecolor{c" + str(idx) + "}{HTML}{" + floatsToHTML(color) + "}"
     else:
         raise ValueError("Invalid method")
-
 
 def main():
     # 好みのカラーマップ
@@ -150,7 +146,6 @@ def main():
         color = cmap((value - vMin) / (vMax - vMin))
         assert color[-1] == 1  # alpha channel
         print(floatsToLaTeX(color[:3], idx, "RGB"))
-
 
 if __name__ == "__main__":
     main()
@@ -189,7 +184,6 @@ https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.LinearSegmentedColor
 import numpy as np
 import matplotlib
 from typing import Tuple
-
 
 # simply implement LinearSegmentedColormap
 # https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.LinearSegmentedColormap.html
@@ -232,7 +226,6 @@ def getJet(val: float) -> Tuple[float, float, float]:
 
     return tuple(floats)
 
-
 def main():
     cmap = matplotlib.colormaps.get_cmap("jet")
 
@@ -244,7 +237,6 @@ def main():
         assert np.allclose(pltColor, myColor)
 
     print("test passed")
-
 
 if __name__ == "__main__":
     main()
@@ -259,7 +251,7 @@ if __name__ == "__main__":
 以下に、これらの色を用いたサンプルを示します。
 これはTikZで作成されました。
 
-![test.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/8a9d4527-3d71-26c3-1a51-d19ef97fa695.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/8a9d4527-3d71-26c3-1a51-d19ef97fa695.png" alt="test.png">
 
 <details><summary>LaTeX Code</summary>
 
@@ -384,7 +376,7 @@ https://github.com/JLSteenwyk/ggpubfigs
 
 > Color palettes are all colorblind friendly. Thus, your figures will be accessible to more people, which is inarguably better for your audience and you.
 
-![ggpubfigs](ggpubfigs.png)
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/b039af1e-1619-4c94-af4c-64d7217b3bce.png" alt="ggpubfigs">
 
 ## Licenseの問題について
 

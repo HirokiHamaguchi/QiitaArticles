@@ -72,7 +72,7 @@ for item in bpy.data.objects:
 
 for counter in range(101):
 #以下の処理を100回(都合上101になっていますが)繰り返すことで100枚のポテチを作るということです
-    
+
     #今回のメインであるz_function_surfaceを使っていきます
     #infoの欄からこの関数の引数を確認することは出来ますが、
     #https://github.com/sobotka/blender-addons/blob/master/add_mesh_extra_objects/add_mesh_3d_function_surface.py
@@ -82,7 +82,7 @@ for counter in range(101):
     sign=random.choice(["+","-","-"]) #符号を決めます 今回は1対2の割合で鞍点を持つもの(-)を採用します
     myEquation="{0}*x**2{2}{1}*y**2".format(x_coefficient,y_coefficient,sign) #方程式を合成します
     bpy.ops.mesh.primitive_z_function_surface(equation=myEquation, div_x=32, div_y=32, size_x=10+2, size_y=10+2) #これがz math functionです。なお、+2は余白です
-    
+
     bpy.ops.object.editmode_toggle()
     bpy.ops.mesh.solidify(thickness=0.1) #編集モードに入って厚み付けをしておしまいです。
     bpy.ops.object.editmode_toggle()
@@ -166,7 +166,7 @@ for i in range(100):
     bpy.ops.object.select_all(action='DESELECT')
     obj=bpy.data.objects['Z Function.{:0=3}'.format(i+1)]
     bpy.context.view_layer.objects.active = obj
-    
+
     bpy.ops.object.editmode_toggle()
     bpy.ops.mesh.select_all(action='SELECT')
     bpy.ops.mesh.solidify(thickness=20)
@@ -283,7 +283,7 @@ Geometry Nodeは主にBlender3.0から追加された新機能で、これまで
 x_coefficient=random.uniform(0,0.3) #xの係数を0から0.3までの範囲で選びます
 y_coefficient=random.uniform(0,0.3) #yの係数を0から0.3までの範囲で選びます
 sign=random.choice(["+","-","-"]) #符号を決めます 今回は1対2の割合で鞍点を持つもの(-)を採用します
-myEquation="{0}*x**2{2}{1}*y**2".format(x_coefficient,y_coefficient,sign) 
+myEquation="{0}*x**2{2}{1}*y**2".format(x_coefficient,y_coefficient,sign)
 ```
 
 Blender、本当に便利になりましたね……。何だか感慨深いです。

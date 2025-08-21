@@ -146,9 +146,7 @@ annihilate | UK əˈnaɪ.ə.leɪt | US əˈnaɪ.ə.leɪt | [link](https://dictio
 
 [語源的](https://www.etymonline.com/word/annihilate)には、ラテン語の"nihil"(無、虚無)が関係している。ニーチェで有名な[ニヒリズムもこのnihilに由来する](https://ja.wikipedia.org/wiki/%E3%83%8B%E3%83%92%E3%83%AA%E3%82%BA%E3%83%A0)。こう聞くとなんで "h" を読まないんだという気持ちになりますが……
 
-参考1: [河東先生のHP](https://www.ms.u-tokyo.ac.jp/~yasuyuki/english2.htm)
-
-参考2: [ツイート](https://x.com/Keyneqq/status/1037263459514114048)
+参考: [河東先生のHP](https://www.ms.u-tokyo.ac.jp/~yasuyuki/english2.htm)
 
 ### 個人的蒐集
 
@@ -622,9 +620,7 @@ alumnus (男子卒業生) の複数形 alumni (男子卒業生たち または �
 
 [Wikipedia](https://en.wikipedia.org/wiki/Radius)は、(radii or radiuses)と書いており、後者の用例もない訳ではない。
 
-参考1: [外来複数形](https://user.keio.ac.jp/~rhotta/hellog/2019-02-20-1.html)
-
-参考2: [Twitter](https://x.com/tenseiYN99/status/1925438036420304931)
+参考: [外来複数形](https://user.keio.ac.jp/~rhotta/hellog/2019-02-20-1.html)
 
 #### equilibria
 
@@ -654,11 +650,7 @@ Let A (数式) denote B (内容).
 
 参考: 教本 p.90
 
-https://x.com/sesiru8/status/1325372621169463296
-
-#### 競技プログラミング
-
-https://x.com/C7C7LL/status/1033888585148030979
+> 命令文の We denote B by A. / Denote B by A. のような用例もときどき見かける。[Krantz]はこうした用法は「誤り」と断言しているが、時代による変化か、数学での内輪の用法か、上のような用例も問題ないとする英語母語話者もいる。次に2つ例を挙げるが、英語を母語としない私たちは、自分では使わない方がよいだろう。
 
 ## 数式
 

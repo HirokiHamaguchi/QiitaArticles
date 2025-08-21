@@ -6,4 +6,4 @@ m = {key_a: 4}
 # Exception has occurred: TypeError
 # unhashable type: 'list'
 
-print(m[key_b]) # これはそもそも実行されない
+print(m[key_b])  # これはそもそも実行されない

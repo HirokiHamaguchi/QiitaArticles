@@ -34,7 +34,7 @@ def main():
     plt.rcParams["axes.labelsize"] = 14
     plt.rcParams["xtick.labelsize"] = 14
     plt.rcParams["ytick.labelsize"] = 14
-    
+
     plt.rcParams["text.usetex"] = True
     plt.rcParams["font.family"] = "serif"
 
@@ -54,25 +54,64 @@ def main():
         x_pgo = proximal_gradient_operator(x, ell, lam)
         y_pgo = f(x_pgo) + g(x_pgo, lam)
         plt.plot(x_pgo, y_pgo, color=color, marker="*", ms=10, zorder=2)
-        print(x_pgo,y_pgo)
-        if color=="red":
-            plt.text(x_pgo+0.2, y_pgo+0.4, r'$T_L^{f,g}(x)$', color=color, ha='center',va="center", fontsize=24)
-        elif color=="blue":
-            plt.text(x_pgo-0.2, y_pgo+0.4, r'$T_L^{f,g}(x)$', color=color, ha='center',va="center", fontsize=24)
+        print(x_pgo, y_pgo)
+        if color == "red":
+            plt.text(
+                x_pgo + 0.2,
+                y_pgo + 0.4,
+                r"$T_L^{f,g}(x)$",
+                color=color,
+                ha="center",
+                va="center",
+                fontsize=24,
+            )
+        elif color == "blue":
+            plt.text(
+                x_pgo - 0.2,
+                y_pgo + 0.4,
+                r"$T_L^{f,g}(x)$",
+                color=color,
+                ha="center",
+                va="center",
+                fontsize=24,
+            )
 
         # gradient_mapping
         x_gm = gradient_mapping(x, ell, lam)
         plt.arrow(x, y, x_gm, 0, color=color, head_width=0.2, length_includes_head=True)
-        if color=="red":
-            plt.text(x+x_gm+0.2, y-0.3, r'$\mathcal{G}_L^{f,g}(x)$', color=color, ha="center",va="center", fontsize=24)
-        elif color=="blue":
-            plt.text(x+x_gm-0.2, y-0.3, r'$\mathcal{G}_L^{f,g}(x)$', color=color,  ha="center",va="center", fontsize=24)
+        if color == "red":
+            plt.text(
+                x + x_gm + 0.2,
+                y - 0.3,
+                r"$\mathcal{G}_L^{f,g}(x)$",
+                color=color,
+                ha="center",
+                va="center",
+                fontsize=24,
+            )
+        elif color == "blue":
+            plt.text(
+                x + x_gm - 0.2,
+                y - 0.3,
+                r"$\mathcal{G}_L^{f,g}(x)$",
+                color=color,
+                ha="center",
+                va="center",
+                fontsize=24,
+            )
 
-        if color=="green":
-            plt.text(x_pgo, -0.35, r'$\mathcal{G}_L^{f,g}(x)=0$, $T_L^{f,g}(x)=0$', color=color, ha='center', fontsize=24)
+        if color == "green":
+            plt.text(
+                x_pgo,
+                -0.35,
+                r"$\mathcal{G}_L^{f,g}(x)=0$, $T_L^{f,g}(x)=0$",
+                color=color,
+                ha="center",
+                fontsize=24,
+            )
 
     plt.title(r"$f(x) + g(x)$ $(g(x)=\lambda |x|)$", fontsize=24)
-    plt.ylim(-0.5,2.2)
+    plt.ylim(-0.5, 2.2)
     plt.tight_layout()
     plt.savefig(os.path.join(os.path.dirname(__file__), "gradientMapping.png"), dpi=300)
 

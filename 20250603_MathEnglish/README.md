@@ -144,9 +144,7 @@ annihilate | UK əˈnaɪ.ə.leɪt | US əˈnaɪ.ə.leɪt | [link](https://dictio
 
 [語源的](https://www.etymonline.com/word/annihilate)には、ラテン語の"nihil"(無、虚無)が関係している。ニーチェで有名な[ニヒリズムもこのnihilに由来する](https://ja.wikipedia.org/wiki/%E3%83%8B%E3%83%92%E3%83%AA%E3%82%BA%E3%83%A0)。こう聞くとなんで "h" を読まないんだという気持ちになりますが……
 
-参考1: [河東先生のHP](https://www.ms.u-tokyo.ac.jp/~yasuyuki/english2.htm)
-
-参考2: [ツイート](https://x.com/Keyneqq/status/1037263459514114048)
+参考: [河東先生のHP](https://www.ms.u-tokyo.ac.jp/~yasuyuki/english2.htm)
 
 ### 個人的蒐集
 
@@ -407,7 +405,7 @@ Wolfram | UK ˈwʊl.frəm | US ˈwʊl.frəm | [link](https://dictionary.cambridg
 
 <iframe width="575" height="323" src="https://www.youtube.com/embed/0HuhHRYZrIw" title="How to Pronounce /wʊ/ in WOOD, WOULD, WOOL, WOLF, WOMAN - English Pronunciation Lesson" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-[Wolfram Alpha](https://www.wolframalpha.com/): 数式を入力すると計算結果を返してくれるウェブサービス
+[Wolfram Alpha](https://www.wolframalpha.com): 数式を入力すると計算結果を返してくれるウェブサービス
 
 [Stephen Wolfram](https://en.wikipedia.org/wiki/Stephen_Wolfram): Wolfram Alphaの開発者
 
@@ -453,7 +451,7 @@ Zorn's lemma: 半順序集合 $P$ は、その全ての鎖(つまり、全順序
 
 バジライに近い発音。
 
-参考: [YouTube](https://www.youtube.com/watch?v=thtr1yH4Z38&t=27s) / [forvo](https://forvo.com/search/Barzilai) / [How To Pronounce](https://www.howtopronounce.com/barzilai) などの複数サイト
+参考: [YouTube](https://www.youtube.com/watch?v=thtr1yH4Z38&t=27s) / [How To Pronounce](https://www.howtopronounce.com/barzilai) などの複数サイト
 
 #### Borwein
 
@@ -618,9 +616,7 @@ alumnus (男子卒業生) の複数形 alumni (男子卒業生たち または �
 
 [Wikipedia](https://en.wikipedia.org/wiki/Radius)は、(radii or radiuses)と書いており、後者の用例もない訳ではない。
 
-参考1: [外来複数形](https://user.keio.ac.jp/~rhotta/hellog/2019-02-20-1.html)
-
-参考2: [Twitter](https://x.com/tenseiYN99/status/1925438036420304931)
+参考: [外来複数形](https://user.keio.ac.jp/~rhotta/hellog/2019-02-20-1.html)
 
 #### equilibria
 
@@ -650,11 +646,7 @@ Let A (数式) denote B (内容).
 
 参考: 教本 p.90
 
-https://x.com/sesiru8/status/1325372621169463296
-
-#### 競技プログラミング
-
-https://x.com/C7C7LL/status/1033888585148030979
+> 命令文の We denote B by A. / Denote B by A. のような用例もときどき見かける。[Krantz]はこうした用法は「誤り」と断言しているが、時代による変化か、数学での内輪の用法か、上のような用例も問題ないとする英語母語話者もいる。次に2つ例を挙げるが、英語を母語としない私たちは、自分では使わない方がよいだろう。
 
 ## 数式
 

@@ -24,7 +24,7 @@ input = sys.stdin.readline
 random.seed(64)  # seedを固定しているので、どうしても直らない所は単に時間不足の可能性がある事に注意
 A, C, G, T = 0, 1, 2, 3
 NAN = 4
-INF = 10**9+7
+INF = 10**9 + 7
 ACGT = "ACGT"
 
 
@@ -40,13 +40,15 @@ def parse_for_input(x: str) -> int:
     elif x == "-":
         return NAN
     else:
-        assert False, f"inputted character\"{x}\" is not valid."
+        assert False, f'inputted character"{x}" is not valid.'
 
 
 def write_output(output_DNAs: list) -> None:
-    sys.stderr.write("-"*50+"\n")
-    print(*["".join([ACGT[x] if x != NAN else "-" for x in dna])
-            for dna in output_DNAs], sep="\n")
+    sys.stderr.write("-" * 50 + "\n")
+    print(
+        *["".join([ACGT[x] if x != NAN else "-" for x in dna]) for dna in output_DNAs],
+        sep="\n",
+    )
     return None
 
 
@@ -56,9 +58,7 @@ PARM_NAN = -2  # A-など
 PARM_NAN_NAN = -1  # --のみ
 
 
-def similarity(a: int, b: int,
-               same, different,
-               nan, nan_nan) -> int:
+def similarity(a: int, b: int, same, different, nan, nan_nan) -> int:
     if a == b:
         if a != NAN:
             return same
@@ -70,9 +70,7 @@ def similarity(a: int, b: int,
         return different
 
 
-def similarity_profile(a: list, b: list,
-                       same, different,
-                       nan, nan_nan) -> float:
+def similarity_profile(a: list, b: list, same, different, nan, nan_nan) -> float:
     assert isinstance(a, list) and isinstance(b, list)
     ret = 0
     for char1, p1 in enumerate(a):
@@ -81,9 +79,7 @@ def similarity_profile(a: list, b: list,
         for char2, p2 in enumerate(b):
             if char1 < char2:  # 重複を避ける
                 break
-            ret += similarity(char1, char2,
-                              same, different,
-                              nan, nan_nan)*p1*p2
+            ret += similarity(char1, char2, same, different, nan, nan_nan) * p1 * p2
     return ret
 
 
@@ -101,24 +97,26 @@ def calc_score(N: int, M: int, DNAs: list, precise=True):
     for j in range(N):
         char, cnt = most_common(DNAs, j)
         S_all.append(char)
-        C_all += M-cnt
+        C_all += M - cnt
     if not precise:
-        return 10000-C_all
+        return 10000 - C_all
     else:
         if 0 <= M <= 10:
-            score = max(0, 200-math.floor(C_all*0.2))
+            score = max(0, 200 - math.floor(C_all * 0.2))
         elif 35 <= M <= 40:
-            score = max(0, 700-math.floor(C_all*0.1))
+            score = max(0, 700 - math.floor(C_all * 0.1))
         else:
             score = -1
         return score, S_all
 
 
-def vis(output_DNAs, seed: int = -1, color_mode: str = "SOFT", precise: bool = True) -> int:
+def vis(
+    output_DNAs, seed: int = -1, color_mode: str = "SOFT", precise: bool = True
+) -> int:
     """qiitaにあげたやつ"""
     M = len(output_DNAs)
     N = max([len(output_DNAs[i]) for i in range(M)])
-    output_DNAs = [dna+[NAN]*(N-len(dna)) for dna in output_DNAs]
+    output_DNAs = [dna + [NAN] * (N - len(dna)) for dna in output_DNAs]
     if precise:
         score, S_all = calc_score(N, M, output_DNAs, precise=True)
     else:
@@ -128,82 +126,98 @@ def vis(output_DNAs, seed: int = -1, color_mode: str = "SOFT", precise: bool = T
     from matplotlib.colors import ListedColormap
     from matplotlib import gridspec
     import matplotlib.pyplot as plt
+
     if color_mode == "PRIMARY" or color_mode is None:
-        colors = ['red', 'blue', 'green', 'orange', 'white']
+        colors = ["red", "blue", "green", "orange", "white"]
     elif color_mode == "SOFT":
-        colors = ['#ff7f7f', '#7f7fff', '#7fff7f', '#ffff7f', '#ffffff']
+        colors = ["#ff7f7f", "#7f7fff", "#7fff7f", "#ffff7f", "#ffffff"]
     else:
-        colors = ['#101010', '#404040', '#808080', '#c0c0c0', '#ffffff']
+        colors = ["#101010", "#404040", "#808080", "#c0c0c0", "#ffffff"]
     cmap = ListedColormap(colors, name="custom")
 
-    xticks = [0.5+i for i in range(0, N, 10)]
+    xticks = [0.5 + i for i in range(0, N, 10)]
     xticklabels = list(map(str, range(0, N, 10)))  # 1-indexの場合は1,N+1
-    yticks = [M-(0.5+i) for i in range(M)]
+    yticks = [M - (0.5 + i) for i in range(M)]
     yticklabels = list(map(str, range(0, M)))  # 1-indexedの場合は1,M+1
 
     z = output_DNAs
     z.reverse()
 
     fig = plt.figure()
-    spec = gridspec.GridSpec(ncols=2, nrows=2,
-                             width_ratios=[9, 1],
-                             height_ratios=[M, 1])
+    spec = gridspec.GridSpec(
+        ncols=2, nrows=2, width_ratios=[9, 1], height_ratios=[M, 1]
+    )
 
     # メイン部分
-    ax1 = fig.add_subplot(spec[0, 0],
-                          title=f"Seed:{seed} Score:{score}",
-                          xticks=xticks,
-                          xticklabels=xticklabels,
-                          yticks=yticks,
-                          yticklabels=yticklabels)
+    ax1 = fig.add_subplot(
+        spec[0, 0],
+        title=f"Seed:{seed} Score:{score}",
+        xticks=xticks,
+        xticklabels=xticklabels,
+        yticks=yticks,
+        yticklabels=yticklabels,
+    )
     ax1.pcolormesh(z, cmap=cmap)
 
     # S_all部分
-    ax2 = fig.add_subplot(spec[1, 0],
-                          sharex=ax1,
-                          yticks=[0.5],
-                          yticklabels=["all"])
+    ax2 = fig.add_subplot(spec[1, 0], sharex=ax1, yticks=[0.5], yticklabels=["all"])
     ax2.pcolormesh([S_all], cmap=cmap)
 
     # 凡例部分
-    ax3 = fig.add_subplot(spec[:, 1],
-                          xticks=[],
-                          yticks=[])
+    ax3 = fig.add_subplot(spec[:, 1], xticks=[], yticks=[])
     ax3.pcolormesh([[NAN], [T], [G], [C], [A]], cmap=cmap)
-    ax3.text(0.5, 4.5, "A", ha='center', va='center')
-    ax3.text(0.5, 3.5, "C", ha='center', va='center')
-    ax3.text(0.5, 2.5, "G", ha='center', va='center')
-    ax3.text(0.5, 1.5, "T", ha='center', va='center')
-    ax3.text(0.5, 0.5, "NAN", ha='center', va='center')
+    ax3.text(0.5, 4.5, "A", ha="center", va="center")
+    ax3.text(0.5, 3.5, "C", ha="center", va="center")
+    ax3.text(0.5, 2.5, "G", ha="center", va="center")
+    ax3.text(0.5, 1.5, "T", ha="center", va="center")
+    ax3.text(0.5, 0.5, "NAN", ha="center", va="center")
 
     plt.show()
 
 
 def dp_func(DNA1: list, DNA2: list, unstable=30) -> tuple:
     # dp[i][j] sをi文字目、tをj文字目まで見た場合の最大のペアワイズアライメント
-    dp = [[-INF for _ in range(len(DNA2)+1)] for _ in range(len(DNA1)+1)]
-    rev = [[(0, 0) for _ in range(len(DNA2)+1)] for _ in range(len(DNA1)+1)]
+    dp = [[-INF for _ in range(len(DNA2) + 1)] for _ in range(len(DNA1) + 1)]
+    rev = [[(0, 0) for _ in range(len(DNA2) + 1)] for _ in range(len(DNA1) + 1)]
     dp[0][0] = 0
 
     if unstable > 0:  # 枝刈りを設けるか
-        sup = max(unstable, 3*(abs(len(DNA1)-len(DNA2))))
+        sup = max(unstable, 3 * (abs(len(DNA1) - len(DNA2))))
     else:
         sup = INF
 
-    for i in range(1, min(len(DNA1)+1, sup)):
-        dp[i][0] = dp[i-1][0]+PARM_NAN
+    for i in range(1, min(len(DNA1) + 1, sup)):
+        dp[i][0] = dp[i - 1][0] + PARM_NAN
         rev[i][0] = (-1, 0)
-    for j in range(1, min(len(DNA2)+1, sup)):
-        dp[0][j] = dp[0][j-1]+PARM_NAN
+    for j in range(1, min(len(DNA2) + 1, sup)):
+        dp[0][j] = dp[0][j - 1] + PARM_NAN
         rev[0][j] = (0, -1)
-    for i in range(1, len(DNA1)+1):
-        for j in range(max(1, i-sup), min(len(DNA2)+1, i+sup)):
-            a = dp[i-1][j-1]+similarity(DNA1[i-1], DNA2[j-1], same=PARM_SAME,
-                                        different=PARM_DIFFERENT, nan=PARM_NAN, nan_nan=PARM_NAN_NAN)
-            b = dp[i-1][j]+similarity(DNA1[i-1], NAN, same=PARM_SAME,
-                                      different=PARM_DIFFERENT, nan=PARM_NAN, nan_nan=PARM_NAN_NAN)
-            c = dp[i][j-1]+similarity(NAN, DNA2[j-1], same=PARM_SAME,
-                                      different=PARM_DIFFERENT, nan=PARM_NAN, nan_nan=PARM_NAN_NAN)
+    for i in range(1, len(DNA1) + 1):
+        for j in range(max(1, i - sup), min(len(DNA2) + 1, i + sup)):
+            a = dp[i - 1][j - 1] + similarity(
+                DNA1[i - 1],
+                DNA2[j - 1],
+                same=PARM_SAME,
+                different=PARM_DIFFERENT,
+                nan=PARM_NAN,
+                nan_nan=PARM_NAN_NAN,
+            )
+            b = dp[i - 1][j] + similarity(
+                DNA1[i - 1],
+                NAN,
+                same=PARM_SAME,
+                different=PARM_DIFFERENT,
+                nan=PARM_NAN,
+                nan_nan=PARM_NAN_NAN,
+            )
+            c = dp[i][j - 1] + similarity(
+                NAN,
+                DNA2[j - 1],
+                same=PARM_SAME,
+                different=PARM_DIFFERENT,
+                nan=PARM_NAN,
+                nan_nan=PARM_NAN_NAN,
+            )
             if a > b and a > c:
                 dp[i][j] = a
                 rev[i][j] = (-1, -1)
@@ -342,23 +356,24 @@ class Profile:
     def integrate_with_cnt(self) -> list:  # 主としてdp_func_profile用
         if self.integrated_with_cnt is None:
             if len(self.DNAs) > 1:
-                self.integrated_with_cnt = [most_common(self.DNAs, idx, with_cnt=True)
-                                            for idx in range(self.length)]
+                self.integrated_with_cnt = [
+                    most_common(self.DNAs, idx, with_cnt=True)
+                    for idx in range(self.length)
+                ]
             else:
-                self.integrated_with_cnt = [[1 if c == char else 0 for c in range(5)]
-                                            for char in self.DNAs[0]]
+                self.integrated_with_cnt = [
+                    [1 if c == char else 0 for c in range(5)] for char in self.DNAs[0]
+                ]
         return self.integrated_with_cnt
+
 
 # progressive alignmentに関する資料
 # https://web.stanford.edu/class/cs262/presentations/lecture16.pdf
 
 
-def dp_func_profile(profile1: Profile, profile2: Profile,
-                    same,
-                    different,
-                    nan,
-                    nan_nan,
-                    unstable=15) -> tuple:
+def dp_func_profile(
+    profile1: Profile, profile2: Profile, same, different, nan, nan_nan, unstable=15
+) -> tuple:
     """
        A   C   G   T   NAN
     px=0.8 0.2 0.0 0.0 0.0
@@ -374,38 +389,51 @@ def dp_func_profile(profile1: Profile, profile2: Profile,
     p2 = profile2.integrate_with_cnt()
     NAN_p1 = [0, 0, 0, 0, len(profile1.DNAs)]
     NAN_p2 = [0, 0, 0, 0, len(profile2.DNAs)]
-    dp = [[-INF for _ in range(len(p2)+1)]
-          for _ in range(len(p1)+1)]
-    rev = [[(0, 0) for _ in range(len(p2)+1)]
-           for _ in range(len(p1)+1)]
+    dp = [[-INF for _ in range(len(p2) + 1)] for _ in range(len(p1) + 1)]
+    rev = [[(0, 0) for _ in range(len(p2) + 1)] for _ in range(len(p1) + 1)]
     dp[0][0] = 0
 
     if unstable > 0:  # 枝刈りを設けるか
-        sup = max(unstable, 3*(abs(len(p1)-len(p2))))
+        sup = max(unstable, 3 * (abs(len(p1) - len(p2))))
     else:
         sup = INF
 
-    for i in range(1, min(len(p1)+1, sup)):
-        dp[i][0] = dp[i-1][0] + \
-            similarity_profile(
-                p1[i-1], NAN_p2, same=same, different=different, nan=nan, nan_nan=nan_nan)
+    for i in range(1, min(len(p1) + 1, sup)):
+        dp[i][0] = dp[i - 1][0] + similarity_profile(
+            p1[i - 1], NAN_p2, same=same, different=different, nan=nan, nan_nan=nan_nan
+        )
         rev[i][0] = (-1, 0)
-    for j in range(1, min(len(p2)+1, sup)):
-        dp[0][j] = dp[0][j-1] + \
-            similarity_profile(
-                NAN_p1, p2[j-1], same=same, different=different, nan=nan, nan_nan=nan_nan)
+    for j in range(1, min(len(p2) + 1, sup)):
+        dp[0][j] = dp[0][j - 1] + similarity_profile(
+            NAN_p1, p2[j - 1], same=same, different=different, nan=nan, nan_nan=nan_nan
+        )
         rev[0][j] = (0, -1)
-    for i in range(1, len(p1)+1):
-        for j in range(max(1, i-sup), min(len(p2)+1, i+sup)):
-            a = dp[i-1][j-1] + \
-                similarity_profile(
-                    p1[i-1], p2[j-1], same=same, different=different, nan=nan, nan_nan=nan_nan)
-            b = dp[i-1][j] + \
-                similarity_profile(
-                    p1[i-1], NAN_p2, same=same, different=different, nan=nan, nan_nan=nan_nan)
-            c = dp[i][j-1] + \
-                similarity_profile(
-                    NAN_p1, p2[j-1], same=same, different=different, nan=nan, nan_nan=nan_nan)
+    for i in range(1, len(p1) + 1):
+        for j in range(max(1, i - sup), min(len(p2) + 1, i + sup)):
+            a = dp[i - 1][j - 1] + similarity_profile(
+                p1[i - 1],
+                p2[j - 1],
+                same=same,
+                different=different,
+                nan=nan,
+                nan_nan=nan_nan,
+            )
+            b = dp[i - 1][j] + similarity_profile(
+                p1[i - 1],
+                NAN_p2,
+                same=same,
+                different=different,
+                nan=nan,
+                nan_nan=nan_nan,
+            )
+            c = dp[i][j - 1] + similarity_profile(
+                NAN_p1,
+                p2[j - 1],
+                same=same,
+                different=different,
+                nan=nan,
+                nan_nan=nan_nan,
+            )
             if a > b and a > c:
                 dp[i][j] = a
                 rev[i][j] = (-1, -1)
@@ -448,47 +476,47 @@ def _dp_fpPC_calc_score(M, cnt1, cnt2):
     # else:
     #     assert sum(cnt2) == 1
     #     return 1+cnt1[cnt2.index(1)]-M
-    a_plus_b = [a+b for a, b in zip(cnt1, cnt2)]
+    a_plus_b = [a + b for a, b in zip(cnt1, cnt2)]
     m1, m2 = second_largest(a_plus_b)
-    ret = (m1-M)*M+(m2)
+    ret = (m1 - M) * M + (m2)
     # ret = max(a+b for a, b in zip(cnt1, cnt2)) - M
     return ret
 
 
-def dp_func_profile_ProblemC(profile1: Profile, profile2: Profile, unstable=20) -> tuple:
+def dp_func_profile_ProblemC(
+    profile1: Profile, profile2: Profile, unstable=20
+) -> tuple:
     """C問題に特化したdpとして、profile1に一個のみ(len(profile1.DNAs)==1)、
     profile2に他を統合するような形で渡して、問題のスコア関数をそのまま計算する"""
     assert len(profile1.DNAs) == 1 or len(profile2.DNAs) == 1, "これが制約"
-    M = len(profile1.DNAs)+len(profile2.DNAs)
+    M = len(profile1.DNAs) + len(profile2.DNAs)
     p1 = profile1.integrate_with_cnt()  # これは[[int;5];len(proflie.length)]
     p2 = profile2.integrate_with_cnt()
     NAN_p1 = [0, 0, 0, 0, len(profile1.DNAs)]
     NAN_p2 = [0, 0, 0, 0, len(profile2.DNAs)]
-    dp = [[0 for _ in range(len(p2)+1)]
-          for _ in range(len(p1)+1)]
-    rev = [[(0, 0) for _ in range(len(p2)+1)]
-           for _ in range(len(p1)+1)]
+    dp = [[0 for _ in range(len(p2) + 1)] for _ in range(len(p1) + 1)]
+    rev = [[(0, 0) for _ in range(len(p2) + 1)] for _ in range(len(p1) + 1)]
     dp[0][0] = INF  # 変えた 元は全て-INF,ここが0であった。
 
     if unstable > 0:  # 枝刈りを設けるか
-        sup = max(unstable, 3*(abs(len(p1)-len(p2))))
+        sup = max(unstable, 3 * (abs(len(p1) - len(p2))))
     else:
         sup = INF
 
-    for i in range(1, min(len(p1)+1, sup)):
-        dp[i][0] = dp[i-1][0] + _dp_fpPC_calc_score(M, p1[i-1], NAN_p2)
+    for i in range(1, min(len(p1) + 1, sup)):
+        dp[i][0] = dp[i - 1][0] + _dp_fpPC_calc_score(M, p1[i - 1], NAN_p2)
         rev[i][0] = (-1, 0)
-    for j in range(1, min(len(p2)+1, sup)):
-        dp[0][j] = dp[0][j-1] + _dp_fpPC_calc_score(M, NAN_p1, p2[j-1])
+    for j in range(1, min(len(p2) + 1, sup)):
+        dp[0][j] = dp[0][j - 1] + _dp_fpPC_calc_score(M, NAN_p1, p2[j - 1])
         rev[0][j] = (0, -1)
 
     if len(profile2.DNAs) == 1:  # bとcどちらを優先すべきか
         # profile1にNANを入れたくないというお気持ち
-        for i in range(1, len(p1)+1):
-            for j in range(max(1, i-sup), min(len(p2)+1, i+sup)):
-                a = dp[i-1][j-1] + _dp_fpPC_calc_score(M, p1[i-1], p2[j-1])
-                b = dp[i-1][j] + _dp_fpPC_calc_score(M, p1[i-1], NAN_p2)
-                c = dp[i][j-1] + _dp_fpPC_calc_score(M, NAN_p1, p2[j-1])
+        for i in range(1, len(p1) + 1):
+            for j in range(max(1, i - sup), min(len(p2) + 1, i + sup)):
+                a = dp[i - 1][j - 1] + _dp_fpPC_calc_score(M, p1[i - 1], p2[j - 1])
+                b = dp[i - 1][j] + _dp_fpPC_calc_score(M, p1[i - 1], NAN_p2)
+                c = dp[i][j - 1] + _dp_fpPC_calc_score(M, NAN_p1, p2[j - 1])
                 if a >= b and a >= c:
                     dp[i][j] = a
                     rev[i][j] = (-1, -1)
@@ -500,11 +528,11 @@ def dp_func_profile_ProblemC(profile1: Profile, profile2: Profile, unstable=20) 
                     rev[i][j] = (0, -1)
     elif len(profile1.DNAs) == 1:
         # profile2にNANを入れたくないというお気持ち
-        for i in range(1, len(p1)+1):
-            for j in range(max(1, i-sup), min(len(p2)+1, i+sup)):
-                a = dp[i-1][j-1] + _dp_fpPC_calc_score(M, p1[i-1], p2[j-1])
-                c = dp[i][j-1] + _dp_fpPC_calc_score(M, NAN_p1, p2[j-1])
-                b = dp[i-1][j] + _dp_fpPC_calc_score(M, p1[i-1], NAN_p2)
+        for i in range(1, len(p1) + 1):
+            for j in range(max(1, i - sup), min(len(p2) + 1, i + sup)):
+                a = dp[i - 1][j - 1] + _dp_fpPC_calc_score(M, p1[i - 1], p2[j - 1])
+                c = dp[i][j - 1] + _dp_fpPC_calc_score(M, NAN_p1, p2[j - 1])
+                b = dp[i - 1][j] + _dp_fpPC_calc_score(M, p1[i - 1], NAN_p2)
                 if a >= c and a >= b:
                     dp[i][j] = a
                     rev[i][j] = (-1, -1)
@@ -564,13 +592,13 @@ def integrate_two_profiles(profile1: Profile, profile2: Profile) -> Profile:
     #                          profile2.integrated)
     ans_value, rev = dp_func_profile_ProblemC(profile1, profile2)
     profile1, profile2 = dp_re_func_profile(profile1, profile2, rev)
-    return Profile(DNAs=profile1.DNAs+profile2.DNAs)
+    return Profile(DNAs=profile1.DNAs + profile2.DNAs)
 
 
 def progressive_alignment(Ss):
     profiles = [Profile([dna]) for dna in Ss]
 
-    evolutionary_tree = [(i-1, i) for i in range(1, len(Ss))]
+    evolutionary_tree = [(i - 1, i) for i in range(1, len(Ss))]
     # evolutionary_tree = neighbor_joining(Ss) これを使用の際は注意。 特に順序が保たれていない。
 
     for idx1, idx2 in evolutionary_tree:
@@ -583,39 +611,49 @@ def progressive_alignment(Ss):
     return profiles[-1].DNAs
 
 
-def iterative_refinement(M, DNAs, raw_DNAs,
-                         same, different, nan, nan_nan,
-                         use_p3_score_func: bool):
+def iterative_refinement(
+    M, DNAs, raw_DNAs, same, different, nan, nan_nan, use_p3_score_func: bool
+):
     """
     先程挙げたpdfからの引用：
     One problem of progressive alignment:
     • Initial alignments are “frozen” even when new evidence comes
     """
     DNA_length = len(DNAs[0])
-    all_integrated = [most_common(DNAs, idx, with_cnt=True)
-                      for idx in range(DNA_length)]  # [[int;5];DNA_length]
+    all_integrated = [
+        most_common(DNAs, idx, with_cnt=True) for idx in range(DNA_length)
+    ]  # [[int;5];DNA_length]
     for j in range(M):
-        all_integrated_without_j = [[(cnt-(1 if char == DNAs[j][idx] else 0))
-                                     for char, cnt in enumerate(cnts)]
-                                    for idx, cnts in enumerate(all_integrated)]  # [[int;5];DNA_length]
-        profile1 = Profile(DNAs=[raw_DNAs[j]],
-                           integrated_with_cnt=None)  # 注目DNA
-        profile2 = Profile(DNAs=DNAs[:j]+DNAs[j+1:],
-                           integrated_with_cnt=all_integrated_without_j)  # 他の子たち
+        all_integrated_without_j = [
+            [
+                (cnt - (1 if char == DNAs[j][idx] else 0))
+                for char, cnt in enumerate(cnts)
+            ]
+            for idx, cnts in enumerate(all_integrated)
+        ]  # [[int;5];DNA_length]
+        profile1 = Profile(DNAs=[raw_DNAs[j]], integrated_with_cnt=None)  # 注目DNA
+        profile2 = Profile(
+            DNAs=DNAs[:j] + DNAs[j + 1 :], integrated_with_cnt=all_integrated_without_j
+        )  # 他の子たち
 
         if not use_p3_score_func:
-            _ans_value, rev = dp_func_profile(profile1, profile2,
-                                              same=same,
-                                              different=different,
-                                              nan=nan,
-                                              nan_nan=nan_nan)
+            _ans_value, rev = dp_func_profile(
+                profile1,
+                profile2,
+                same=same,
+                different=different,
+                nan=nan,
+                nan_nan=nan_nan,
+            )
         else:
             _ans_value, rev = dp_func_profile_ProblemC(profile1, profile2)
 
         profile1, profile2 = dp_re_func_profile(profile1, profile2, rev)
 
-        DNAs = [profile1.DNAs[0] if idx == j else profile2.DNAs[idx - (1 if idx > j else 0)]
-                for idx in range(M)]
+        DNAs = [
+            profile1.DNAs[0] if idx == j else profile2.DNAs[idx - (1 if idx > j else 0)]
+            for idx in range(M)
+        ]
 
         # !!!!!!
         # ここでremove_unnecessary_NANをするとバグる 理由は未だ不明
@@ -623,12 +661,14 @@ def iterative_refinement(M, DNAs, raw_DNAs,
 
         if len(DNAs[0]) != DNA_length:  # 長さに変更が生じた場合、all_integratedも変更する必要がある。
             DNA_length = len(DNAs[0])
-            all_integrated = [most_common(DNAs, idx, with_cnt=True)
-                              for idx in range(len(DNAs[0]))]
+            all_integrated = [
+                most_common(DNAs, idx, with_cnt=True) for idx in range(len(DNAs[0]))
+            ]
 
         # vis(DNAs, seed=j, precise=False)
 
     return DNAs
+
 
 # # # # # # # # 以下山登りパート # # # # # # # #
 
@@ -645,7 +685,7 @@ class ListDict(object):
         if item in self.item_to_position:
             return
         self.items.append(item)
-        self.item_to_position[item] = len(self.items)-1
+        self.item_to_position[item] = len(self.items) - 1
 
     # def remove_item(self, item):
     #     position = self.item_to_position.pop(item)
@@ -679,10 +719,10 @@ def annealing_init(M, DNAs) -> ListDict:
         char, cnt = most_common(DNAs, char_idx)
         if cnt == M:
             for dna_idx in range(M):
-                if char_idx > 0 and DNAs[dna_idx][char_idx-1] == NAN:
+                if char_idx > 0 and DNAs[dna_idx][char_idx - 1] == NAN:
                     not_decided.add_item((dna_idx, char_idx))
                 # 重複して追加するのを避けるため、elif
-                elif char_idx < len(DNAs[0])-1 and DNAs[dna_idx][char_idx+1] == NAN:
+                elif char_idx < len(DNAs[0]) - 1 and DNAs[dna_idx][char_idx + 1] == NAN:
                     not_decided.add_item((dna_idx, char_idx))
         else:
             for dna_idx in range(M):
@@ -694,10 +734,10 @@ def annealing_init(M, DNAs) -> ListDict:
 def right_to_left(M, DNAs, dna_idx, char_idx):
     # 二点swapのための関数
     first_score = 0
-    first_score += most_common(DNAs, char_idx-1)[1]
+    first_score += most_common(DNAs, char_idx - 1)[1]
     first_score += most_common(DNAs, char_idx)[1]
     original_char = DNAs[dna_idx][char_idx]
-    DNAs[dna_idx][char_idx-1] = original_char
+    DNAs[dna_idx][char_idx - 1] = original_char
     DNAs[dna_idx][char_idx] = NAN
     second_score = 0
 
@@ -706,19 +746,19 @@ def right_to_left(M, DNAs, dna_idx, char_idx):
     if char == NAN and max_cnt == M:
         del_col = True
 
-    second_score += most_common(DNAs, char_idx-1)[1]
+    second_score += most_common(DNAs, char_idx - 1)[1]
     second_score += max_cnt
 
-    return True, second_score-first_score, -1, original_char, del_col
+    return True, second_score - first_score, -1, original_char, del_col
 
 
 def left_to_right(M, DNAs, dna_idx, char_idx):
     # 二点swapのための関数
     first_score = 0
     first_score += most_common(DNAs, char_idx)[1]
-    first_score += most_common(DNAs, char_idx+1)[1]
+    first_score += most_common(DNAs, char_idx + 1)[1]
     original_char = DNAs[dna_idx][char_idx]
-    DNAs[dna_idx][char_idx+1] = original_char
+    DNAs[dna_idx][char_idx + 1] = original_char
     DNAs[dna_idx][char_idx] = NAN
     second_score = 0
 
@@ -728,21 +768,21 @@ def left_to_right(M, DNAs, dna_idx, char_idx):
         del_col = True
 
     second_score += max_cnt
-    second_score += most_common(DNAs, char_idx+1)[1]
-    return True, second_score-first_score, +1, original_char, del_col
+    second_score += most_common(DNAs, char_idx + 1)[1]
+    return True, second_score - first_score, +1, original_char, del_col
 
 
 def annealing_modify(M, DNAs, dna_idx, char_idx):
     # 二点swap
     if random.random() < 0.5:
-        if char_idx > 0 and DNAs[dna_idx][char_idx-1] == NAN:
+        if char_idx > 0 and DNAs[dna_idx][char_idx - 1] == NAN:
             return right_to_left(M, DNAs, dna_idx, char_idx)
-        elif char_idx < len(DNAs[0])-1 and DNAs[dna_idx][char_idx+1] == NAN:
+        elif char_idx < len(DNAs[0]) - 1 and DNAs[dna_idx][char_idx + 1] == NAN:
             return left_to_right(M, DNAs, dna_idx, char_idx)
     else:
-        if char_idx < len(DNAs[0])-1 and DNAs[dna_idx][char_idx+1] == NAN:
+        if char_idx < len(DNAs[0]) - 1 and DNAs[dna_idx][char_idx + 1] == NAN:
             return left_to_right(M, DNAs, dna_idx, char_idx)
-        elif char_idx > 0 and DNAs[dna_idx][char_idx-1] == NAN:
+        elif char_idx > 0 and DNAs[dna_idx][char_idx - 1] == NAN:
             return right_to_left(M, DNAs, dna_idx, char_idx)
     return False, None, None, None, False  # 最後のはdel_col
 
@@ -751,7 +791,7 @@ def annealing(M, DNAs, ANNEALING_TL: float, START_TEMP: float, END_TEMP: float):
     # と言う名の山登り
     # score = calc_score(len(DNAs[0]),M,DNAs,precise=False)
     not_decided = annealing_init(M, DNAs)  # ListDict
-    now = time.perf_counter()-start_time
+    now = time.perf_counter() - start_time
     annealing_cnt = 0
 
     while now < ANNEALING_TL:  # and len(not_decided) != 0:
@@ -759,10 +799,15 @@ def annealing(M, DNAs, ANNEALING_TL: float, START_TEMP: float, END_TEMP: float):
         # dna_idxは列番号、char_idxは行番号
         dna_idx, char_idx = not_decided.choose_random_item()
 
-        is_modify_succeeded, delta_score, delta_char_idx, original_char, del_col =\
-            annealing_modify(M, DNAs, dna_idx, char_idx)
+        (
+            is_modify_succeeded,
+            delta_score,
+            delta_char_idx,
+            original_char,
+            del_col,
+        ) = annealing_modify(M, DNAs, dna_idx, char_idx)
         if not is_modify_succeeded:
-            now = time.perf_counter()-start_time
+            now = time.perf_counter() - start_time
             continue
 
         # temp = START_TEMP + (END_TEMP-START_TEMP) * now / ANNEALING_TL
@@ -783,7 +828,8 @@ def annealing(M, DNAs, ANNEALING_TL: float, START_TEMP: float, END_TEMP: float):
             # sys.stderr.write(f"score changed!; {delta_score:+}\n")
             # not_decided.remove((dna_idx, char_idx)) # これがいけなかった 二回以上移動することもある
             not_decided.replace_item(
-                (dna_idx, char_idx), (dna_idx, char_idx+delta_char_idx))
+                (dna_idx, char_idx), (dna_idx, char_idx + delta_char_idx)
+            )
             if del_col:  # 基本的に列は増やしすぎなので、消すメインで大丈夫と思われる
                 DNAs = remove_unnecessary_NAN(M, DNAs, char_idx=char_idx)
                 for item in not_decided:
@@ -796,8 +842,8 @@ def annealing(M, DNAs, ANNEALING_TL: float, START_TEMP: float, END_TEMP: float):
         # 復元
         else:
             DNAs[dna_idx][char_idx] = original_char
-            DNAs[dna_idx][char_idx+delta_char_idx] = NAN
-        now = time.perf_counter()-start_time
+            DNAs[dna_idx][char_idx + delta_char_idx] = NAN
+        now = time.perf_counter() - start_time
 
     # debug用 一応とっておく
     # print(sorted([(i, j) for i, j in not_decided if j >= 110]))
@@ -841,10 +887,11 @@ def remove_unnecessary_NAN(M, DNAs, char_idx=None) -> list:
 
 
 def integrate_two_profiles_old_version(profile1: Profile, profile2: Profile) -> Profile:
-    ans_value, rev = dp_func(profile1.integrated,
-                             profile2.integrated)  # dp_funcでいいことに注意
+    ans_value, rev = dp_func(
+        profile1.integrated, profile2.integrated
+    )  # dp_funcでいいことに注意
     profile1, profile2 = dp_re_func_profile(profile1, profile2, rev)
-    return Profile(DNAs=profile1.DNAs+profile2.DNAs)
+    return Profile(DNAs=profile1.DNAs + profile2.DNAs)
 
 
 def progressive_alignment_old_version(Ss):
@@ -864,53 +911,63 @@ def solve(M, Ss) -> list:
     # スタート点その１
     DNAs = progressive_alignment(Ss)
     DNAs = remove_unnecessary_NAN(M, DNAs)
-    score_after_progressive_alignment =\
-        calc_score(len(DNAs[0]), M, DNAs, precise=False)
+    score_after_progressive_alignment = calc_score(len(DNAs[0]), M, DNAs, precise=False)
 
     # スタート点その2 (誤解を避けるため、出来るだけ冗長な変数名)
     DNAs_generated_by_old_version = progressive_alignment_old_version(Ss)
-    DNAs_generated_by_old_version = remove_unnecessary_NAN(M,
-                                                           DNAs_generated_by_old_version)
-    score_after_progressive_alignment_generated_by_old_version =\
-        calc_score(len(DNAs_generated_by_old_version[0]), M,
-                   DNAs_generated_by_old_version, precise=False)
+    DNAs_generated_by_old_version = remove_unnecessary_NAN(
+        M, DNAs_generated_by_old_version
+    )
+    score_after_progressive_alignment_generated_by_old_version = calc_score(
+        len(DNAs_generated_by_old_version[0]),
+        M,
+        DNAs_generated_by_old_version,
+        precise=False,
+    )
 
-    if score_after_progressive_alignment_generated_by_old_version >\
-            score_after_progressive_alignment:
+    if (
+        score_after_progressive_alignment_generated_by_old_version
+        > score_after_progressive_alignment
+    ):
         DNAs = DNAs_generated_by_old_version
-        score_after_progressive_alignment =\
+        score_after_progressive_alignment = (
             score_after_progressive_alignment_generated_by_old_version
+        )
 
-    sys.stderr.write("score(after progressive_alignment):"
-                     + f"{score_after_progressive_alignment}\n")
+    sys.stderr.write(
+        "score(after progressive_alignment):" + f"{score_after_progressive_alignment}\n"
+    )
 
     last_score = score_after_progressive_alignment
     delta_score = 1
-    while delta_score > 0 and time.perf_counter()-start_time < 8.0:
-        DNAs = iterative_refinement(M, DNAs, raw_DNAs=Ss,
-                                    same=None,
-                                    different=None,
-                                    nan=None,
-                                    nan_nan=None,
-                                    use_p3_score_func=True)
+    while delta_score > 0 and time.perf_counter() - start_time < 8.0:
+        DNAs = iterative_refinement(
+            M,
+            DNAs,
+            raw_DNAs=Ss,
+            same=None,
+            different=None,
+            nan=None,
+            nan_nan=None,
+            use_p3_score_func=True,
+        )
         DNAs = remove_unnecessary_NAN(M, DNAs)
         score = calc_score(len(DNAs[0]), M, DNAs, precise=False)
-        delta_score = score-last_score
-        sys.stderr.write("(score(delta score)(now using p3 score func):"
-                         + f"{delta_score:+})\n")
+        delta_score = score - last_score
+        sys.stderr.write(
+            "(score(delta score)(now using p3 score func):" + f"{delta_score:+})\n"
+        )
         last_score = score
 
-    sys.stderr.write("score(after iterative_refinement3):"
-                     + f"{last_score}\n")
+    sys.stderr.write("score(after iterative_refinement3):" + f"{last_score}\n")
 
-    sys.stderr.write("$$$NOW(before annealing):"
-                     + f"{time.perf_counter()-start_time:.03}s$$$\n")
+    sys.stderr.write(
+        "$$$NOW(before annealing):" + f"{time.perf_counter()-start_time:.03}s$$$\n"
+    )
 
-    DNAs = annealing(M, DNAs, ANNEALING_TL=9.0,
-                     START_TEMP=None, END_TEMP=None)
+    DNAs = annealing(M, DNAs, ANNEALING_TL=9.0, START_TEMP=None, END_TEMP=None)
     score_after_annealing = calc_score(len(DNAs[0]), M, DNAs, precise=False)
-    sys.stderr.write("score(after annealing):"
-                     + f"{score_after_annealing}\n")
+    sys.stderr.write("score(after annealing):" + f"{score_after_annealing}\n")
     DNAs = remove_unnecessary_NAN(M, DNAs)
 
     return DNAs
@@ -922,13 +979,11 @@ def main(seed=1, l_or_s="s", is_local=True) -> int:
     # 入力受け取り
     if not is_local:
         M = int(input())
-        Ss = [list(map(parse_for_input, input().rstrip("\n")))
-              for _ in range(M)]
+        Ss = [list(map(parse_for_input, input().rstrip("\n"))) for _ in range(M)]
     else:
         with open(f"test_{l_or_s}sim_{seed:02}.txt") as f:
             M = int(f.readline().rstrip())
-            Ss = [list(map(parse_for_input, f.readline().rstrip()))
-                  for _ in range(M)]
+            Ss = [list(map(parse_for_input, f.readline().rstrip())) for _ in range(M)]
     start_time = time.perf_counter()
 
     # 解答
@@ -936,8 +991,7 @@ def main(seed=1, l_or_s="s", is_local=True) -> int:
 
     # スコア計算
     if is_local:
-        score = calc_score(len(output_DNAs[0]), M,
-                           output_DNAs, precise=False)
+        score = calc_score(len(output_DNAs[0]), M, output_DNAs, precise=False)
         # vis(output_DNAs, seed=seed)
         # write_output(output_DNAs)
         return score
@@ -958,6 +1012,7 @@ if __name__ == "__main__":
 
     import pandas as pd
     import datetime
+
     df = pd.read_csv("score.csv")
     # df = pd.DataFrame()
 
@@ -972,6 +1027,6 @@ if __name__ == "__main__":
 
         seeds.append(seed)
         scores.append(score)
-    df['seed'] = seeds
-    df[f'score({datetime.datetime.now()})'] = scores
+    df["seed"] = seeds
+    df[f"score({datetime.datetime.now()})"] = scores
     df.to_csv("score.csv", index=False)
