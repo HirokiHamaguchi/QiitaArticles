@@ -1,25 +1,38 @@
 from pathlib import Path
-import re
+
 import requests
-
-# todo: twitterのリンクは除外?
-# todo: doiのリンクは除外?
-# from selenium import webdriver
-# driver = webdriver.Chrome()
-# driver.get("https://twitter.com/username/status/1234567890")
-
 
 
 def check_validity(url, readme):
+    # Skip to speed up the test
+    if "qiita-image" in url:
+        print("Skipping Qiita image link:", url)
+        return True
+    # Skip since it returns 403 forbidden for most cases
+    if "doi.org" in url:
+        print("Skipping DOI link:", url)
+        return True
+    if "academia.oup.com" in url:
+        print("Skipping OUP link:", url)
+        return True
+    # Skip since it is meaningless to check the validity via status code
+    if "x.com" in url:
+        print("Skipping X.com link:", url)
+        return True
+    if "twitter.com" in url:
+        print("Skipping Twitter link:", url)
+        return True
+
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                      "AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/115.0.0.0 Safari/537.36"
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/115.0.0.0 Safari/537.36"
     }
 
     response = None
     try:
         response = requests.head(url, headers=headers, allow_redirects=True)
+        print(f"{url} - Status Code: {response.status_code}, Reason: {response.reason}")
         if response.status_code < 400:
             return True
         if "qiita-image" in url and response.status_code == 403:
@@ -32,16 +45,19 @@ def check_validity(url, readme):
         pass
 
     assert response is not None
-    print(f"Invalid link: {url} in {readme} (Status Code: {response.status_code}, Reason: {response.reason})")
+    print(
+        f"Invalid link: {url} in {readme} (Status Code: {response.status_code}, Reason: {response.reason})"
+    )
     return False
+
 
 def extract_urls(text):
     urls = []
     i = 0
     while i < len(text):
-        if text[i:i+7] == 'http://' or text[i:i+8] == 'https://':
+        if text[i : i + 7] == "http://" or text[i : i + 8] == "https://":
             start = i
-            i += 7 if text[i:i+7] == 'http://' else 8
+            i += 7 if text[i : i + 7] == "http://" else 8
             balance = 0
             while i < len(text):
                 char = text[i]
@@ -49,38 +65,40 @@ def extract_urls(text):
                 if char in " \t\n\"'<>[]{}":
                     if balance == 0:
                         break
-                elif char == '(':
+                elif char == "(":
                     balance += 1
-                elif char == ')':
+                elif char == ")":
                     balance -= 1
                     if balance < 0:
                         break
                 i += 1
             url = text[start:i]
             # 末尾の記号はURLの一部でなければ除去
-            while url and url[-1] in '.,;!?"\'<>[]{}':
+            while url and url[-1] in ".,;!?\"'<>[]{}":
                 url = url[:-1]
             urls.append(url)
         else:
             i += 1
     return urls
 
+
 def main():
     root_dir = Path(__file__).resolve().parent.parent
     for subdir in root_dir.iterdir():
-        if subdir.is_file() or not (subdir / 'readme.md').is_file():
+        if ".pytest_cache" in subdir.name:
             continue
-        print("-" * 20+ f" {subdir.name} " + "-" * 20)
-        if subdir.name=="20220330_UmetaniHeuristic":
+        if subdir.is_file() or not (subdir / "readme.md").is_file():
+            continue
+        print("-" * 20 + f" {subdir.name} " + "-" * 20)
+        if subdir.name == "20220330_UmetaniHeuristic":
             print("skip")
             continue
-        readme = subdir / 'readme.md'
-        content = readme.read_text(encoding='utf-8')
+        readme = subdir / "readme.md"
+        content = readme.read_text(encoding="utf-8")
         links = extract_urls(content)
         for link in links:
             check_validity(link, readme)
 
-if __name__ == '__main__':
-    # main()
-    check_validity("https://doi.org/10.1103/PhysRevLett.118.090501","")
 
+if __name__ == "__main__":
+    main()
