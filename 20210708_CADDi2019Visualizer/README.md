@@ -8,7 +8,7 @@ CADDi2019の(非公式な)ビジュアライザ、ジェネレーター、テス
 
 https://atcoder.jp/contests/caddi2019/tasks/caddi2019_a
 
-簡単に述べると立方体の容器に様々な大きさの球を詰め込む問題です。
+詳しくはリンク先をご参照下さい。簡単に述べると立方体の容器に様々な大きさの球を詰め込む問題です。
 
 ### ビジュアライザについて
 
@@ -377,9 +377,7 @@ if __name__ == '__main__':
 
 ### 要点
 
-この問題、chokudaiさんが作成されたらしく、要点はほぼ全てこのツイートにまとまっています。
-
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">雑に見積もって、充填率100%の最高効率でも、基礎点は１ケースあたり200万に到達しない、というのが見えていれば、「ボーナス点を高めるゲーム」というのはまぁわかったかもしれません。 <a href="https://twitter.com/hashtag/CADDi2019?src=hash&amp;ref_src=twsrc%5Etfw">#CADDi2019</a></p>&mdash; chokudai(高橋 直大)🍆 (@chokudai) <a href="https://twitter.com/chokudai/status/1109427305128943618?ref_src=twsrc%5Etfw">March 23, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+この問題はchokudaiさんが作成されたらしく、そのツイート曰く、要点は「雑に見積もって、充填率100%の最高効率でも、基礎点は１ケースあたり200万に到達しない、というのが見えていれば、『ボーナス点を高めるゲーム』というのはまぁわかったかもしれません。」とのことでした。
 
 以下では、これを前提に書いていきます。
 
