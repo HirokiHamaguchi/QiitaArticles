@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-"""
-Test script to verify cache update functionality
-"""
-
 from src.base.game import Game
 from src.solver.greedy_solver import GreedySolver
 
