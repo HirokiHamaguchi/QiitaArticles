@@ -1,6 +1,8 @@
 <!-- markdownlint-disable MD041 -->
 
-注意　本記事は **「ゲノコン2021 ー DNA配列解析チャレンジ」** に参加されている方を想定読者としています。
+## 概要
+
+注意 本記事は **「ゲノコン2021 ー DNA配列解析チャレンジ」** に参加されている方を想定読者としています。
 
 https://atcoder.jp/contests/genocon2021/tasks/genocon2021_c
 
@@ -8,7 +10,7 @@ https://atcoder.jp/contests/genocon2021/tasks/genocon2021_c
 また、壊れているかも知れません。使用は自己責任でお願いします。
 windows環境で、かつpythonの実行環境をお持ちの方を主に想定しています。多分macでも動くと思いますが。
 
-# 使用方法
+## 使用方法
 
 下のコードをcopy and pasteした上で、vis.pyとして保存し、
 コマンドラインなどでpython vis.py out.txt PRIMARYなどとして実行してください。
@@ -33,7 +35,7 @@ CAAGGTT-TTTTCGCTGTGGAGAGTAC-TGGAGAC-CG-GGGAGTG-TAGACTTTGGGGT---ATCAC-GTAG--CAGCT
 --GAGTTA-TTTCT--GTGGAGAGAAC-TGGAGAC-GGAGGGAGTGCTAGAG-TTGGGGT-AAACACCAGGCAGCCATTTCACTT-GATAACT-GTCAGGC-C--TT
 ```
 
-# コード
+## コード
 
 ```vis.py
 import os
@@ -166,23 +168,22 @@ if __name__ == '__main__':
             "実行方法が異なります python vis.py out.txt PRIMARY などとしてみて下さい。")
 ```
 
-# 使用例
+## 使用例
 
 いずれも問題文にある出力例です。
 
-**PRIMARY**
+### PRIMARY
 
 <img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/48e05408-ef39-c8cd-2f2d-22cf3b2faaf6.png" alt="PRIMARY.png">
 
-**SOFT**
+### SOFT
 
 <img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/f76dd92d-d60c-f065-7565-13556bbf9c8f.png" alt="SOFT.png">
 
-**BW**
+### BW
 
 <img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/0691d383-2a16-5781-fdf4-16d2a8e4b6c3.png" alt="BW.png">
 
-# 余談
+## 余談
 
-意外と「こうすれば線が揃うのに!」みたいなのが分かりやすい気がしませんか？
-私はします。お役に立てば幸いです。
+意外と「こうすれば線が揃うのに!」みたいなのが分かりやすい気がしませんか? 私はします。お役に立てば幸いです。

@@ -90,7 +90,7 @@ def run_consistency_check():
                 f"Expected exactly one folder starting with '{date}_' for title '{title}'"
             )
 
-        path = os.path.join(data_dirs[0], "README.md")
+        path = os.path.join(data_dirs[0], "Qiita.md")
 
         is_consistent, error_msg = check_article_consistency(path, item["body"])
         if not is_consistent:

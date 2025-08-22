@@ -741,7 +741,12 @@ $$
 $$
 となり、主張が示されます。
 
-錐 $\mathcal{K}$ に対する指示関数 $f$ を考えると、$\mathrm{prox}_{f}(x)$ は $\mathcal{K}$ の射影演算子に対応し、$\mathrm{prox}_{f^*}(x^*)$ は極錐 $\mathcal{K}^0$ の射影演算子に対応するので、分解は下図のように直感的理解が可能です。
+錐 $\mathcal{K}$ に対する指示関数 $f$ を考えると、
+
+- $\mathrm{prox}_{f}(x)$ は $\mathcal{K}$ の射影演算子に対応
+- $\mathrm{prox}_{f^\*}(x^\*)$ は極錐 $\mathcal{K}^0$ の射影演算子に対応
+
+するので、分解は下図のように直感的理解が可能です。
 
 ![MoreauDecomposition](imgs/MoreauDecomposition.png)
 

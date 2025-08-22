@@ -73,7 +73,7 @@ height=[[height[Y][X]+round(random.normalvariate(0,1)) for X in range(num_of_blo
 ## Step2 Pythonで経路探索
 
 Step1で完成したものの一部を上から見た、以下の図をご覧ください。
-<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/826c21c0-a543-20e3-e93d-d8e989fe7711.jpeg "繋がっていない迷路"" alt="messageImage_1616329932271.jpg">
+<img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/826c21c0-a543-20e3-e93d-d8e989fe7711.jpeg" alt="繋がっていない迷路">
 
 ……。よーく見ると、全然繋がっていないですね。基本的に中央の島から出発して四隅のいずれかに行ってもらう予定だったのですが、これではどこにも行けません。そもそも中央の直方体が絶海の孤島です。ここをスタートにしては一歩すら無理です。
 それもそのはず、これではまだ高さの情報をもとに適当に橋などを繋いだにすぎません。これではダメダメです。

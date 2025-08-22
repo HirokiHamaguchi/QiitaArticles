@@ -772,7 +772,12 @@ $f \colon \mathbb{R}^n \to \mathbb{R} \cup \lbrace+\infty\rbrace$ が閉真凸�
 
 となり、主張が示されます。
 
-錐 $\mathcal{K}$ に対する指示関数 $f$ を考えると、$\mathrm{prox}_{f}(x)$ は $\mathcal{K}$ の射影演算子に対応し、$\mathrm{prox}_{f^*}(x^*)$ は極錐 $\mathcal{K}^0$ の射影演算子に対応するので、分解は下図のように直感的理解が可能です。
+錐 $\mathcal{K}$ に対する指示関数 $f$ を考えると、
+
+- $\mathrm{prox}_{f}(x)$ は $\mathcal{K}$ の射影演算子に対応
+- $\mathrm{prox}_{f^\*}(x^\*)$ は極錐 $\mathcal{K}^0$ の射影演算子に対応
+
+するので、分解は下図のように直感的理解が可能です。
 
 <img width=100% src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/60393741-3ecd-4c5c-b2aa-36c5b8686ea3.png" alt="MoreauDecomposition">
 

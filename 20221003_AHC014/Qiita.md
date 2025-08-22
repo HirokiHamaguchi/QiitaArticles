@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD041 -->
 
-:::note warn
+:::note
 注意書き
 本記事は[AHC014](https://atcoder.jp/contests/ahc014)という、AtCoderで開催された株式会社estieさんによるヒューリスティックコンテストの参加記、および、解説記事です。
 :::

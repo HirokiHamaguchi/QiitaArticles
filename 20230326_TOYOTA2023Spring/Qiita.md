@@ -190,8 +190,6 @@ Shun_PIさんがコンテスト開始当初に言及されていた、**枝刈�
 
 その上で、最初はほぼ**chokudaiサーチ**的な手法を用いていました。
 
-~~chokudaiさんがwriterなので、当然chokudaiサーチが最強だろ!とメタ読みしたのもあります~~
-
 **細いビームを何回も打つ**という点や、**既に見た状態を一部保持する**という点は、最終的な解法においても取り入れられている考え方です。
 
 また、荷物を置く順序も、基本は**体積の降順**ですが、ビームごとに少しランダムな置換を加えています。
@@ -1008,8 +1006,6 @@ pair<int, int> findBL(const map<int, map<int, int>> imos) {
 単なる私の昔の趣味ですが、3DCGが少しだけ出来るので、Blenderというソフトを用いて解をビジュアライズしてみました。
 
 <iframe width="573" height="322" src="https://www.youtube.com/embed/YHBCLKRhr94" title="トヨタ自動車 実課題プログラミングコンテスト 2023 Spring ビジュアライズ結果" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-(作った本人的には、特に得られる追加の情報がなくて微妙だな~~と感じていたのですが、Twitterでwataさんなどに反応を頂けたので、ある種のエンターテインメントと割り切れば、少しは面白さがあるかも知れません)
 
 また、記事冒頭の写真はEeveeでなく、CyclysというRender Engineを使用しているので、動画よりも少し綺麗です。
 
