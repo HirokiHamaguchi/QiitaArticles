@@ -139,7 +139,7 @@ class BaseSolver(ABC):
         return points
 
     @abstractmethod
-    def solve(self, max_moves: int = 1000) -> Answer:
+    def solve(self, *args, **kwargs) -> Answer:
         """Solve the game and return Answer object - must be implemented by subclasses"""
         pass
 
