@@ -1,0 +1,8 @@
+{
+    "latexlint.disabledRules": [
+        "LLCref"
+    ],
+    "cSpell.words": [
+        "phoernian"
+    ]
+}
