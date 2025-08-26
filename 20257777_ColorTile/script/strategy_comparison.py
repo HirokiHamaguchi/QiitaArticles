@@ -9,6 +9,7 @@ from src.base.analyzer import GameAnalyzer
 from src.base.board import BoardType
 from src.base.game import Game
 from src.solver import (
+    BidirectionalSolver,
     DiagonalSolver,
     HorizontalSolver,
     RandomSolver,
@@ -78,7 +79,7 @@ class StrategyComparison:
                 visualizer.animate_solution(answer, save_gif=True, gif_path=gif_path)
                 self.has_saved_all_clear[strategy_name] = True
 
-            if seed < 10:
+            if seed < 5:
                 visualizer.save_last_state(
                     f"imgs/last_state/{strategy_name}_seed{seed}.png"
                 )
@@ -86,16 +87,18 @@ class StrategyComparison:
         return analysis
 
     def run_all_experiments(self) -> None:
-        """Run experiments for all 8 strategies"""
+        """Run experiments for all strategies"""
         strategies: List[Tuple[str, Type[BaseSolver], Dict]] = [
             ("Random", RandomSolver, {"avoid_triple": False}),
             ("Horizontal", HorizontalSolver, {"avoid_triple": False}),
             ("Vertical", VerticalSolver, {"avoid_triple": False}),
             ("Diagonal", DiagonalSolver, {"avoid_triple": False}),
-            ("Random (Triple Avoid)", RandomSolver, {"avoid_triple": True}),
-            ("Horizontal (Triple Avoid)", HorizontalSolver, {"avoid_triple": True}),
-            ("Vertical (Triple Avoid)", VerticalSolver, {"avoid_triple": True}),
-            ("Diagonal (Triple Avoid)", DiagonalSolver, {"avoid_triple": True}),
+            ("Bidirectional", BidirectionalSolver, {"avoid_triple": False}),
+            ("Random_AvoidTriple", RandomSolver, {"avoid_triple": True}),
+            ("Horizontal_AvoidTriple", HorizontalSolver, {"avoid_triple": True}),
+            ("Vertical_AvoidTriple", VerticalSolver, {"avoid_triple": True}),
+            ("Diagonal_AvoidTriple", DiagonalSolver, {"avoid_triple": True}),
+            ("Bidirectional_AvoidTriple", BidirectionalSolver, {"avoid_triple": True}),
         ]
 
         for strategy_name, solver_class, solver_kwargs in strategies:
@@ -116,7 +119,7 @@ class StrategyComparison:
         """Analyze and summarize results for all strategies"""
         summary = {}
 
-        assert len(self.results) == 8, "Expected results for 8 strategies."
+        assert len(self.results) == 10, "Expected results for 10 strategies."
         for strategy_name, results in self.results.items():
             # Calculate basic statistics
             scores = [r["final_score"] for r in results]
@@ -160,7 +163,7 @@ class StrategyComparison:
         strategies = list(summary.keys())
 
         # Create score distribution histogram for all strategies
-        fig, axes = plt.subplots(2, 4, figsize=(20, 10))
+        fig, axes = plt.subplots(2, 5, figsize=(20, 10))
         axes = axes.flatten()
         bins = np.arange(180, 201, 1)
         all_counts = []
@@ -174,30 +177,37 @@ class StrategyComparison:
             scores = [r["final_score"] for r in results]
             filtered_scores = [s for s in scores if 180 <= s <= 200]
             axes[i].hist(filtered_scores, bins=bins, alpha=0.7, edgecolor="black")
-            axes[i].set_title(f"{strategy_name}\nMean: {np.mean(filtered_scores):.1f}")
-            axes[i].set_xlabel("Score")
-            axes[i].set_ylabel("Frequency")
+            axes[i].set_title(
+                f"{strategy_name}\nMean: {np.mean(filtered_scores):.1f}", fontsize=20
+            )
+            axes[i].set_xlabel("Score", fontsize=15)
+            axes[i].set_ylabel("Frequency", fontsize=15)
             axes[i].set_xlim(180, 200)
             axes[i].set_ylim(0, max_height + 1)
             axes[i].grid(True, alpha=0.3)
             axes[i].set_xticks(np.arange(180, 201, 5))
-            axes[i].set_xticklabels([str(x) for x in np.arange(180, 201, 5)])
+            axes[i].set_xticklabels(
+                [str(x) for x in np.arange(180, 201, 5)], fontsize=15
+            )
         plt.tight_layout()
         plt.savefig(
             os.path.join(output_dir, "score_distributions.png"),
             dpi=300,
             bbox_inches="tight",
         )
-        plt.close()
+        plt.close(fig)
 
         # Create all-clear rate comparison bar chart
         rates = [summary[s]["all_clear_rate"] for s in strategies]
         plt.figure(figsize=(12, 6))
         bars = plt.bar(range(len(strategies)), rates, alpha=0.7)
-        plt.xlabel("Strategy")
-        plt.ylabel("All-Clear Rate (%)")
-        plt.title("All-Clear Achievement Rate by Strategy")
-        plt.xticks(range(len(strategies)), strategies, rotation=45, ha="right")
+        plt.title("All-Clear Achievement Rate by Strategy", fontsize=20)
+        plt.xlabel("Strategy", fontsize=15)
+        plt.ylabel("All-Clear Rate (%)", fontsize=15)
+        plt.xticks(
+            range(len(strategies)), strategies, rotation=45, ha="right", fontsize=12
+        )
+        plt.ylim(None, max(rates) + 3)
         plt.grid(True, alpha=0.3)
         for bar, rate in zip(bars, rates):
             plt.text(
@@ -236,11 +246,11 @@ class StrategyComparison:
                 alpha=0.8,
             )
             bottom += values
-        ax.set_xlabel("Strategy")
-        ax.set_ylabel("Failure Rate (%)")
-        ax.set_title("Failure Type Breakdown by Strategy (Among Incomplete Games)")
-        ax.legend()
-        plt.xticks(rotation=45, ha="right")
+        ax.set_xlabel("Strategy", fontsize=15)
+        ax.set_ylabel("Failure Rate (%)", fontsize=15)
+        ax.set_title("Failure Type Breakdown by Strategy", fontsize=20)
+        ax.legend(fontsize=12)
+        plt.xticks(rotation=45, ha="right", fontsize=12)
         plt.grid(True, alpha=0.3)
         plt.tight_layout()
         plt.savefig(
@@ -252,7 +262,9 @@ class StrategyComparison:
 
 
 def main():
-    experiment = StrategyComparison(num_experiments=100, max_moves=1000, save_gif=False)
+    experiment = StrategyComparison(
+        num_experiments=1000, max_moves=1000, save_gif=False
+    )
     experiment.run_all_experiments()
     experiment.create_visualizations()
 

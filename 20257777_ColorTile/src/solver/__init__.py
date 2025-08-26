@@ -3,6 +3,7 @@ ColorTile Game Solvers
 """
 
 from .base_solver import BaseSolver
+from .bidirection_solver import BidirectionalSolver
 from .diagonal_solver import DiagonalSolver
 from .horizontal_solver import HorizontalSolver
 from .random_solver import RandomSolver
@@ -14,4 +15,5 @@ __all__ = [
     "HorizontalSolver",
     "VerticalSolver",
     "DiagonalSolver",
+    "BidirectionalSolver",
 ]

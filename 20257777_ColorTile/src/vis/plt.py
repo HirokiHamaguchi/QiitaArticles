@@ -192,6 +192,7 @@ class MatplotlibVisualizer:
                 f.write("*\n!.gitignore\n")
 
         self.fig.savefig(path, dpi=300)  # type: ignore
+        plt.close(self.fig)
         print(f"Last state saved as {path}")
 
     def animate_solution(
@@ -301,12 +302,7 @@ class MatplotlibVisualizer:
         assert self.fig is not None
 
         anim = animation.FuncAnimation(
-            self.fig,
-            animate_func,
-            frames=len(self.frames),
-            interval=267,  # Reduced from 800 to 267 for 3x speed (800/3 ≈ 267)
-            blit=False,
-            repeat=True,
+            self.fig, animate_func, frames=len(self.frames), blit=False, repeat=True
         )
 
         # Save as GIF if requested
@@ -320,11 +316,11 @@ class MatplotlibVisualizer:
             try:
                 # Ensure the directory exists
                 os.makedirs(os.path.dirname(gif_output_path), exist_ok=True)
-                anim.save(
-                    gif_output_path, writer="pillow", fps=3
-                )  # Increased from 1 to 3 for 3x speed
+                anim.save(gif_output_path, writer="pillow", fps=5)
                 print(f"Animation saved as {gif_output_path}")
             except Exception as e:
                 print(f"Error saving animation: {e}")
+
+        plt.close(self.fig)
 
         return anim

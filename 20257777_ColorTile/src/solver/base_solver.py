@@ -5,20 +5,72 @@ Base Solver for ColorTile Game
 from abc import ABC, abstractmethod
 from typing import List, Optional, Tuple
 
-from src.base.answer import Answer
+from src.base.answer import Answer, Move
 from src.base.game import Game
-from src.base.tile import Tile
+from src.base.tile import Tile, TileColor
 
 
 class BaseSolver(ABC):
-    """Base class for ColorTile game solvers"""
-
     def __init__(self, game: Game):
         self.game = game
         self.current_answer: Optional[Answer] = None
         self._direction_tiles_cache: Optional[
             List[List[List[Optional[Tuple[int, int, Tile]]]]]
         ] = None
+
+    @abstractmethod
+    def select_func(
+        self, valid_moves: List[Tuple[int, int, int]]
+    ) -> Optional[Tuple[int, int, int]]:
+        if not valid_moves:
+            return None
+        return valid_moves[0]
+
+    def solve(self, max_moves: int) -> Answer:
+        """Generic solve method for strategy-based solvers"""
+
+        self.moves_made = 0
+        moves = []
+        while self.moves_made < max_moves:
+            valid_moves = self._find_all_valid_moves()
+            if not valid_moves:
+                break
+
+            if getattr(self, "avoid_triple", False):
+                new_valid_moves: List[Tuple[int, int, int]] = []
+                for row, col, expected_points in valid_moves:
+                    if not self._check_would_cause_triple(row, col):
+                        new_valid_moves.append((row, col, expected_points))
+                valid_moves = new_valid_moves
+
+            selected_move = self.select_func(valid_moves)
+            if selected_move is None:
+                break
+
+            row, col, expected_points = selected_move
+            actual_points = self._click_with_cache_update(row, col)
+            assert actual_points == expected_points
+            assert actual_points > 0
+            move = Move(row=row, col=col, points=actual_points)
+            moves.append(move)
+            self.moves_made += 1
+
+        self.current_answer = Answer(moves)
+        return self.current_answer
+
+    def reset(self):
+        """Reset the solver and game"""
+        self.game.reset()
+        self.current_answer = None
+        self._direction_tiles_cache = None
+
+    def _click_with_cache_update(self, row: int, col: int) -> int:
+        """Click and update the direction tiles cache efficiently"""
+        removable_positions = self.game.board.find_removable_tiles(row, col)
+        points = self.game.click(row, col)
+        if self._direction_tiles_cache is not None and removable_positions:
+            self._update_direction_tiles_for_removed_positions(removable_positions)
+        return points
 
     def _scan_direction(
         self,
@@ -130,31 +182,15 @@ class BaseSolver(ABC):
 
         return valid_moves
 
-    def click_with_cache_update(self, row: int, col: int) -> int:
-        """Click and update the direction tiles cache efficiently"""
-        removable_positions = self.game.board.find_removable_tiles(row, col)
-        points = self.game.click(row, col)
-        if self._direction_tiles_cache is not None and removable_positions:
-            self._update_direction_tiles_for_removed_positions(removable_positions)
-        return points
+    def _check_would_cause_triple(self, row: int, col: int) -> bool:
+        """Check if clicking at (row, col) would cause a 3-tile removal"""
+        if not getattr(self, "avoid_triple", False):
+            return False
 
-    @abstractmethod
-    def solve(self, *args, **kwargs) -> Answer:
-        """Solve the game and return Answer object - must be implemented by subclasses"""
-        pass
-
-    def get_answer(self) -> Optional[Answer]:
-        """Get the current answer object"""
-        return self.current_answer
-
-    def get_solution_text(self) -> str:
-        """Get the formatted solution text using Answer class"""
-        if self.current_answer is None:
-            return "No solution found"
-        return str(self.current_answer)
-
-    def reset(self):
-        """Reset the solver and game"""
-        self.game.reset()
-        self.current_answer = None
-        self._direction_tiles_cache = None
+        color_counts: dict[TileColor, int] = {}
+        for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            new_row, new_col = row + dr, col + dc
+            tile = self.game.board.get_tile(new_row, new_col)
+            if tile is not None:
+                color_counts[tile.color] = color_counts.get(tile.color, 0) + 1
+        return any(count >= 3 for count in color_counts.values())

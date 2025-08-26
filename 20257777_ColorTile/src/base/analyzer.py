@@ -67,16 +67,6 @@ class GameAnalyzer:
 
         return False
 
-    def count_triple_avoidances(self, moves: List[Tuple[int, int]]) -> int:
-        """Count how many 3-tile removals were avoided during the game
-
-        This requires simulating the game with triple-avoidance logic.
-        For now, this is a placeholder implementation.
-        """
-        # This would require more complex logic to track what moves were skipped
-        # due to triple avoidance. For now, return 0 as placeholder.
-        return 0
-
     def analyze_game_result(self) -> Dict[str, Any]:
         """Comprehensive analysis of the game result"""
         remaining_tiles = self.game.get_remaining_tiles()

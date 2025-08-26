@@ -1,12 +1,5 @@
-"""
-Random Solver for ColorTile Game
-"""
-
 import random
-from typing import List, Optional
-
-from src.base.answer import Answer, Move
-from src.base.tile import TileColor
+from typing import List, Optional, Tuple
 
 from .base_solver import BaseSolver
 
@@ -19,61 +12,9 @@ class RandomSolver(BaseSolver):
         self.rng = random.Random(seed)
         self.avoid_triple = avoid_triple
 
-    def _check_would_cause_triple(self, row: int, col: int) -> bool:
-        """Check if clicking at (row, col) would cause a 3-tile removal"""
-        if not self.avoid_triple:
-            return False
-
-        removable_positions = self.game.board.find_removable_tiles(row, col)
-
-        # Count tiles by color that would be removed
-        color_counts: dict[TileColor, int] = {}
-        for tile_row, tile_col in removable_positions:
-            tile = self.game.board.get_tile(tile_row, tile_col)
-            if tile is not None:
-                color_counts[tile.color] = color_counts.get(tile.color, 0) + 1
-
-        # Check if any color has 3 or more tiles that would be removed
-        return any(count >= 3 for count in color_counts.values())
-
-    def solve(self, max_moves: int = 1000) -> Answer:
-        """Solve using random move selection and return Answer object"""
-        moves_made = 0
-        moves: List[Move] = []
-
-        while moves_made < max_moves:
-            valid_moves = self._find_all_valid_moves()
-            if not valid_moves:
-                break
-
-            selected_move = None
-
-            if self.avoid_triple:
-                # Filter out moves that would cause triple removal
-                non_triple_moves = []
-                for row, col, expected_points in valid_moves:
-                    if not self._check_would_cause_triple(row, col):
-                        non_triple_moves.append((row, col, expected_points))
-
-                # If there are non-triple moves, select randomly from them
-                if non_triple_moves:
-                    selected_move = self.rng.choice(non_triple_moves)
-                else:
-                    # If all moves cause triple removal, select randomly anyway
-                    selected_move = self.rng.choice(valid_moves)
-            else:
-                # Randomly select a move from valid moves
-                selected_move = self.rng.choice(valid_moves)
-
-            row, col, expected_points = selected_move
-            actual_points = self.click_with_cache_update(row, col)
-
-            assert actual_points == expected_points
-            assert actual_points > 0
-
-            move = Move(row=row, col=col, points=actual_points)
-            moves.append(move)
-            moves_made += 1
-
-        self.current_answer = Answer(moves)
-        return self.current_answer
+    def select_func(
+        self, valid_moves: List[Tuple[int, int, int]]
+    ) -> Optional[Tuple[int, int, int]]:
+        if not valid_moves:
+            return None
+        return self.rng.choice(valid_moves)
