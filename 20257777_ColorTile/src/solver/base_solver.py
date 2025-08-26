@@ -41,7 +41,8 @@ class BaseSolver(ABC):
                 for row, col, expected_points in valid_moves:
                     if not self._check_would_cause_triple(row, col):
                         new_valid_moves.append((row, col, expected_points))
-                valid_moves = new_valid_moves
+                if new_valid_moves:
+                    valid_moves = new_valid_moves
 
             selected_move = self.select_func(valid_moves)
             if selected_move is None:

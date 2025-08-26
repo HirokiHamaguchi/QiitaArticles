@@ -1,26 +1,42 @@
+import concurrent.futures
 import os
+import pickle
 from collections import defaultdict
 from typing import Dict, List, Tuple, Type
 
 import matplotlib.pyplot as plt
 import numpy as np
 
-from src.base.analyzer import GameAnalyzer
-from src.base.board import BoardType
-from src.base.game import Game
+from src.base import BoardType, Game, GameAnalyzer
 from src.solver import (
+    BaseSolver,
     BidirectionalSolver,
+    CornerSolver,
     DiagonalSolver,
     HorizontalSolver,
     RandomSolver,
     VerticalSolver,
 )
-from src.solver.base_solver import BaseSolver
 from src.vis.plt import MatplotlibVisualizer
 
 
 class StrategyComparison:
     """Class to run comprehensive strategy comparison experiment"""
+
+    strategies: List[Tuple[str, Type[BaseSolver], Dict]] = [
+        ("Random", RandomSolver, {"avoid_triple": False}),
+        ("Vertical", VerticalSolver, {"avoid_triple": False}),
+        ("Horizontal", HorizontalSolver, {"avoid_triple": False}),
+        ("Diagonal", DiagonalSolver, {"avoid_triple": False}),
+        ("Corner", CornerSolver, {"avoid_triple": False}),
+        ("Bidirectional", BidirectionalSolver, {"avoid_triple": False}),
+        ("Random_AvoidTriple", RandomSolver, {"avoid_triple": True}),
+        ("Vertical_AvoidTriple", VerticalSolver, {"avoid_triple": True}),
+        ("Horizontal_AvoidTriple", HorizontalSolver, {"avoid_triple": True}),
+        ("Diagonal_AvoidTriple", DiagonalSolver, {"avoid_triple": True}),
+        ("Corner_AvoidTriple", CornerSolver, {"avoid_triple": True}),
+        ("Bidirectional_AvoidTriple", BidirectionalSolver, {"avoid_triple": True}),
+    ]
 
     def __init__(self, num_experiments: int, max_moves: int, save_gif: bool):
         self.num_experiments = num_experiments
@@ -74,12 +90,13 @@ class StrategyComparison:
                 analysis["is_complete_clear"]
                 and not self.has_saved_all_clear[strategy_name]
             ):
+                self.has_saved_all_clear[strategy_name] = True
                 print(f"seed {seed}: saving all-clear gif for {strategy_name}")
                 gif_path = f"{GIF_DIR}/{strategy_name}_all_clear.gif"
                 visualizer.animate_solution(answer, save_gif=True, gif_path=gif_path)
-                self.has_saved_all_clear[strategy_name] = True
 
             if seed < 5:
+                print(f"seed {seed}: saving last state image for {strategy_name}")
                 visualizer.save_last_state(
                     f"imgs/last_state/{strategy_name}_seed{seed}.png"
                 )
@@ -88,38 +105,46 @@ class StrategyComparison:
 
     def run_all_experiments(self) -> None:
         """Run experiments for all strategies"""
-        strategies: List[Tuple[str, Type[BaseSolver], Dict]] = [
-            ("Random", RandomSolver, {"avoid_triple": False}),
-            ("Horizontal", HorizontalSolver, {"avoid_triple": False}),
-            ("Vertical", VerticalSolver, {"avoid_triple": False}),
-            ("Diagonal", DiagonalSolver, {"avoid_triple": False}),
-            ("Bidirectional", BidirectionalSolver, {"avoid_triple": False}),
-            ("Random_AvoidTriple", RandomSolver, {"avoid_triple": True}),
-            ("Horizontal_AvoidTriple", HorizontalSolver, {"avoid_triple": True}),
-            ("Vertical_AvoidTriple", VerticalSolver, {"avoid_triple": True}),
-            ("Diagonal_AvoidTriple", DiagonalSolver, {"avoid_triple": True}),
-            ("Bidirectional_AvoidTriple", BidirectionalSolver, {"avoid_triple": True}),
-        ]
 
-        for strategy_name, solver_class, solver_kwargs in strategies:
+        def run_strategy(strategy_tuple):
+            strategy_name, solver_class, solver_kwargs = strategy_tuple
             print(f"Running {self.num_experiments} experiments for {strategy_name}...")
-
             results = []
             for seed in range(self.num_experiments):
                 result = self.run_single_experiment(
                     strategy_name, solver_class, solver_kwargs, seed
                 )
                 results.append(result)
-
+                if (
+                    self.save_gif
+                    and self.has_saved_all_clear[strategy_name]
+                    and seed >= 5
+                ):
+                    print("    All-clear gif saved, skipping further exps.")
+                    break
+            else:
+                if self.save_gif:
+                    raise RuntimeError("No all-clear achieved, cannot save gif.")
             self.results[strategy_name] = results
-
             print("    Done.")
+
+        # with concurrent.futures.ThreadPoolExecutor() as executor:
+        #     futures = {
+        #         executor.submit(run_strategy, strategy_tuple): strategy_tuple
+        #         for strategy_tuple in self.strategies
+        #     }
+        #     for future in concurrent.futures.as_completed(futures):
+        #         print(future.result())
+
+        if self.save_gif:
+            for strategy_tuple in self.strategies:
+                run_strategy(strategy_tuple)
 
     def analyze_results(self) -> Dict[str, Dict]:
         """Analyze and summarize results for all strategies"""
         summary = {}
 
-        assert len(self.results) == 10, "Expected results for 10 strategies."
+        assert len(self.results) == len(self.strategies)
         for strategy_name, results in self.results.items():
             # Calculate basic statistics
             scores = [r["final_score"] for r in results]
@@ -138,6 +163,7 @@ class StrategyComparison:
                 elif result["has_placement_failure"]:
                     failure_types["placement_failure"] += 1
                 else:
+                    print(result)
                     raise RuntimeError("Unexpected failure type encountered.")
 
             summary[strategy_name] = {
@@ -160,10 +186,11 @@ class StrategyComparison:
         """Create visualizations for the comparison results"""
         os.makedirs(output_dir, exist_ok=True)
         summary = self.analyze_results()
-        strategies = list(summary.keys())
+        strategies_names = list(summary.keys())
 
         # Create score distribution histogram for all strategies
-        fig, axes = plt.subplots(2, 5, figsize=(20, 10))
+        assert len(self.strategies) % 2 == 0
+        fig, axes = plt.subplots(2, len(self.strategies) // 2, figsize=(20, 10))
         axes = axes.flatten()
         bins = np.arange(180, 201, 1)
         all_counts = []
@@ -183,7 +210,7 @@ class StrategyComparison:
             axes[i].set_xlabel("Score", fontsize=15)
             axes[i].set_ylabel("Frequency", fontsize=15)
             axes[i].set_xlim(180, 200)
-            axes[i].set_ylim(0, max_height + 1)
+            axes[i].set_ylim(0, max_height + 5)
             axes[i].grid(True, alpha=0.3)
             axes[i].set_xticks(np.arange(180, 201, 5))
             axes[i].set_xticklabels(
@@ -198,14 +225,18 @@ class StrategyComparison:
         plt.close(fig)
 
         # Create all-clear rate comparison bar chart
-        rates = [summary[s]["all_clear_rate"] for s in strategies]
+        rates = [summary[s]["all_clear_rate"] for s in strategies_names]
         plt.figure(figsize=(12, 6))
-        bars = plt.bar(range(len(strategies)), rates, alpha=0.7)
+        bars = plt.bar(range(len(strategies_names)), rates, alpha=0.7)
         plt.title("All-Clear Achievement Rate by Strategy", fontsize=20)
         plt.xlabel("Strategy", fontsize=15)
         plt.ylabel("All-Clear Rate (%)", fontsize=15)
         plt.xticks(
-            range(len(strategies)), strategies, rotation=45, ha="right", fontsize=12
+            range(len(strategies_names)),
+            strategies_names,
+            rotation=45,
+            ha="right",
+            fontsize=12,
         )
         plt.ylim(None, max(rates) + 3)
         plt.grid(True, alpha=0.3)
@@ -228,17 +259,17 @@ class StrategyComparison:
         # Create stacked bar chart showing failure type breakdown
         failure_types = ["odd_parity", "placement_failure", "adjacent_pairs"]
         failure_data: Dict[str, List[float]] = {ft: [] for ft in failure_types}
-        for strategy in strategies:
+        for strategy in strategies_names:
             rates = summary[strategy]["failure_rates"]
             assert isinstance(rates, dict)
             for ft in failure_types:
                 failure_data[ft].append(rates.get(ft, 0))
         fig, ax = plt.subplots(figsize=(12, 6))
-        bottom = np.zeros(len(strategies))
+        bottom = np.zeros(len(strategies_names))
         colors = ["#ff9999", "#66b3ff", "#99ff99", "#ffcc99"]
         for i, (failure_type, values) in enumerate(failure_data.items()):
             ax.bar(
-                strategies,
+                strategies_names,
                 values,
                 bottom=bottom,
                 label=failure_type.replace("_", " ").title(),
@@ -262,11 +293,28 @@ class StrategyComparison:
 
 
 def main():
-    experiment = StrategyComparison(
-        num_experiments=1000, max_moves=1000, save_gif=False
-    )
-    experiment.run_all_experiments()
+    if os.path.exists("strategy_comparison_results.pkl"):
+        do_load = (
+            input("Existing results found. Load them? (y/n): ").strip().lower() == "y"
+        )
+    else:
+        do_load = False
+
+    if do_load:
+        with open("strategy_comparison_results.pkl", "rb") as f:
+            experiment = pickle.load(f)
+        print("Loaded existing experiment results from strategy_comparison_results.pkl")
+    else:
+        experiment = StrategyComparison(
+            num_experiments=1000, max_moves=1000, save_gif=True
+        )
+        experiment.run_all_experiments()
+        with open("strategy_comparison_results.pkl", "wb") as f:
+            pickle.dump(experiment, f)
+        print("Experiment results saved to strategy_comparison_results.pkl")
+
     experiment.create_visualizations()
+    print("Visualizations saved to imgs/experiments/")
 
 
 if __name__ == "__main__":

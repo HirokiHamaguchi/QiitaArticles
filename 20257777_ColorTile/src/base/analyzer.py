@@ -3,7 +3,7 @@ Game Analysis Utilities for ColorTile Game
 """
 
 from collections import defaultdict
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict
 
 from src.base.game import Game
 from src.base.tile import TileColor

@@ -13,5 +13,4 @@ class VerticalSolver(BaseSolver):
     ) -> Optional[Tuple[int, int, int]]:
         if not valid_moves:
             return None
-        sorted_moves = sorted(valid_moves, key=lambda x: (x[0], -x[1]))
-        return sorted_moves[0]
+        return min(valid_moves, key=lambda x: (x[0], -x[1]))
