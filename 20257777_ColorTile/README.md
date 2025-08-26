@@ -70,7 +70,7 @@ https://phoernian.hatenablog.com/entry/2020/07/31/211723
 
 コツα: ③の位置を最初にクリックしないことで、`3個消しを回避する`
 
-> ![phoernian_1](phoernian_1.png)
+> ![phoernian_1](imgs/article/phoernian_1.png)
 
 (画像は上記ブログ記事より引用)
 
@@ -78,7 +78,7 @@ https://phoernian.hatenablog.com/entry/2020/07/31/211723
 
 > | 1手目 | 2手目 |
 > | :--: | :--: |
-> | ![phoernian_2](phoernian_2.png) | ![phoernian_3](phoernian_3.png) |
+> | ![phoernian_2](imgs/article/phoernian_2.png) | ![phoernian_3](imgs/article/phoernian_3.png) |
 
 (画像は上記ブログ記事より引用)
 
@@ -90,7 +90,7 @@ https://keionkakimasen.hatenadiary.com/entry/colortile_beginners
 
 > | 第4問 | 第5問 |
 > | :--: | :--: |
-> | ![closing_1](closing_1.png) | ![closing_2](closing_2.png) |
+> | ![closing_1](imgs/article/closing_1.png) | ![closing_2](imgs/article/closing_2.png) |
 
 (画像はそれぞれ上記ブログ記事より引用)
 
@@ -211,8 +211,8 @@ https://bengoshi-sakao.com/column/%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E3%80%8C%
 
 私自身もこれらに基づいてプレイした結果、それなりの回数の全消しが達成出来ました。
 
-![clear_PC](clear_PC.jpg)
-![clear_iPhone](clear_iPhone.jpg)
+![clear_PC](imgs/article/clear_PC.jpg)
+![clear_iPhone](imgs/article/clear_iPhone.jpg)
 
 ### 更なる考察
 
