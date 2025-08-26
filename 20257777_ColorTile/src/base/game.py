@@ -10,7 +10,7 @@ from src.base.board import Board, BoardType
 class Game:
     """Main game class for ColorTile"""
 
-    def __init__(self, seed: int, board_type: BoardType = BoardType.APP) -> None:
+    def __init__(self, seed: int, board_type: BoardType) -> None:
         """Initialize a new game"""
         self.board = Board(seed, board_type)
         self.initial_board = self.board.copy()

@@ -11,15 +11,15 @@ import numpy as np
 from matplotlib.patches import Rectangle
 
 from src.base.answer import Answer
+from src.base.game import Game
 from src.base.tile import TileColor
-from src.vis.base import BaseVisualizer
 
 
-class MatplotlibVisualizer(BaseVisualizer):
+class MatplotlibVisualizer:
     """Matplotlib-based visualizer for ColorTile game"""
 
-    def __init__(self, game) -> None:
-        super().__init__(game)
+    def __init__(self, game: Game) -> None:
+        self.game = game
 
         # Color mapping for matplotlib visualization
         self.color_map = {
@@ -45,10 +45,6 @@ class MatplotlibVisualizer(BaseVisualizer):
 
         # Set matplotlib to non-interactive mode
         plt.ioff()
-
-    def display_frame(self) -> None:
-        """Display a single frame (saves as static image)"""
-        self.save_static_board()
 
     def get_board_matrix(self) -> np.ndarray:
         """Convert board to a numerical matrix for matplotlib visualization"""
@@ -177,53 +173,6 @@ class MatplotlibVisualizer(BaseVisualizer):
             "tiles_to_remove": tiles_to_remove,  # Store tiles that will be removed
         }
         self.frames.append(frame)
-
-    def save_static_board(self, filename: str = "board.png"):
-        """Save current board state as a static image"""
-        fig, ax = plt.subplots(figsize=(12, 8))
-        color_matrix = self.create_color_matrix()
-
-        ax.imshow(color_matrix, aspect="equal")
-        ax.set_title(
-            f"ColorTile Game Board - Score: {self.game.get_score()}",
-            fontsize=16,
-            fontweight="bold",
-        )
-
-        # Remove axis ticks for cleaner look
-        ax.set_xticks([])
-        ax.set_yticks([])
-
-        # Add text information
-        ax.text(
-            0.02,
-            0.98,
-            f"Score: {self.game.get_score()}",
-            transform=ax.transAxes,
-            fontsize=12,
-            verticalalignment="top",
-            fontweight="bold",
-            bbox=dict(boxstyle="round", facecolor="white", alpha=0.8),
-        )
-
-        ax.text(
-            0.02,
-            0.93,
-            f"Remaining: {self.game.get_remaining_tiles()}",
-            transform=ax.transAxes,
-            fontsize=12,
-            verticalalignment="top",
-            fontweight="bold",
-            bbox=dict(boxstyle="round", facecolor="white", alpha=0.8),
-        )
-
-        plt.tight_layout()
-
-        # Save to imgs folder
-        output_path = os.path.join("imgs", filename)
-        plt.savefig(output_path, dpi=150, bbox_inches="tight")
-        plt.close(fig)
-        print(f"Board saved as {output_path}")
 
     def animate_solution(
         self, answer: Answer, save_gif: bool = False, gif_path: Optional[str] = None

@@ -16,7 +16,6 @@ class BoardType(Enum):
 
     PC = "pc"
     APP = "app"
-    EXPERIMENT = "experiment"
 
 
 class Board:
@@ -36,15 +35,9 @@ class Board:
             "tiles_per_color": 20,
             "tiles_kind": 5,
         },
-        BoardType.EXPERIMENT: {
-            "width": 6,
-            "height": 5,
-            "tiles_per_color": 10,
-            "tiles_kind": 1,
-        },
     }
 
-    def __init__(self, seed: int, board_type: BoardType = BoardType.APP) -> None:
+    def __init__(self, seed: int, board_type: BoardType) -> None:
         """Initialize the board with specified configuration"""
         config = self.CONFIGS[board_type]
         self.WIDTH = config["width"]
