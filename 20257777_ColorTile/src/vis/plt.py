@@ -174,6 +174,26 @@ class MatplotlibVisualizer:
         }
         self.frames.append(frame)
 
+    def save_last_state(self, path: str) -> None:
+        """Save the last state of the game as a PNG image"""
+        # Setup matplotlib figure
+        self.setup_matplotlib_figure()
+
+        # Update the image with the final board state
+        assert self.im is not None
+        self.im.set_array(self.create_color_matrix())
+        assert hasattr(self, "score_text")
+        self.score_text.set_text(f"Score: {self.game.get_score()}")
+
+        # Save the figure as a PNG file
+        if not os.path.exists(os.path.dirname(path)):
+            os.makedirs(os.path.dirname(path))
+            with open(os.path.join(os.path.dirname(path), ".gitignore"), "w") as f:
+                f.write("*\n!.gitignore\n")
+
+        self.fig.savefig(path, dpi=300)  # type: ignore
+        print(f"Last state saved as {path}")
+
     def animate_solution(
         self, answer: Answer, save_gif: bool = False, gif_path: Optional[str] = None
     ) -> Any:
@@ -184,112 +204,127 @@ class MatplotlibVisualizer:
             save_gif: Whether to save the animation as a GIF
             gif_path: Custom path for the GIF file (if None, uses default "imgs/animation.gif")
         """
-        try:
-            # Reset frames
-            self.frames = []
+        # Reset frames
+        self.frames = []
 
-            # Capture initial state (no click position)
-            self.capture_frame()
+        # Reset game to initial state
+        self.game.reset()
 
-            # Apply each move and capture frames
-            for move in answer.moves:
-                # Before applying the move, find which tiles will be removed
-                tiles_to_remove = self.game.preview_click(move.row, move.col)
+        # Capture initial state (no click position)
+        self.capture_frame()
 
-                # Capture frame BEFORE the move, showing:
-                # 1. Current board state with tiles that will be removed faded
-                # 2. X marker on the click position
-                self.frames.append(
-                    {
-                        "matrix": self.create_color_matrix(),
-                        "score": self.game.get_score(),
-                        "remaining": self.game.get_remaining_tiles(),
-                        "click_position": (move.row, move.col),  # Show X marker
-                        "tiles_to_remove": set(tiles_to_remove),
-                    }
-                )
+        # Apply each move and capture frames
+        for move in answer.moves:
+            # Before applying the move, find which tiles will be removed
+            tiles_to_remove = self.game.preview_click(move.row, move.col)
 
-                # Now apply the move
-                self.game.click(move.row, move.col)
+            # Capture frame BEFORE the move, showing:
+            # 1. Current board state with tiles that will be removed faded
+            # 2. X marker on the click position
+            self.frames.append(
+                {
+                    "matrix": self.create_color_matrix(),
+                    "score": self.game.get_score(),
+                    "remaining": self.game.get_remaining_tiles(),
+                    "click_position": (move.row, move.col),  # Show X marker
+                    "tiles_to_remove": set(tiles_to_remove),
+                }
+            )
 
-            # Setup matplotlib figure
-            self.setup_matplotlib_figure()
+            # Now apply the move
+            self.game.click(move.row, move.col)
 
-            def animate_func(frame_num):
-                """Animation function for matplotlib"""
-                if frame_num < len(self.frames):
-                    frame = self.frames[frame_num]
-                    if self.im is not None:
-                        self.im.set_array(frame["matrix"])
-                    if hasattr(self, "score_text"):
-                        self.score_text.set_text(f"Score: {frame['score']}")
+        self.frames.append(
+            {
+                "matrix": self.create_color_matrix(),
+                "score": self.game.get_score(),
+                "remaining": self.game.get_remaining_tiles(),
+                "click_position": None,
+                "tiles_to_remove": set(),
+            }
+        )
 
-                    # Draw X marker for the clicked position
-                    self.draw_x_markers(frame["click_position"])
+        # Setup matplotlib figure
+        self.setup_matplotlib_figure()
 
-                    # Draw fade rectangles for tiles that will be removed
-                    self.draw_fade_rectangles(frame.get("tiles_to_remove", None))
-
-                    # Add move indicator
-                    if frame_num > 0 and self.ax is not None:
-                        move = answer.moves[frame_num - 1]
-                        self.ax.set_title(
-                            f"ColorTile Game Animation - Move {frame_num:>3}: ({move.row:>2}, {move.col:>2})",
-                            fontsize=16,
-                            fontweight="bold",
-                            fontname="monospace",
-                        )
-                    elif self.ax is not None:
-                        self.ax.set_title(
-                            "ColorTile Game Animation - Initial State",
-                            fontsize=16,
-                            fontweight="bold",
-                            fontname="monospace",
-                        )
-
-                return_list = []
+        def animate_func(frame_num):
+            """Animation function for matplotlib"""
+            if frame_num < len(self.frames):
+                frame = self.frames[frame_num]
                 if self.im is not None:
-                    return_list.append(self.im)
+                    self.im.set_array(frame["matrix"])
                 if hasattr(self, "score_text"):
-                    return_list.append(self.score_text)
-                return_list.extend(self.x_markers)
-                return_list.extend(self.fade_rectangles)
-                return return_list
+                    self.score_text.set_text(f"Score: {frame['score']}")
 
-            # Create animation
-            if self.fig is not None:
-                anim = animation.FuncAnimation(
-                    self.fig,
-                    animate_func,
-                    frames=len(self.frames),
-                    interval=267,  # Reduced from 800 to 267 for 3x speed (800/3 ≈ 267)
-                    blit=False,
-                    repeat=True,
-                )
+                # Draw X marker for the clicked position
+                self.draw_x_markers(frame["click_position"])
 
-                # Save as GIF if requested
-                if save_gif:
-                    if gif_path is not None:
-                        gif_output_path = gif_path
-                    else:
-                        gif_output_path = os.path.join("imgs", "animation.gif")
+                # Draw fade rectangles for tiles that will be removed
+                self.draw_fade_rectangles(frame.get("tiles_to_remove", None))
 
-                    print(f"Saving animation as {gif_output_path}...")
-                    try:
-                        # Ensure the directory exists
-                        os.makedirs(os.path.dirname(gif_output_path), exist_ok=True)
-                        anim.save(
-                            gif_output_path, writer="pillow", fps=3
-                        )  # Increased from 1 to 3 for 3x speed
-                        print(f"Animation saved as {gif_output_path}")
-                    except Exception as e:
-                        print(f"Error saving animation: {e}")
+                # Add move indicator
+                assert self.ax is not None
+                if frame_num == 0:
+                    self.ax.set_title(
+                        "ColorTile Game Animation - Initial State",
+                        fontsize=16,
+                        fontweight="bold",
+                        fontname="monospace",
+                    )
+                elif 1 <= frame_num < len(answer.moves) + 1:
+                    move = answer.moves[frame_num - 1]
+                    self.ax.set_title(
+                        f"ColorTile Game Animation - Move {frame_num:>3}: ({move.row:>2}, {move.col:>2})",
+                        fontsize=16,
+                        fontweight="bold",
+                        fontname="monospace",
+                    )
+                else:
+                    assert frame_num == len(answer.moves) + 1
+                    self.ax.set_title(
+                        "ColorTile Game Animation - Final State",
+                        fontsize=16,
+                        fontweight="bold",
+                        fontname="monospace",
+                    )
 
-                return anim
+            return_list = []
+            if self.im is not None:
+                return_list.append(self.im)
+            if hasattr(self, "score_text"):
+                return_list.append(self.score_text)
+            return_list.extend(self.x_markers)
+            return_list.extend(self.fade_rectangles)
+            return return_list
+
+        # Create animation
+        assert self.fig is not None
+
+        anim = animation.FuncAnimation(
+            self.fig,
+            animate_func,
+            frames=len(self.frames),
+            interval=267,  # Reduced from 800 to 267 for 3x speed (800/3 ≈ 267)
+            blit=False,
+            repeat=True,
+        )
+
+        # Save as GIF if requested
+        if save_gif:
+            if gif_path is not None:
+                gif_output_path = gif_path
             else:
-                print("Error: Figure not initialized properly")
-                return None
+                gif_output_path = os.path.join("imgs", "animation.gif")
 
-        except Exception as e:
-            print(f"Error creating matplotlib animation: {e}")
-            return None
+            print(f"Saving animation as {gif_output_path}...")
+            try:
+                # Ensure the directory exists
+                os.makedirs(os.path.dirname(gif_output_path), exist_ok=True)
+                anim.save(
+                    gif_output_path, writer="pillow", fps=3
+                )  # Increased from 1 to 3 for 3x speed
+                print(f"Animation saved as {gif_output_path}")
+            except Exception as e:
+                print(f"Error saving animation: {e}")
+
+        return anim

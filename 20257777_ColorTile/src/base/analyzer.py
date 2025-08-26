@@ -104,16 +104,3 @@ class GameAnalyzer:
             )
 
         return analysis
-
-    def get_failure_type(self) -> str:
-        """Get the primary failure type for incomplete games"""
-        if self.game.get_remaining_tiles() == 0:
-            return "complete_clear"
-
-        assert self.has_placement_failure()
-        if self.has_odd_parity_failure():
-            return "odd_parity"
-        elif self.has_adjacent_pairs():
-            return "adjacent_pairs"
-        else:
-            return "placement_failure"
