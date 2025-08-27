@@ -4,7 +4,7 @@ from .base_solver import BaseSolver
 
 
 class VerticalSolver(BaseSolver):
-    def __init__(self, game, avoid_triple: bool = False):
+    def __init__(self, game, avoid_triple: int):
         super().__init__(game)
         self.avoid_triple = avoid_triple
 

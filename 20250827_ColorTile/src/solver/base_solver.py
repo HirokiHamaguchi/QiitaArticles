@@ -3,7 +3,8 @@ Base Solver for ColorTile Game
 """
 
 from abc import ABC, abstractmethod
-from typing import List, Optional, Tuple
+from collections import defaultdict
+from typing import DefaultDict, List, Optional, Tuple
 
 from src.base.answer import Answer, Move
 from src.base.game import Game
@@ -17,6 +18,7 @@ class BaseSolver(ABC):
         self._direction_tiles_cache: Optional[
             List[List[List[Optional[Tuple[int, int, Tile]]]]]
         ] = None
+        self.avoid_triple = 0
 
     @abstractmethod
     def select_func(
@@ -36,7 +38,7 @@ class BaseSolver(ABC):
             if not valid_moves:
                 break
 
-            if getattr(self, "avoid_triple", False):
+            if self.avoid_triple > 0:
                 new_valid_moves: List[Tuple[int, int, int]] = []
                 for row, col, expected_points in valid_moves:
                     if not self._check_would_cause_triple(row, col):
@@ -185,13 +187,16 @@ class BaseSolver(ABC):
 
     def _check_would_cause_triple(self, row: int, col: int) -> bool:
         """Check if clicking at (row, col) would cause a 3-tile removal"""
-        if not getattr(self, "avoid_triple", False):
-            return False
+        assert self.avoid_triple in (1, 2)
 
-        color_counts: dict[TileColor, int] = {}
+        color_counts: DefaultDict[TileColor, int] = defaultdict(int)
         for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-            new_row, new_col = row + dr, col + dc
-            tile = self.game.board.get_tile(new_row, new_col)
-            if tile is not None:
-                color_counts[tile.color] = color_counts.get(tile.color, 0) + 1
+            cur_row, cur_col = row, col
+            for _ in range(self.avoid_triple):
+                cur_row += dr
+                cur_col += dc
+                tile = self.game.board.get_tile(cur_row, cur_col)
+                if tile is not None:
+                    color_counts[tile.color] += 1
+                    break
         return any(count >= 3 for count in color_counts.values())

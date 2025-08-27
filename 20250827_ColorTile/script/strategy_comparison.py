@@ -23,27 +23,31 @@ from src.vis.plt import MatplotlibVisualizer
 class StrategyComparison:
     """Class to run comprehensive strategy comparison experiment"""
 
-    strategies: List[Tuple[str, Type[BaseSolver], Dict]] = [
-        ("Random", RandomSolver, {"avoid_triple": False}),
-        ("Vertical", VerticalSolver, {"avoid_triple": False}),
-        ("Horizontal", HorizontalSolver, {"avoid_triple": False}),
-        ("Diagonal", DiagonalSolver, {"avoid_triple": False}),
-        ("Corner", CornerSolver, {"avoid_triple": False}),
-        ("Bidirectional", BidirectionalSolver, {"avoid_triple": False}),
-        ("Random_AvoidTriple", RandomSolver, {"avoid_triple": True}),
-        ("Vertical_AvoidTriple", VerticalSolver, {"avoid_triple": True}),
-        ("Horizontal_AvoidTriple", HorizontalSolver, {"avoid_triple": True}),
-        ("Diagonal_AvoidTriple", DiagonalSolver, {"avoid_triple": True}),
-        ("Corner_AvoidTriple", CornerSolver, {"avoid_triple": True}),
-        ("Bidirectional_AvoidTriple", BidirectionalSolver, {"avoid_triple": True}),
-    ]
-
     def __init__(self, num_experiments: int, max_moves: int, save_gif: bool):
         self.num_experiments = num_experiments
         self.max_moves = max_moves
         self.results: Dict[str, List[Dict]] = {}
         self.has_saved_all_clear: Dict[str, bool] = defaultdict(bool)
         self.save_gif = save_gif
+
+        self.strategies = []
+        solvers: List[Tuple[str, Type[BaseSolver]]] = [
+            ("Random", RandomSolver),
+            ("Vertical", VerticalSolver),
+            ("Horizontal", HorizontalSolver),
+            ("Diagonal", DiagonalSolver),
+            ("Corner", CornerSolver),
+            ("Bidirectional", BidirectionalSolver),
+        ]
+
+        for avoid_triple in [0, 1]:
+            for name_base, strategy_class in solvers:
+                if avoid_triple > 0:
+                    strategy_name = name_base + "_AvoidTriple"
+                else:
+                    strategy_name = name_base
+                solver_kwargs = {"avoid_triple": avoid_triple}
+                self.strategies.append((strategy_name, strategy_class, solver_kwargs))
 
     def run_single_experiment(
         self,
