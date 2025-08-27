@@ -1,4 +1,4 @@
-import concurrent.futures
+import concurrent.futures as features
 import os
 import pickle
 from collections import defaultdict
@@ -103,42 +103,48 @@ class StrategyComparison:
 
         return analysis
 
+    def _worker(self, args):
+        strategy_name, solver_class, solver_kwargs, seed = args
+        return self.run_single_experiment(
+            strategy_name, solver_class, solver_kwargs, seed
+        )
+
     def run_all_experiments(self) -> None:
         """Run experiments for all strategies"""
 
-        def run_strategy(strategy_tuple):
-            strategy_name, solver_class, solver_kwargs = strategy_tuple
+        for strategy_name, solver_class, solver_kwargs in self.strategies:
             print(f"Running {self.num_experiments} experiments for {strategy_name}...")
-            results = []
-            for seed in range(self.num_experiments):
-                result = self.run_single_experiment(
-                    strategy_name, solver_class, solver_kwargs, seed
-                )
-                results.append(result)
-                if (
-                    self.save_gif
-                    and self.has_saved_all_clear[strategy_name]
-                    and seed >= 5
-                ):
-                    print("    All-clear gif saved, skipping further exps.")
-                    break
-            else:
-                if self.save_gif:
+
+            if self.save_gif:
+                for seed in range(self.num_experiments):
+                    self.run_single_experiment(
+                        strategy_name, solver_class, solver_kwargs, seed
+                    )
+                    if (
+                        self.save_gif
+                        and self.has_saved_all_clear[strategy_name]
+                        and seed >= 5
+                    ):
+                        print("    All-clear gif saved, skipping further exps.")
+                        break
+                else:
                     raise RuntimeError("No all-clear achieved, cannot save gif.")
-            self.results[strategy_name] = results
-            print("    Done.")
+            else:
+                results = []
+                with features.ProcessPoolExecutor() as executor:
+                    futures = [
+                        executor.submit(
+                            self._worker,
+                            (strategy_name, solver_class, solver_kwargs, seed),
+                        )
+                        for seed in range(self.num_experiments)
+                    ]
+                    for future in features.as_completed(futures):
+                        results.append(future.result())
 
-        # with concurrent.futures.ThreadPoolExecutor() as executor:
-        #     futures = {
-        #         executor.submit(run_strategy, strategy_tuple): strategy_tuple
-        #         for strategy_tuple in self.strategies
-        #     }
-        #     for future in concurrent.futures.as_completed(futures):
-        #         print(future.result())
-
-        if self.save_gif:
-            for strategy_tuple in self.strategies:
-                run_strategy(strategy_tuple)
+                results.sort(key=lambda x: x["seed"])
+                self.results[strategy_name] = results
+                print("    Done.")
 
     def analyze_results(self) -> Dict[str, Dict]:
         """Analyze and summarize results for all strategies"""
@@ -306,7 +312,7 @@ def main():
         print("Loaded existing experiment results from strategy_comparison_results.pkl")
     else:
         experiment = StrategyComparison(
-            num_experiments=1000, max_moves=1000, save_gif=True
+            num_experiments=1000, max_moves=1000, save_gif=False
         )
         experiment.run_all_experiments()
         with open("strategy_comparison_results.pkl", "wb") as f:
