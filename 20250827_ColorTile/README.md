@@ -23,7 +23,7 @@ https://www.gamesaien.com/game/color_tiles/
 
 具体的には、以下のような手順で消していくことを指します。
 
-![bidirectional_all_clear](imgs/strategy_gifs/Bidirectional_all_clear.gif)
+![Bidirectional_AvoidTriple_all_clear](imgs/strategy_gifs/Bidirectional_AvoidTriple_all_clear.gif)
 
 本記事では、シミュレーションによる実験をいくつか行いながら、全消し戦略について考察します。
 
@@ -117,9 +117,7 @@ https://github.com/HirokiHamaguchi/QiitaArticles/tree/main/20250827_ColorTile
 
 しかし、一般に著作権法における著作権保護の対象は「思想又は感情を創作的に表現したもの」であり、アイデアそれ自体、ここでいうゲームのルールは著作権保護の対象外であると考えています。
 
-参考: ゲームの「パクリ」と著作権
-
-https://bengoshi-sakao.com/column/%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E3%80%8C%E3%83%91%E3%82%AF%E3%83%AA%E3%80%8D%E3%81%A8%E8%91%97%E4%BD%9C%E6%A8%A9/
+参考: [ゲームの「パクリ」と著作権](https://bengoshi-sakao.com/column/%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E3%80%8C%E3%83%91%E3%82%AF%E3%83%AA%E3%80%8D%E3%81%A8%E8%91%97%E4%BD%9C%E6%A8%A9/)
 
 以上の観点から、ゲーム的な創作要素を一切含まないようにして作られた本プログラムの公開は、著作権法上は問題ないと考え、実際に公開しています。
 
@@ -135,33 +133,29 @@ https://bengoshi-sakao.com/column/%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E3%80%8C%
 
 本記事では、以下の6つの戦略を比較しました。なお、クリック可能なマスとは、そのマスをクリックすることで、2枚以上のタイルが消えるマスと定義します。
 
-<!-- markdownlint-disable MD029 -->
+**ランダム戦略**: クリック可能なマスをランダムに選択。
 
-1. ランダム戦略: クリック可能なマスをランダムに選択。
+![Random_example](imgs/strategy_gifs/Random_example.gif)
 
-![random_sample](imgs/strategy_gifs/Random_example.gif)
+**垂直戦略**: クリック可能なマスのうち、最も上端のマスを選択。もし複数あれば、最も右端のマスを選択。
 
-2. 垂直戦略: クリック可能なマスのうち、最も上端のマスを選択。もし複数あれば、最も右端のマスを選択。
+![Vertical_example](imgs/strategy_gifs/Vertical_example.gif)
 
-![vertical_sample](imgs/strategy_gifs/Vertical_example.gif)
+**水平戦略**: クリック可能なマスのうち、最も右端のマスを選択。もし複数あれば、最も上端のマスを選択。
 
-3. 水平戦略: クリック可能なマスのうち、最も右端のマスを選択。もし複数あれば、最も上端のマスを選択。
+![Horizontal_example](imgs/strategy_gifs/Horizontal_example.gif)
 
-![horizontal_sample](imgs/strategy_gifs/Horizontal_example.gif)
+**斜め戦略**: クリック可能なマスのうち、上からの何マス目か+右からの何マス目かの和が最小のマスを選択。
 
-4. 斜め戦略: クリック可能なマスのうち、上からの何マス目か+右からの何マス目かの和が最小のマスを選択。
+![Diagonal_example](imgs/strategy_gifs/Diagonal_example.gif)
 
-![diagonal_sample](imgs/strategy_gifs/Diagonal_example.gif)
+**四隅戦略**: クリック可能なマスのうち、斜め戦略と同様にして、各四隅(左上・右上・左下・右下)に最も近いマスを順に選択。
 
-5. 四隅戦略: クリック可能なマスのうち、斜め戦略と同様にして、各四隅(左上・右上・左下・右下)に最も近いマスを順に選択。
+![Corner_example](imgs/strategy_gifs/Corner_example.gif)
 
-![corner_sample](imgs/strategy_gifs/Corner_example.gif)
+**斜め双方向戦略**: 前半1/3の手数では斜め戦略、続く1/3の手数では斜め戦略の逆、最後の1/3の手数では両方を交互に繰り返す。
 
-6. 斜め双方向戦略: 前半1/3の手数では斜め戦略、続く1/3の手数では斜め戦略の逆、最後の1/3の手数では両方を交互に繰り返す。
-
-![bidirectional_sample](imgs/strategy_gifs/Bidirectional_example.gif)
-
-<!-- markdownlint-enable MD029 -->
+![Bidirectional_example](imgs/strategy_gifs/Bidirectional_example.gif)
 
 また、各戦略では、以下の2つのバリエーションを考えました。
 
@@ -198,7 +192,7 @@ https://bengoshi-sakao.com/column/%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E3%80%8C%
 
 まず、スコア分布(図1つ目)と全消し達成率(図2つ目)についてです。
 
-![score_distribution](imgs/experiments/score_distributions.png)
+![score_distributions](imgs/experiments/score_distributions.png)
 
 ![all_clear_rates](imgs/experiments/all_clear_rates.png)
 
@@ -220,11 +214,17 @@ https://bengoshi-sakao.com/column/%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E3%80%8C%
 
 | 水平戦略の最後の状態 | 斜め戦略の最後の状態 |
 |:--:|:--:|
-| ![horizontal_end](imgs/last_state/Horizontal_seed0.png) | ![diagonal_end](imgs/last_state/Diagonal_seed2.png) |
+| ![Horizontal_seed0](imgs/last_state/Horizontal_seed0.png) | ![Diagonal_seed2](imgs/last_state/Diagonal_seed2.png) |
 
 しかし、斜め双方向戦略では、GIF画像にも表れている通り、斜め一直線上にタイルが残ることが多く、その分だけクリック可能なマスが多くなり、結果として全消し達成率が高くなります。
 
-![bidirectional_avoid_triple_all_clear](imgs/strategy_gifs/Bidirectional_AvoidTriple_all_clear.gif)
+![Bidirectional_AvoidTriple_all_clear](imgs/strategy_gifs/Bidirectional_AvoidTriple_all_clear.gif)
+
+以上より、コツγ `斜め双方向に消す` という戦略の有効性が理解できます。
+
+一方で、コツα意識における斜め双方向戦略という今回の最良戦略においても、18.8%の全消し達成率に留まっていることも注目に値します。これはたったの5回に1回程度しか全消しが達成できないことを意味しており、決して高いとは言えません。更に、実際にプレイする際は要素1 `スピード` や要素2 `正確性` が欠けることによる失敗もあるので、実際の全消し達成率は更に低くなります。
+
+単に上記戦略に基づくだけではなく、コツα `3枚消しを回避する` とコツβ `2枚隣接を残さない` を適切に意識するというプレイヤーの技量も、安定的な全消し達成には不可欠です。
 
 以上のような理由から、
 
@@ -233,7 +233,7 @@ https://bengoshi-sakao.com/column/%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E3%80%8C%
 * コツβ: `2枚隣接を残さない`
 * コツγ: `斜め双方向に消す`
 
-をそれぞれ行うことにより、全消し達成率が高くなることが、定量的にも定性的にも理解することが出来ます。
+の3点を意識することにより、より一段と全消し達成率が高くなることが、定量的にも定性的にも理解出来ます。
 
 ### 詰み要素の内訳
 
@@ -275,7 +275,7 @@ https://bengoshi-sakao.com/column/%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E3%80%8C%
 
 例えば、消す2枚のタイルの組が平均でどれだけの距離離れるかは戦略に応じて変わりますが、近い2枚組であるほど、それを見つけるスピードや正しい場所を押す正確性が上がり、逆に遠い2枚組であるほどこれらは損なわれます。この記事では[全消し達成の為の要素](#全消し達成の為の要素)において、スピードや正確性は技量依存の要素として議論から外しましたが、このような指標によって、定量的なスピードや正確性に関する議論が可能で、戦略改善の余地の一つになります。[フィッツの法則](https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A3%E3%83%83%E3%83%84%E3%81%AE%E6%B3%95%E5%89%87)なども参考になるかも知れません。
 
-**コツγは必ずしも厳守する必要がある戦略では決してなく、各個人の技量などに応じて柔軟に調整することが可能であり、そこもまたカラータイルというゲームの面白さだと思います。**
+**コツγは必ずしも厳守する必要がある戦略では決してなく、各個人の技量などに応じて柔軟に調整可能であり、そこもまたカラータイルというゲームの面白さだと思います。**
 
 ---
 

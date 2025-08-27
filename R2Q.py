@@ -65,23 +65,31 @@ def process_lines(lines, links):
             res.append(">" if not mathBlockOpen else "> ```")
             res.append("> ```math" if not mathBlockOpen else ">")
             mathBlockOpen = not mathBlockOpen
-        elif line.startswith("!["):
+        elif "![" in line:
             if nextIgnore:
                 res.append(line)
                 nextIgnore = False
                 continue
-            alt = line[line.find("[") + 1 : line.find("]")]
-            url = line[line.find("(") + 1 : line.find(")")]
-            if url.startswith("http"):
-                src = url
-                width = "100%"
-            elif any(alt == link["alt"] for link in links):
-                link = next(link for link in links if alt == link["alt"])
-                src = link["src"]
-                width = "100%"
-            else:
-                raise ValueError(f"Image not found: {alt}")
-            res.append(f'<img width={width} src="{src}" alt="{alt}">')
+            cnt = line.count("![")
+            while cnt > 0:
+                cnt -= 1
+                alt = line[line.find("[") + 1 : line.find("]")]
+                url = line[line.find("(") + 1 : line.find(")")]
+                if url.startswith("http"):
+                    src = url
+                elif any(alt == link["alt"] for link in links):
+                    link = next(link for link in links if alt == link["alt"])
+                    src = link["src"]
+                else:
+                    raise ValueError(f"Image not found: {alt}")
+                start_idx = line.find("![")
+                end_idx = line.find(")") + 1
+                line = (
+                    line[:start_idx]
+                    + f'<img width=100% src="{src}" alt="{alt}">'
+                    + line[end_idx:]
+                )
+            res.append(line)
         elif line.strip() == "<!-- ignore -->":
             nextIgnore = True
         else:
