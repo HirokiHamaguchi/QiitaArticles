@@ -8,8 +8,8 @@ from moviepy import (  # type: ignore
 # 入力リスト
 inputs = [
     ("imgs/tmp/gif_0.mp4", "ランダム戦略"),
-    ("imgs/tmp/gif_1.mp4", "水平戦略"),
-    ("imgs/tmp/gif_2.mp4", "垂直戦略"),
+    ("imgs/tmp/gif_1.mp4", "垂直戦略"),
+    ("imgs/tmp/gif_2.mp4", "水平戦略"),
     ("imgs/tmp/gif_3.mp4", "斜め戦略"),
     ("imgs/tmp/gif_4.mp4", "四隅戦略"),
     ("imgs/tmp/gif_5.mp4", "斜め双方向戦略"),
@@ -67,7 +67,7 @@ for i, (video_path, strategy_name) in enumerate(inputs):
     txt_clip = CompositeVideoClip(
         [bg_clip, strategy_clip, percentage_clip],
         bg_color=(255, 255, 255),
-    ).with_duration(2)
+    ).with_duration(4)
 
     final_clips.extend([txt_clip, video_clip])
 

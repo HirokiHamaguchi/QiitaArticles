@@ -2,13 +2,13 @@
 
 OUTPUT="imgs/strategies.mp4"
 
-WORKDIR="imgs/tmp_concat"
+WORKDIR="imgs/tmp"
 mkdir -p "$WORKDIR"
 
 INPUTS=(
   "imgs/strategy_gifs/Random_AvoidTriple_all_clear.gif:ランダム戦略"
-  "imgs/strategy_gifs/Horizontal_AvoidTriple_all_clear.gif:水平戦略"
   "imgs/strategy_gifs/Vertical_AvoidTriple_all_clear.gif:垂直戦略"
+  "imgs/strategy_gifs/Horizontal_AvoidTriple_all_clear.gif:水平戦略"
   "imgs/strategy_gifs/Diagonal_AvoidTriple_all_clear.gif:斜め戦略"
   "imgs/strategy_gifs/Corner_AvoidTriple_all_clear.gif:四隅戦略"
   "imgs/strategy_gifs/Bidirectional_AvoidTriple_all_clear.gif:斜め双方向戦略"

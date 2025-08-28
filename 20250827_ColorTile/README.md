@@ -21,7 +21,7 @@ https://www.gamesaien.com/game/color_tiles/
 * コツβ: `2枚隣接を残さない`
 * コツγ: `斜め双方向に消す`
 
-具体的には、以下のような手順で消していくことを指しています。(以下はGIF画像です、もし動かなければ[こちら](https://youtu.be/cgEqy-4Hs3Y?t=111)からご覧ください)
+具体的には、以下のような手順で消していくことを指しています。(以下はGIF画像です、もし動かなければクリックしてご覧ください)
 
 ![Bidirectional_AvoidTriple_all_clear](imgs/strategy_gifs/Bidirectional_AvoidTriple_all_clear.gif)
 
@@ -129,7 +129,9 @@ https://github.com/HirokiHamaguchi/QiitaArticles/tree/main/20250827_ColorTile
 
 本記事では、以下の6つの戦略を比較しました。なお、クリック可能なマスとは、そのマスをクリックすることで、2枚以上のタイルが消えるマスと定義します。
 
-GIF画像が動かなければ、[こちら](https://youtu.be/cgEqy-4Hs3Y)からご覧ください。
+もしGIF画像が動かなければ、こちらをご覧ください、全戦略のまとめ動画です。
+
+<iframe width="624" height="416" src="https://www.youtube.com/embed/nkagv6gCyjM" title="カラータイルの全消し戦略 (記事用補助動画)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 **ランダム戦略**: クリック可能なマスをランダムに選択。
 
