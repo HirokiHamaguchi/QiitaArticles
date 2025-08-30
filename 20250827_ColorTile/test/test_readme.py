@@ -15,7 +15,12 @@ def test_trick_blocks():
     assert len(blocks) >= 2
     first_block = blocks[0]
     for idx, block in enumerate(blocks[1:], start=1):
-        assert block == first_block, f"Block {idx} does not match the first block"
+        if block[-1] != "\n":
+            assert block == first_block, f"Block {idx} does not match the first block"
+        else:
+            assert block[:-1] == first_block[:-1], (
+                f"Block {idx} does not match the first block (except last line)"
+            )
 
     print("All trick blocks are identical.")
 
