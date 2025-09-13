@@ -8,12 +8,3 @@ repos:
       - id: check-merge-conflict
       - id: check-added-large-files
         args: ['--maxkb=5000']
-
-  - repo: local
-    hooks:
-      - id: pytest
-        name: pytest
-        entry: uv run pytest
-        language: system
-        pass_filenames: false
-        always_run: true

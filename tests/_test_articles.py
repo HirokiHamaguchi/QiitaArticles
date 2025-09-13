@@ -16,11 +16,6 @@ assert ACCESS_TOKEN
 PAGE = os.getenv("QIITA_PAGE", "1")
 PAR_PAGE = os.getenv("QIITA_PER_PAGE", "100")
 
-IGNORED_TITLES = []
-ignored_titles_str = os.getenv("IGNORED_TITLES", "")
-if ignored_titles_str:
-    IGNORED_TITLES = [title.strip() for title in ignored_titles_str.split(",")]
-
 
 def get_qiita_data():
     """Fetch articles from Qiita API"""
@@ -45,6 +40,9 @@ def check_article_consistency(readme_path, expected_content):
     try:
         with open(readme_path, "r", encoding="utf-8") as f:
             actual_content = f.read()
+
+        print(f"actual_content: {actual_content[:100]}...")
+        print(f"expected_content: {expected_content[:100]}...")
 
         if actual_content.strip() != expected_content.strip():
             expected_lines = expected_content.strip().splitlines()
@@ -77,10 +75,6 @@ def run_consistency_check():
         created_at = item["created_at"]
         title = item["title"]
         date = created_at[:10].replace("-", "")
-
-        if any(ignored_title in title for ignored_title in IGNORED_TITLES):
-            print(f"Skipping {title}")
-            continue
 
         data_dirs = [
             d for d in dirname.iterdir() if d.is_dir() and d.name.startswith(f"{date}_")
