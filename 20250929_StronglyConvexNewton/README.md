@@ -1,6 +1,6 @@
 # 強凸関数だがNewton法が収束しない例
 
-Doikov, N. (2021). [New second-order and tensor methods in convex optimization](https://dial.uclouvain.be/pr/boreal/object/boreal:260515) (Doctoral dissertation, Ph. D. thesis, Université catholique de Louvain). の Example 1.4.3.が面白かったので、走り書き程度のメモを残しておきます。
+Doikov, N. (2021). [New second-order and tensor methods in convex optimization](https://dial.uclouvain.be/pr/boreal/object/boreal:260515) (Doctoral dissertation, Ph. D. thesis, Université catholique de Louvain) の Example 1.4.3.が面白かったので、走り書き程度のメモを残しておきます。
 
 ## 目的関数
 

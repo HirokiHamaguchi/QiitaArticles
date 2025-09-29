@@ -45,7 +45,7 @@ def vis(mu, x0):
             "",
             xy=(xs[i + 1], f_points[i + 1]),
             xytext=(xs[i], f_points[i]),
-            arrowprops=dict(arrowstyle="->", color="red", lw=1.5),
+            arrowprops=dict(arrowstyle="->", color="red", lw=1.5, mutation_scale=30),
         )
     plt.scatter(xs, f_points, color="red", label="Newton steps")
 
