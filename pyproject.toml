@@ -12,6 +12,8 @@ dependencies = [
     "pre-commit>=4.3.0",
     "pytest>=8.4.1",
     "types-requests>=2.32.4.20250809",
+    "matplotlib>=3.10.6",
+    "numpy>=2.3.3",
 ]
 
 [project.optional-dependencies]

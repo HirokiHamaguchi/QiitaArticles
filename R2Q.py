@@ -53,7 +53,52 @@ def load_json(file_path):
         return json.load(f)
 
 
-def process_lines(lines, links):
+def get_language_from_extension(filename):
+    """ファイル拡張子からプログラミング言語を推定する"""
+    ext_to_lang = {
+        ".py": "python",
+        ".js": "javascript",
+        ".ts": "typescript",
+        ".java": "java",
+        ".c": "c",
+        ".cpp": "cpp",
+        ".cc": "cpp",
+        ".cxx": "cpp",
+        ".h": "c",
+        ".hpp": "cpp",
+        ".cs": "csharp",
+        ".php": "php",
+        ".rb": "ruby",
+        ".go": "go",
+        ".rs": "rust",
+        ".kt": "kotlin",
+        ".swift": "swift",
+        ".scala": "scala",
+        ".r": "r",
+        ".R": "r",
+        ".m": "matlab",
+        ".sh": "bash",
+        ".bash": "bash",
+        ".ps1": "powershell",
+        ".html": "html",
+        ".css": "css",
+        ".scss": "scss",
+        ".sass": "sass",
+        ".xml": "xml",
+        ".json": "json",
+        ".yaml": "yaml",
+        ".yml": "yaml",
+        ".sql": "sql",
+        ".tex": "latex",
+        ".md": "markdown",
+        ".txt": "text",
+    }
+
+    ext = os.path.splitext(filename)[1].lower()
+    return ext_to_lang.get(ext, "text")
+
+
+def process_lines(lines, links, target_dir):
     res = ["<!-- markdownlint-disable MD041 -->", ""]
     mathBlockOpen = False
     nextIgnore = False
@@ -65,6 +110,30 @@ def process_lines(lines, links):
             res.append(">" if not mathBlockOpen else "> ```")
             res.append("> ```math" if not mathBlockOpen else ">")
             mathBlockOpen = not mathBlockOpen
+        elif line.strip().startswith(
+            "<!-- PROGRAM_INSERTION:"
+        ) and line.strip().endswith("-->"):
+            # <!-- PROGRAM_INSERTION: filename --> パターンを処理
+            filename_match = re.search(
+                r"<!-- PROGRAM_INSERTION:\s*(.+?)\s*-->", line.strip()
+            )
+            if filename_match:
+                filename = filename_match.group(1).strip()
+                file_path = os.path.join(target_dir, filename)
+
+                if os.path.exists(file_path):
+                    try:
+                        file_content = read_file(file_path)
+                        language = get_language_from_extension(filename)
+                        res.append(f"```{language}")
+                        res.append(file_content.rstrip())
+                        res.append("```")
+                    except Exception as e:
+                        raise ValueError(f"Error reading file {file_path}: {e}")
+                else:
+                    raise ValueError(f"File not found: {file_path}")
+            else:
+                raise ValueError(f"Invalid PROGRAM_INSERTION format: {line}")
         elif "![" in line:
             if nextIgnore:
                 res.append(line)
@@ -144,7 +213,7 @@ def convert_readme_to_qiita(target_dir, copy_to_clipboard=False):
 
     lines = lines[2:]
 
-    res = process_lines(lines, links)
+    res = process_lines(lines, links, target_dir)
     res = replace_patterns(res)
     res = replace_vertical_bars(res)
 
