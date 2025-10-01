@@ -2,7 +2,7 @@
 
 Doikov, N. (2021). [New second-order and tensor methods in convex optimization](https://dial.uclouvain.be/pr/boreal/object/boreal:260515) (Doctoral dissertation, Ph. D. thesis, Université catholique de Louvain) の Example 1.4.3.が面白かったので、走り書き程度のメモを残しておきます。
 
-## 目的関数
+## 強凸な目的関数の例
 
 目的関数、およびその導関数は以下の通りです。
 
@@ -30,12 +30,33 @@ $$
 ![plot_0.01_-4](./strongly_convex_function_0.01_-4.png)
 (初期点 $x_0=-4, \mu=0.01$ の場合、振動する)
 
+## 強凸でない目的関数の例
+
+ちなみに、次のような強凸でない目的関数の場合、よりシンプルな例でNewton法は発散します。
+
+$$
+\begin{align*}
+f(x) &= \sqrt{1 + x^2}\\
+f'(x) &= \frac{x}{\sqrt{1 + x^2}}\\
+f''(x) &= \frac{1}{(1 + x^2)^{3/2}}
+\end{align*}
+$$
+
+この関数は強凸ではありません($f''(x)$ は $x \to \infty$ で $0$ に近づく)。
+
+このような関数に対してNewton法を適用すると、初期点の絶対値が1より真に大きいと発散します。
+
+![plot_1.1](./sqrt_function_1.1.png)
+(初期点 $x_0=1.1$ の場合、発散する)
+
 ## 実験コード
 
 <!-- PROGRAM_INSERTION: main.py -->
 
+<!-- PROGRAM_INSERTION: main2.py -->
+
 ## 終わりに
 
-書いた後に気付いたのですが、自分が過去に読んでいた[こちらのpdf](https://www.ism.ac.jp/~mirai/sscoke/2024/marumo-answers.pdf)とほぼ同じ内容でした。全く同じ論文からの引用です。
+書いた後に気付いたのですが、過去に読んでいた[こちらのpdf](https://www.ism.ac.jp/~mirai/sscoke/2024/marumo-answers.pdf)と全く同じ論文からの引用をしていました。
 
 図があると自分の理解の助けになるので、記事として残しておくことにします。

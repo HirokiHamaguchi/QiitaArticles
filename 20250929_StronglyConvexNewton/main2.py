@@ -5,20 +5,20 @@ import numpy as np
 
 
 def f(x):
-    return np.log(1 + np.exp(x)) - x / 2 + (mu / 2) * x**2
+    return np.sqrt(1 + x**2)
 
 
 def df(x):
-    return np.exp(x) / (1 + np.exp(x)) - 0.5 + mu * x
+    return x / np.sqrt(1 + x**2)
 
 
 def d2f(x):
-    return np.exp(x) / (1 + np.exp(x)) ** 2 + mu
+    return 1 / (1 + x**2) ** (3 / 2)
 
 
-def vis(mu, x0):
+def vis(x0):
     xs = [x0]
-    for _ in range(30):
+    for _ in range(3):
         x_next = xs[-1] - df(xs[-1]) / d2f(xs[-1])
         xs.append(x_next)
 
@@ -28,8 +28,8 @@ def vis(mu, x0):
     fx = f(x)
 
     plt.figure(figsize=(8, 5))
-    plt.plot(x, fx, label=r"$f(x)=\log(1+e^x)-x/2 + \mu x^2/2$")
-    plt.title(rf"Graph of $f(x)$ with $\mu$={mu} and $x_0$={x0}")
+    plt.plot(x, fx, label=r"$f(x)=\sqrt{1+x^2}$")
+    plt.title(rf"Graph of $f(x)$ with $x_0$={x0}")
     plt.xlabel("x")
     plt.ylabel("f(x)")
     plt.grid(True)
@@ -44,12 +44,10 @@ def vis(mu, x0):
         )
 
     plt.legend(loc="upper center")
-    plt.savefig(
-        Path(__file__).parent / f"strongly_convex_function_{mu}_{x0}.png", dpi=300
-    )
+    plt.savefig(Path(__file__).parent / f"sqrt_function_{x0}.png", dpi=300)
     plt.close()
 
 
 if __name__ == "__main__":
-    for mu, x0 in [(0.1, -4), (0.01, -4)]:
-        vis(mu, x0)
+    for x0 in [1.1]:
+        vis(x0)
