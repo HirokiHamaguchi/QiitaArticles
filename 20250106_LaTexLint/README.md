@@ -8,6 +8,10 @@ VS Code拡張機能 "LaTeX Lint" を作成しました。
 
 https://marketplace.visualstudio.com/items?itemName=hari64boli64.latexlint
 
+こちらからWeb版が試せます。
+
+https://hirokihamaguchi.github.io/latexlint/
+
 GitHub レポジトリはこちらです。
 
 https://github.com/hari64boli64/latexlint
