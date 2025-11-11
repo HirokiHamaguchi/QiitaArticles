@@ -309,6 +309,12 @@ tensor | UK ˈten.sər | US ˈten.sɚ | [link](https://dictionary.cambridge.org/
 
 行列の一般化であり、[テンソル積](https://ja.wikipedia.org/wiki/%E3%83%86%E3%83%B3%E3%82%BD%E3%83%AB%E7%A9%8D)や[普遍性](https://manabitimes.jp/math/1845)によって定義される。
 
+#### succeed
+
+LaTeXで'\succ'と書く$\succ$について、発音する際はsucceedなどと省略せず発音した方が良いという話を目にしました。
+
+suckのように発音してしまうと、俗語として非常にネガティブな意味に捉えられる可能性があり、注意が必要です。
+
 ### 複数の発音が許容されている用語
 
 #### dimension
