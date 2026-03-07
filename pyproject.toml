@@ -14,6 +14,8 @@ dependencies = [
     "types-requests>=2.32.4.20250809",
     "matplotlib>=3.10.6",
     "numpy>=2.3.3",
+    "fitz>=0.0.1.dev2",
+    "pymupdf>=1.27.1",
 ]
 
 [project.optional-dependencies]

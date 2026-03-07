@@ -172,9 +172,11 @@ def replace_patterns(res):
         .replace("\n\n\n", "\n\n")
         .replace("\n\n\n", "\n\n")
     )
-    res = res.replace("\\coloneqq", "\\mathrel{\\vcenter{:}}=").replace(
-        "{dcases}", "{cases}"
-    )
+    res = res.replace("\\coloneqq", "\\mathrel{\\vcenter{:}}=")
+    res = res.replace("\\coloneq", "\\mathrel{\\vcenter{:}}=")
+    res = res.replace("\\eqcolon", "=\\mathrel{\\vcenter{:}}")
+    res = res.replace("\\eqqcolon", "=\\mathrel{\\vcenter{:}}")
+    res = res.replace("{dcases}", "{cases}")
     for line in res.splitlines():
         if re.search(r"\\{[a-zA-Z0-9]", line):
             print(r"Warning: Add space after \{[a-zA-Z0-9] in line: " + line)
