@@ -44,7 +44,7 @@ $$
 \mathrm{dom} ~ f = \lbrace x \in \mathbb{R}^n \mathrel{\mid} \lvert f(x) \rvert < \infty \rbrace.
 $$
 
-つまり、実数の範囲内に値を取る点の集合です ([effective domain](https://en.wikipedia.org/wiki/Effective_domain)として $-\infty$ の場合を含めることもあります)。本記事および教科書では $\mathrm{dom} ~ f \neq \emptyset$ を仮定します。
+なお、これは教科書通りではありますが、やや珍しい定義で、[effective domain](https://en.wikipedia.org/wiki/Effective_domain)として $-\infty$ の場合を含めることもあります。本記事および教科書では、実数の範囲内に値を取る点の集合として定め、また $\mathrm{dom} ~ f \neq \emptyset$ を仮定します。
 
 なお、真凸関数 (proper convex function)[^proper]は $\mathrm{dom} ~ f \neq \emptyset$ と $f(x) \neq -\infty$ が条件の為、代わりに真凸関数であることを仮定しても殆ど同じ議論になります。
 
@@ -72,7 +72,7 @@ $$
 
 **凸関数は、$\mathrm{dom} ~ f$ の相対的内部で連続である。**
 
-本記事の主題ではないので、詳細は[Appendix](#appendix-凸関数は相対定期内部で連続である)に譲りますが、簡単に言うと、縁(ふち)でない部分では凸関数は連続であるし、また縁の部分では不連続になり得るということです。
+本記事の主題ではないので、詳細は[Appendix](#appendix-凸関数は相対的内部で連続である)に譲りますが、簡単に言うと、縁(ふち)でない部分では凸関数は連続であるし、また縁の部分では不連続になり得るということです。
 
 特に、$\mathrm{dom} ~ f$ が $\mathbb{R}^n$ 全体ならば、その相対的内部も $\mathbb{R}^n$ 全体なので、次の系が導かれます。
 
@@ -282,7 +282,7 @@ $$
 
 以下、いくつかのAppendixを示します。
 
-## Appendix 凸関数は相対定期内部で連続である
+## Appendix 凸関数は相対的内部で連続である
 
 [凸関数が全域で定義されている場合](#凸関数が全域で定義されている場合)の節で、凸関数は相対的内部で連続であると述べました。ここでは、その証明を示します。
 
@@ -315,7 +315,7 @@ $$
 まず、補題(Chapter B, Theorem 3.1.2 [^Hiriart-Urruty])として、$x_0$ を $\mathrm{ri} (\mathrm{dom} ~ f)$ の任意の点とし、十分小さい $\delta$ に対し、
 
 $$
-m \leq f(x) \leq M \quad \forall x \in B(x_0, 2\delta) \cap \mathrm{aff} (\mathrm{dom} ~ f)
+m \leq f(x) \leq M \quad (\forall x \in B(x_0, 2\delta) \cap \mathrm{aff} (\mathrm{dom} ~ f))
 $$
 
 を満たす定数 $m,M$ が存在することを示します。元証明はやや雑に議論しているので少し別の証明を与えます。$\mathrm{aff} (\mathrm{dom} ~ f)$ の次元を $k$ $(\leq n)$ としておきます。
@@ -343,7 +343,7 @@ $$
 $f$ のエピグラフは定義より凸集合で、$(x_0,f(x_0))$ を通る超平面が存在します。また、$x_0$ が相対的内点であることから、その超平面は、$\mathrm{aff}(S)$ に対して垂直ではありません(簡潔に言えば、劣微分の傾きが無限ではないということです)。よって、ある $s \in \mathbb{R}^n$ が存在して、
 
 $$
-f(x) \geq f(x_0) + \langle s, x - x_0 \rangle, \quad (\forall x \in \mathrm{dom} ~ f)
+f(x) \geq f(x_0) + \langle s, x - x_0 \rangle. \quad (\forall x \in \mathrm{dom} ~ f)
 $$
 
 特に、コーシーシュワルツの不等式より、
@@ -354,14 +354,14 @@ $$
 
 となるので $m \coloneqq f(x_0) - 2\delta \lVert s \rVert$ とすれば、$f(x) \geq m$ が成立します。
 
-よって、確かにリプシッツ連続性を保証する $\delta$ が存在することが分かりました。
+よって、確かに局所的な有界性が成立します。
 
 ---
 
 続いて、一般の凸関数に対する次の主張を示します (Chapter B, Lemma 3.1.1 [^Hiriart-Urruty])。ある $x_0 \in \mathbb{R}^n$, $\delta>0$ および $m, M \in \mathbb{R}$ が存在して、
 
 $$
-m \leq f(x) \leq M \quad \forall x \in B(x_0, 2\delta)
+m \leq f(x) \leq M \quad (\forall x \in B(x_0, 2\delta))
 $$
 
 を満たすとします。このとき、$f$ は $B(x_0, \delta)$ で[リプシッツ連続](https://en.wikipedia.org/wiki/Lipschitz_continuity)である、つまり、ある $L > 0$ が存在して、
@@ -442,7 +442,7 @@ $$
 
 ![psi3](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/f8b9da52-a639-1ccb-afe1-dc978a30ac8b.png)
 
-（なお、本記事では省略しますが真凸関数かつ閉凸関数であることの必要十分条件は、それが下半連続である[^closedConvex]ことです）
+（なお、本記事では省略しますが真凸関数に対し、閉凸関数であることの必要十分条件は、それが下半連続である[^closedConvex]ことです）
 
 ### 「閉凸関数は下半連続である」の証明
 
