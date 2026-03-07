@@ -240,12 +240,17 @@ pseudo | UK sjuː.dəʊ- | US suː.doʊ- | [link](https://dictionary.cambridge.o
 
 pseudo-inverse: 一般化逆行列 (Moore–Penrose inverse とも)
 
+具体的には、行列 $A$ の特異値分解
 $$
-A=U\Sigma V^\top \implies A^+ = V \Sigma^+ U^\top
+A=U\Sigma V^\top
 $$
-where
+に対して、
 $$
-\Sigma^+ = \mathrm{diag}(\sigma_1^{-1}, \sigma_2^{-1}, \ldots, \sigma_r^{-1}, 0, \ldots, 0)
+A^+ = V \Sigma^+ U^\top
+$$
+がpseudo-inverseである。ただし、対角行列 $\Sigma$ の対角成分 $\sigma_1, \sigma_2, \ldots, \sigma_r$ に対して、
+$$
+\Sigma^+ = \mathrm{diag}(\sigma_1^{-1}, \sigma_2^{-1}, \ldots, \sigma_r^{-1}, 0, \ldots, 0).
 $$
 
 参考: [高校数学の美しい物語](https://manabitimes.jp/math/2746)
@@ -310,6 +315,8 @@ tensor | UK ˈten.sər | US ˈten.sɚ | [link](https://dictionary.cambridge.org/
 行列の一般化であり、[テンソル積](https://ja.wikipedia.org/wiki/%E3%83%86%E3%83%B3%E3%82%BD%E3%83%AB%E7%A9%8D)や[普遍性](https://manabitimes.jp/math/1845)によって定義される。
 
 #### succeed
+
+succeed | UK səkˈsiːd | US səkˈsiːd | [link](https://dictionary.cambridge.org/dictionary/english/succeed)
 
 LaTeXで'\succ'と書く$\succ$について、発音する際はsucceedなどと省略せず発音した方が良いという話を目にしました。
 
@@ -383,7 +390,7 @@ Poisson distribution: ポアソン分布 $P(X = k) = \frac{\lambda^k e^{-\lambda
 
 Gaussian | UK ˈɡaʊ.si.ən dɪs.trɪˌbjuː.ʃən | US ˈɡaʊ.si.ən dɪs.trɪˌbjuː.ʃən | [link](https://dictionary.cambridge.org/dictionary/english/Gaussian)
 
-ガウシアンに近い発音。日本人ならば大抵は正解の発音をしていると思います。
+ガウシアンに近い発音。日本人ならば大抵は辞書通りの発音をしていると思います。
 
 外国籍の方がゴーシアンやゴッシャンに近い発音をされるのを聞いたことがあり、そういう訛りもあるのだと知らないと推測がかなり難しいです。
 
@@ -541,6 +548,23 @@ $$
 ## 難単語
 
 ### 一般
+
+#### 数字
+
+案外引っ掛かりやすいのが数字のスペルです。
+
+> イギリスに留学していた時、数学の研究をしていた韓国人の女性に告白されたことがある。といっても恋愛の話ではない。彼女曰く「私はこの世に生まれて二十数年、海外暮らしが長く英語はバイリンガルに近い。しかも数学をやっている院生なわけだが、今、はじめて「40」のスペリングがfourtyではなくfortyであることを知った」とのこと。たしかに驚くべきだ。よく今まで無事だったものだと思った。その後二人でしばし、「やばいスペリング・チェック」を行った。accommodationとか。scissorsとか。「nintyは大丈夫か?」と言ったけど、これにはひっかからなかった。
+
+(阿部公彦 ABE Masahiko氏の[ツイート](https://x.com/jumping5555/status/1995858520428966064)より)
+
+正しくは、
+
+* 4: four
+* 40: forty
+* 9: nine
+* 90: ninety
+
+です。
 
 #### contraposition
 
