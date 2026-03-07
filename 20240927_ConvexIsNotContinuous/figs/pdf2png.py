@@ -1,5 +1,6 @@
 import glob
 import os
+
 import fitz
 
 
@@ -12,7 +13,7 @@ def pdf2png(pdf_file):
 
 def main():
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
-    for pdf_file in glob.glob("*/*.pdf"):
+    for pdf_file in glob.glob("*.pdf"):
         pdf2png(pdf_file)
         print(f"Converted {pdf_file} to png")
 
