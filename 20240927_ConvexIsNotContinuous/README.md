@@ -4,11 +4,11 @@
 
 ![open_interval](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/974d791b-2602-3bee-a2b1-680437cdea8a.png)
 
-一方で、**閉区間**上で定義された凸関数は区間の端点で**連続であるとは限りません**。一般に、凸関数はこのような縁(ふち)で不連続になり得ます。
+一方で、**閉区間**上で定義された凸関数は区間の端点で**連続であるとは限りません**。一般に、凸関数は縁(ふち)で不連続になり得ます。
 
 ![closed_interval](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/265dac7d-f42c-aee4-1313-4a5d4ca3b223.png)
 
-では、このように明らかに値が断絶した、ある意味で自明な不連続関数しかないのかというと、実はそうではなく、**非自明な不連続関数も存在します**。より厳密にいえば、閉凸関数であっても、下図のように不連続な凸関数が構成できます。青点 $(0,0)$ は連続点なように見えますが、赤で示した $(0,0)$ に収束する点列を考えると、不連続点であることが分かります。
+では、上図のように明らかに値が断絶した、ある意味で自明な不連続関数しかないのかというと、実はそうではなく、**非自明な不連続関数も存在します**。より厳密にいえば、閉凸関数であっても、下図のように不連続な凸関数が構成できます。青点 $(0,0)$ は連続点なように見えますが、赤で示した $(0,0)$ に収束する点列を考えると、不連続点であることが分かります。
 
 ![psi3](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/f8b9da52-a639-1ccb-afe1-dc978a30ac8b.png)
 
@@ -106,7 +106,7 @@ $$
 
 | 閉凸 | 閉凸 |
 | :---: | :---: |
-| ![closed_interval_closed_convex](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/122d0d6e-fbaa-ba51-3ba0-e9379121f381.png) | ![closed_interval_inf.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/f8ec86df-b250-be82-319b-fd8a01bbf4dc.png)<br> |
+| ![closed_interval_closed_convex](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/122d0d6e-fbaa-ba51-3ba0-e9379121f381.png) | ![closed_interval_inf.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/288bf339-5452-4b79-9402-4bd1badce3c6.png)<br> |
 
 また、以下は閉凸でない例です。
 
