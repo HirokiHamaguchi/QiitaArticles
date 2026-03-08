@@ -118,23 +118,41 @@
   \draw[->] (-5,-1.7) -- (-5,4.5) node[above] {$f(x)$};
   \draw[domain=-4:3, smooth, thick] plot ({\x}, {\f(\x)});
 
-  % Fill the epigraph area
-  \fill[cA, opacity=0.5] (-4, 4.5) -- plot[domain=-4:3] ({\x}, {\f(\x)}) -- (3, 4.5) -- cycle;
-
-  \draw[very thick, dotted] (3, {\f(3)}) -- (3, 4.5);
-  \draw[thick] (-4, {\f(-4)}) -- (-4, 4.5);
-
   \filldraw (3,{\f(3)}) circle (3pt);
   \filldraw (-4,{\f(-4)}) circle (3pt);
   \filldraw[white] (3,{\f(3)}) circle (2pt);
 
-  \node at (-1,3) {\LARGE $\mathrm{epi}(f)$};
-  \node at (3,2) {\Large $f(x)$};
-
+  % Draw domain
   \draw (-4, -2.5) -- (3, -2.5) node[midway, below] {\LARGE $\mathrm{dom}~f$};
   \filldraw (3, -2.5) circle (3pt);
   \filldraw (-4, -2.5) circle (3pt);
   \filldraw[white] (3, -2.5) circle (2pt);
 
+  % Define three points for convexity illustration
+  \def\xA{-3}
+  \def\xB{2}
+  \def\myalpha{0.35}
+
+  % Calculate xC = lambda*xA + (1-lambda)*xB
+  \pgfmathsetmacro{\xC}{\myalpha*\xA + (1-\myalpha)*\xB}
+  \pgfmathsetmacro{\yLineC}{\myalpha*\f(\xA) + (1-\myalpha)*\f(\xB)}
+
+  % Draw the chord between points A and B
+  \draw[thick, dashed] (\xA, {\f(\xA)}) -- (\xB, {\f(\xB)});
+
+  % draw dashed line from x axis to each point
+  \draw[dashed] (\xA, -1.7) -- (\xA, {\f(\xA)});
+  \draw[dashed] (\xB, -1.7) -- (\xB, {\f(\xB)});
+  \draw[dashed] (\xC, -1.7) -- (\xC, \yLineC);
+
+  % Mark the three points on the function
+  \filldraw (\xA, {\f(\xA)}) circle (3pt);
+  \filldraw (\xB, {\f(\xB)}) circle (3pt);
+  \filldraw[cA] (\xC, \yLineC) circle (3pt) node[cA, above left=8pt] {\large $\alpha f(x) + (1-\alpha)f(y)$};
+  \filldraw[cB] (\xC, {\f(\xC)}) circle (3pt) node[cB, right=10pt] {\large $f(\alpha x + (1-\alpha)y)$};
+
+  % label at x axis
+  \node at (\xA, -2.0) {\Large $x$};
+  \node at (\xB, -2.0) {\Large $y$};
 \end{tikzpicture}
 \end{document}

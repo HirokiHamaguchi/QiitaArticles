@@ -1,7 +1,7 @@
 import glob
 import os
 
-import fitz
+import fitz  # type: ignore
 
 
 def pdf2png(pdf_file):

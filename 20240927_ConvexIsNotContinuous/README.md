@@ -54,6 +54,8 @@ $$
 f(\alpha x + (1 - \alpha) y) \leq \alpha f(x) + (1 - \alpha) f(y).
 $$
 
+![convex_func](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/980b54b3-0bd8-4bb8-8e01-f723fb1a47f6.png)
+
 ### 連続
 
 関数 $f$ が $\mathrm{dom} ~ f$ で連続であることは、任意の $\overline{x} \in \mathrm{dom} ~ f$ において $f$ が連続であることと同値です。
@@ -96,7 +98,7 @@ $$
 \mathrm{epi}\ f = \lbrace (x, t) \in \mathbb{R}^{n+1} \mathrel{\mid} x \in \mathrm{dom} ~ f, ~ f(x) \leq t \rbrace.
 $$
 
-![epi](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/c551751d-3df4-46f9-1d15-4b67e2101075.png)
+![epi](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/c8a62336-4329-40db-be9d-a9929e755a5c.png)
 
 連続性を議論する上で重要な性質が閉凸です。関数 $f$ が閉凸であることは、エピグラフが閉集合であることと同値です（教科書 Definition 3.1.2）。
 
@@ -229,13 +231,15 @@ $$
 
 重要な事として、1変数、つまり、数直線上の凸関数のdomainは、それが凸集合であるという性質上、一つの区間の形以外にありえません。また、$\mathrm{dom} ~ f \neq \emptyset$ であることを仮定しています。
 
-つまり、$x_k \to \overline{x}$ より、$k$ が十分大きい任意の $x_k$ は、高々2つの固定された $\overline{y}_1, \overline{y}_2\in \mathrm{dom} ~ f$ を用いて、
+つまり、$x_k \to \overline{x}$ より、$k$ が十分大きい任意の $x_k$ は、2つの相異なる点 $\overline{y}_1, \overline{y}_2\in \mathrm{dom} ~ f$ を用いて、
 
 $$
 x_k \in \lbrace (1-\alpha_k) \overline{x} + \alpha_k \overline{y}_1, (1-\alpha_k) \overline{x} + \alpha_k \overline{y}_2 \rbrace \quad (\alpha_k \in [0, 1])
 $$
 
-と表せます。例えば以下の図では、赤点が $\lbrace x_k \rbrace$ を示しますが、十分 $\overline{x}$ に近い点は、そのように表せることが分かります。
+と表せます。$\overline{y}_1, \overline{y}_2$ のうちの一方は $\overline{x}$ 自身でも良いことに注意して下さい。開区間で定義された凸関数の連続性を示す場合との最たる違いは、$\overline{x}$ の開近傍が必ずしも $\mathrm{dom}~f$ に含まれない故に、このような近傍を取る操作において、$\overline{y}_1=\overline{x}$ などとせざるを得ない点にあります。
+
+例えば以下の図では、赤点が $\lbrace x_k \rbrace$ を示しますが、十分 $\overline{x}$ に近い点は、そのように表せることが分かります。
 
 ![why_interval_1](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/9f6b27df-fcaf-4518-03ad-ad47c4ed8b39.png)
 
@@ -428,7 +432,7 @@ $$
 が成立することと同値です。下図も参照して下さい。
 
 <!-- ignore -->
-![lower_semi_continuous](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/b11fe54c-a7ae-7843-df80-402b9d6cf6f5.png)
+![lower_semi_continuous](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/e99b5bcf-8699-46d2-8e76-c24a94873b2c.png)
 
 (Wikipedia「[半連続](https://ja.wikipedia.org/wiki/%E4%B8%8B%E5%8D%8A%E9%80%A3%E7%B6%9A)」より引用 / [Mktyscn](https://commons.wikimedia.org/wiki/File:Lower_semi.svg), Public domain, via Wikimedia Commons)
 
