@@ -187,7 +187,7 @@ $$
 \end{cases}
 $$
 
-$\gamma > 0$ において $\psi(\sqrt{\gamma}g,\gamma) = \frac{1}{2} \lVert g \rVert_2^2$ であることを用いると作れます。これは、
+$\gamma > 0$ において $\psi(\sqrt{\gamma}g,\gamma) = \frac{g^2}{2}$ であることを用いると作れます。これは、
 
 $$
 \lim_{k \to \infty} \psi(g_k,\gamma_k) = \beta \neq 0 = \psi(0,0) = \psi(\lim_{k \to \infty} (g_k,\gamma_k))
