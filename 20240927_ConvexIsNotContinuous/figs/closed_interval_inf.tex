@@ -1,3 +1,5 @@
+%!LW recipe=uplatex
+
 \documentclass[dvipdfmx]{standalone}
 
 \usepackage{animate}
@@ -112,7 +114,6 @@
 
 \begin{tikzpicture}
   \def\f(#1){0.2*#1*#1 + 0.6*#1 + 1.5}
-  \draw[fill=white] (4, {\f(4)}) circle (3pt);
 
   \def\g(#1){5/(5+#1)}
 
