@@ -1,54 +1,4 @@
 {
-    "latex-workshop.latex.recipes": [
-        {
-            "name": "pdflatex*2",
-            "tools": [
-                "pdflatex",
-                "pdflatex"
-            ]
-        },
-        {
-            "name": "pdflatex&bibtex",
-            "tools": [
-                "pdflatex",
-                "bibtex",
-                "pdflatex",
-                "pdflatex"
-            ]
-        },
-        {
-            "name": "ptex2pdf*2",
-            "tools": [
-                "ptex2pdf",
-                "ptex2pdf",
-            ]
-        },
-        {
-            "name": "ptex2pdf&pbibtex",
-            "tools": [
-                "ptex2pdf",
-                "pbibtex",
-                "ptex2pdf",
-                "ptex2pdf"
-            ]
-        },
-        {
-            "name": "uplatex",
-            "tools": [
-                "ptex2pdf (uplatex)",
-                "ptex2pdf (uplatex)",
-            ]
-        },
-        {
-            "name": "uplatex&pbibtex",
-            "tools": [
-                "ptex2pdf (uplatex)",
-                "pbibtex (uplatex)",
-                "ptex2pdf (uplatex)",
-                "ptex2pdf (uplatex)"
-            ]
-        },
-    ],
     "latexlint.exceptions": [
         "Accelerated-gradient-based generalized Levenberg--Marquardt method",
         "Jean-Jacques",
@@ -80,6 +30,7 @@
         "asarray",
         "Barzilai",
         "Bauschke",
+        "bibliographystyle",
         "Biopharmaceutical",
         "Borwein",
         "Brunk",
@@ -89,6 +40,7 @@
         "Combettes",
         "dotenv",
         "Elsevier",
+        "eprint",
         "eqcolon",
         "eqqcolon",
         "Extremal",
@@ -99,6 +51,7 @@
         "functionals",
         "gifs",
         "Hiriart",
+        "hyperref",
         "imgs",
         "Kenjiro",
         "Kruskal",
@@ -109,12 +62,17 @@
         "Nocedal",
         "Nonconvex",
         "Nonmetric",
+        "orcidlink",
         "Oron",
+        "pdflatex",
         "pixmap",
         "Psychometrika",
         "Sakam",
         "Sekino",
         "Silverman",
+        "spbasic",
+        "spmpsci",
+        "spphys",
         "stdlib",
         "Sugimoto",
         "uplatex",

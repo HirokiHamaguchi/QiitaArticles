@@ -1,0 +1,31 @@
+%!LW recipe=uplatex
+
+\documentclass[11pt, dvipdfmx]{article}
+
+\usepackage[a6paper, margin=0.5truein]{geometry}
+\usepackage{authblk}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{orcidlink}
+
+\begin{document}
+
+\title{Test}
+
+\author[1]{\orcidlinki{Hiroki Hamaguchi}{0009-0005-7348-1356}}
+\affil[1]{The University of Tokyo, Tokyo, Japan}
+\date{}
+
+\maketitle
+
+\section{Introduction}\label{sec:introduction}
+
+Test Link~\ref{sec:introduction} and test footnote\footnote{\url{https://qiita.com/hari64}}.
+
+\begin{itemize}
+    \item \verb|\orcidlinkf|: \\ \orcidlinkf{0009-0005-7348-1356}
+    \item \verb|\orcidlinkc|: \orcidlinkc{0009-0005-7348-1356}
+    \item \verb|\orcidlinki|: \orcidlinki{Hiroki Hamaguchi}{0009-0005-7348-1356}
+\end{itemize}
+
+\end{document}
