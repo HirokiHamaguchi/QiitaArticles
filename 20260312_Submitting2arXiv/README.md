@@ -4,14 +4,12 @@
 
 私はLaTeXに特段詳しい訳ではないので、記事の一部はその背景等も含めて完全に把握をしている訳ではなく、不完全な情報である可能性もあります。そのような記事を書くのは私としても非常に心苦しいのですが、しかし執筆現在において私の見つけ出せる範囲内にあまり情報がなく、またGoogleのAI要約やChatGPTの回答に誤りが含まれていたため、やむを得ずこのような記事を書きました。
 
-もし何かしら情報をお持ちの方がいらっしゃいましたら、是非ご教授頂けますと幸いです。また、この記事は問題が発生する度に更新する可能性があります。
-
 本記事では、以下の諸問題を扱います:
 
 <!-- no toc -->
 * [orcidlinkのリンク不全](#orcidlinkコマンドがuplatexで反応しない問題)
 * [arXivでのBibTeXエラー](#arxivに投稿する際のbibtexエラー)
-* [arXivでのsubfile認識](#arxivでsubfileが認識されない問題)
+* [arXivでのsubfile誤認識](#arxivでsubfileが認識されない問題)
 * [arXivでのendash使用](#arxivでendashを使う際の注意点)
 
 なお、特にarXivに投稿する際に問題点が生じて本記事をご参照なさっている場合、arXivの公式ページを参照することが一番確実な方法だと思いますので、以下にリンクを載せておきます。本記事はあくまでその補足程度の体験談としてご参照頂ければ幸いです。
@@ -20,7 +18,7 @@ https://info.arxiv.org/help/submit_tex.html
 
 ## orcidlinkコマンドがupLaTeXで反応しない問題
 
-orcidlinkコマンドを使って、ORCIDのアイコンおよびハイパーリンクを作成した時、upLaTeX+dvipdfmxの環境だと、一見正常にコンパイルされているように見えますが、実は機能しない現象があります。本節ではその問題について述べます。執筆時点では本問題に言及している記事を私は見つけられず、この記事執筆の動機となった現象です。
+`\orcidlink`コマンドを使って、ORCIDのアイコンおよびハイパーリンクを作成した時、upLaTeX+dvipdfmxの環境だと、一見正常にコンパイルされているように見えますが、実は機能しない現象があります。本節ではその問題について述べます。執筆時点では本問題に言及している記事を私は見つけられず、この記事執筆の動機となった現象です。
 
 ### 背景
 
@@ -42,38 +40,6 @@ https://ctan.org/pkg/orcidlink
 ### 動作例
 
 このorcidlink packageは、環境によって不完全な動作をします。以下に動作例を載せます。TeX Live 2025を使用しています。
-
-#### pdfLaTeX
-
-pdfLaTeXは、PDFを直接出力するLaTeXのエンジンの一つで、特に非日本語圏では主流になっているとの言説もみかけます。デフォルトでは日本語を扱うことは出来ませんが、`\orcidlink`コマンドは正常に機能します。
-
-https://ctan.org/pkg/pdftex?lang=en
-
-![test_pdflatex](test_pdflatex.png)
-
-(`pdflatex` でコンパイルした場合。ORCIDアイコンは正しく描画され、全てのリンクが機能する。)
-
-<details><summary>pdfLaTeXのコード</summary>
-
-<!-- PROGRAM_INSERTION: test_pdflatex.tex -->
-
-</details>
-
-#### luaLaTeX
-
-luaLaTeXは、Luaというプログラミング言語を組み込んだLaTeXのエンジンの一つで、近年は特に日本語を扱う際に使われることが増えてきています。こちらも`\orcidlink`コマンドは正常に機能します。
-
-https://www.luatex.org/
-
-![test_lualatex](test_lualatex.png)
-
-(`lualatex` でコンパイルした場合。ORCIDアイコンは正しく描画され、全てのリンクが機能する。)
-
-<details><summary>luaLaTeXのコード</summary>
-
-<!-- PROGRAM_INSERTION: test_lualatex.tex -->
-
-</details>
 
 #### upLaTeX
 
@@ -121,9 +87,41 @@ https://ctan.org/pkg/dvipdfmx
 
 画像の通り、upLaTeX+dvipdfmxの環境では、ORCIDアイコンは描画され、通常の `hyperref` のリンクも機能しますが、ORCIDのリンクだけは反応しないという現象が起きます。このように、特にupLaTeX+dvipdfmxの場合に、**かなり気付きにくい形でorcidlinkは壊れることがあります**。また、先ほどと同様、VS Code上では警告が出ないことがあります。
 
+#### pdfLaTeX
+
+pdfLaTeXは、PDFを直接出力するLaTeXのエンジンの一つで、特に非日本語圏では主流になっているとの言説もみかけます。デフォルトでは日本語を扱うことは出来ませんが、`\orcidlink`コマンドは正常に機能します。
+
+https://ctan.org/pkg/pdftex?lang=en
+
+![test_pdflatex](test_pdflatex.png)
+
+(`pdflatex` でコンパイルした場合。ORCIDアイコンは正しく描画され、全てのリンクが機能する。)
+
+<details><summary>pdfLaTeXのコード</summary>
+
+<!-- PROGRAM_INSERTION: test_pdflatex.tex -->
+
+</details>
+
+#### luaLaTeX
+
+luaLaTeXは、Luaというプログラミング言語を組み込んだLaTeXのエンジンの一つで、近年は特に日本語を扱う際に使われることが増えてきています。こちらも`\orcidlink`コマンドは正常に機能します。
+
+https://www.luatex.org/
+
+![test_lualatex](test_lualatex.png)
+
+(`lualatex` でコンパイルした場合。ORCIDアイコンは正しく描画され、全てのリンクが機能する。)
+
+<details><summary>luaLaTeXのコード</summary>
+
+<!-- PROGRAM_INSERTION: test_lualatex.tex -->
+
+</details>
+
 ### 原因の考察
 
-upLaTeX+dvipdfmxの環境で、何故orcidlinkのリンクだけが反応しないのか、以下に考察を述べます。
+upLaTeX+dvipdfmxの環境で、何故`\orcidlink`のリンクだけが反応しないのか、以下に考察を述べます。
 
 [orcidlink package](https://ctan.org/pkg/orcidlink)の[GitHubにある実装](https://github.com/duetosymmetry/orcidlink-LaTeX-command/blob/master/orcidlink.sty)を見ると、内部でhyperrefコマンドを使っています。以下がその実装の引用です。
 
@@ -197,14 +195,13 @@ https://tex.stackexchange.com/questions/563279/using-hyperref-with-includegraphi
 
 以下に、この問題に対する暫定的な解決策を述べます。
 
-#### 解決策0: そもそもorcidlinkを使わない
+#### 解決策0: そもそもORCIDを使わない
 
-研究室の助教さんと雑談していたら、そもそもorcidlinkを使わなくていいのでは、と言われました。
+研究室の助教さんと雑談していたら、そもそもORCIDを載せなくてよいのでは、と言われました。
 
 その通りな気もします。
 
-実際、直近のarXivの論文を見ていると、Physicsの論文では大体15%程度、Mathの論文では大体5%程度の論文がorcidlinkを使っているように見えます。
-出版社側から指定されている訳でもなければ、そもそも使わないという選択肢も十分にあり得ると思います。
+実際、直近のarXivの論文を見ていると、Physicsの論文では大体15%程度、Mathの論文では大体5%程度の論文が`\orcidlink`を使ってORCIDを表示しているように見えます。出版社側から指定されている訳でもなければ、そもそも使わないという選択肢も十分にあり得ると思います。
 
 ただ、個人的にはgmailよりも追跡性が高い識別子であるORCIDは良い取り組みだなと思っていたので、出来れば使いたいと思っており、このような記事を書いている次第です。
 
@@ -228,14 +225,13 @@ https://tex.stackexchange.com/questions/563279/using-hyperref-with-includegraphi
 
 画像自体にはリンクが機能しないままですが、ほぼ同様の機能を実現できます。
 
-以上がorcidlinkのリンクがupLaTeX+dvipdfmxの環境で反応しない問題についての考察と暫定的な解決策になります。
+以上が`\orcidlink`のリンクがupLaTeX+dvipdfmxの環境で反応しない問題についての考察と暫定的な解決策になります。
 
 ## arXivに投稿する際のBibTeXエラー
 
 続いて、arXivに投稿する際のBibTeXエラーについて述べます。
 
-Overleafのsubmit機能を使うと良いことが知られています。
-一般的には、この機能で出力されるbblファイルを含めて、arXivにアップロードすれば、問題なく処理されるはずです。
+この問題については、一般にOverleafのsubmit機能を使うと良いことが知られています。この機能で出力されるbblファイルを含めて、arXivにアップロードすれば、通常は問題なく処理されるはずです。ローカルでも、同様にbblファイルを生成して、それを含めてアップロードすれば、同様に問題なく処理されるはずです。
 
 しかし、完全にbblファイルやbibファイルがない状態でOverleaf上でコンパイルが通るとしても、次のようなエラーが出てくることがあります。
 
