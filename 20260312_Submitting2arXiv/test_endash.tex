@@ -1,0 +1,27 @@
+%!LW recipe=pdflatex
+
+\documentclass[11pt]{article}
+
+\usepackage[a6paper, margin=0.5truein]{geometry}
+\usepackage{authblk}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{orcidlink}
+\usepackage{xcolor}
+
+\begin{document}
+
+\title{Test}
+
+\author{Hiroki Hamaguchi}
+\date{}
+
+\maketitle
+
+double hyphen (\verb|--|): Cauchy--Schwarz.
+
+direct endash (–): Cauchy–Schwarz.
+
+\verb|$\unicode{x2013}$|: \textcolor{red}{Compile Error}
+
+\end{document}

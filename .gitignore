@@ -5,6 +5,10 @@ node_modules
 *.synctex.gz
 *.txt
 *.blend
+*.log
+*.aux
+*.out
+*.toc
 
 */secret
 */Qiita.md

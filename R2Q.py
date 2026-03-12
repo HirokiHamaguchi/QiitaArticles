@@ -160,6 +160,7 @@ def process_lines(lines, links, target_dir):
                 )
             res.append(line)
         elif line.strip() == "<!-- ignore -->":
+            print("!")
             nextIgnore = True
         else:
             res.append(line)

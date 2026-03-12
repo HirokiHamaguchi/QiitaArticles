@@ -1,21 +1,35 @@
 import glob
 import os
 
-import fitz  # type: ignore
+from PIL import Image
 
-
-def pdf2png(pdf_file):
-    doc = fitz.open(pdf_file)
-    page = doc.load_page(0)
-    pixmap = page.get_pixmap(dpi=300)
-    pixmap.save(pdf_file.replace(".pdf", ".png"), "png")
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 
 def main():
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
-    for pdf_file in glob.glob("*.pdf"):
-        pdf2png(pdf_file)
-        print(f"Converted {pdf_file} to png")
+    # Get all PNG files starting with _test
+    png_files = glob.glob("_test*.png")
+
+    for png_file in png_files:
+        # Open the image
+        img = Image.open(png_file)
+        width, height = img.size
+
+        # Calculate crop boundaries (top, left, right, bottom)
+        top = int(height * 0.13)
+        left = int(width * 0.25)
+        right = int(width * (1 - 0.21))
+        bottom = int(height * (1 - 0.03))
+
+        # Crop the image
+        cropped_img = img.crop((left, top, right, bottom))
+
+        # Generate output filename (remove leading underscore)
+        output_filename = png_file[1:]
+
+        # Save the cropped image
+        cropped_img.save(output_filename)
+        print(f"Saved: {output_filename}")
 
 
 if __name__ == "__main__":
