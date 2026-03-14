@@ -11,6 +11,7 @@ import pyperclip  # type: ignore
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 OUTPUT_DIR = SCRIPT_DIR / "failed_examples"
+PNG_WIDTH = 1024
 
 
 @dataclass
@@ -191,7 +192,9 @@ def annotate_and_convert_pdf_to_png(pdf_file: Path) -> Path | None:
             shape.commit()
             shape = page.new_shape()  # reset for next rect
 
-    zoom = 2.0
+    page_width = page.rect.width
+    assert page_width > 0, "Page width must be positive"
+    zoom = PNG_WIDTH / page_width
     mat = fitz.Matrix(zoom, zoom)
     pix = page.get_pixmap(matrix=mat)
     output_png = pdf_file.with_suffix(".png")
@@ -216,7 +219,16 @@ def build_markdown_table(caption: str, png_files: List[Path]) -> str:
 
     header_row = "| " + " | ".join(headers) + " |"
     align_row = "| " + " | ".join([":---:"] * len(headers)) + " |"
-    image_row = "| " + " | ".join([f"![]({rel_path})" for rel_path in rel_paths]) + " |"
+    image_row = (
+        "| "
+        + " | ".join(
+            [
+                f"![{rel_path.replace('failed_examples/', '').replace('.png', '')}]({rel_path})"
+                for rel_path in rel_paths
+            ]
+        )
+        + " |"
+    )
     return "\n".join(
         [
             f"Table: {caption}",

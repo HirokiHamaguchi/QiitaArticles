@@ -52,15 +52,15 @@ Table: Raw engine outputs
 
 | latexmk pdflatex | lualatex | pdflatex | xelatex | xelatex xdvipdfmx |
 | :---: | :---: | :---: | :---: | :---: |
-| ![](failed_examples/failed_examples_raw__latexmk_pdflatex.png) | ![](failed_examples/failed_examples_raw__lualatex.png) | ![](failed_examples/failed_examples_raw__pdflatex.png) | ![](failed_examples/failed_examples_raw__xelatex.png) | ![](failed_examples/failed_examples_raw__xelatex_xdvipdfmx.png) |
+| ![failed_examples_raw__latexmk_pdflatex](failed_examples/failed_examples_raw__latexmk_pdflatex.png) | ![failed_examples_raw__lualatex](failed_examples/failed_examples_raw__lualatex.png) | ![failed_examples_raw__pdflatex](failed_examples/failed_examples_raw__pdflatex.png) | ![failed_examples_raw__xelatex](failed_examples/failed_examples_raw__xelatex.png) | ![failed_examples_raw__xelatex_xdvipdfmx](failed_examples/failed_examples_raw__xelatex_xdvipdfmx.png) |
 
 Table: DVI-to-PDF workflow outputs
 
 | platex dvipdfmx | ptex2pdf platex | ptex2pdf uplatex | uplatex dvipdfmx |
 | :---: | :---: | :---: | :---: |
-| ![](failed_examples/failed_examples_dvipdfmx__platex_dvipdfmx.png) | ![](failed_examples/failed_examples_dvipdfmx__ptex2pdf_platex.png) | ![](failed_examples/failed_examples_dvipdfmx__ptex2pdf_uplatex.png) | ![](failed_examples/failed_examples_dvipdfmx__uplatex_dvipdfmx.png) |
+| ![failed_examples_dvipdfmx__platex_dvipdfmx](failed_examples/failed_examples_dvipdfmx__platex_dvipdfmx.png) | ![failed_examples_dvipdfmx__ptex2pdf_platex](failed_examples/failed_examples_dvipdfmx__ptex2pdf_platex.png) | ![failed_examples_dvipdfmx__ptex2pdf_uplatex](failed_examples/failed_examples_dvipdfmx__ptex2pdf_uplatex.png) | ![failed_examples_dvipdfmx__uplatex_dvipdfmx](failed_examples/failed_examples_dvipdfmx__uplatex_dvipdfmx.png) |
 
-この結果の生成方法は、[私のGitHubリポジトリ](https://github.com/hiroki-hamaguchi/20260313_orcidlink)で確認できます。
+この結果の生成方法は、[私のGitHubリポジトリ](https://github.com/HirokiHamaguchi/QiitaArticles/tree/main/20260313_orcidlink)で確認できます。
 
 この結果から、確かにdvipdfmxなどでコンパイルした場合は、\XeTeXLinkBoxコマンドだけでは、対応できていない例があることがわかります。
 
