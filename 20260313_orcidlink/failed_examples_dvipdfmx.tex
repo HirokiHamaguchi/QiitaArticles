@@ -1,0 +1,67 @@
+% !LW recipe=uplatex
+
+\documentclass[11pt,dvipdfmx]{article}
+
+\usepackage[a5paper, margin=0.5truein]{geometry}
+\usepackage{authblk}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{orcidlink}
+\usepackage{hello}
+\usepackage{tikz}
+
+% TikZ
+\usetikzlibrary{external}
+
+\begin{document}
+
+\title{Test}
+
+\author[1]{Hiroki Hamaguchi\,\orcidlink{0009-0005-7348-1356}}
+\affil[1]{The University of Tokyo, Tokyo, Japan}
+\date{}
+
+\maketitle
+
+Current workflow: \myWorkflowName{.}
+
+\section{Test Section}\label{sec:test_section}
+
+Test link~\ref{sec:test_section} and test footnote\footnote{\url{https://hirokihamaguchi.github.io/}}.\\
+
+\begin{itemize}
+    \item \href{https://hirokihamaguchi.github.io/}{test link}.
+    \item With text: \href{https://hirokihamaguchi.github.io/}{%
+              \begin{tikzpicture}%
+                  \draw[fill=blue!20] (0,0) circle (1);%
+                  \draw[fill=red!40] (-0.7,-0.7) rectangle (0.7,0.7);%
+                  \node at (0,0) {\textbf{TikZ}};%
+              \end{tikzpicture}%
+          }, \quad Without text: \href{https://hirokihamaguchi.github.io/}{%
+              \begin{tikzpicture}%
+                  \draw[fill=blue!20] (0,0) circle (1);%
+                  \draw[fill=red!40] (-0.7,-0.7) rectangle (0.7,0.7);%
+              \end{tikzpicture}%
+          }.
+    \item \verb|\includegraphics|: \href{https://hirokihamaguchi.github.io/}{%
+              \includegraphics[width=3em]{example-image.png}
+          }
+    \item \verb|\line(0,1){10}|: \href{https://hirokihamaguchi.github.io/}{\line(0,1){10}}
+    \item \verb|\line(1,1){10}|: \href{https://hirokihamaguchi.github.io/}{\line(1,1){10}}
+    \item \verb|\vector(1,0){10}|: \href{https://hirokihamaguchi.github.io/}{\vector(1,0){10}}
+    \item \verb|\XeTeXLinkBox|: \href{https://hirokihamaguchi.github.io/}{\XeTeXLinkBox{\line(1,0){10}}}
+    \item \verb|picture (outer \XeTeXLinkBox)|: \href{https://hirokihamaguchi.github.io/}{%
+              \XeTeXLinkBox{%
+                  \begin{picture}(10,10)%
+                      \put(5,10){\line(0,-1){10}}%
+                  \end{picture}%
+              }%
+          }
+    \item \verb|picture (inner \XeTeXLinkBox)|: \href{https://hirokihamaguchi.github.io/}{%
+              \begin{picture}(10,10)%
+                  \put(5,10){\XeTeXLinkBox{\line(0,-1){10}}}%
+              \end{picture}%
+          }
+\end{itemize}
+
+\end{document}

@@ -9,6 +9,7 @@ node_modules
 *.aux
 *.out
 *.toc
+*.dvi
 
 */secret
 */Qiita.md
