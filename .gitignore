@@ -10,6 +10,8 @@ node_modules
 *.out
 *.toc
 *.dvi
+*.fls
+*.fdb_latexmk
 
 */secret
 */Qiita.md

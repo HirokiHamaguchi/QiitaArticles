@@ -1,4 +1,4 @@
-% !LW recipe=uplatex
+% !LW recipe=platex
 
 \documentclass[11pt,dvipdfmx]{article}
 
@@ -7,8 +7,11 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{orcidlink}
-\usepackage{hello}
 \usepackage{tikz}
+\usepackage{mwe}
+
+% our defined package just for printing the current workflow name
+\usepackage{hello}
 
 % TikZ
 \usetikzlibrary{external}
@@ -32,34 +35,54 @@ Test link~\ref{sec:test_section} and test footnote\footnote{\url{https://hirokih
 \begin{itemize}
     \item \href{https://hirokihamaguchi.github.io/}{test link}.
     \item With text: \href{https://hirokihamaguchi.github.io/}{%
-              \begin{tikzpicture}%
+              \begin{tikzpicture}[scale=0.5]%
                   \draw[fill=blue!20] (0,0) circle (1);%
                   \draw[fill=red!40] (-0.7,-0.7) rectangle (0.7,0.7);%
                   \node at (0,0) {\textbf{TikZ}};%
               \end{tikzpicture}%
-          }, \quad Without text: \href{https://hirokihamaguchi.github.io/}{%
-              \begin{tikzpicture}%
+          }, \quad no text: \href{https://hirokihamaguchi.github.io/}{%
+              \begin{tikzpicture}[scale=0.5]%
                   \draw[fill=blue!20] (0,0) circle (1);%
                   \draw[fill=red!40] (-0.7,-0.7) rectangle (0.7,0.7);%
               \end{tikzpicture}%
+          }, \quad with \verb|\XeTeXLinkBox|: \href{https://hirokihamaguchi.github.io/}{%
+              \XeTeXLinkBox{%
+                  \begin{tikzpicture}[scale=0.5]%
+                      \draw[fill=blue!20] (0,0) circle (1);%
+                      \draw[fill=red!40] (-0.7,-0.7) rectangle (0.7,0.7);%
+                  \end{tikzpicture}%
+              }%
           }.
-    \item \verb|\includegraphics|: \href{https://hirokihamaguchi.github.io/}{%
+    \item \verb|\includegraphics (png)|: \href{https://hirokihamaguchi.github.io/}{%
               \includegraphics[width=3em]{example-image.png}
+          }, \quad \verb|(pdf)|: \href{https://hirokihamaguchi.github.io/}{%
+              \includegraphics[width=3em]{example-image.pdf}
           }
-    \item \verb|\line(0,1){10}|: \href{https://hirokihamaguchi.github.io/}{\line(0,1){10}}
-    \item \verb|\line(1,1){10}|: \href{https://hirokihamaguchi.github.io/}{\line(1,1){10}}
+    \item \verb|\line(0,1){10}|: \href{https://hirokihamaguchi.github.io/}{\line(0,1){10}},%
+          \quad \verb|\line(1,0){10}|: \href{https://hirokihamaguchi.github.io/}{\line(1,0){10}},%
+          \quad \verb|\line(1,1){10}|: \href{https://hirokihamaguchi.github.io/}{\line(1,1){10}}
     \item \verb|\vector(1,0){10}|: \href{https://hirokihamaguchi.github.io/}{\vector(1,0){10}}
-    \item \verb|\XeTeXLinkBox|: \href{https://hirokihamaguchi.github.io/}{\XeTeXLinkBox{\line(1,0){10}}}
+    \item \verb|\XeTeXLinkBox|: \href{https://hirokihamaguchi.github.io/}{\XeTeXLinkBox{\line(0,1){10}}}, \quad \href{https://hirokihamaguchi.github.io/}{\XeTeXLinkBox{\line(1,0){10}}}, \quad \href{https://hirokihamaguchi.github.io/}{\XeTeXLinkBox{\line(1,1){10}}}
     \item \verb|picture (outer \XeTeXLinkBox)|: \href{https://hirokihamaguchi.github.io/}{%
               \XeTeXLinkBox{%
                   \begin{picture}(10,10)%
                       \put(5,10){\line(0,-1){10}}%
                   \end{picture}%
               }%
+          }, \quad \href{https://hirokihamaguchi.github.io/}{%
+              \XeTeXLinkBox{%
+                  \begin{picture}(10,10)%
+                      \put(10,5){\line(-1,0){10}}%
+                  \end{picture}%
+              }%
           }
     \item \verb|picture (inner \XeTeXLinkBox)|: \href{https://hirokihamaguchi.github.io/}{%
               \begin{picture}(10,10)%
                   \put(5,10){\XeTeXLinkBox{\line(0,-1){10}}}%
+              \end{picture}%
+          }, \quad \href{https://hirokihamaguchi.github.io/}{%
+              \begin{picture}(10,10)%
+                  \put(10,5){\XeTeXLinkBox{\line(-1,0){10}}}%
               \end{picture}%
           }
 \end{itemize}
