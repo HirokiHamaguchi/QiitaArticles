@@ -1,0 +1,248 @@
+% \iffalse meta-comment
+%% File: hyperref-patches.dtx
+%% Copyright
+%% 1995-2001 Sebastian Rahtz, with portions written by David Carlisle and Heiko Oberdiek,
+%% 2001-2015 Heiko Oberdiek.
+%% 2016-2019 Oberdiek Package Support Group
+%% 2019-2026 LaTeX Project
+%%      https://github.com/latex3/hyperref/issues
+%%
+%% This file is part of the `Hyperref Bundle'.
+%% -------------------------------------------
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%%
+%% The Current Maintainer of this work is the LaTeX Project.
+%%
+%% The list of all files belonging to the `Hyperref Bundle' is
+%% given in the file `manifest.txt'.
+%
+%<*driver>
+\DocumentMetadata{pdfstandard=A-2b}
+\documentclass[full]{l3doc}
+\usepackage{array,booktabs}
+\hypersetup{pdfauthor=The LaTeX Project,pdftitle=hyperref patches}
+\usepackage{caption}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \title{^^A
+%   Old hyperref patches
+% }
+%
+% \author{^^A
+%  The \LaTeX{} Project\thanks
+%    {^^A
+%      E-mail:
+%        \href{mailto:latex-team@latex-project.org}
+%          {latex-team@latex-project.org}^^A
+%    }^^A
+% }
+%
+% \date{Version 2026-01-29 v7.01p}
+%
+% \maketitle
+% \begin{documentation}
+%
+% \section{\pkg{hyperref-patches} documentation}
+%
+% \pkg{hyperref} has included over the years a rather large number of
+% patches and correction for external packages to make them compatible with
+% hyperlinks.
+%
+% Some of these patches are now (mostly) unnecessary, either because the external
+% package is no longer used or because the package was fixed or extended to
+% supports hyperlinks.
+%
+% This small package contains patches where it is not sure if they can be removed
+% completely so that if needed that can be added manually, either by loading
+% this package or by copying the code.
+%
+% By default all patches are loaded, a patch can be disabled with a package option.
+% Currently the following options are available:
+% \texttt{nofoiltex}, \texttt{nolisting}, \texttt{nolistings}, \texttt{norevtex}.
+%
+% \end{documentation}
+%
+% \begin{implementation}
+%
+% \section{\pkg{hyperref-patches} documentation}
+%
+%    \begin{macrocode}
+%<*package>
+\ProvidesPackage{hyperref-patches}[2021-06-29 v0.9 old hyperref patches]
+%    \end{macrocode}
+% \section{Package options to disable patches}
+%
+%    \begin{macrocode}
+\newif\ifHy@patches@foiltex
+\Hy@patches@foiltextrue
+\DeclareOption{nofoiltex}{\Hy@patches@foiltexfalse}
+\newif\ifHy@patches@listing
+\Hy@patches@listingtrue
+\DeclareOption{nolisting}{\Hy@patches@listingfalse}
+\newif\ifHy@patches@listings
+\Hy@patches@listingstrue
+\DeclareOption{nolistings}{\Hy@patches@listingsfalse}
+\newif\ifHy@patches@revtex
+\Hy@patches@revtextrue
+\DeclareOption{norevtex}{\Hy@patches@revtexfalse}
+\ProcessOptions
+%    \end{macrocode}
+% \section{Compatibility with foiltex}
+% --Moved 2021-06-30--
+%
+% foils.cls redefine figure, table and caption as it doesn't want them to float
+% and also thinks that list of figures and tables are unnecessary. This
+% means that \cs{ext@table} and \cs{ext@figure} are missing too which
+% are needed by the definitions of hyperref.
+%
+% foiltex is not part of the standard tex systems and hasn't been update the last
+% time in 2008. So the patch is removed from hyperref.
+%
+% --End of move comment--
+%
+%    \begin{macrocode}
+\ifHy@patches@foiltex
+\@ifclassloaded{foils}{%
+  \providecommand*\ext@table{lot}%
+  \providecommand*\ext@figure{lof}%
+}{}
+\fi
+%    \end{macrocode}
+% \section{listing}
+% --Moved 2021-06-30--
+%
+% This provide two commands for the listing package which is from 1999.
+% Probably unneeded anyway, as this are the defaults, at best they prevent some warnings.
+%
+% --End of move comment--
+%    \begin{macrocode}
+\ifHy@patches@listing
+\@ifpackageloaded{listing}{%
+  \providecommand*\theHlisting{\thelisting}%
+  \providecommand*\toclevel@listing{0}%
+}{}
+\fi
+%    \end{macrocode}
+%
+% \section{listings}
+% --Moved 2021-06-30--
+%
+% This provide two commands for the listing package which is from 1999.
+% Probably unneeded anyway, as this are the defaults, at best they prevent some warnings.
+%
+% --End of move comment--
+%    \begin{macrocode}
+\ifHy@patches@listings
+\@ifpackageloaded{listings}{%
+  \providecommand*\theHlstlisting{\thelstlisting}%
+  \providecommand*\toclevel@lstlisting{0}%
+}{}
+\fi
+%    \end{macrocode}
+%
+% \section{revtex}
+%
+% --Moved 2021-09-02--
+% revtex.cls is obsolete and it is no installed in texlive and miktex so the patch for it
+% has been removed from hyperref.
+% --End of move comment--
+%
+% Revtex (bless its little heart) takes over |\bibcite| and looks
+% at the result to measure something. Make this a hypertext link
+% and it goes ape. Therefore, make an anodyne result first, call
+% its business, then go back to the real thing.
+%    \begin{macrocode}
+\ifHy@patches@revtex
+\@ifclassloaded{revtex}{%
+  \Hy@Info{*** compatibility with revtex **** }%
+  \def\revtex@checking#1#2{%
+    \expandafter\let\expandafter\T@temp\csname b@#1\endcsname
+    \expandafter\def\csname b@#1\endcsname{#2}%
+    \@SetMaxRnhefLabel{#1}%
+    \expandafter\let\csname b@#1\endcsname\T@temp
+  }%
+%    \end{macrocode}
+% Tanmoy provided this replacement for CITEX. Lord knows what it does.
+% For chapterbib added: \@extra@b@citeb
+%    \begin{macrocode}
+  \@ifundefined{@CITE}{\def\@CITE{\@cite}}{}%
+  \providecommand*{\@extra@b@citeb}{}%
+  \def\@CITEX[#1]#2{%
+    \let\@citea\@empty
+    \leavevmode
+    \unskip
+    $^{%
+      \scriptstyle
+      \@CITE{%
+        \@for\@citeb:=#2\do{%
+          \@citea
+          \def\@citea{,\penalty\@m\ }%
+          \edef\@citeb{\expandafter\@firstofone\@citeb}%
+          \if@filesw
+            \immediate\write\@auxout{\string\citation{\@citeb}}%
+          \fi
+          \@ifundefined{b@\@citeb\extra@b@citeb}{%
+            \mbox{\reset@font\bfseries ?}%
+            \G@refundefinedtrue
+            \@latex@warning{%
+              Citation `\@citeb' on page \thepage \space undefined%
+            }%
+          }{%
+            {\csname b@\@citeb\@extra@b@citeb\endcsname}%
+          }%
+        }%
+      }{#1}%
+    }$%
+  }%
+%    \end{macrocode}
+% No, life is too short. I am not going to understand the
+% Revtex |\@collapse| macro, I shall
+% just restore the original behaviour of |\@citex|;
+% sigh. This is SO vile.
+%    \begin{macrocode}
+  \def\@citex[#1]#2{%
+    \let\@citea\@empty
+    \@cite{%
+      \@for\@citeb:=#2\do{%
+        \@citea
+        \def\@citea{,\penalty\@m\ }%
+        \edef\@citeb{\expandafter\@firstofone\@citeb}%
+        \if@filesw
+          \immediate\write\@auxout{\string\citation{\@citeb}}%
+        \fi
+        \@ifundefined{b@\@citeb\@extra@b@citeb}{%
+          \mbox{\reset@font\bfseries ?}%
+          \G@refundefinedtrue
+          \@latex@warning{%
+            Citation `\@citeb' on page \thepage \space undefined%
+          }%
+        }{%
+          \hbox{\csname b@\@citeb\@extra@b@citeb\endcsname}%
+        }%
+      }%
+    }{#1}%
+  }%
+}{}
+\fi
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</package>
+%    \end{macrocode}
+%
+% \end{implementation}
+%
+% \PrintIndex

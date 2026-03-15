@@ -1,0 +1,13 @@
+build
+hyperref-ctan.zip
+hyperref.tds.zip
+*.pdf
+*.html
+*.css
+*.log
+*.aux
+*.glo
+*.hd
+*.out
+*.synctex
+*.idx

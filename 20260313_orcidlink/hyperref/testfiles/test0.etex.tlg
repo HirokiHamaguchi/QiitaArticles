@@ -1,0 +1,31 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+(test0.toc)
+\tf@toc=\write...
+[1
+] [2] [3]
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line ....
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leq' on input line ....
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line ....
+Package hyperref Warning: Difference (2) between bookmark levels is greater
+(hyperref)                than one, level fixed on input line ....
+Package hyperref Warning: Difference (2) between bookmark levels is greater
+(hyperref)                than one, level fixed on input line ....
+File: hog.eps Graphic file (type eps)
+<hog.eps>
+File: hog.eps Graphic file (type eps)
+ <hog.eps>
+File: hog.eps Graphic file (type eps)
+ <hog.eps> [4]
+File: hog.eps Graphic file (type eps)
+ <hog.eps>
+File: hog.eps Graphic file (type eps)
+ <hog.eps> (test0.ind [5] [6
+])
+enddocument/afterlastpage (AED): lastpage setting LastPage.
+(test0.aux)
+Package rerunfilecheck Info: File `test0.out' has not changed.
+(rerunfilecheck)             Checksum: 7D09406EE5B5159223610243735F368A;1485.
