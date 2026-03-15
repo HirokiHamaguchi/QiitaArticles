@@ -1,215 +1,195 @@
-# orcidlinkがuplatexでリンク不全になる問題とその対処法
+# TBD
 
-`\orcidlink`コマンドを使って、ORCIDのアイコンおよびハイパーリンクを作成した時、upLaTeX+dvipdfmxの環境だと、一見正常にコンパイルされているように見えますが、実は機能しない現象があります。本記事ではその問題について述べます。
+For hyperref package developers.
 
-## 背景
+Hello, I am Hiroki Hamaguchi from Japan, and I sincerely appreciate the efforts of the hyperref package developers.
 
-ORCIDは研究者の識別子の一つで、論文などにORCIDを記載することが推奨されることがあります。例えばarXivもアカウントとORCIDの連携を推奨しています。
+I am making this Pull Request (PR) to fix and improve the situation about the `\XeTeXLinkBox` command.
 
-> ORCID® iDs are unique researcher identifiers designed to provide a transparent method for linking researchers and contributors to their activities and outputs. (…… 中略 ……) It will help with the ongoing challenge of distinguishing your research activities from those of others with similar names.
-> We encourage all arXiv authors to link their ORCID iD with arXiv.
->
-> (ORCID® iDは、研究者や貢献者をその活動や成果に透明な方法で結びつけるために設計された一意の識別子です。(…… 中略 ……)名前が似ている他の人の研究活動と区別するという継続的な課題に役立ちます。我々はすべてのarXiv著者がORCID iDをarXivにリンクすることを奨励します。)
+## Summary
 
-([arXiv公式ページ](https://info.arxiv.org/help/orcid.html)より。最終閲覧日: 2026年3月12日。翻訳、抜粋は筆者による。)
+* `\XeTeXLinkBox`コマンドでは対応しきれていない、画像などに対するhyperlinkの生成に関する問題を修正したい
+* このコマンドを一般向けに実装した新しいコマンド`\HyperrefLinkBox`を定義し、後方互換性を保ちつつ問題が修正できるようにした
+* この変更は、orcidlink packageをはじめとする多くのユーザーに影響があると考えており、reviewをお願いしたい
 
-特に、orcidlink packageは、ORCIDのアイコンとハイパーリンクを簡単に作成できる便利なパッケージで、近年は利用されている論文も増えているように思っています。
+## Background
 
-https://ctan.org/pkg/orcidlink
+始めに、今回のPRの背景について、私の認識している範囲で説明します。
 
-![orcidlink_package](orcidlink_package.png)
+### XeTexLinkBox Command
 
-## 動作例
+hyperrefには、`\XeTeXLinkBox`というコマンドが存在しており、これは以下のように説明されています。
 
-このorcidlink packageは、環境によって不完全な動作をします。以下に動作例を載せます。TeX Live 2025を使用しています。
+> 7.7 \XeTeXLinkBoxWhen
+> When XeTeX generates a link annotation, it does not look at the boxes (as the other drivers), but only at the character glyphs. If there are no glyphs (images, rules, ...), then it does not generate a link annotation. Macro \XeTeXLinkBox puts its argument in a box and adds spaces at the lower left and upper right corners. An additional margin can be specified by setting it to the dimen register \XeTeXLinkMargin. The default is 2pt.
 
-### upLaTeX
+(From [the hyperref manual](https://ctan.tikz.jp/macros/latex/contrib/hyperref/doc/hyperref-doc.html#x1-360007.7), v7.01p (2026-01-29))
 
-upLaTeXは、一昔前の日本語LaTeXにおける主流エンジンの一つで、現在も日本語を扱う際に使われることがあります。本来、dvipdfmxと組み合わせて使うことが推奨されているようですが、誤ってdvipdfmxオプションを付けずにコンパイルしてしまうと、以下のような現象が起きます。
+このコマンドなどは、次の箇所で定義されています:
 
-https://ctan.org/pkg/uplatex
+https://github.com/latex3/hyperref/blob/d2eb2fae09eee648f81659613a37e3e45566e479/hyperref.dtx#L7886
 
-![test_uplatex](test_uplatex.png)
+このコマンドの歴史的な経緯としては、XeTeXでコンパイルする際に、いくつかの対象にリンクが生成されないことから、その対処として使用されてきたものと思われます。dvipdfmxなどのバグと思われますが、未だ修正はされておらず、またhyperref側で比較的簡単に対処できることから、本PRを提出するに至りました。
 
-(`uplatex` でコンパイルし、かつ `documentclass` に `dvipdfmx` オプションを付けていない場合。ORCIDアイコン自体が描画されず、さらに節参照リンクや `\url` も含めて、`hyperref` 由来のリンクが全体的に壊れる。)
+![image_from_hyperlinking-a-drawing](imgs/image_from_hyperlinking-a-drawing.png)
 
-<details><summary>upLaTeXのコード</summary>
+(From [StackExchange](https://tex.stackexchange.com/questions/56802/hyperlinking-a-drawing), last visited 2026-03-14)
 
-<!-- PROGRAM_INSERTION: test_uplatex.tex -->
+### Usage in orcidlink package
 
-</details>
+今回のPRの大きな動機の一つは、orcidlink packageでこのコマンドが使用されており、その影響が大きいと考えられることです。orcidlink packageは、ORCIDのアイコンとハイパーリンクを簡単に作成できる便利なパッケージです。
 
-この場合でも、リンクに枠線などを出していないと、一見正常にコンパイルされているように見えるため、やや気が付きにくいです。特に、VS Code上では警告が出ないことがあります。
+![orcidlink_package](imgs/orcidlink_package.png)
 
-![no_dvipdfmx_no_warning](no_dvipdfmx_no_warning.png)
+(From [CTAN](https://ctan.org/pkg/orcidlink), last visited 2026-03-14)
 
-ただし、以下のような警告文がOUTPUTのLaTeX Compilerのログに出ていることが分かります。これが何故VS CodeのPROBLEMSタブに出ないかは不明です。
+hyperref packageが内部で使われており、近年は特に使用者が多いことからも、重要な応用例の一つであると考えています。
 
-```txt
-dvipdfmx:warning: Unknown token "SDict"
-dvipdfmx:warning: Interpreting PS code failed!!! Output might be broken!!!
-dvipdfmx:warning: Interpreting special command ps: (ps:) failed.
-```
+後述する問題の修正には、当然orcidlink packageの修正も必要になり、私は今後そちらにもPRを送ることを考えていますが、先にhyperref packageの方で修正を行うことが必要であると考えています。
 
-簡単にこの原因を説明すると、driverの不一致が原因でこのような警告が出ています。尤も、pdfなどの画像を含めていると、明示的にエラーが出るという点では、やや気が付きやすいです。
+## Existing Problems
 
-### upLaTeX + dvipdfmx
+続いて、本節では、現在の問題点について説明します。
 
-正しくdvipdfmxオプションを付けてコンパイルした場合、以下のような現象が起きます。
+先ほど述べたリンクが生成されない問題は、XeTeX以外のドライバでコンパイルする際にも発生します。そして、`\XeTeXLinkBox`コマンドでは、XeTeX以外のドライバでコンパイルする際の問題に対応できていません。
 
-https://ctan.org/pkg/dvipdfmx
+恐らく、8年前からコミュニティでは認識されている問題ではないでしょうか?
 
-![test_uplatex_dvipdfmx](test_uplatex_dvipdfmx.png)
+https://github.com/latex3/hyperref/blame/d2eb2fae09eee648f81659613a37e3e45566e479/README.md#L127
 
-(`uplatex` でコンパイルし、かつ `documentclass` に `dvipdfmx` オプションを付けた場合。ORCIDアイコンは描画され、通常の `hyperref` のリンクも機能するが、**ORCIDのリンクだけは反応しない**。)
+また、こちらのissueでも、同様の議論がされているように思われます。
 
-<details><summary>upLaTeX + dvipdfmxのコード</summary>
+https://github.com/latex3/hyperref/issues/16
 
-<!-- PROGRAM_INSERTION: test_uplatex_dvipdfmx.tex -->
+特に、pLaTeXでコンパイルする場合については、例えば以下の記事で言及があります。
 
-</details>
+https://tex.stackexchange.com/questions/559136/why-is-the-link-area-in-the-image-so-small
 
-画像の通り、upLaTeX+dvipdfmxの環境では、ORCIDアイコンは描画され、通常の `hyperref` のリンクも機能しますが、`\orcidlink`のリンクだけは反応しないという現象が起きます。このように、特にupLaTeX+dvipdfmxの場合に、**かなり気付きにくい形でorcidlinkは壊れることがあります**。また、先ほどと同様、VS Code上では警告が出ないことがあります。
+これらと同様の問題は、upLaTeXなど、dvipdfmx系だと発生します。以下に実行例を示します。Pythonによって、リンクが存在する部分には赤や青の枠で強調表示しています。pdflatexやlualatexなど、pdfTeX系のエンジンでコンパイルした場合は、リンクが生成されていることがわかります。一方で、dvipdfmx系のエンジンでコンパイルした場合は、画像に対するリンクが一部生成されていないことがわかります。全て最新のTeX Live 2026で確認しています。
 
-### pdfLaTeX
+特に、orcidlink packageによる、ORCIDアイコンへのリンクが生成されていないことが分かります。これは単なる重箱の隅をつつくような問題ではなく、実際に多くのユーザーが遭遇する可能性のある問題であると考えています。
 
-pdfLaTeXは、PDFを直接出力するLaTeXのエンジンの一つで、特に非日本語圏では主流になっているとの言説もみかけます。デフォルトでは日本語を扱うことは出来ませんが、`\orcidlink`コマンドは正常に機能します。
+Table: Raw engine outputs
 
-https://ctan.org/pkg/pdftex?lang=en
+| latexmk pdflatex | lualatex | pdflatex | xelatex | xelatex xdvipdfmx |
+| :---: | :---: | :---: | :---: | :---: |
+| ![examples_failed_raw__latexmk_pdflatex](examples_failed/examples_failed_raw__latexmk_pdflatex.png) | ![examples_failed_raw__lualatex](examples_failed/examples_failed_raw__lualatex.png) | ![examples_failed_raw__pdflatex](examples_failed/examples_failed_raw__pdflatex.png) | ![examples_failed_raw__xelatex](examples_failed/examples_failed_raw__xelatex.png) | ![examples_failed_raw__xelatex_xdvipdfmx](examples_failed/examples_failed_raw__xelatex_xdvipdfmx.png) |
 
-![test_pdflatex](test_pdflatex.png)
+Table: DVI-to-PDF workflow outputs
 
-(`pdflatex` でコンパイルした場合。ORCIDアイコンは正しく描画され、全てのリンクが機能する。)
+| platex dvipdfmx | ptex2pdf platex | ptex2pdf uplatex | uplatex dvipdfmx |
+| :---: | :---: | :---: | :---: |
+| ![examples_failed_dvipdfmx__platex_dvipdfmx](examples_failed/examples_failed_dvipdfmx__platex_dvipdfmx.png) | ![examples_failed_dvipdfmx__ptex2pdf_platex](examples_failed/examples_failed_dvipdfmx__ptex2pdf_platex.png) | ![examples_failed_dvipdfmx__ptex2pdf_uplatex](examples_failed/examples_failed_dvipdfmx__ptex2pdf_uplatex.png) | ![examples_failed_dvipdfmx__uplatex_dvipdfmx](examples_failed/examples_failed_dvipdfmx__uplatex_dvipdfmx.png) |
 
-<details><summary>pdfLaTeXのコード</summary>
+この結果の詳細な生成方法やpdfの本体は、[私のGitHubリポジトリ](https://github.com/HirokiHamaguchi/QiitaArticles/tree/main/20260313_orcidlink)で確認できます。`pdf2png.py`というPythonスクリプトを実行すると、全ての結果が生成されます。
 
-<!-- PROGRAM_INSERTION: test_pdflatex.tex -->
+この結果から、確かにdvipdfmxなどでコンパイルした場合は、\XeTeXLinkBoxコマンドだけでは、対応できていない例があることがわかります。
 
-</details>
+### Potential Bugs
 
-### luaLaTeX
+続いて、`\XeTeXLinkBox`コマンドの実装に由来する、潜在的なバグについて説明します。
 
-luaLaTeXは、Luaというプログラミング言語を組み込んだLaTeXのエンジンの一つで、近年は特に日本語を扱う際に使われることが増えてきています。こちらも`\orcidlink`コマンドは正常に機能します。
-
-https://www.luatex.org/
-
-![test_lualatex](test_lualatex.png)
-
-(`lualatex` でコンパイルした場合。ORCIDアイコンは正しく描画され、全てのリンクが機能する。)
-
-<details><summary>luaLaTeXのコード</summary>
-
-<!-- PROGRAM_INSERTION: test_lualatex.tex -->
-
-</details>
-
-## 原因の考察
-
-upLaTeX+dvipdfmxの環境で、何故`\orcidlink`のリンクだけが反応しないのか、以下に考察を述べます。
-
-[orcidlink package](https://ctan.org/pkg/orcidlink)の[GitHubにある実装](https://github.com/duetosymmetry/orcidlink-LaTeX-command/blob/master/orcidlink.sty)を見ると、内部でhyperrefコマンドを使っています。以下がその実装の引用です。
-
-<details><summary>orcidlink.styの実装</summary>
+`\XeTeXLinkBox`コマンドは空白を追加することでリンク領域を生成しているとdocumentedされていますが、この空白は1spの空白を追加することで達成されています。sp means "scaled point", and it satisfies 1sp = 1/65536 pt. しかし、この1spの空白というのが、XeTeX以外のドライバでは問題を起こし、修正の妨げになっていました。具体的には、単純な修正を実装すると、以下のようなエラーが発生していました。
 
 ```tex
-\NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesPackage{orcidlink}
-    [2024/06/26 v1.1.0 Support ORCID's three different ID formats.]
+pdfTeX error (arithmetic): divided by zero.
+<argument> ...shipout:D \box_use:N \l_shipout_box \__shipout_drop_firstpage_...
+```
 
-\RequirePackage{hyperref}
-\RequirePackage{tikz}
+また、GitHub上で、`\XeTeXLinkBox`に関するissueとして、この1spの空白に由来する問題が指摘されているものもあります。
 
-\ProcessOptions\relax
+https://github.com/progit-ja/progit/issues/8
 
-\usetikzlibrary{svg.path}
+https://github.com/Zettlr/Zettlr/issues/209
 
-\definecolor{orcidlogocol}{HTML}{A6CE39}
-\tikzset{
-  orcidlogo/.pic={
-    \fill[orcidlogocol] svg{M256,128c0,70.7-57.3,128-128,128C57.3,256,0,198.7,0,128C0,57.3,57.3,0,128,0C198.7,0,256,57.3,256,128z};
-    \fill[white] svg{M86.3,186.2H70.9V79.1h15.4v48.4V186.2z}
-                 svg{M108.9,79.1h41.6c39.6,0,57,28.3,57,53.6c0,27.5-21.5,53.6-56.8,53.6h-41.8V79.1z M124.3,172.4h24.5c34.9,0,42.9-26.5,42.9-39.7c0-21.5-13.7-39.7-43.7-39.7h-23.7V172.4z}
-                 svg{M88.7,56.8c0,5.5-4.5,10.1-10.1,10.1c-5.6,0-10.1-4.6-10.1-10.1c0-5.6,4.5-10.1,10.1-10.1C84.2,46.7,88.7,51.3,88.7,56.8z};
-  }
-}
+```tex
+! Font \XeTeXLink@font=pzdr at 0.00002pt not loadable:
+Metric (TFM) file or installed font not found.
+```
 
-%% Reciprocal of the height of the svg whose source is above.  The
-%% original generates a 256pt high graphic; this macro holds 1/256.
-\newcommand{\@OrigHeightRecip}{0.00390625}
+## Proposed Solution
 
-%% We will compute the current X height to make the logo the right height
-\newlength{\@curXheight}
+以上の前提と問題点を基に、以下のような解決策を提案します。
 
-%% Prevent externalization of the ORCiD logo.
-\newcommand{\@preventExternalization}{%
-\ifcsname tikz@library@external@loaded\endcsname%
-\tikzset{external/export next=false}\else\fi%
-}
+* `\XeTeXLinkBox`コマンドと似た機能を有する`\HyperrefLinkBox`コマンドをXeTeX以外にも定義する
+* `\XeTeXLinkBox`の実装とは違い、1spの空白ではなく、1ptの空白を追加することで、リンク領域を生成するようにする
+
+詳細は、PRのコードをご覧ください。
+
+## Compiled Results
+
+実際に、この変更を実装して、コンパイルした結果を以下に示します。orcidlink packageでも、この変更を前提として軽微な修正を加えています。
+具体的には、以下のように変更をしています。
+
+```diff
++ \newcommand{\@OrcidLinkBox}[1]{%
++ \ifcsname HyperrefLinkBox\endcsname%
++ \HyperrefLinkBox{#1}%
++ \else%
++ \XeTeXLinkBox{#1}%
++ \fi%
++ }
 
 \newcommand{\orcidlogo}{%
 \texorpdfstring{%
 \setlength{\@curXheight}{\fontcharht\font`X}%
-\XeTeXLinkBox{%
+- \XeTexLinkBox{%
++ \@OrcidLinkBox{%
 \@preventExternalization%
 \begin{tikzpicture}[yscale=-\@OrigHeightRecip*\@curXheight,
 xscale=\@OrigHeightRecip*\@curXheight,transform shape]
 \pic{orcidlogo};
 \end{tikzpicture}%
 }}{}}
-
-\DeclareRobustCommand\orcidlinkX[3]{\href{https://orcid.org/#2}{%
-\ifstrempty{#1}{}{#1\,}\orcidlogo\ifstrempty{#3}{}{\,#3}}}
-\newcommand{\orcidlinkf}[1]{\orcidlinkX{}{#1}{https://orcid.org/#1}}
-\newcommand{\orcidlinkc}[1]{\orcidlinkX{}{#1}{#1}}
-\newcommand{\orcidlinki}[2]{\orcidlinkX{#1}{#2}{}}
-\newcommand{\orcidlink}[1]{\orcidlinkX{}{#1}{}}
-
-\endinput
 ```
 
-</details>
+[Existing Problems](#existing-problems)のセクションで示したのと殆ど同様の方法で、コンパイルをしました。ただし、`\XeTeXLinkBox`コマンドを`\HyperrefLinkBox`コマンドに置き換えています。
 
-具体的には、`TikZ`で描画したものに対して、`hyperref`の`\href`コマンドでリンクを付けている形になっています。XeLaTeXを使う場合に関しては、このような場合に対する不具合は古くから知られているようで、実際、上の実装では`\XeTeXLinkBox`を使うことで、リンクが機能するように工夫されているようです。v1.0.4のアップデートでこれが解消されたとの記載が公式ドキュメントにありました。upLaTeXについては、特に情報を見つけられませんでした。
+実際に、先ほどは生成されていなかったリンクが生成されていることがわかります。
 
-https://tex.stackexchange.com/questions/563279/using-hyperref-with-includegraphics-doesnt-work-with-xelatex
+Table: Raw engine outputs
 
-リンクが反応しない原因は、このように画像に対してハイパーリンクを付けようとすると、特にドライバなどの処理系に依存したの問題発生するためだと思われます。
+| latexmk pdflatex succeeded | lualatex succeeded | pdflatex succeeded | xelatex succeeded | xelatex xdvipdfmx succeeded |
+| :---: | :---: | :---: | :---: | :---: |
+| ![examples_succeeded_raw__latexmk_pdflatex_succeeded](examples_succeeded/examples_succeeded_raw__latexmk_pdflatex_succeeded.png) | ![examples_succeeded_raw__lualatex_succeeded](examples_succeeded/examples_succeeded_raw__lualatex_succeeded.png) | ![examples_succeeded_raw__pdflatex_succeeded](examples_succeeded/examples_succeeded_raw__pdflatex_succeeded.png) | ![examples_succeeded_raw__xelatex_succeeded](examples_succeeded/examples_succeeded_raw__xelatex_succeeded.png) | ![examples_succeeded_raw__xelatex_xdvipdfmx_succeeded](examples_succeeded/examples_succeeded_raw__xelatex_xdvipdfmx_succeeded.png) |
 
-## 解決策
+Table: DVI-to-PDF workflow outputs
 
-以下に、この問題に対する暫定的な解決策を述べます。
+| platex dvipdfmx succeeded | ptex2pdf platex succeeded | ptex2pdf uplatex succeeded | uplatex dvipdfmx succeeded |
+| :---: | :---: | :---: | :---: |
+| ![examples_succeeded_dvipdfmx__platex_dvipdfmx_succeeded](examples_succeeded/examples_succeeded_dvipdfmx__platex_dvipdfmx_succeeded.png) | ![examples_succeeded_dvipdfmx__ptex2pdf_platex_succeeded](examples_succeeded/examples_succeeded_dvipdfmx__ptex2pdf_platex_succeeded.png) | ![examples_succeeded_dvipdfmx__ptex2pdf_uplatex_succeeded](examples_succeeded/examples_succeeded_dvipdfmx__ptex2pdf_uplatex_succeeded.png) | ![examples_succeeded_dvipdfmx__uplatex_dvipdfmx_succeeded](examples_succeeded/examples_succeeded_dvipdfmx__uplatex_dvipdfmx_succeeded.png) |
 
-### 解決策0: そもそもORCIDを使わない
+## 影響範囲の調査と今後の展望
 
-研究室の助教さんと雑談していたら、そもそもORCIDを載せなくてよいのでは、と言われました。
+### 影響範囲の調査
 
-投稿規定などに制約がない限り、その通りな気もします。
+意図しない影響を避けるために、このコマンドなどの使用状況などは軽く調べました。
 
-例えば、直近のarXivの論文を見ていると、Physicsの論文では大体15%程度、Mathの論文では大体5%程度の論文が`\orcidlink`を使ってORCIDを表示しているように見えます。出版社側から指定されている訳でもなければ、そもそも使わないという選択肢も十分にあり得ると思います。
+以下のissueの存在は認識しており、今回の変更は、こちらのissueでも述べられている考えと合致する、普遍性のある変更だと考えています。
 
-ただ、個人的にはE-mailよりも追跡性が高い識別子であるORCIDは良い取り組みだなと思っていたので、出来れば使いたいと思っており、このような記事を書いている次第です。
+https://github.com/latex3/hyperref/issues/240
 
-### 解決策1: pdfLaTeX・luaLaTeX・XeLaTeXの使用
+また、後方互換性の観点から、`\XeTeXLinkBox`コマンドの定義を変更することは避けました。例えば以下のサイトなどで、`\XeTeXLinkMargin`に言及があるようです。
 
-簡易的な解決策の一つは、pdfLaTeX・luaLaTeX・XeLaTeXを使うことです。昨今はpdfLaTeXが国際的に主流であり、またluaLaTeXやXeLaTeXも広く使われているようですので、その流れに乗っていれば大抵の問題は起きないと思います。pdfLaTeXでも例えばCJKパッケージを使うことで日本語入力は可能なので、代替案にはなり得ると思います。
+https://tex.stackexchange.com/questions/577314/xelatex-hyperref-bounding-box
 
-外部リンクなどをはることは省略しますが、特にluaLaTeXは使用を促す記事も多く、やや速度が遅いという欠点はあるものの、こういった現象を未然に防ぐという観点からは有望な選択肢のように思われます。
+ただ、個人的には、`\XeTeXLinkBox`コマンドは、`\HyperrefLinkBox`コマンドを使って実装することも可能で、可読性はこちらの方が高いと考えています。もし、後者の方が好ましいということであれば、変更することも可能です。
 
-### 解決策2: orcidlinkiコマンドの使用
+なお、`\HyperrefLinkBox`コマンドという命名は、マクロとして変数名の衝突を避けるために、あえてHyperrefという名前を入れていますが、もし、より適切な命名があれば、そちらに変更することも可能です。この名前は、少なくともGoogle検索の完全一致検索において、衝突がないことは確認しています。
 
-また、upLaTeXを使う場合でも、先ほどのorcidlinkの実装にもあった`\orcidlinki`などを使うと、文字側にハイパーリンクを付けられるので、それで対処することも可能かもしれません。
+### 今後の展望
 
-![test_uplatex_dvipdfmx_orcidlinki](test_uplatex_dvipdfmx_orcidlinki.png)
+まず、maintainerの方々に、このPRが必要かどうかをご判断いただきたいです。もし何かしら別の方法での実装を考えていた場合には、このPRは取り下げます。
 
-<details><summary>orcidlinkiコマンドを使った例</summary>
+また、このPRがmaintainerの方々にとって有益であると判断された場合には、**このPRは次の点で完全ではなく、議論をしたいです**。
+なお、**必要であれば、適切な指示さえいただければ、これらの変更は私の側で実装することも可能です**。
 
-<!-- PROGRAM_INSERTION: test_uplatex_dvipdfmx_orcidlinki.tex -->
+1. 先述のように、どのように`\XeTeXLinkBox`を実装すべきか、また、`\HyperrefLinkBox`の実装がこれでよいのかを議論したいです。
+2. hyperref.dtxにおけるコメント部分はどのように記すべきか? (例えば、現在のこのファイルには、`% \subsection{Link box support for XeTeX}`などの記載があるが、これがどこで使用されているか検索しても分かりませんでした。適当に推測して現在はPRを書いていますが、正しい方法があれば教えていただきたいです。)
+3. doc/hyperref-doc.texへの変更の追記 (\subsection{\textbackslash XeTeXLinkBox}の後に同様の説明と例を追加する必要があると思います)
+4. testの追加 (testがどう実行されているかどうかも、あまりよく分かりませんでした。また、他のdriverでのテストも必要かもしれません。)
+5. Changelog.txtへの変更の追記 (これは適当に書けば良さそうです)
 
-</details>
+## まとめ
 
-画像自体にはリンクが機能しないままですが、ほぼ同様の機能を実現できます。
-
-## 最後に
-
-以上が`\orcidlink`のリンクがupLaTeX+dvipdfmxの環境で反応しない問題についての考察と暫定的な解決策になります。
-ご参考になれば幸いです。
+お手数をおかけしますが、reviewのほど、どうぞよろしくお願いいたします。

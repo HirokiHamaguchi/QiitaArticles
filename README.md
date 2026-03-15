@@ -2,6 +2,8 @@
 
 This repository is a collection of my articles on Qiita.
 
+https://qiita.com/hari64
+
 ## How to Use
 
 1. Write an article on `README.md`.
