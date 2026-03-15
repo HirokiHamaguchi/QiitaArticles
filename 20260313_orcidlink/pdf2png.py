@@ -10,7 +10,8 @@ import fitz  # type: ignore
 import pyperclip  # type: ignore
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-OUTPUT_DIR = SCRIPT_DIR / "failed_examples"
+OUTPUT_FAILED_DIR = SCRIPT_DIR / "examples_failed"
+OUTPUT_SUCCEEDED_DIR = SCRIPT_DIR / "examples_succeeded"
 
 
 @dataclass
@@ -159,7 +160,12 @@ def run_compile_method(method: CompileMethod) -> Path | None:
         print(f"[FAIL] {method.name}: PDF not found: {tex_stem}.pdf")
         return None
 
-    output_pdf = OUTPUT_DIR / f"{tex_stem}__{method_slug}.pdf"
+    if tex_stem.startswith("examples_succeeded_"):
+        output_dir = OUTPUT_SUCCEEDED_DIR
+    else:
+        output_dir = OUTPUT_FAILED_DIR
+
+    output_pdf = output_dir / f"{tex_stem}__{method_slug}.pdf"
     shutil.copy2(generated_pdf, output_pdf)
     print(f"[ OK ] saved PDF: {output_pdf}")
     return output_pdf
@@ -214,7 +220,7 @@ def _display_label_from_png_name(png_name: str) -> str:
 def build_markdown_table(caption: str, png_files: List[Path]) -> str:
     assert len(png_files) > 0, f"No PNG files for table: {caption}"
     headers = [_display_label_from_png_name(path.name) for path in png_files]
-    rel_paths = [f"failed_examples/{path.name}" for path in png_files]
+    rel_paths = [f"{path.parent.name}/{path.name}" for path in png_files]
 
     header_row = "| " + " | ".join(headers) + " |"
     align_row = "| " + " | ".join([":---:"] * len(headers)) + " |"
@@ -222,7 +228,7 @@ def build_markdown_table(caption: str, png_files: List[Path]) -> str:
         "| "
         + " | ".join(
             [
-                f"![{rel_path.replace('failed_examples/', '').replace('.png', '')}]({rel_path})"
+                f"![{Path(rel_path).name.replace('.png', '')}]({rel_path})"
                 for rel_path in rel_paths
             ]
         )
@@ -244,14 +250,14 @@ def build_and_copy_tables(generated_pngs: List[Path]) -> str:
         [
             path
             for path in generated_pngs
-            if path.name.startswith("failed_examples_raw__")
+            if path.name.startswith("examples_failed_raw__")
         ]
     )
     dvipdfmx_pngs = sorted(
         [
             path
             for path in generated_pngs
-            if path.name.startswith("failed_examples_dvipdfmx__")
+            if path.name.startswith("examples_failed_dvipdfmx__")
         ]
     )
 
@@ -266,47 +272,47 @@ def get_compile_methods() -> List[CompileMethod]:
     base_methods = [
         CompileMethod(
             name="pdflatex",
-            tex_file="{prefix}_examples_raw.tex",
+            tex_file="examples_{prefix}_raw.tex",
             steps=["pdflatex", "pdflatex"],
         ),
         CompileMethod(
             name="lualatex",
-            tex_file="{prefix}_examples_raw.tex",
+            tex_file="examples_{prefix}_raw.tex",
             steps=["lualatex", "lualatex"],
         ),
         CompileMethod(
             name="xelatex",
-            tex_file="{prefix}_examples_raw.tex",
+            tex_file="examples_{prefix}_raw.tex",
             steps=["xelatex", "xelatex"],
         ),
         CompileMethod(
             name="xelatex -> xdvipdfmx",
-            tex_file="{prefix}_examples_raw.tex",
+            tex_file="examples_{prefix}_raw.tex",
             steps=["xelatex (no-pdf)", "xelatex (no-pdf)", "xdvipdfmx"],
         ),
         CompileMethod(
             name="platex -> dvipdfmx",
-            tex_file="{prefix}_examples_dvipdfmx.tex",
+            tex_file="examples_{prefix}_dvipdfmx.tex",
             steps=["platex", "platex", "dvipdfmx"],
         ),
         CompileMethod(
             name="uplatex -> dvipdfmx",
-            tex_file="{prefix}_examples_dvipdfmx.tex",
+            tex_file="examples_{prefix}_dvipdfmx.tex",
             steps=["uplatex", "uplatex", "dvipdfmx"],
         ),
         CompileMethod(
             name="ptex2pdf (platex)",
-            tex_file="{prefix}_examples_dvipdfmx.tex",
+            tex_file="examples_{prefix}_dvipdfmx.tex",
             steps=["ptex2pdf (platex)", "ptex2pdf (platex)"],
         ),
         CompileMethod(
             name="ptex2pdf (uplatex)",
-            tex_file="{prefix}_examples_dvipdfmx.tex",
+            tex_file="examples_{prefix}_dvipdfmx.tex",
             steps=["ptex2pdf (uplatex)", "ptex2pdf (uplatex)"],
         ),
         CompileMethod(
             name="latexmk (pdflatex)",
-            tex_file="{prefix}_examples_raw.tex",
+            tex_file="examples_{prefix}_raw.tex",
             steps=["latexmk (pdflatex)"],
         ),
     ]
@@ -326,10 +332,17 @@ def get_compile_methods() -> List[CompileMethod]:
 
 
 def prepare_raw_tex_from_dvipdfmx_tex() -> None:
-    source_path = SCRIPT_DIR / "failed_examples_dvipdfmx.tex"
-    target_path = SCRIPT_DIR / "failed_examples_raw.tex"
+    source_path = SCRIPT_DIR / "examples_failed_dvipdfmx.tex"
+    if not source_path.exists():
+        raise FileNotFoundError(
+            "Could not find source TeX file: examples_failed_dvipdfmx.tex"
+        )
+    failed_dvipdfmx_target = SCRIPT_DIR / "examples_failed_dvipdfmx.tex"
+    failed_raw_target = SCRIPT_DIR / "examples_failed_raw.tex"
 
     text = source_path.read_text(encoding="utf-8")
+
+    failed_dvipdfmx_target.write_text(text, encoding="utf-8")
 
     old_include = ",dvipdfmx]"
     if old_include not in text:
@@ -345,13 +358,13 @@ def prepare_raw_tex_from_dvipdfmx_tex() -> None:
         )
     text = text.replace(old_recipe, "% !LW recipe=pdflatex")
 
-    target_path.write_text(text, encoding="utf-8")
+    failed_raw_target.write_text(text, encoding="utf-8")
 
 
 def prepare_succeeded_tex_from_failed_tex() -> None:
     file_pairs = [
-        ("failed_examples_raw.tex", "succeeded_examples_raw.tex"),
-        ("failed_examples_dvipdfmx.tex", "succeeded_examples_dvipdfmx.tex"),
+        ("examples_failed_raw.tex", "examples_succeeded_raw.tex"),
+        ("examples_failed_dvipdfmx.tex", "examples_succeeded_dvipdfmx.tex"),
     ]
 
     for source_name, target_name in file_pairs:
@@ -360,19 +373,14 @@ def prepare_succeeded_tex_from_failed_tex() -> None:
 
         text = source_path.read_text(encoding="utf-8")
 
-        old_package = r"\usepackage{hyperref}"
-        if old_package not in text:
-            raise ValueError(
-                f"Expected string not found in {source_path.name}: {old_package}"
-            )
-        text = text.replace(old_package, r"\usepackage{proposed}")
-
         old_macro = r"\XeTeXLinkBox"
         if old_macro not in text:
             raise ValueError(
                 f"Expected string not found in {source_path.name}: {old_macro}"
             )
         text = text.replace(old_macro, r"\HyperrefLinkBox")
+
+        text = text.replace(r"\usepackage{orcidlink}", r"\usepackage{myorcidlink}")
 
         target_path.write_text(text, encoding="utf-8")
 
@@ -381,11 +389,13 @@ def main() -> None:
     prepare_raw_tex_from_dvipdfmx_tex()
     prepare_succeeded_tex_from_failed_tex()
     os.chdir(SCRIPT_DIR)
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    OUTPUT_FAILED_DIR.mkdir(parents=True, exist_ok=True)
+    OUTPUT_SUCCEEDED_DIR.mkdir(parents=True, exist_ok=True)
 
-    legacy_build_dir = OUTPUT_DIR / "_build"
-    if legacy_build_dir.exists() and legacy_build_dir.is_dir():
-        shutil.rmtree(legacy_build_dir)
+    for output_dir in (OUTPUT_FAILED_DIR, OUTPUT_SUCCEEDED_DIR):
+        legacy_build_dir = output_dir / "_build"
+        if legacy_build_dir.exists() and legacy_build_dir.is_dir():
+            shutil.rmtree(legacy_build_dir)
 
     methods = get_compile_methods()
     generated_pdfs: List[Path] = []
@@ -420,7 +430,11 @@ def main() -> None:
     print("\nCopied tables to clipboard:\n")
     print(tables_text)
 
-    print(f"Done. Generated {len(generated_pdfs)} PDF(s) and PNG(s) in: {OUTPUT_DIR}")
+    print(
+        "Done. Generated "
+        f"{len(generated_pdfs)} PDF(s) and PNG(s) in: "
+        f"{OUTPUT_FAILED_DIR} and {OUTPUT_SUCCEEDED_DIR}"
+    )
 
 
 if __name__ == "__main__":
