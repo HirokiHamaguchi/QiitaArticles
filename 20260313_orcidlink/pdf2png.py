@@ -263,53 +263,66 @@ def build_and_copy_tables(generated_pngs: List[Path]) -> str:
 
 
 def get_compile_methods() -> List[CompileMethod]:
-    return [
+    base_methods = [
         CompileMethod(
             name="pdflatex",
-            tex_file="failed_examples_raw.tex",
+            tex_file="{prefix}_examples_raw.tex",
             steps=["pdflatex", "pdflatex"],
         ),
         CompileMethod(
             name="lualatex",
-            tex_file="failed_examples_raw.tex",
+            tex_file="{prefix}_examples_raw.tex",
             steps=["lualatex", "lualatex"],
         ),
         CompileMethod(
             name="xelatex",
-            tex_file="failed_examples_raw.tex",
+            tex_file="{prefix}_examples_raw.tex",
             steps=["xelatex", "xelatex"],
         ),
         CompileMethod(
             name="xelatex -> xdvipdfmx",
-            tex_file="failed_examples_raw.tex",
+            tex_file="{prefix}_examples_raw.tex",
             steps=["xelatex (no-pdf)", "xelatex (no-pdf)", "xdvipdfmx"],
         ),
         CompileMethod(
             name="platex -> dvipdfmx",
-            tex_file="failed_examples_dvipdfmx.tex",
+            tex_file="{prefix}_examples_dvipdfmx.tex",
             steps=["platex", "platex", "dvipdfmx"],
         ),
         CompileMethod(
             name="uplatex -> dvipdfmx",
-            tex_file="failed_examples_dvipdfmx.tex",
+            tex_file="{prefix}_examples_dvipdfmx.tex",
             steps=["uplatex", "uplatex", "dvipdfmx"],
         ),
         CompileMethod(
             name="ptex2pdf (platex)",
-            tex_file="failed_examples_dvipdfmx.tex",
+            tex_file="{prefix}_examples_dvipdfmx.tex",
             steps=["ptex2pdf (platex)", "ptex2pdf (platex)"],
         ),
         CompileMethod(
             name="ptex2pdf (uplatex)",
-            tex_file="failed_examples_dvipdfmx.tex",
+            tex_file="{prefix}_examples_dvipdfmx.tex",
             steps=["ptex2pdf (uplatex)", "ptex2pdf (uplatex)"],
         ),
         CompileMethod(
             name="latexmk (pdflatex)",
-            tex_file="failed_examples_raw.tex",
+            tex_file="{prefix}_examples_raw.tex",
             steps=["latexmk (pdflatex)"],
         ),
     ]
+
+    methods: List[CompileMethod] = []
+    for prefix in ["failed", "succeeded"]:
+        label_suffix = "" if prefix == "failed" else " (succeeded)"
+        for method in base_methods:
+            methods.append(
+                CompileMethod(
+                    name=f"{method.name}{label_suffix}",
+                    tex_file=method.tex_file.format(prefix=prefix),
+                    steps=method.steps,
+                )
+            )
+    return methods
 
 
 def prepare_raw_tex_from_dvipdfmx_tex() -> None:
@@ -335,8 +348,38 @@ def prepare_raw_tex_from_dvipdfmx_tex() -> None:
     target_path.write_text(text, encoding="utf-8")
 
 
+def prepare_succeeded_tex_from_failed_tex() -> None:
+    file_pairs = [
+        ("failed_examples_raw.tex", "succeeded_examples_raw.tex"),
+        ("failed_examples_dvipdfmx.tex", "succeeded_examples_dvipdfmx.tex"),
+    ]
+
+    for source_name, target_name in file_pairs:
+        source_path = SCRIPT_DIR / source_name
+        target_path = SCRIPT_DIR / target_name
+
+        text = source_path.read_text(encoding="utf-8")
+
+        old_package = r"\usepackage{hyperref}"
+        if old_package not in text:
+            raise ValueError(
+                f"Expected string not found in {source_path.name}: {old_package}"
+            )
+        text = text.replace(old_package, r"\usepackage{proposed}")
+
+        old_macro = r"\XeTeXLinkBox"
+        if old_macro not in text:
+            raise ValueError(
+                f"Expected string not found in {source_path.name}: {old_macro}"
+            )
+        text = text.replace(old_macro, r"\HyperrefLinkBox")
+
+        target_path.write_text(text, encoding="utf-8")
+
+
 def main() -> None:
     prepare_raw_tex_from_dvipdfmx_tex()
+    prepare_succeeded_tex_from_failed_tex()
     os.chdir(SCRIPT_DIR)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
