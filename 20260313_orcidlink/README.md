@@ -43,9 +43,7 @@ One major motivation for this PR is that this command is used by the orcidlink p
 
 (From [CTAN](https://ctan.org/pkg/orcidlink), last visited 2026-03-14)
 
-Because hyperref is used internally and usage has grown in recent years, I consider this one of the important practical use cases.
-
-Fixing the issue described below naturally also requires changes in the orcidlink package. I am planning to submit a PR there as well, but I believe it is necessary to first address this on the hyperref side.
+The hyperref package is used internally in the orcidlink package to generate links for ORCID icons. Since ORCID is widely used in academic publishing, and usage has grown in recent years, I consider this one of the important practical use cases.
 
 ## Existing Problems
 
@@ -53,9 +51,15 @@ Next, this section explains the current problems.
 
 The link-generation issue mentioned above also occurs when compiling with drivers other than XeTeX. However, the `\XeTeXLinkBox` command does not address these non-XeTeX cases.
 
-This issue appears to have been recognized by the community for at least eight years.
+I suspect that the KNONW PROBLEMS section in the hyperref README.md may be referring to this issue. The description is as follows. This issue appears to have been recognized by the community for at least eight years.
 
-https://github.com/latex3/hyperref/blame/d2eb2fae09eee648f81659613a37e3e45566e479/README.md#L127
+```md
+## KNOWN PROBLEMS
+
+ * (half-done) hyper images (link from thumbnail in text)
+```
+
+(From [hyperref README.md](https://github.com/latex3/hyperref/blame/d2eb2fae09eee648f81659613a37e3e45566e479/README.md#L127))
 
 A similar discussion also seems to appear in this issue:
 
@@ -84,6 +88,8 @@ Table: DVI-to-PDF workflow outputs
 Detailed reproduction steps and the PDF themselves are available in [my GitHub repository](https://github.com/HirokiHamaguchi/QiitaArticles/tree/main/20260313_orcidlink). Running the Python script `pdf2png.py` generates all the results.
 
 These results show that when compiling with dvipdfmx and related workflows, there are indeed cases that cannot be handled by `\XeTeXLinkBox` alone.
+
+Since fixing the issue naturally also requires changes in the orcidlink package, I am planning to submit a PR there as well, but I believe it is necessary to first address this on the hyperref side.
 
 ### Potential Bugs
 
@@ -173,11 +179,13 @@ From a backward-compatibility perspective, I intentionally avoided changing the 
 
 https://tex.stackexchange.com/questions/577314/xelatex-hyperref-bounding-box
 
-That said, I personally think `\XeTeXLinkBox` could also be implemented via `\HyperrefLinkBox`, which may improve readability. If this way is preferred, I can change it.
+That said, I personally think `\XeTeXLinkBox` could also be implemented via `\HyperrefLinkBox`, which may improve readability than the current PR implementation. If this way is preferred, I can change it.
 
 The name `\HyperrefLinkBox` intentionally includes “Hyperref” to avoid macro name collisions. If there is a more appropriate naming convention, I can adopt it. At least through an exact-match Google search, I confirmed no apparent naming conflict.
 
 ### Future Outlook
+
+Here, I would like to discuss the future outlook of this change.
 
 First, I would like maintainers to determine whether this PR is needed. If you already have another implementation direction in mind, I will withdraw this PR.
 
