@@ -1,0 +1,55 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{proposed}[2026/03/13 v0.1 Proposed solution for the issue]
+
+\ProcessOptions\relax
+
+% \subsection{Link box support for XeTeX}
+%
+%    \begin{macrocode}
+\newdimen\myLinkMargin
+\setlength{\myLinkMargin}{2pt}
+
+\font\myLink@font=pzdr at 100pt
+
+\newcommand*{\myLink@space}{%
+    \begingroup
+    \myLink@font
+    % \char32
+    a
+    \endgroup
+}
+\newcommand{\myLinkBox}[1]{%
+    \begingroup
+    \leavevmode
+    \sbox\z@{#1}%
+    \begingroup
+    \dimen@=\dp\z@
+    \advance\dimen@\myLinkMargin
+    \setbox\tw@=\llap{%
+        \hb@xt@\myLinkMargin{%
+            \lower\dimen@\hbox{\myLink@space}%
+            \hss
+        }%
+    }%
+    \dp\tw@=\dp\z@
+    \ht\tw@=\ht\z@
+    \copy\tw@
+    \endgroup
+    \copy\z@
+    \dimen@=\ht\z@
+    \advance\dimen@\myLinkMargin
+    \setbox\tw@=\rlap{%
+        \hb@xt@\myLinkMargin{%
+            \hss
+            \raise\dimen@\hbox{\myLink@space}%
+        }%
+    }%
+    \dp\tw@=\dp\z@
+    \ht\tw@=\ht\z@
+    \copy\tw@
+    \endgroup
+}
+
+\endinput
+%%
+%% End of file `proposed.sty'.

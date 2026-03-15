@@ -11,7 +11,6 @@ import pyperclip  # type: ignore
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 OUTPUT_DIR = SCRIPT_DIR / "failed_examples"
-PNG_WIDTH = 1024
 
 
 @dataclass
@@ -194,9 +193,9 @@ def annotate_and_convert_pdf_to_png(pdf_file: Path) -> Path | None:
 
     page_width = page.rect.width
     assert page_width > 0, "Page width must be positive"
-    zoom = PNG_WIDTH / page_width
+    zoom = 2
     mat = fitz.Matrix(zoom, zoom)
-    pix = page.get_pixmap(matrix=mat)
+    pix = page.get_pixmap(matrix=mat, alpha=False)
     output_png = pdf_file.with_suffix(".png")
     pix.save(str(output_png))
     doc.close()
@@ -313,7 +312,31 @@ def get_compile_methods() -> List[CompileMethod]:
     ]
 
 
+def prepare_raw_tex_from_dvipdfmx_tex() -> None:
+    source_path = SCRIPT_DIR / "failed_examples_dvipdfmx.tex"
+    target_path = SCRIPT_DIR / "failed_examples_raw.tex"
+
+    text = source_path.read_text(encoding="utf-8")
+
+    old_include = ",dvipdfmx]"
+    if old_include not in text:
+        raise ValueError(
+            f"Expected string not found in {source_path.name}: {old_include}"
+        )
+    text = text.replace(old_include, "]")
+
+    old_recipe = "% !LW recipe=platex"
+    if old_recipe not in text:
+        raise ValueError(
+            f"Expected string not found in {source_path.name}: {old_recipe}"
+        )
+    text = text.replace(old_recipe, "% !LW recipe=pdflatex")
+
+    target_path.write_text(text, encoding="utf-8")
+
+
 def main() -> None:
+    prepare_raw_tex_from_dvipdfmx_tex()
     os.chdir(SCRIPT_DIR)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 

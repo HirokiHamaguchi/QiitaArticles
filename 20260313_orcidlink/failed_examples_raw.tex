@@ -7,14 +7,32 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{orcidlink}
-\usepackage{tikz}
 \usepackage{mwe}
+
+% TikZ
+\usepackage{tikz}
+\usetikzlibrary{external}
 
 % our defined package just for printing the current workflow name
 \usepackage{hello}
 
-% TikZ
-\usetikzlibrary{external}
+% https://tex.stackexchange.com/questions/265726/embed-nicely-formatted-listfiles-into-document
+\newlength\mtl
+\makeatletter
+\newcommand{\mtlistfiles}{%
+\par\noindent
+%%-- for measuring
+\@for\@currname:=\@filelist\do{%
+\setbox0=\hbox{\@currname}%
+\ifdim\wd0>\mtl\relax\mtl=\wd0\fi}%
+%%-- formating list
+\@for\@currname:=\@filelist\do{%
+\makebox[\mtl][l]{\@currname}
+     \expandafter\ifx\csname ver@\@currname\endcsname\relax
+     \else\@spaces\csname ver@\@currname\endcsname\fi
+     \par\noindent}}
+\makeatother
+\listfiles
 
 \begin{document}
 
@@ -86,5 +104,12 @@ Test link~\ref{sec:test_section} and test footnote\footnote{\url{https://hirokih
               \end{picture}%
           }
 \end{itemize}
+
+\newpage
+
+\section{List of Files}
+
+\footnotesize
+\mtlistfiles
 
 \end{document}
