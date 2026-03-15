@@ -62,7 +62,7 @@
 %         {Definitions of \cs{XR@addURL} corrected (Heiko Oberdiek)}
 %
 % \changes{v6.00 beta 4}{2000/03/22}
-%         {\cmd\xdef changed to \cs{protected@xdef}}
+%         {\cmd\xdef changed to \cs{protected@xdef}} 
 %
 % \changes{v6.1}{2019/10/03}
 %         {Incorporate updates to \pkg{xr} (including citation support)}
@@ -75,32 +75,32 @@
 %         {unified and simplified the brace handling: all defined references have now
 %          five brace groups. Together with the planned change in LaTeX 2023-06-01 this
 %          will improve the combination of hyperref/non-hyperref documents.}
-%
+%          
 % \changes{v7.01g}{2023-11-26}
 %         {Always store the URL/file name of the external document to allow file links
 %          even if it has no destinations.}
-%
+%  
 % \changes{v7.01h}{2024-01-20}
 %         {do not expand the labels when reading, (https://github.com/latex3/hyperref/issues/327)}
-%
+%         
 % \changes{v7.01h}{2024-01-20}
 %         {support \LaTeX\ properties.}
-%
+%        
 % This package implements a system for eXternal References.
-%
+% 
 % It is an extension of the \pkg{xr} package. It was developed to support the
 % extended label syntax of the \pkg{hyperref} package and to enable active links
 % to the external documents.
-%
+% 
 % In the \LaTeX{} release 2023-06-01 the label syntax of \pkg{hyperref}
 % and the \LaTeX{} kernel have been synchronized and there is no longer
 % a need for two packages. \pkg{xr-hyper} already works with all documents --
 % it is not required to load \pkg{hyperref} -- and its code will move in the
 % next \LaTeX{} release into the \pkg{xr} package. Then \pkg{xr-hyper} can be
 % deprecated.
-%
+% 
 % \section{Usage}
-%
+% 
 % \begin{syntax}
 % \cs{externaldocument}\oarg{prefix}\texttt[nocite\texttt]\marg{document}\oarg{url}
 % \end{syntax}
@@ -120,20 +120,20 @@
 % If any of the external documents, or the main document, use the same
 % |\label| then an error will occur as the label will be multiply
 % defined. To overcome this problem |\externaldocument| has an optional
-% argument \meta{prefix}.
+% argument \meta{prefix}. 
 % If you declare |\externaldocument[A-]{aaa}|, then all
 % references from |aaa| are prefixed by |A-|. So for instance, if a
 % section of |aaa| had |\label{intro}|, then this could be referenced
 % with |\ref{A-intro}|. The prefix need not be |A-|, it can be any
 % string chosen to ensure that all the labels imported from external
 % files are unique. Note however that the prefix is expanded and
-% so should not contain commands that are not safe in this context.
+% so should not contain commands that are not safe in this context. 
 %
 % As first suggested in Enrico Gregorio's |xcite| package, the current version
 % also allows |\cite| to reference |\bibitem| in the external document.
 % For compatibility with |xcite|, |\externalcitedocument| is made available
 % as an alias for |\externaldocument|
-%
+% 
 % Many packages have variant citation commands (natbib,
 % biblatex,....) and the external document may or may not have used
 % hyperref. Because of these differences the citation linking may not
@@ -141,8 +141,8 @@
 % \meta{prefix}:
 % \begin{verbatim}
 % \externaldocument[][nocite]{aaa}
-% \end{verbatim}
-%
+% \end{verbatim}  
+% 
 % The `document' referred to by the main argument \meta{document} is the file
 % \file{document.aux} which must be somewhere on TeX's input path.
 % Some packages (eg hyperref) really need to know the location of the
@@ -156,28 +156,28 @@
 % \begin{verbatim}
 % \externaldocument{aaa}[http://here.xxx.edu/this/path/to/aaa.pdf]
 % \end{verbatim}
-%
+% 
 % The package stores the url of the external document in the label data. If can
 % e.g. be retrieved with the \pkg{refcount} package
-%
+% 
 % \begin{verbatim}
 % \usepackage{refcount,xr-hyper}
 % \externaldocument{aaa}
 % ...
 % \getrefbykeydefault{intro}{url}{??} %prints aaa.pdf or ??
 % \end{verbatim}
-%
+% 
 % \pkg{xr-hyper} supports also the properties introduced in \LaTeX{} 2023-11-01.
 % Here the url of the external document is stored in the \texttt{xr-url} property.
-%
+% 
 % \begin{verbatim}
 % \usepackage{xr-hyper}
 % \externaldocument{aaa} %aaa contains \RecordProperties{intro}{page}
 % ...
 % \RefProperty{intro}{page}   %gives page number
-% \RefProperty{intro}{xr-url} %gives aaa.pdf
+% \RefProperty{intro}{xr-url} %gives aaa.pdf 
 % \end{verbatim}
-%
+% 
 %
 % \MaybeStop{}
 %
@@ -210,17 +210,17 @@
 %    \end{macrocode}
 % The url is added as fifth argument. The command used here is
 % \cs{XR@addURL}. The command is more complicated as needed
-% as it tries to handle also older documents with
-% \cs{newlabel}'s with two arguments.
+% as it tries to handle also older documents with 
+% \cs{newlabel}'s with two arguments. 
 %    \begin{macrocode}
 \def\XR@addURL#1{\XR@@dURL#1{}{}{}{}\\}
 \def\XR@@dURL#1#2#3#4#5\\{%
-     \unexpanded{{#1}{#2}{#3}{#4}}{\XR@URL}%
+     \unexpanded{{#1}{#2}{#3}{#4}}{\XR@URL}% 
   }%
 %    \end{macrocode}
-%
+% 
 % \subsection{Variables}
-%
+% 
 % Default file extension:
 %    \begin{macrocode}
 \providecommand\XR@ext{pdf}
@@ -251,8 +251,8 @@
      \let\XR@bibcite\bibcite
    \fi
   \def\XR@URL{#4}%
-  \set@curr@file{#3}%
-  \filename@parse\@curr@file
+  \set@curr@file{#3}% 
+  \filename@parse\@curr@file 
   \XR@next\@curr@file.aux\relax\\}}
 %    \end{macrocode}
 %
@@ -305,10 +305,10 @@
 %
 % Look at the first token of the line.
 % If it is |\newlabel|, define \cs{r@}\meta{label}, ensure that it has
-% five label data argument and add the url as the last one.
+% five label data argument and add the url as the last one.  
 % If it is |\@input|, add the
-% filename to the list of files to process.
-% If it is |\bibcite|, call a |\bibcite|.
+% filename to the list of files to process. 
+% If it is |\bibcite|, call a |\bibcite|. 
 % If it is |\new@label@record| add the url and then call it.
 % Otherwise ignore.
 % Go around the loop if not at end of file. Finally process the next
@@ -324,11 +324,11 @@
   \else\ifx#1\@input
      \let\XR@tempa\@thirdoffour
   \else\ifx#1\new@label@record
-     \let\XR@tempa\@fourthoffour
+     \let\XR@tempa\@fourthoffour    
   \fi\fi\fi\fi
    \XR@tempa
     {%
-     \expandafter\protected@xdef\csname r@\XR@prefix#2\endcsname{\XR@addURL{#3}}%
+     \expandafter\protected@xdef\csname r@\XR@prefix#2\endcsname{\XR@addURL{#3}}%     
     }%
     {\expandafter\bibcite\expandafter{\XR@prefix#2}{#3}}%
     {\edef\XR@list{\XR@list\filename@area#2\relax}}%

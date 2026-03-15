@@ -16,4 +16,4 @@ xxx
 \ref{sec:test},\qquad \Ref{sec:test}, \qquad\pageref{sec:test}
 
 \ref*{sec:test},\qquad \Ref*{sec:test}, \qquad \pageref*{sec:test}
-\end{document}
+\end{document} 

@@ -35,8 +35,8 @@ tdslocations = {
   "source/latex/hyperref/hyperref-linktarget.dtx",
   "source/latex/hyperref/hyperref.ins",
   "source/latex/hyperref/nameref.dtx",
-  "source/latex/hyperref/xr-hyper.dtx",
-  "source/latex/hyperref/doc/paperslides99.zip",
+  "source/latex/hyperref/xr-hyper.dtx",  
+  "source/latex/hyperref/doc/paperslides99.zip",  
   "tex/latex/hyperref/backref.sty",
   "tex/latex/hyperref/hdvipdfm.def",
   "tex/latex/hyperref/hdvips.def",
@@ -122,9 +122,9 @@ end
 
 --excludefiles={"hyperref/hyperref-doc.tex"}
 
-typesetfiles = {"hyperref-doc.tex",
-                "backref.dtx",
-                "hyperref.dtx",
+typesetfiles = {"hyperref-doc.tex", 
+                "backref.dtx", 
+                "hyperref.dtx", 
                 "nameref.dtx",
                 "xr-hyper.dtx",
                 "hyperref-linktarget.dtx",

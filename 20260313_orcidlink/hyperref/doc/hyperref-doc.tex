@@ -291,7 +291,7 @@ PDF writer; this is basically the same as that for \textsf{dvips}, but a few var
 \item[xetex] produces \verb|\special| commands for Xe\TeX{}, autodetected.
 \item[hitex] (new 2023) for the hint format produces by the Hi\TeX{} engine, autodetected. This a quite experimental
 engine and the driver file is not part of the \xpackage{hyperref} bundle but is provided by
-the \xpackage{hitex} package. Problems should be reported to \url{https://github.com/ruckertm/HINT}.
+the \xpackage{hitex} package. Problems should be reported to \url{https://github.com/ruckertm/HINT}. 
 \end{description}
 
 Output from \textsf{dvips} or \textsf{dvipsone} must be processed using
@@ -542,37 +542,37 @@ Check the \xpackage{nameref} documentation about a way to suppress these patches
 \item \emph{All} those redefinitions can be suppressed by defining \cs{hyper@nopatch@footnote}. Be aware that this can suppress links but also make unwanted links appear.
 \end{itemize}
 
-\item[amsmath tags] \xpackage{hyperref} redefines two internal commands of amsmath
-    related the \cs{tag} command to add an anchor. This code can be
-    suppressed by defining \cs{hyper@nopatch@amsmath@tag}. (This normally
-    makes no sense in packages but will probably be needed when math
-    environments are changed to allow tagging.)
-
-\item[counters] \xpackage{hyperref} patches the kernel command \cs{@definecounter},
-    \cs{@newctr}, \cs{@addtoreset} and the amsmath command \cs{numberwithin}
-    to ensure that for every counter the correct \cs{theHcounter}
-    representation is created or reset. This code can be suppressed by
-    defining \cs{hyper@nopatch@counter}. (This normally makes no sense in
-    packages but will probably be needed when kernel commands are changed
-    to allow tagging.)
-
-\item[math environments] \xpackage{hyperref} patches \cs{equation}/\cs{endequation}, \cs{eqnarray},
-    \cs{endeqnarray}. This code can be suppressed by
-    defining \cs{hyper@nopatch@mathenv}.
-
+\item[amsmath tags] \xpackage{hyperref} redefines two internal commands of amsmath 
+    related the \cs{tag} command to add an anchor. This code can be 
+    suppressed by defining \cs{hyper@nopatch@amsmath@tag}. (This normally 
+    makes no sense in packages but will probably be needed when math 
+    environments are changed to allow tagging.) 
+   
+\item[counters] \xpackage{hyperref} patches the kernel command \cs{@definecounter}, 
+    \cs{@newctr}, \cs{@addtoreset} and the amsmath command \cs{numberwithin} 
+    to ensure that for every counter the correct \cs{theHcounter} 
+    representation is created or reset. This code can be suppressed by 
+    defining \cs{hyper@nopatch@counter}. (This normally makes no sense in 
+    packages but will probably be needed when kernel commands are changed 
+    to allow tagging.)  
+    
+\item[math environments] \xpackage{hyperref} patches \cs{equation}/\cs{endequation}, \cs{eqnarray},    
+    \cs{endeqnarray}. This code can be suppressed by 
+    defining \cs{hyper@nopatch@mathenv}. 
+    
 \item[table of contents] \xpackage{hyperref} redefines \cs{contentsline} to be able to add links to
-toc entries. It redefines \cs{addcontentsline} to create the bookmarks and pass the
-destination names to the toc entries. This code can be suppressed by defining \cs{hyper@nopatch@toc}.
+toc entries. It redefines \cs{addcontentsline} to create the bookmarks and pass the 
+destination names to the toc entries. This code can be suppressed by defining \cs{hyper@nopatch@toc}.  
 
 \item[captions] \xpackage{hyperref} redefines \cs{caption} and \cs{@caption} to insert targets for links.
 This code can be suppressed by defining \cs{hyper@nopatch@caption} (additional helper commands are
 not suppressed). As various packages redefine captions too (e.g. the \xpackage{caption} package)
-side-effects must be carefully tested!
-
+side-effects must be carefully tested! 
+ 
 \item[longtable] \xpackage{hyperref} redefines \cs{LT@start} and \cs{LT@array} to move the targets in a better place.
-This code can be suppressed by defining \cs{hyper@nopatch@longtable}
+This code can be suppressed by defining \cs{hyper@nopatch@longtable}  
 
-\item[theorems] \xpackage{hyperref} patches \cs{@thm}. This code can be suppressed by defining \cs{hyper@nopatch@thm}
+\item[theorems] \xpackage{hyperref} patches \cs{@thm}. This code can be suppressed by defining \cs{hyper@nopatch@thm}  
 
 \item[citations and bibliography] If \xpackage{natbib} is not loaded \xpackage{hyperref} redefines \cs{bibcite},
 \cs{@lbibitem}  and \cs{@bibitem}. These redefinitions can be suppressed by defining \cs{hyper@nopatch@bib}.
@@ -836,20 +836,20 @@ In a PDF \xpackage{hyperref} adds to every page an target for links (in the uppe
 
 \begin{description}
 \item[\texttt{pageanchor}] A boolean option that determines whether every page is given an target at the top left corner. If this is turned off, \verb|\printindex| will not contain valid hyperlinks.
-\item[\texttt{hypertexnames}] By default the targets have names built with \cs{thepage}: \verb|page.\thepage|, so e.g., \texttt{page.4} or \texttt{page.iii}. The names require that every page as an unique number representation. A frequent problem here is with title pages which often don't show page numbers but internally use the same number as a following page. If you get messages about \texttt{destination with the same identifier (name{page.1})}, change the number representation of title pages or disable the page target.
-
+\item[\texttt{hypertexnames}] By default the targets have names built with \cs{thepage}: \verb|page.\thepage|, so e.g., \texttt{page.4} or \texttt{page.iii}. The names require that every page as an unique number representation. A frequent problem here is with title pages which often don't show page numbers but internally use the same number as a following page. If you get messages about \texttt{destination with the same identifier (name{page.1})}, change the number representation of title pages or disable the page target.    
+    
     If the boolean option \texttt{hypertexnames} is set to false, an internal page counter is stepped and used as arabic number. In most cases this should mean that you get the absolute page number (exceptions could be with documents throwing away or duplicating pages at shipout). This option avoids the problem with duplicated identifiers, but does not work with an index, as the backlinks have to be created from the representation passed to the index.
-\item[\texttt{plainpages}]  This forces page anchors to be named by the arabic form, but unlike the previous option it does not use an internal counter but the page counter. That means if you have for example roman and arabic pages you will get duplicated target names as page i and page 1 both set the anchor \texttt{page.1}.
+\item[\texttt{plainpages}]  This forces page anchors to be named by the arabic form, but unlike the previous option it does not use an internal counter but the page counter. That means if you have for example roman and arabic pages you will get duplicated target names as page i and page 1 both set the anchor \texttt{page.1}. 
 \end{description}
 
 \begin{cmdsyntax}
 \ci{@currentHpage}
 \end{cmdsyntax}
-Starting with version 7.01c \xpackage{hyperref} stores the name of the page
-target it has just set into the (global) variable \cs{@currentHpage}. The
-fallback value is \texttt{Doc-Start}. As the target is set when the page is
-shipout, \cs{@currentHpage} is only reliable at shipout. With a
-\hologo{LaTeX} format from 2023-11-01 the name can be labeled like this:
+Starting with version 7.01c \xpackage{hyperref} stores the name of the page 
+target it has just set into the (global) variable \cs{@currentHpage}. The 
+fallback value is \texttt{Doc-Start}. As the target is set when the page is 
+shipout, \cs{@currentHpage} is only reliable at shipout. With a 
+\hologo{LaTeX} format from 2023-11-01 the name can be labeled like this: 
 
 \begin{verbatim}
 %labeling in the document
@@ -858,7 +858,7 @@ shipout, \cs{@currentHpage} is only reliable at shipout. With a
 \hyperlink{\RefProperty{mylabel}{pagetarget}}{some text}
 \end{verbatim}
 
-
+       
 
 \subsection{Configuration options}
 
@@ -1044,7 +1044,7 @@ pdftitle           & text    &       & Sets the document information Title field
 pdfauthor          & text    &       & Sets the document information Author field \\
 pdfsubject         & text    &       & Sets the document information Subject field \\
 pdfcreator         & text    &       & Sets the document information Creator field \\
-pdfcreationdate    & date    &       & Sets the creation date, see below the table for more info about the format\\
+pdfcreationdate    & date    &       & Sets the creation date, see below the table for more info about the format\\ 
 pdfmoddate         & date    &       & Sets the modification date, see below the table for more info about the format\\
 addtopdfcreator    & text    &       & Adds additional text to the document information Creator field \\
 pdfkeywords        & text    &       & Sets the document information Keywords field \\
@@ -1118,12 +1118,12 @@ pdfwindowui        & boolean & true  & make PDF user interface elements visible 
 unicode            & boolean & true & Unicode encoded PDF strings
 \end{longtable}
 
- The dates \verb|CreationDate| and \verb|ModDate|
+ The dates \verb|CreationDate| and \verb|ModDate| 
  are normally set automatically to the current date/time when the compilation
  started. If they should be changed
  (e.g. for regression tests to produce reproducible documents) they can
  be set with \verb|\hypersetup| with the keys
- \verb|pdfcreationdate|, \verb|pdfmoddate| or externally by setting the \verb|SOURCE_DATE_EPOCH| environment variable.
+ \verb|pdfcreationdate|, \verb|pdfmoddate| or externally by setting the \verb|SOURCE_DATE_EPOCH| environment variable. 
 
  \begin{verbatim}
  \hypersetup{pdfcreationdate=D:20010101205959-00'00'}
@@ -1172,11 +1172,11 @@ TwoPageLeft    & Displays two pages, odd-numbered pages to the left (since PDF 1
 TwoPageRight   & Displays two pages, odd-numbered pages to the right (since PDF 1.5).
 \end{longtable}
 
-Finally, the \texttt{pdfpagetransition} can be one of the following values,
-where \textit{/Di} stands for direction of motion in degrees, generally in 90
-degree steps, \textit{/Dm} is a horizontal (\texttt{/H}) or vertical
-(\texttt{/V}) dimension (e.g.\ \texttt{Blinds /Dm /V}), and \textit{/M} is
-for motion, either in (\texttt{/I}) or out (\texttt{/O}).
+Finally, the \texttt{pdfpagetransition} can be one of the following values, 
+where \textit{/Di} stands for direction of motion in degrees, generally in 90 
+degree steps, \textit{/Dm} is a horizontal (\texttt{/H}) or vertical 
+(\texttt{/V}) dimension (e.g.\ \texttt{Blinds /Dm /V}), and \textit{/M} is 
+for motion, either in (\texttt{/I}) or out (\texttt{/O}). 
 
 \begin{longtable}{@{}>{\ttfamily}llp{8.5cm}@{}}
 Blinds   & /Dm    & Multiple lines distributed evenly across the screen sweep in the same direction to reveal the new
@@ -1290,7 +1290,7 @@ pdfborderstyle     &                        & border style for links \\
 pdfcenterwindow    & \textit{false}         & position the document window in the center of the screen \\
 pdfcreator         & \textit{LaTeX with}    & text for PDF Creator field \\
                    & \textit{hyperref}      & \\
-pdfcreationdate    &                        & Sets the creation date, see below the table in section~\ref{sec:pdfdata} for more info about the format\\
+pdfcreationdate    &                        & Sets the creation date, see below the table in section~\ref{sec:pdfdata} for more info about the format\\                    
 pdfdirection       & \textit{empty}         & direction setting \\
 pdfdisplaydoctitle & \textit{false}         & display document title instead
                                               of file name in title bar\\
@@ -1303,7 +1303,7 @@ pdfkeywords        & \textit{empty}         & text for PDF Keywords field \\
 pdflang            & \textit{relax}         & PDF language identifier (RFC 3066) \\
 pdfmark            & \textit{false}         & an alias for \textsf{dvips} \\
 pdfmenubar         & \textit{true}          & make PDF viewer's menu bar visible \\
-pdfmoddate    &                        & Sets the modification date, see below the table in section~\ref{sec:pdfdata} for more info about the format\\
+pdfmoddate    &                        & Sets the modification date, see below the table in section~\ref{sec:pdfdata} for more info about the format\\                    
 pdfnewwindow       & \textit{false}         & make links that open another PDF \\
                    &                        & file start a new window \\
 pdfnonfullscreenpagemode
@@ -1384,16 +1384,16 @@ action dictionaries, see PDF specification.
 \ci{url}\verb|{|\emph{URL}\verb|}|
 \end{cmdsyntax}
 
-\noindent Similar to
-\ci{href}\verb|{|\emph{URL}\verb|}{|\ci{nolinkurl}\verb|{|\emph{URL}\verb|}}|.
-Depending on the driver \verb|\href| also tries to detect the link type. Thus
-the result can be a url link, file link, \dots. The implementation makes use
-of the \xpackage{url} package and its commands can be used to format and fine
-tune the url, but the behaviour of \ci{url} is different to the behaviour in
-the \xpackage{url} package: Most importantly the hyperref \cs{url} expands
-commands.  If the behaviour or the original \cs{url} is needed, the url
-package should be loaded first and the command should be copied into some
-alias command.
+\noindent Similar to 
+\ci{href}\verb|{|\emph{URL}\verb|}{|\ci{nolinkurl}\verb|{|\emph{URL}\verb|}}|. 
+Depending on the driver \verb|\href| also tries to detect the link type. Thus 
+the result can be a url link, file link, \dots. The implementation makes use 
+of the \xpackage{url} package and its commands can be used to format and fine 
+tune the url, but the behaviour of \ci{url} is different to the behaviour in 
+the \xpackage{url} package: Most importantly the hyperref \cs{url} expands 
+commands.  If the behaviour or the original \cs{url} is needed, the url 
+package should be loaded first and the command should be copied into some 
+alias command.  
 
 \begin{cmdsyntax}
 \ci{nolinkurl}\verb|{|\emph{URL}\verb|}|
@@ -2148,7 +2148,7 @@ an anchor name which can be referenced with a \verb|\bookmark| command from the 
   the loading of the package and cannot be changed after \xpackage{hyperref} is
   loaded (\verb|\usepackage{hyperref}|).
 
-If the PDF management is loaded with \cs{DocumentMetadata} the option is automatically set/unset depending on if an A-standard is set with the `pdfstandard` key. The manual setting of `pdfa` is then ignored.
+If the PDF management is loaded with \cs{DocumentMetadata} the option is automatically set/unset depending on if an A-standard is set with the `pdfstandard` key. The manual setting of `pdfa` is then ignored. 
 
 \subsection{Option `linktoc' added}
 
@@ -2852,38 +2852,38 @@ The draft option defines the macros as follows
 
 \section{Special support for other packages}
 
-Package \xpackage{hyperref} aims to cooperate with other packages, but while
-the long term goal is to remove patches and to move link support into the
-kernel, classes and packages there are still several possible sources for
-conflict, such as
+Package \xpackage{hyperref} aims to cooperate with other packages, but while 
+the long term goal is to remove patches and to move link support into the 
+kernel, classes and packages there are still several possible sources for 
+conflict, such as 
 
 \begin{itemize}
 
-\item Packages that manipulate the bibliographic mechanism. Peter William's
-    \xpackage{harvard} package is supported. However, the recommended
-    package is either Patrick Daly's \xpackage{natbib} package that has
-    specific \xpackage{hyperref} hooks to allow reliable interaction or the
-    \xpackage{biblatex} package. Both packages cover a very wide variety of
-    layouts and citation styles, all of which work with
-    \xpackage{hyperref}.
+\item Packages that manipulate the bibliographic mechanism. Peter William's 
+    \xpackage{harvard} package is supported. However, the recommended 
+    package is either Patrick Daly's \xpackage{natbib} package that has 
+    specific \xpackage{hyperref} hooks to allow reliable interaction or the 
+    \xpackage{biblatex} package. Both packages cover a very wide variety of 
+    layouts and citation styles, all of which work with 
+    \xpackage{hyperref}. 
 
-\item Packages that changes \ci{label} and \ci{ref} macros. Since \LaTeX{}
-    2023-06-01 the kernel and \xpackage{hyperref}/\xpackage{nameref} use
-    the same \ci{label} definition. \ci{label} has a hook for external
-    packages. There should be no need for external packages and classes to
-    redefine them.
+\item Packages that changes \ci{label} and \ci{ref} macros. Since \LaTeX{} 
+    2023-06-01 the kernel and \xpackage{hyperref}/\xpackage{nameref} use 
+    the same \ci{label} definition. \ci{label} has a hook for external 
+    packages. There should be no need for external packages and classes to 
+    redefine them.  
 
 \item Packages that do anything serious with the index.
 
-\item Packages that do anything serious with sectioning commands and the
-    toc.
+\item Packages that do anything serious with sectioning commands and the 
+    toc. 
 \end{itemize}
 
 
 
-The \xpackage{hyperref} package is distributed with a variant of the
-\xpackage{xr}, \xpackage{xr-hyper}\footnote{It will be merged with the
-\xpackage{xr} package soon}, which support crossdocument links using
+The \xpackage{hyperref} package is distributed with a variant of the 
+\xpackage{xr}, \xpackage{xr-hyper}\footnote{It will be merged with the 
+\xpackage{xr} package soon}, which support crossdocument links using 
 \hologo{LaTeX}'s normal \cs{label}/\cs{ref} mechanisms.
 
 
@@ -2916,9 +2916,9 @@ Currently only package loading orders are available:
 
 \subsubsection{amsrefs}
 
-The documentation of \xpackage{amsrefs} claims that the package must be
-loaded after \xpackage{hyperref} (it is unclear if that is really true) so
-the recommended package loading order is:
+The documentation of \xpackage{amsrefs} claims that the package must be 
+loaded after \xpackage{hyperref} (it is unclear if that is really true) so 
+the recommended package loading order is: 
 
 \begin{verbatim}
   \usepackage{hyperref}
@@ -3214,12 +3214,12 @@ Note: utf8 is now the default in \LaTeX{} and \xpackage{ucs} is no
 
 
 \subsubsection{varioref}
-Most previous problems with \xpackage{varioref} should be resolved. There is
-only an open issue regarding \ci{vrefformat}
-(\url{https://github.com/latex3/hyperref/issues/225}).
-
-It is recommended to load \xpackage{varioref} always with the option
-\texttt{nospace}, see the documentation.
+Most previous problems with \xpackage{varioref} should be resolved. There is 
+only an open issue regarding \ci{vrefformat} 
+(\url{https://github.com/latex3/hyperref/issues/225}). 
+ 
+It is recommended to load \xpackage{varioref} always with the option 
+\texttt{nospace}, see the documentation. 
 \begin{verbatim}
     \usepackage[nospace]{varioref}
 \end{verbatim}
@@ -3288,14 +3288,14 @@ It is recommended to load \xpackage{varioref} always with the option
  In general they have problems:
 \begin{itemize}
   \item Some driver doesn't support them at all (see above).
-  \item The driver allows it, but the link result might include the footer
-      and/or header. This can currently (2023) be avoided by using the PDF
-      management and to load at least the new-or-1 module from latex-lab:
-
+  \item The driver allows it, but the link result might include the footer 
+      and/or header. This can currently (2023) be avoided by using the PDF 
+      management and to load at least the new-or-1 module from latex-lab: 
+      
       \begin{verbatim}
-      \DocumentMetadata{testphase=new-or-1}
+      \DocumentMetadata{testphase=new-or-1} 
       \end{verbatim}
-
+      
 \end{itemize}
 
 \subsection{Footnotes}

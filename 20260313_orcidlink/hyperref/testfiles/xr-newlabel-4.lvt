@@ -19,7 +19,7 @@
 \newlabel{IIIa}{{1.1}{1}{title}{section.title}{}}
 \end{filecontents}
 
-\usepackage{hyperref} %
+\usepackage{hyperref} % 
 
 % xr-hyper after hyperref
 \usepackage{xr-hyper}
@@ -30,13 +30,16 @@
 \begin{document}
 \START \showoutput
 
-\makeatletter
- \show\r@Ia \show\r@Ib \show\r@Icspecial
-
- \show\r@IIa \show\r@IIb \show\r@IIbspecial \show\r@IIc
-
- \show\r@IIIa
+\makeatletter 
+ \show\r@Ia \show\r@Ib \show\r@Icspecial 
+ 
+ \show\r@IIa \show\r@IIb \show\r@IIbspecial \show\r@IIc 
+ 
+ \show\r@IIIa 
 
 % should work fine because of hyperref
 \ref{IIIa}
 \end{document}
+
+
+

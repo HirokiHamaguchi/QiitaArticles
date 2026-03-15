@@ -17,10 +17,10 @@ See \vnameref{sec:section-1} and also
 
 See \vnameref{sec:section-1}.
 
-See \vnameref{sec:section-1} and also
+See \vnameref{sec:section-1} and also 
 
-\newpage
-\makeatletter \@vrefhandlespacetrue \makeatother
+\newpage 
+\makeatletter \@vrefhandlespacetrue \makeatother 
 
 \section{Title}
 \label{sec:section-2}
@@ -36,4 +36,4 @@ See \vnameref{sec:section-2}.
 See \vnameref{sec:section-2} and also
 
 
-\end{document}
+\end{document} 

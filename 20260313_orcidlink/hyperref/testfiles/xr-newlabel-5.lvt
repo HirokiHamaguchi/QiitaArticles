@@ -27,9 +27,9 @@
 \begin{document}
 \START \showoutput
 
-\makeatletter
+\makeatletter 
 
- \show\r@IIIa  \show\r@IVa  \show\r@Va
+ \show\r@IIIa  \show\r@IVa  \show\r@Va 
 
 %This prints the fourth and fifth argument in older LaTeX but works in newer
 \ref{IIIa}

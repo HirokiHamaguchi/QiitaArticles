@@ -18,8 +18,8 @@ Package: keyval ....-..-.. v... key=value parser (DPC)
 ) (../kvsetkeys.sty
 Package: kvsetkeys ....-..-.. v... Key value parser (HO)
 )))
-Package nameref Warning: The definition of \label has changed!
-(nameref)                Check your packages!
+Package nameref Warning: The definition of \label has changed! 
+(nameref)                Check your packages! 
 (nameref)                Replacing it with the kernel definition on input line ....
 \c@section@level=\count...
 ) (../l3backend-pdftex.def

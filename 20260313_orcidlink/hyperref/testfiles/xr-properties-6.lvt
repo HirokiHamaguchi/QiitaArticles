@@ -13,13 +13,13 @@
 \def\unknown{KNOWN}
 \START \showoutput
 
-\makeatletter
+\makeatletter 
 
- \show\r@VIa  \show\r@VIb
+ \show\r@VIa  \show\r@VIb  
 
 \TYPE
  {
    \RefProperty{VIa}{xr-url}, \RefProperty{VIa}{page}, \RefProperty{VIa}{title},
    \RefProperty{XVIa}{xr-url}
- }
+ }   
 \end{document}

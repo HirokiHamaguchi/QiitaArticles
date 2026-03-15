@@ -11,5 +11,5 @@ text
 \begin{equation*}\label{aaa}
   a=b\tag{x}
 \end{equation*}
-
+    
 \end{document}

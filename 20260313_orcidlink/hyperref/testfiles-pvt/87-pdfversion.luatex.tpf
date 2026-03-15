@@ -4,7 +4,7 @@
 << /S /GoTo /D [ 2 0 R /Fit ] >>
 endobj
 4 0 obj
-<< /Length 109 >>
+<< /Length 109 >>        
 stream
 BT
 /F15 9.96264 Tf
@@ -29,14 +29,14 @@ endobj
 [ 35 [ 556 ] 72 [ 278 ] 82 [ 500 ] 109 [ 556 ] ]
 endobj
 11 0 obj
-<< /Subtype /CIDFontType0C /Length 873 >>
+<< /Subtype /CIDFontType0C /Length 873 >>        
 [BINARY STREAM]
 endobj
 10 0 obj
 << /Type /FontDescriptor /FontName /LREOIX+LMRoman10-Regular /Flags 4 /FontBBox [ -430 -290 1417 1127 ] /Ascent 1127 /CapHeight 683 /Descent -290 /ItalicAngle 0 /StemV 93 /XHeight 431 /FontFile3 11 0 R >>
 endobj
 12 0 obj
-<< /Length 708 >>
+<< /Length 708 >>        
 stream
 %!PS-Adobe-3.0 Resource-CMap
 %%DocumentNeededResources: ProcSet (CIDInit)
@@ -95,24 +95,24 @@ endobj
 endobj
 xref
 0 18
-0000000000 65535 f
-0000000020 00000 n
-0000000236 00000 n
-0000000461 00000 n
-0000000068 00000 n
-0000000342 00000 n
-0000000401 00000 n
-0000002515 00000 n
-0000002867 00000 n
-0000000505 00000 n
-0000001526 00000 n
-0000000569 00000 n
-0000001747 00000 n
-0000002668 00000 n
-0000002927 00000 n
-0000003026 00000 n
-0000003062 00000 n
-0000003166 00000 n
+0000000000 65535 f 
+0000000020 00000 n 
+0000000236 00000 n 
+0000000461 00000 n 
+0000000068 00000 n 
+0000000342 00000 n 
+0000000401 00000 n 
+0000002515 00000 n 
+0000002867 00000 n 
+0000000505 00000 n 
+0000001526 00000 n 
+0000000569 00000 n 
+0000001747 00000 n 
+0000002668 00000 n 
+0000002927 00000 n 
+0000003026 00000 n 
+0000003062 00000 n 
+0000003166 00000 n 
 trailer
 << /Size 18 /Root 16 0 R /Info 17 0 R >>
 startxref

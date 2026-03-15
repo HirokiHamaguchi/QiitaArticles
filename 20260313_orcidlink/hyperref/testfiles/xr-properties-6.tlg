@@ -7,5 +7,5 @@ l. ... \show\r@VIa
 > \r@VIb=macro:
 ->{1.1}{1}{title}{\unknown section.title}{test-aux6.pdf}.
 l. ... \show\r@VIa  \show\r@VIb
- test-aux6.pdf, 1, KNOWNsection.title, https://xxx.yyy.zzz
+ test-aux6.pdf, 1, KNOWNsection.title, https://xxx.yyy.zzz 
 (xr-properties-6.aux)

@@ -10,10 +10,10 @@ backref.dtx
 nameref.dtx
         Cross-referencing by name of section.
 hyperref-linktarget.dtx
-        Module with commands to create targets
+        Module with commands to create targets         
 hyperref-patches.dtx
         outsourced older patches
-
+        
 hyperref.pdf, backref.pdf, nameref.pdf, hyperref-linktarget.pdf
         Source code documentation.
 

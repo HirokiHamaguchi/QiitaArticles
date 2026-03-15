@@ -1,5 +1,5 @@
 % from https://github.com/latex3/hyperref/issues/11
-%
+% 
 \documentclass{article}
 \input{regression-test}
 \usepackage{listings}

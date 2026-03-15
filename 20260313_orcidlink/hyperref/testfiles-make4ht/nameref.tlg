@@ -35,30 +35,30 @@ Completed box being shipped out [1]
 ...\special{t4ht+@Css: @media print {div.crosslinks {visibility:hidden;}}}
 ...\special{t4ht+@Css: table.tabular{border-collapse: collapse; border-spacing: 0\ETC.}
 ...\special{t4ht+@Css: a img { border-top: 0; border-left: 0; border-right: 0; }}
-...\special{t4ht;|000+<span
+...\special{t4ht;|000+<span 
 class="+%s+-%s+x-x-%d++">+</span>+0}
-...\special{t4ht;|001+<img
+...\special{t4ht;|001+<img 
 src="+" alt="+" class="+%s+-%d+x-x-%x+" />+1}
-...\special{t4ht;|003+<img
+...\special{t4ht;|003+<img 
 src="+" alt="+" class="%s-+%s+-%d+x-x-%x+" style="text\ETC.}
-...\special{t4ht;|004+<span
+...\special{t4ht;|004+<span 
 class="+++++small-caps">+</span>+4}
-...\special{t4ht;|006+<u
+...\special{t4ht;|006+<u 
 class="+++++underline">+</u>+6}
 ...\special{t4ht;|008+<sup class="htf">++++++</sup>+8}
 ...\special{t4ht;|010+<span class="htf-cmbx">++++++</span>+10}
-...\special{t4ht;|012+<span
+...\special{t4ht;|012+<span 
 class="htf-calligraphy">++++++</span>+12}
-...\special{t4ht;|014+<span
+...\special{t4ht;|014+<span 
 class="htf-italic">++++++</span>+14}
-...\special{t4ht;|016+<span
+...\special{t4ht;|016+<span 
 class="htf-bold">++++++</span>+16}
-...\special{t4ht;|018+<span
+...\special{t4ht;|018+<span 
 class="htf-calligraphy-bold">++++++</span>+18}
-...\special{t4ht;|020+<span
+...\special{t4ht;|020+<span 
 class="htf-flip-hor">++++++</span>+20}
 ...\special{t4ht;|022+<sub class="htf">++++++</sub>+22}
-...\special{t4ht;|024+<span
+...\special{t4ht;|024+<span 
 class="+++++small-caps">+</span>+24}
 ...\special{t4ht+@Font_Css("4"): .small-caps{font-variant: small-caps; }}
 ...\special{t4ht+@Font_Css("10"): .htf-cmbx {font-weight: bold; font-style:normal\ETC.}
@@ -68,11 +68,11 @@ class="+++++small-caps">+</span>+24}
 ...\special{t4ht+@Font_Css("12"): .htf-calligraphy-bold {font-family:cursive ; fo\ETC.}
 ...\special{t4ht+@Css: center { margin-top:1em; margin-bottom:1em; }}
 ...\special{t4ht+@Css: td center { margin-top:0em; margin-bottom:0em; }}
-...\special{t4ht"*<span
-class="Canvas">*X<span style="position:relative;
+...\special{t4ht"*<span 
+class="Canvas">*X<span style="position:relative; 
 width:%.\ETC.}
 ...\special{t4ht+@Css: .Canvas { position:relative; }}
-...\special{t4ht;|012+<!--span
+...\special{t4ht;|012+<!--span 
 class="htf-calligraphy"-->++++++<!--/span-->+12}
 ...\special{t4ht+@Css: img.math{vertical-align:middle;}}
 ...\special{t4ht+@Css: div.par-math-display, div.math-display{text-align:center;}}
@@ -185,12 +185,12 @@ class="htf-calligraphy"-->++++++<!--/span-->+12}
 ...\hbox(4.30554+0.0)x345.0, glue set 334.4444fil
 ....\hbox(0.0+0.0)x0.0
 ....\special{t4ht>nameref.css}
-....\special{t4ht=
+....\special{t4ht= 
 /* css.sty */}
 ....\special{t4ht<nameref.css}
-....\special{t4ht=<!DOCTYPE html>
+....\special{t4ht=<!DOCTYPE html> 
 }
-....\special{t4ht=<html lang="en-US" xml:lang="en-US" >
+....\special{t4ht=<html lang="en-US" xml:lang="en-US" > 
 }
 ....\special{t4ht;8}
 ....\special{t4ht=<head>}
@@ -201,19 +201,19 @@ class="htf-calligraphy"-->++++++<!--/span-->+12}
 .....\OT1/cmr/m/n/10 x
 ....\special{t4ht<nameref.tmp}
 ....\special{t4ht=<title>}
-....\special{t4ht=</title>
+....\special{t4ht=</title> 
 }
-....\special{t4ht=<meta  charset="utf-8" />
+....\special{t4ht=<meta  charset="utf-8" /> 
 }
 ....\special{t4ht=<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)\ETC.}
 ....\special{t4ht=<meta name="viewport" content="width=device-width,initial-scale=\ETC.}
-....\special{t4ht=<link rel="stylesheet" type="text/css" href="nameref.css" />
+....\special{t4ht=<link rel="stylesheet" type="text/css" href="nameref.css" /> 
 }
-....\special{t4ht=<meta name="src" content="nameref.tex" />
+....\special{t4ht=<meta name="src" content="nameref.tex" /> 
 }
 ....\special{t4ht=</head>}
 ....\special{t4ht;9}
-....\special{t4ht=<body
+....\special{t4ht=<body 
 >}
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
@@ -243,7 +243,7 @@ class="htf-calligraphy"-->++++++<!--/span-->+12}
 ....\glue 3.33333 plus 1.66666 minus 1.11111
 ....\write4{\doTocEntry\tocsection{1}{\csname a:TocLink\endcsname{1}{x1-10001}{QQ\ETC.}
 ....\write3{\:CrossWord{)Qx1-10001}{1}{\folio }\prcnt:ch }
-....\special{t4ht=<a
+....\special{t4ht=<a 
  id="x1-10001">}
 ....\special{t4ht=</a>}
 ....\OT1/cmr/m/n/10 a
@@ -263,7 +263,7 @@ class="htf-calligraphy"-->++++++<!--/span-->+12}
 ....\hbox(0.0+0.0)x15.0
 ....\glue -15.0
 ....\special{t4ht=<!--l. 10--><p class="noindent" >}
-....\special{t4ht=<a
+....\special{t4ht=<a 
 href="#x1-10001">}
 ....\OT1/cmr/m/n/10 a
 ....\OT1/cmr/m/n/10 b
@@ -284,9 +284,9 @@ href="#x1-10001">}
 ...\glue(\baselineskip) 12.0
 ...\hbox(0.0+0.0)x345.0, glue set 330.0fil
 ....\hbox(0.0+0.0)x15.0
-....\special{t4ht=
+....\special{t4ht= 
 </body>}
-....\special{t4ht=
+....\special{t4ht= 
 </html>}
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil

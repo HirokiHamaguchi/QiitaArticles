@@ -10,8 +10,8 @@
 
 \autoref{foo}
 
-\selectlanguage{norsk} \autoref{foo}
+\selectlanguage{norsk} \autoref{foo} 
 
-\selectlanguage{dutch} \autoref{foo}
-
+\selectlanguage{dutch} \autoref{foo} 
+ 
 \end{document}

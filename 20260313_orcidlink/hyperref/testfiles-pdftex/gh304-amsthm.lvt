@@ -8,7 +8,7 @@
 \begin{document}
 \START \showoutput
 
-\begin{theorem}
+\begin{theorem} 
 bla \label{thm:lab}
 \end{theorem}
 

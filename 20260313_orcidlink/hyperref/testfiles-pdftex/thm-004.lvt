@@ -1,5 +1,5 @@
 % https://tex.stackexchange.com/q/683581/2388
-%
+% 
 \documentclass[a4paper,12pt]{report}
 \input{regression-test}
 \usepackage{hyperref}

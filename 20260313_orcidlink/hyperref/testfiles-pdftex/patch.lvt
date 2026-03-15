@@ -3,9 +3,9 @@
 \usepackage{amsmath}
 \usepackage{longtable}
 \usepackage{varioref}
-\makeatletter
-%\def\hyper@nopatch@amsmath@tag{}
-%\def\hyper@nopatch@longtable{}
+\makeatletter 
+%\def\hyper@nopatch@amsmath@tag{} 
+%\def\hyper@nopatch@longtable{} 
 %\def\hyper@nopatch@mathenv{}
 %\def\hyper@nopatch@footnote{}
 %\def\hyper@nopatch@caption{}
@@ -16,7 +16,7 @@
 \makeatother
 \usepackage{hyperref}
 \begin{document}
-\START
+\START 
 \makeatletter
 % amsamth
 \ShowCommand\make@df@tag@@
@@ -38,7 +38,7 @@
 \ShowCommand\@definecounter
 \ShowCommand\@newctr
 %varioref + more
-\ShowCommand\Vref@star
+\ShowCommand\Vref@star   
 %sectioning
-\ShowCommand\@ssect
-\end{document}
+\ShowCommand\@ssect 
+\end{document} 

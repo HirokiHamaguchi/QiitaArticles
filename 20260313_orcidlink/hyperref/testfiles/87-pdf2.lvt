@@ -18,7 +18,7 @@
 \begin{document}
 
 \START
-\ifluatex
+\ifluatex 
  \the\pdfvariable majorversion
  \expandafter\showthe\pdfvariable majorversion
  \the\pdfvariable minorversion
@@ -32,4 +32,4 @@
 \END
 
 blub
-\end{document}
+\end{document} 

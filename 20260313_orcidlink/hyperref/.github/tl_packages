@@ -99,7 +99,7 @@ collection-basic
         varwidth
         xpatch
         zref
-
+        
 # from collection-luatex
         ctablestack
         lua-ul
@@ -124,7 +124,7 @@ collection-basic
         dehyph
         dehyph-exptl
         hyphen-german
-
+ 
 # from collection-latexrecommended
         attachfile2
         beamer
@@ -159,10 +159,10 @@ collection-basic
         xkeyval
 
 # other
-pgf
-marginnote
-tikzducks
-tikzlings
+pgf 
+marginnote 
+tikzducks 
+tikzlings 
 catchfile
 babel-latin
 babel-french
@@ -186,5 +186,9 @@ cbfonts-fd
 cbfonts
 
 # fonts
-amsfonts
-cm-super
+amsfonts 
+cm-super 
+
+
+
+

@@ -9,7 +9,7 @@
 Consider this:
 \[
 a=b
-\]
+\] 
 \begin{rk}\label{blub}
 Too much space above if hyperref line is uncommented?
 \end{rk}
@@ -17,4 +17,4 @@ Too much space above if hyperref line is uncommented?
 \newpage
 \ref{blub}
 
-\end{document}
+\end{document} 

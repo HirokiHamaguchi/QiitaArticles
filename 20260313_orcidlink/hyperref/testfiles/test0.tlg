@@ -10,9 +10,9 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\leq' on input line ....
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line ....
-Package hyperref Warning: Difference (2) between bookmark levels is greater
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
 (hyperref)                than one, level fixed on input line ....
-Package hyperref Warning: Difference (2) between bookmark levels is greater
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
 (hyperref)                than one, level fixed on input line ....
 <hog.pdf, id=77, 251.94125pt x 213.79875pt>
 File: hog.pdf Graphic file (type pdf)
@@ -37,7 +37,7 @@ File: hog.pdf Graphic file (type pdf)
 Package pdftex.def Info: hog.pdf  used on input line ....
 (pdftex.def)             Requested size: 125.9703pt x 106.89911pt.
 (test0.ind [5] [6
-])
+]) 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (test0.aux)
 Package rerunfilecheck Info: File `test0.out' has not changed.

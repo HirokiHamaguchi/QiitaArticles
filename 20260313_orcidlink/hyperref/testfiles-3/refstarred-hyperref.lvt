@@ -15,4 +15,4 @@ xxx
 \ref{sec:test},\Ref{sec:test}, \pageref{sec:test}
 
 \ref*{sec:test},\Ref*{sec:test}, \pageref*{sec:test}
-\end{document}
+\end{document} 

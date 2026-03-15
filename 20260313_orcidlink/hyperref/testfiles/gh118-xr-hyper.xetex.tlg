@@ -3,11 +3,11 @@ Don't change this file in any respect.
 Package hyperref Warning: Suppressing link with empty target on input line ....
 > \r@sec-no-hyper=macro:
 ->{1}{1}{}{}{}.
-<recently read> \r@sec-no-hyper
+<recently read> \r@sec-no-hyper 
 l. ......after\show\csname r@sec-no-hyper\endcsname
 > \r@sec-hyper=macro:
 ->{1}{1}{Section hyper}{section.1}{test-xr-hyper.pdf}.
-<recently read> \r@sec-hyper
+<recently read> \r@sec-hyper 
 l. ......andafter\show\csname r@sec-hyper\endcsname
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line ....
 (../se-ascii-print.def

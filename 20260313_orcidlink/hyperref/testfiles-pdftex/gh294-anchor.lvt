@@ -9,10 +9,10 @@
 \begin{document}
 \START \showoutput
 
-\vspace*{36\baselineskip}
+\vspace*{36\baselineskip} 
 
 line\\ line\\ line
     \begin{theorem}
         theorem
-    \end{theorem}
+    \end{theorem} 
 \end{document}

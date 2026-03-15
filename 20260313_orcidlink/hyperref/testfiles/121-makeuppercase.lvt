@@ -5,9 +5,9 @@
 \begin{document}
 \START
 \showoutput
-\frontmatter
-\tableofcontents*
+\frontmatter 
+\tableofcontents* 
 
-\mainmatter
+\mainmatter 
 \chapter{A chapter}
 \end{document}

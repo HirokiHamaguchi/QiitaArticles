@@ -13,10 +13,10 @@
 \renewcommand\thepage{λέγ\arabic{page}}
 \OMIT
 \begin{document}
-\TIMO \hyperlink{\RefProperty{A}{pagetarget}}{some text}
+\TIMO \hyperlink{\RefProperty{A}{pagetarget}}{some text} 
 \hyperlink{\RefProperty{B}{pagetarget}}{some text}
 
-abc \newpage abc \newpage A \RecordProperties{A}{page,pagetarget}
-\newpage \fontencoding{T1}\selectfont\pagenumbering{Roman}\setcounter{page}{5} B
-\RecordProperties{B}{page,pagetarget}
+abc \newpage abc \newpage A \RecordProperties{A}{page,pagetarget}  
+\newpage \fontencoding{T1}\selectfont\pagenumbering{Roman}\setcounter{page}{5} B 
+\RecordProperties{B}{page,pagetarget}  
 \end{document}

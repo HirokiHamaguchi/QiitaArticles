@@ -116,7 +116,7 @@
 %
 % All the patches excepted the last are disabled if the command
 % \cs{NR@nopatch@sectioning} is defined (the actual definition is irrelevant, only
-% existence is tested.
+% existence is tested. 
 % This currently only suppress the actual patches, the counter,
 % \cs{Sectionformat} and also the internal copies \cs{NR@sect} etc are still
 % defined.
@@ -220,7 +220,7 @@
 \ExplSyntaxOff
 
 %    \end{macrocode}
-% In formats older than 2023-06-01
+% In formats older than 2023-06-01 
 % we redefine |\label| so that it also writes the name of the
 % current section to the .aux file; if the name ends in a dot,
 % we zap it. To allow for the \xpackage{hyperref} package, also write
@@ -270,15 +270,15 @@
   \endgroup
 }{}
 %    \end{macrocode}
-%    \end{macro}
+%    \end{macro}   
 %    \begin{macro}{\label@hook}
-% Starting with LaTeX 2023-06-01 it is not longer needed to
-% redefine \cs{label} as the kernel provides a hook and
+% Starting with LaTeX 2023-06-01 it is not longer needed to 
+% redefine \cs{label} as the kernel provides a hook and  
 % stores \cs{@currentlabelname}. But as there are packages like ntheorem
-% and revtex which overwrites the kernel definition and then break nameref
-% and hyperref we add a guard.
+% and revtex which overwrites the kernel definition and then break nameref 
+% and hyperref we add a guard. 
 % We still support \cs{label@hook} for now as it is used below in \cs{slabel}
-% and also in hyperref.
+% and also in hyperref.    
 %    \begin{macrocode}
 \providecommand*{\label@hook}{}
 \NR@GlobalAppendToMacro{\label@hook}{%
@@ -307,17 +307,17 @@
      }}
      {}
     \ifx\label\NR@label@copy
-    \else
-      \PackageWarning{nameref}{The definition of \string\label\space has changed!
+    \else 
+      \PackageWarning{nameref}{The definition of \string\label\space has changed! 
                                \MessageBreak Check your packages!
                                \MessageBreak Replacing it with the kernel definition}
       \let\label\NR@label@copy
       \let\ltx@label\label %for amsmath
-    \fi
+    \fi    
     \AddToHookWithArguments{label}{\def\label@name{#1}\label@hook}
   }
   {
-
+    
 %    \end{macrocode}
 %    \end{macro}
 %    \begin{macro}{\label}
@@ -362,7 +362,7 @@
 %    \end{macro}
 %    \begin{macro}{\ltx@label}
 %  Starting with LaTeX 2023-06-01 it is not longer needed to update the
-%  amsmath command \cs{ltx@label} as nameref no longer changes \cs{label}
+%  amsmath command \cs{ltx@label} as nameref no longer changes \cs{label} 
 %    \begin{macrocode}
 \@ifl@t@r\fmtversion{2023-06-01}
   {}{\let\ltx@label\label}

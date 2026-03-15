@@ -5,7 +5,7 @@
 \begin{document}
 
 \section{Foo}\label{foé}
-\newpage
+\newpage 
 \START
 \hyperref[foé]{GO}.
 

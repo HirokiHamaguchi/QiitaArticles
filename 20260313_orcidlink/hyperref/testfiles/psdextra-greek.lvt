@@ -5,7 +5,7 @@
 \usepackage[psdextra]{hyperref}
 
 \begin{document}
-\START
+\START 
 
 \section{Math shortnames in bookmarks \texorpdfstring{kappa}{\kappa}}
 \end{document}

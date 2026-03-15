@@ -39,8 +39,8 @@ an atomic electron.
 {1 +  2\gamma m_e/m_x + \left ( m_e/m_x\right)^2},
 \]
 where $\gamma = E/m_x$, $E$ is energy and
-$m_x$ the mass of the incident particle,
-$\beta^2 = 1 - 1/\gamma^2$ and $m_e$ is the electron mass.
+$m_x$ the mass of the incident particle, 
+$\beta^2 = 1 - 1/\gamma^2$ and $m_e$ is the electron mass. 
 $\xi$ comes from the Rutherford scattering cross  section
 and is defined as:
 \begin{eqnarray*} \xi  = \frac{2\pi z^2 e^4 N_{Av} Z \rho \delta x}
@@ -66,11 +66,11 @@ and/or if $\beta$ approaches 1.
 
 The value of $\kappa$ distinguishes two regimes which occur in the
 description of ionisation fluctuations :
-
+ 
 \begin{enumerate}
 \item A large number of collisions involving the loss of all or most
   of the incident particle energy during the traversal of an absorber.
-
+  
   As the total energy transfer is composed of a multitude of small
   energy losses, we can apply the central limit theorem and describe
   the fluctuations by a Gaussian distribution.  This case is
@@ -78,10 +78,10 @@ description of ionisation fluctuations :
   inequality $\kappa > 10 $ (i.e. when the mean energy loss in the
   absorber is greater than the maximum energy transfer in a single
   collision).
-
+  
 \item Particles traversing thin counters and incident electrons under
   any conditions.
-
+  
   The relevant inequalities and distributions are $ 0.01 < \kappa < 10
   $, Vavilov distribution, and $\kappa < 0.01 $, Landau distribution.
 \end{enumerate}
@@ -102,11 +102,11 @@ GeV of kinetic energy in Argon, Silicon and Uranium.
 \begin{figure}
    \centering
    \includegraphics[width=.6\linewidth]{phys1}
-   \caption{The variable $\xi/I_0$ can be used to measure the
+   \caption{The variable $\xi/I_0$ can be used to measure the 
             validity range of the Landau theory. It depends
             on the type and energy of the particle, $Z$, $A$
             and the ionisation potential of the material and
-            the layer thickness.
+            the layer thickness. 
             }
     \label{fg:phys332-1}
 \end{figure}
@@ -125,7 +125,7 @@ $\delta x $, the Landau probability distribution may be written in
 terms of the universal Landau function $\phi(\lambda)$
 as\cite{bib-LAND}:
 \begin{eqnarray*}
-f( \epsilon , \delta x ) & = &\frac{1}{\xi} \phi ( \lambda )
+f( \epsilon , \delta x ) & = &\frac{1}{\xi} \phi ( \lambda )    
 \end{eqnarray*}
 where
 \begin{eqnarray*}
@@ -208,17 +208,17 @@ f \left ( \epsilon, \delta s \right ) & = & \frac{1}{\xi} \phi_{v}
 where
 \begin{eqnarray*}
 \phi_{v} \left ( \lambda_{v}, \kappa, \beta^{2} \right ) & = &
-\frac{1}{2 \pi i} \int^{c+i\infty}_{c-i\infty}\phi \left( s \right )
+\frac{1}{2 \pi i} \int^{c+i\infty}_{c-i\infty}\phi \left( s \right ) 
 e^{\lambda s} ds \hspace{2cm} c \geq 0 \\
-\phi \left ( s \right ) & = &
+\phi \left ( s \right ) & = & 
 \exp \left [ \kappa ( 1 + \beta^{2}\gamma ) \right ]
 ~ \exp \left [ \psi \left ( s \right ) \right ], \\
 \psi \left ( s \right )  & = & s \ln \kappa + ( s + \beta^{2} \kappa )
-\left [ \ln (s/\kappa) + E_{1} (s/\kappa) \right ] - \kappa e^{-s/\kappa},
+\left [ \ln (s/\kappa) + E_{1} (s/\kappa) \right ] - \kappa e^{-s/\kappa}, 
 \end{eqnarray*}
 and
 \begin{eqnarray*}
-E_{1}(z) & = & \int^{\infty}_{z} t^{-1} e^{-t} dt
+E_{1}(z) & = & \int^{\infty}_{z} t^{-1} e^{-t} dt 
 \mbox{\hspace{1cm} (the exponential integral)} \\
 \lambda_v & = & \kappa \left [ \frac{\epsilon - \bar{\epsilon}}{\xi}
 - \gamma' - \beta^2 \right]
@@ -236,9 +236,9 @@ the true $\lambda$ from the Landau density function.  Thus the routine
 \texttt{GVAVIV} samples the variable $\lambda_L$ rather than
 $\lambda_v$.  For $\kappa \geq 10$ the Vavilov distribution tends to a
 Gaussian distribution (see next section).
-
+ 
 \section{Gaussian Theory}
-
+ 
 Various conflicting forms have been proposed for Gaussian straggling
 functions, but most of these appear to have little theoretical or
 experimental basis.  However, it has been shown\cite{bib-SELT} that
@@ -250,7 +250,7 @@ f( \epsilon , \delta s)  \approx \frac{1}
    \exp \left [ \frac{( \epsilon - \bar{\epsilon} )^2}{2} \frac{\kappa}
    {\xi^2 (1- \beta^2/2)}\right ]
 \end{eqnarray*}
-thus implying
+thus implying 
 \begin{eqnarray*}
 \mathrm{mean} & = & \bar{\epsilon} \\
 \sigma^2      & = & \frac{\xi^2}{\kappa} (1-\beta^2/2) = \xi
@@ -303,7 +303,7 @@ this cut-off value.  The following notation is used:
 \SetRowColor $r, C$          & parameters of the model \\
 \SetRowColor $E_i$           & atomic energy levels \\
 \SetRowColor $I$             & mean ionisation energy \\
-\SetRowColor ${f_i}$         & oscillator strengths
+\SetRowColor ${f_i}$         & oscillator strengths 
 \end{tabular}
 
 The model has the parameters $f_i$, $E_i$, $C$ and $r ~(0\leq r\leq
@@ -337,7 +337,7 @@ C = \frac{dE}{dx}
 
 The following values have been chosen in \GEANT{} for the other
 parameters:
-\[
+\[ 
 \begin{array}{lcl}
 f_2 = \left\{ \begin{array}{ll}
              0   & \mathrm{if} Z \leq 2 \\
@@ -398,7 +398,7 @@ P(\alpha) = \int_I^{\alpha I} g(\!E\!) \, dE =
 The mean energy loss and the standard deviation for this type
 of collision are
 \begin{equation}
-\langle \Delta E(\alpha) \rangle = \frac{1}{P(\alpha)}
+\langle \Delta E(\alpha) \rangle = \frac{1}{P(\alpha)} 
         \int_I^{\alpha I} E \, g(\!E\!) \, dE =
         \frac{I \alpha \ln \alpha}{\alpha - 1}
 \end{equation}
@@ -475,7 +475,7 @@ number of interactions which has to be simulated directly) increases
 slowly with the total number of collisions $n_3$. The maximum number
 of these collisions can be estimated as
 \begin{equation}
-n_{B,max} = n_3 - n_{A,min} \approx n_3 (\langle n_A \rangle
+n_{B,max} = n_3 - n_{A,min} \approx n_3 (\langle n_A \rangle 
             - \sigma_A)
 \end{equation}
 From the previous expressions for $\langle n_A \rangle$ and $\sigma_A$
@@ -486,7 +486,7 @@ n_B \; \leq \; n_{B,max} = \frac{2 n_3 c^2}{n_3+c^2}
 The following values are obtained with $c=4$:
 
 \begin{tabular}{llcrr}
-$n_3$  & $n_{B,max}$ & & $n_3$  & $n_{B,max}$\\
+$n_3$  & $n_{B,max}$ & & $n_3$  & $n_{B,max}$\\ 
 \hline
 \SetRowColor 16   & 16      & & 200  & 29.63\\
 \SetRowColor 20   & 17.78   & & 500  & 31.01 \\
@@ -536,7 +536,7 @@ B.Schorr.
 
 \bibitem{bib-SELT}
 S.M.Seltzer and M.J.Berger.
-\newblock Energy loss straggling of protons and mesons.
+\newblock Energy loss straggling of protons and mesons. 
 \newblock In \emph{Studies in Penetration of Charged Particles in
   Matter}, Nuclear Science Series~39, Nat. Academy of Sciences,
   Washington DC, 1964.

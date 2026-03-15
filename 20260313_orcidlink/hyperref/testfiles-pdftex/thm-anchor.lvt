@@ -4,11 +4,11 @@
 \usepackage{hyperref}
 \newtheorem{theorem}{Theorem}
 \begin{document}
-\START\showoutput
-\AddToHookNext{para/begin}{\OmitIndent}
+\START\showoutput 
+\AddToHookNext{para/begin}{\OmitIndent} 
 \begin{theorem}
-abc\label{blub}
-\end{theorem}
+abc\label{blub} 
+\end{theorem} 
 
 \ref{blub}
 

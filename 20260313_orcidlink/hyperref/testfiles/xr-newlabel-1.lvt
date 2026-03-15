@@ -26,12 +26,12 @@
 \begin{document}
 \START \showoutput
 
-\makeatletter
- \show\r@Ia \show\r@Ib \show\r@Icspecial
-
- \show\r@IIa \show\r@IIb \show\r@IIbspecial \show\r@IIc
-
- \show\r@IIIa
+\makeatletter 
+ \show\r@Ia \show\r@Ib \show\r@Icspecial 
+ 
+ \show\r@IIa \show\r@IIb \show\r@IIbspecial \show\r@IIc 
+ 
+ \show\r@IIIa 
 
 %This prints the fourth and fifth argument in older LaTeX but works in newer
 \ref{IIIa}

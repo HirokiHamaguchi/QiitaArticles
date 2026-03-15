@@ -3,8 +3,10 @@ repos:
     rev: v4.5.0
     hooks:
       - id: trailing-whitespace
+        exclude: ^20260313_orcidlink/hyperref/
       - id: end-of-file-fixer
+        exclude: ^20260313_orcidlink/hyperref/
       - id: check-yaml
       - id: check-merge-conflict
       - id: check-added-large-files
-        args: ['--maxkb=5000']
+        args: ["--maxkb=5000"]
