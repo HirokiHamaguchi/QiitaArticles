@@ -1,27 +1,22 @@
-import os
 import re
 import shutil
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List
 
 import fitz  # type: ignore
-import pyperclip  # type: ignore
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-OUTPUT_FAILED_DIR = SCRIPT_DIR / "examples_failed"
-OUTPUT_SUCCEEDED_DIR = SCRIPT_DIR / "examples_succeeded"
+OUTPUT_DIRS = {
+    "failed": SCRIPT_DIR / "examples_failed",
+    "succeeded": SCRIPT_DIR / "examples_succeeded",
+}
+TABLE_FILES = {
+    "failed": SCRIPT_DIR / "examples_failed_table.txt",
+    "succeeded": SCRIPT_DIR / "examples_succeeded_table.txt",
+}
 
-
-@dataclass
-class CompileMethod:
-    name: str
-    tex_file: str
-    steps: List[str]
-
-
-TOOL_DEFINITIONS: Dict[str, List[str]] = {
+TOOL_DEFINITIONS = {
     "pdflatex": [
         "pdflatex",
         "-interaction=nonstopmode",
@@ -104,53 +99,69 @@ TOOL_DEFINITIONS: Dict[str, List[str]] = {
     ],
 }
 
+METHOD_SPECS = [
+    ("pdflatex", "raw", ["pdflatex", "pdflatex"]),
+    ("lualatex", "raw", ["lualatex", "lualatex"]),
+    ("xelatex", "raw", ["xelatex", "xelatex"]),
+    (
+        "xelatex -> xdvipdfmx",
+        "raw",
+        ["xelatex (no-pdf)", "xelatex (no-pdf)", "xdvipdfmx"],
+    ),
+    ("platex -> dvipdfmx", "dvipdfmx", ["platex", "platex", "dvipdfmx"]),
+    ("uplatex -> dvipdfmx", "dvipdfmx", ["uplatex", "uplatex", "dvipdfmx"]),
+    (
+        "ptex2pdf (platex)",
+        "dvipdfmx",
+        ["ptex2pdf (platex)", "ptex2pdf (platex)"],
+    ),
+    (
+        "ptex2pdf (uplatex)",
+        "dvipdfmx",
+        ["ptex2pdf (uplatex)", "ptex2pdf (uplatex)"],
+    ),
+    ("latexmk (pdflatex)", "raw", ["latexmk (pdflatex)"]),
+]
 
-def slugify(value: str) -> str:
-    return re.sub(r"[^a-z0-9]+", "_", value.lower()).strip("_")
 
-
-def command_exists(command: str) -> bool:
-    return shutil.which(command) is not None
-
-
-def build_step_command(step_name: str, tex_name: str, docfile: str) -> List[str]:
-    template = TOOL_DEFINITIONS[step_name]
-    return [
-        token.replace("%DOC%", tex_name).replace("%DOCFILE%", docfile)
-        for token in template
-    ]
+@dataclass
+class CompileMethod:
+    name: str
+    tex_file: str
+    steps: list[str]
 
 
 def run_compile_method(method: CompileMethod) -> Path | None:
-    tex_stem = Path(method.tex_file).stem
-    tex_name = Path(method.tex_file).name
-    docfile = tex_stem
-    method_slug = slugify(method.name)
-
-    required_commands = [
-        TOOL_DEFINITIONS[step_name][0]
-        for step_name in method.steps
-        if step_name in TOOL_DEFINITIONS
-    ]
-    for command_name in sorted(set(required_commands)):
-        if not command_exists(command_name):
-            raise RuntimeError(
-                f"Required command not found: {command_name} (needed for method: {method.name})"
-            )
+    tex_path = Path(method.tex_file)
+    tex_name = tex_path.name
+    tex_stem = tex_path.stem
+    missing_commands = sorted(
+        {
+            TOOL_DEFINITIONS[step_name][0]
+            for step_name in method.steps
+            if shutil.which(TOOL_DEFINITIONS[step_name][0]) is None
+        }
+    )
+    if missing_commands:
+        raise RuntimeError(
+            f"Required command(s) not found for {method.name}: {', '.join(missing_commands)}"
+        )
 
     print(f"[RUN ] {method.name}")
     for step_name in method.steps:
-        command = build_step_command(step_name, tex_name, docfile)
+        command = [
+            token.replace("%DOC%", tex_name).replace("%DOCFILE%", tex_stem)
+            for token in TOOL_DEFINITIONS[step_name]
+        ]
         result = subprocess.run(
             command,
             cwd=SCRIPT_DIR,
             text=True,
             capture_output=True,
         )
-        if result.stdout.strip():
-            print(result.stdout[:3000] + ("..." if len(result.stdout) > 3000 else ""))
-        if result.stderr.strip():
-            print(result.stderr[:3000] + ("..." if len(result.stderr) > 3000 else ""))
+        for output in (result.stdout, result.stderr):
+            if output.strip():
+                print(output[:3000] + ("..." if len(output) > 3000 else ""))
         if result.returncode != 0:
             print(f"[FAIL] {method.name}: {' '.join(command)}")
             return None
@@ -160,12 +171,12 @@ def run_compile_method(method: CompileMethod) -> Path | None:
         print(f"[FAIL] {method.name}: PDF not found: {tex_stem}.pdf")
         return None
 
-    if tex_stem.startswith("examples_succeeded_"):
-        output_dir = OUTPUT_SUCCEEDED_DIR
-    else:
-        output_dir = OUTPUT_FAILED_DIR
-
-    output_pdf = output_dir / f"{tex_stem}__{method_slug}.pdf"
+    output_dir = OUTPUT_DIRS[
+        "succeeded" if tex_stem.startswith("examples_succeeded_") else "failed"
+    ]
+    output_pdf = output_dir / (
+        f"{tex_stem}__{re.sub(r'[^a-z0-9]+', '_', method.name.lower()).strip('_')}.pdf"
+    )
     shutil.copy2(generated_pdf, output_pdf)
     print(f"[ OK ] saved PDF: {output_pdf}")
     return output_pdf
@@ -179,10 +190,8 @@ def annotate_and_convert_pdf_to_png(pdf_file: Path) -> Path | None:
         return None
 
     page = doc.load_page(0)
-
-    links = page.get_links()
     shape = page.new_shape()
-    for link in links:
+    for link in page.get_links():
         rect = link.get("from")
         kind = link.get("kind")
         if rect:
@@ -197,11 +206,9 @@ def annotate_and_convert_pdf_to_png(pdf_file: Path) -> Path | None:
             shape.commit()
             shape = page.new_shape()  # reset for next rect
 
-    page_width = page.rect.width
-    assert page_width > 0, "Page width must be positive"
+    assert page.rect.width > 0, "Page width must be positive"
     zoom = 2
-    mat = fitz.Matrix(zoom, zoom)
-    pix = page.get_pixmap(matrix=mat, alpha=False)
+    pix = page.get_pixmap(matrix=fitz.Matrix(zoom, zoom), alpha=False)
     output_png = pdf_file.with_suffix(".png")
     pix.save(str(output_png))
     doc.close()
@@ -217,118 +224,49 @@ def _display_label_from_png_name(png_name: str) -> str:
     return method_part.replace("_", " ")
 
 
-def build_markdown_table(caption: str, png_files: List[Path]) -> str:
+def build_markdown_table(caption: str, png_files: list[Path]) -> str:
     assert len(png_files) > 0, f"No PNG files for table: {caption}"
     headers = [_display_label_from_png_name(path.name) for path in png_files]
     rel_paths = [f"{path.parent.name}/{path.name}" for path in png_files]
 
     header_row = "| " + " | ".join(headers) + " |"
     align_row = "| " + " | ".join([":---:"] * len(headers)) + " |"
-    image_row = (
-        "| "
-        + " | ".join(
-            [
-                f"![{Path(rel_path).name.replace('.png', '')}]({rel_path})"
-                for rel_path in rel_paths
-            ]
-        )
-        + " |"
-    )
-    return "\n".join(
-        [
-            f"Table: {caption}",
-            "",
-            header_row,
-            align_row,
-            image_row,
-        ]
-    )
-
-
-def build_and_copy_tables(generated_pngs: List[Path]) -> str:
-    raw_pngs = sorted(
-        [
-            path
-            for path in generated_pngs
-            if path.name.startswith("examples_failed_raw__")
-        ]
-    )
-    dvipdfmx_pngs = sorted(
-        [
-            path
-            for path in generated_pngs
-            if path.name.startswith("examples_failed_dvipdfmx__")
-        ]
-    )
-
-    raw_table = build_markdown_table("Raw engine outputs", raw_pngs)
-    dvipdfmx_table = build_markdown_table("DVI-to-PDF workflow outputs", dvipdfmx_pngs)
-    tables_text = f"{raw_table}\n\n{dvipdfmx_table}"
-    pyperclip.copy(tables_text)
-    return tables_text
-
-
-def get_compile_methods() -> List[CompileMethod]:
-    base_methods = [
-        CompileMethod(
-            name="pdflatex",
-            tex_file="examples_{prefix}_raw.tex",
-            steps=["pdflatex", "pdflatex"],
-        ),
-        CompileMethod(
-            name="lualatex",
-            tex_file="examples_{prefix}_raw.tex",
-            steps=["lualatex", "lualatex"],
-        ),
-        CompileMethod(
-            name="xelatex",
-            tex_file="examples_{prefix}_raw.tex",
-            steps=["xelatex", "xelatex"],
-        ),
-        CompileMethod(
-            name="xelatex -> xdvipdfmx",
-            tex_file="examples_{prefix}_raw.tex",
-            steps=["xelatex (no-pdf)", "xelatex (no-pdf)", "xdvipdfmx"],
-        ),
-        CompileMethod(
-            name="platex -> dvipdfmx",
-            tex_file="examples_{prefix}_dvipdfmx.tex",
-            steps=["platex", "platex", "dvipdfmx"],
-        ),
-        CompileMethod(
-            name="uplatex -> dvipdfmx",
-            tex_file="examples_{prefix}_dvipdfmx.tex",
-            steps=["uplatex", "uplatex", "dvipdfmx"],
-        ),
-        CompileMethod(
-            name="ptex2pdf (platex)",
-            tex_file="examples_{prefix}_dvipdfmx.tex",
-            steps=["ptex2pdf (platex)", "ptex2pdf (platex)"],
-        ),
-        CompileMethod(
-            name="ptex2pdf (uplatex)",
-            tex_file="examples_{prefix}_dvipdfmx.tex",
-            steps=["ptex2pdf (uplatex)", "ptex2pdf (uplatex)"],
-        ),
-        CompileMethod(
-            name="latexmk (pdflatex)",
-            tex_file="examples_{prefix}_raw.tex",
-            steps=["latexmk (pdflatex)"],
-        ),
+    images = [
+        f"![{Path(rel_path).name.replace('.png', '')}]({rel_path})"
+        for rel_path in rel_paths
     ]
+    image_row = "| " + " | ".join(images) + " |"
+    return "\n".join([f"Table: {caption}", "", header_row, align_row, image_row])
 
-    methods: List[CompileMethod] = []
-    for prefix in ["failed", "succeeded"]:
-        label_suffix = "" if prefix == "failed" else " (succeeded)"
-        for method in base_methods:
-            methods.append(
-                CompileMethod(
-                    name=f"{method.name}{label_suffix}",
-                    tex_file=method.tex_file.format(prefix=prefix),
-                    steps=method.steps,
-                )
+
+def save_tables(generated_pngs: list[Path]) -> list[Path]:
+    saved_files = []
+    for status, output_path in TABLE_FILES.items():
+        status_tables = []
+        for variant, caption in (
+            ("raw", "Raw engine outputs"),
+            ("dvipdfmx", "DVI-to-PDF workflow outputs"),
+        ):
+            prefix = f"examples_{status}_{variant}__"
+            png_files = sorted(
+                path for path in generated_pngs if path.name.startswith(prefix)
             )
-    return methods
+            status_tables.append(build_markdown_table(caption, png_files))
+        output_path.write_text("\n\n".join(status_tables) + "\n", encoding="utf-8")
+        saved_files.append(output_path)
+    return saved_files
+
+
+def get_compile_methods() -> list[CompileMethod]:
+    return [
+        CompileMethod(
+            name=f"{name}{'' if prefix == 'failed' else ' (succeeded)'}",
+            tex_file=f"examples_{prefix}_{variant}.tex",
+            steps=steps,
+        )
+        for prefix in ("failed", "succeeded")
+        for name, variant, steps in METHOD_SPECS
+    ]
 
 
 def prepare_raw_tex_from_dvipdfmx_tex() -> None:
@@ -337,12 +275,7 @@ def prepare_raw_tex_from_dvipdfmx_tex() -> None:
         raise FileNotFoundError(
             "Could not find source TeX file: examples_failed_dvipdfmx.tex"
         )
-    failed_dvipdfmx_target = SCRIPT_DIR / "examples_failed_dvipdfmx.tex"
-    failed_raw_target = SCRIPT_DIR / "examples_failed_raw.tex"
-
     text = source_path.read_text(encoding="utf-8")
-
-    failed_dvipdfmx_target.write_text(text, encoding="utf-8")
 
     old_include = ",dvipdfmx]"
     if old_include not in text:
@@ -358,16 +291,14 @@ def prepare_raw_tex_from_dvipdfmx_tex() -> None:
         )
     text = text.replace(old_recipe, "% !LW recipe=pdflatex")
 
-    failed_raw_target.write_text(text, encoding="utf-8")
+    (SCRIPT_DIR / "examples_failed_raw.tex").write_text(text, encoding="utf-8")
 
 
 def prepare_succeeded_tex_from_failed_tex() -> None:
-    file_pairs = [
+    for source_name, target_name in (
         ("examples_failed_raw.tex", "examples_succeeded_raw.tex"),
         ("examples_failed_dvipdfmx.tex", "examples_succeeded_dvipdfmx.tex"),
-    ]
-
-    for source_name, target_name in file_pairs:
+    ):
         source_path = SCRIPT_DIR / source_name
         target_path = SCRIPT_DIR / target_name
 
@@ -388,52 +319,51 @@ def prepare_succeeded_tex_from_failed_tex() -> None:
 def main() -> None:
     prepare_raw_tex_from_dvipdfmx_tex()
     prepare_succeeded_tex_from_failed_tex()
-    os.chdir(SCRIPT_DIR)
-    OUTPUT_FAILED_DIR.mkdir(parents=True, exist_ok=True)
-    OUTPUT_SUCCEEDED_DIR.mkdir(parents=True, exist_ok=True)
+    for output_dir in OUTPUT_DIRS.values():
+        output_dir.mkdir(parents=True, exist_ok=True)
+        build_dir = output_dir / "_build"
+        if build_dir.exists() and build_dir.is_dir():
+            shutil.rmtree(build_dir)
 
-    for output_dir in (OUTPUT_FAILED_DIR, OUTPUT_SUCCEEDED_DIR):
-        legacy_build_dir = output_dir / "_build"
-        if legacy_build_dir.exists() and legacy_build_dir.is_dir():
-            shutil.rmtree(legacy_build_dir)
-
-    methods = get_compile_methods()
-    generated_pdfs: List[Path] = []
-    generated_pngs: List[Path] = []
-
-    for method in methods:
+    generated_pdfs = []
+    for method in get_compile_methods():
         pdf_path = run_compile_method(method)
-        assert pdf_path is not None
+        if pdf_path is None:
+            raise RuntimeError(f"Compilation failed: {method.name}")
         generated_pdfs.append(pdf_path)
 
+    unnecessary_suffixes = [
+        ".aux",
+        ".out",
+        ".log",
+        ".gz",
+        ".dvi",
+        ".xdv",
+        ".fls",
+        ".fdb_latexmk",
+        ".toc",
+        ".pdf",
+    ]
     for item in SCRIPT_DIR.iterdir():
-        if item.is_file() and item.suffix in {
-            ".aux",
-            ".out",
-            ".log",
-            ".gz",
-            ".dvi",
-            ".xdv",
-            ".fls",
-            ".fdb_latexmk",
-            ".toc",
-            ".pdf",
-        }:
+        if item.is_file() and item.suffix in unnecessary_suffixes:
             item.unlink()
 
-    for pdf_file in generated_pdfs:
-        png_path = annotate_and_convert_pdf_to_png(pdf_file)
-        if png_path is not None:
-            generated_pngs.append(png_path)
+    generated_pngs = [
+        png_path
+        for pdf_file in generated_pdfs
+        for png_path in [annotate_and_convert_pdf_to_png(pdf_file)]
+        if png_path is not None
+    ]
 
-    tables_text = build_and_copy_tables(generated_pngs)
-    print("\nCopied tables to clipboard:\n")
-    print(tables_text)
+    table_files = save_tables(generated_pngs)
+    print("\nSaved tables:\n")
+    for table_file in table_files:
+        print(table_file)
 
     print(
         "Done. Generated "
         f"{len(generated_pdfs)} PDF(s) and PNG(s) in: "
-        f"{OUTPUT_FAILED_DIR} and {OUTPUT_SUCCEEDED_DIR}"
+        f"{OUTPUT_DIRS['failed']} and {OUTPUT_DIRS['succeeded']}"
     )
 
 

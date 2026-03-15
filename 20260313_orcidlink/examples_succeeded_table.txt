@@ -1,0 +1,11 @@
+Table: Raw engine outputs
+
+| latexmk pdflatex succeeded | lualatex succeeded | pdflatex succeeded | xelatex succeeded | xelatex xdvipdfmx succeeded |
+| :---: | :---: | :---: | :---: | :---: |
+| ![examples_succeeded_raw__latexmk_pdflatex_succeeded](examples_succeeded/examples_succeeded_raw__latexmk_pdflatex_succeeded.png) | ![examples_succeeded_raw__lualatex_succeeded](examples_succeeded/examples_succeeded_raw__lualatex_succeeded.png) | ![examples_succeeded_raw__pdflatex_succeeded](examples_succeeded/examples_succeeded_raw__pdflatex_succeeded.png) | ![examples_succeeded_raw__xelatex_succeeded](examples_succeeded/examples_succeeded_raw__xelatex_succeeded.png) | ![examples_succeeded_raw__xelatex_xdvipdfmx_succeeded](examples_succeeded/examples_succeeded_raw__xelatex_xdvipdfmx_succeeded.png) |
+
+Table: DVI-to-PDF workflow outputs
+
+| platex dvipdfmx succeeded | ptex2pdf platex succeeded | ptex2pdf uplatex succeeded | uplatex dvipdfmx succeeded |
+| :---: | :---: | :---: | :---: |
+| ![examples_succeeded_dvipdfmx__platex_dvipdfmx_succeeded](examples_succeeded/examples_succeeded_dvipdfmx__platex_dvipdfmx_succeeded.png) | ![examples_succeeded_dvipdfmx__ptex2pdf_platex_succeeded](examples_succeeded/examples_succeeded_dvipdfmx__ptex2pdf_platex_succeeded.png) | ![examples_succeeded_dvipdfmx__ptex2pdf_uplatex_succeeded](examples_succeeded/examples_succeeded_dvipdfmx__ptex2pdf_uplatex_succeeded.png) | ![examples_succeeded_dvipdfmx__uplatex_dvipdfmx_succeeded](examples_succeeded/examples_succeeded_dvipdfmx__uplatex_dvipdfmx_succeeded.png) |
