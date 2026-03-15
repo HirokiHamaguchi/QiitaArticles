@@ -15,6 +15,10 @@ TABLE_FILES = {
     "failed": SCRIPT_DIR / "examples_failed_table.txt",
     "succeeded": SCRIPT_DIR / "examples_succeeded_table.txt",
 }
+RAW_GITHUB_BASE_URL = (
+    "https://raw.githubusercontent.com/"
+    "HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink"
+)
 
 TOOL_DEFINITIONS = {
     "pdflatex": [
@@ -227,13 +231,15 @@ def _display_label_from_png_name(png_name: str) -> str:
 def build_markdown_table(caption: str, png_files: list[Path]) -> str:
     assert len(png_files) > 0, f"No PNG files for table: {caption}"
     headers = [_display_label_from_png_name(path.name) for path in png_files]
-    rel_paths = [f"{path.parent.name}/{path.name}" for path in png_files]
+    image_urls = [
+        f"{RAW_GITHUB_BASE_URL}/{path.parent.name}/{path.name}" for path in png_files
+    ]
 
     header_row = "| " + " | ".join(headers) + " |"
     align_row = "| " + " | ".join([":---:"] * len(headers)) + " |"
     images = [
-        f"![{Path(rel_path).name.replace('.png', '')}]({rel_path})"
-        for rel_path in rel_paths
+        f"![{Path(image_url).name.replace('.png', '')}]({image_url})"
+        for image_url in image_urls
     ]
     image_row = "| " + " | ".join(images) + " |"
     return "\n".join([f"Table: {caption}", "", header_row, align_row, image_row])
@@ -301,7 +307,6 @@ def prepare_succeeded_tex_from_failed_tex() -> None:
     ):
         source_path = SCRIPT_DIR / source_name
         target_path = SCRIPT_DIR / target_name
-
         text = source_path.read_text(encoding="utf-8")
 
         old_macro = r"\XeTeXLinkBox"
@@ -310,9 +315,7 @@ def prepare_succeeded_tex_from_failed_tex() -> None:
                 f"Expected string not found in {source_path.name}: {old_macro}"
             )
         text = text.replace(old_macro, r"\HyperrefLinkBox")
-
         text = text.replace(r"\usepackage{orcidlink}", r"\usepackage{myorcidlink}")
-
         target_path.write_text(text, encoding="utf-8")
 
 

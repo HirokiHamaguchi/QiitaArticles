@@ -8,95 +8,95 @@ I am making this Pull Request (PR) to fix and improve the situation about the `\
 
 ## Summary
 
-* `\XeTeXLinkBox`コマンドでは対応しきれていない、画像などに対するhyperlinkの生成に関する問題を修正したい
-* このコマンドを一般向けに実装した新しいコマンド`\HyperrefLinkBox`を定義し、後方互換性を保ちつつ問題が修正できるようにした
-* この変更は、orcidlink packageをはじめとする多くのユーザーに影響があると考えており、reviewをお願いしたい
+* I would like to fix hyperlink-generation issues for images and similar objects that the current `\XeTeXLinkBox` command does not fully handle.
+* I defined a new command, `\HyperrefLinkBox`, as a general-purpose implementation of this functionality so that the issue can be fixed while preserving backward compatibility.
+* I believe this change affects many users, including those of the orcidlink package, and I would appreciate your review.
 
 ## Background
 
-始めに、今回のPRの背景について、私の認識している範囲で説明します。
+First, I will explain the background of this PR based on my current understanding.
 
 ### XeTexLinkBox Command
 
-hyperrefには、`\XeTeXLinkBox`というコマンドが存在しており、これは以下のように説明されています。
+The hyperref package provides a command called `\XeTeXLinkBox`, which is described as follows.
 
 > 7.7 \XeTeXLinkBoxWhen
 > When XeTeX generates a link annotation, it does not look at the boxes (as the other drivers), but only at the character glyphs. If there are no glyphs (images, rules, ...), then it does not generate a link annotation. Macro \XeTeXLinkBox puts its argument in a box and adds spaces at the lower left and upper right corners. An additional margin can be specified by setting it to the dimen register \XeTeXLinkMargin. The default is 2pt.
 
 (From [the hyperref manual](https://ctan.tikz.jp/macros/latex/contrib/hyperref/doc/hyperref-doc.html#x1-360007.7), v7.01p (2026-01-29))
 
-このコマンドなどは、次の箇所で定義されています:
+This command and related logic are defined in the following location:
 
 https://github.com/latex3/hyperref/blob/d2eb2fae09eee648f81659613a37e3e45566e479/hyperref.dtx#L7886
 
-このコマンドの歴史的な経緯としては、XeTeXでコンパイルする際に、いくつかの対象にリンクが生成されないことから、その対処として使用されてきたものと思われます。dvipdfmxなどのバグと思われますが、未だ修正はされておらず、またhyperref側で比較的簡単に対処できることから、本PRを提出するに至りました。
+Historically, this command appears to have been used as a workaround for cases where links were not generated for some objects when compiling with XeTeX. This seems to be related to a bug in dvipdfmx, which still has not been fixed. Since the issue can be handled relatively simply on the hyperref side, I submitted this PR.
 
-![image_from_hyperlinking-a-drawing](imgs/image_from_hyperlinking-a-drawing.png)
+![image_from_hyperlinking-a-drawing](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/imgs/image_from_hyperlinking-a-drawing.png)
 
 (From [StackExchange](https://tex.stackexchange.com/questions/56802/hyperlinking-a-drawing), last visited 2026-03-14)
 
 ### Usage in orcidlink package
 
-今回のPRの大きな動機の一つは、orcidlink packageでこのコマンドが使用されており、その影響が大きいと考えられることです。orcidlink packageは、ORCIDのアイコンとハイパーリンクを簡単に作成できる便利なパッケージです。
+One major motivation for this PR is that this command is used by the orcidlink package, so the impact is likely significant. The orcidlink package is a useful package that makes it easy to create ORCID icons with hyperlinks.
 
-![orcidlink_package](imgs/orcidlink_package.png)
+![orcidlink_package](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/imgs/orcidlink_package.png)
 
 (From [CTAN](https://ctan.org/pkg/orcidlink), last visited 2026-03-14)
 
-hyperref packageが内部で使われており、近年は特に使用者が多いことからも、重要な応用例の一つであると考えています。
+Because hyperref is used internally and usage has grown in recent years, I consider this one of the important practical use cases.
 
-後述する問題の修正には、当然orcidlink packageの修正も必要になり、私は今後そちらにもPRを送ることを考えていますが、先にhyperref packageの方で修正を行うことが必要であると考えています。
+Fixing the issue described below naturally also requires changes in the orcidlink package. I am planning to submit a PR there as well, but I believe it is necessary to first address this on the hyperref side.
 
 ## Existing Problems
 
-続いて、本節では、現在の問題点について説明します。
+Next, this section explains the current problems.
 
-先ほど述べたリンクが生成されない問題は、XeTeX以外のドライバでコンパイルする際にも発生します。そして、`\XeTeXLinkBox`コマンドでは、XeTeX以外のドライバでコンパイルする際の問題に対応できていません。
+The link-generation issue mentioned above also occurs when compiling with drivers other than XeTeX. However, the `\XeTeXLinkBox` command does not address these non-XeTeX cases.
 
-恐らく、8年前からコミュニティでは認識されている問題ではないでしょうか?
+This issue appears to have been recognized by the community for about at least eight years.
 
 https://github.com/latex3/hyperref/blame/d2eb2fae09eee648f81659613a37e3e45566e479/README.md#L127
 
-また、こちらのissueでも、同様の議論がされているように思われます。
+A similar discussion also seems to appear in this issue:
 
 https://github.com/latex3/hyperref/issues/16
 
-特に、pLaTeXでコンパイルする場合については、例えば以下の記事で言及があります。
+In particular, for pLaTeX compilation, it is mentioned in posts such as the following:
 
 https://tex.stackexchange.com/questions/559136/why-is-the-link-area-in-the-image-so-small
 
-これらと同様の問題は、upLaTeXなど、dvipdfmx系だと発生します。以下に実行例を示します。Pythonによって、リンクが存在する部分には赤や青の枠で強調表示しています。pdflatexやlualatexなど、pdfTeX系のエンジンでコンパイルした場合は、リンクが生成されていることがわかります。一方で、dvipdfmx系のエンジンでコンパイルした場合は、画像に対するリンクが一部生成されていないことがわかります。全て最新のTeX Live 2026で確認しています。
+Problems similar to these occur with dvipdfmx-based workflows, including upLaTeX. The examples below show actual outputs. Using Python, I highlighted linked regions with red/blue boxes. When compiled with pdfTeX-family engines such as pdflatex and lualatex, links are correctly generated. In contrast, when compiled with dvipdfmx-based engines, some links on images are missing. I confirmed all of this on the latest TeX Live 2026.
 
-特に、orcidlink packageによる、ORCIDアイコンへのリンクが生成されていないことが分かります。これは単なる重箱の隅をつつくような問題ではなく、実際に多くのユーザーが遭遇する可能性のある問題であると考えています。
+In particular, links to ORCID icons generated by the orcidlink package are missing. Thus, I think this is not a purely edge-case issue, but a issue many users may encounter in practice.
 
 Table: Raw engine outputs
 
 | latexmk pdflatex | lualatex | pdflatex | xelatex | xelatex xdvipdfmx |
 | :---: | :---: | :---: | :---: | :---: |
-| ![examples_failed_raw__latexmk_pdflatex](examples_failed/examples_failed_raw__latexmk_pdflatex.png) | ![examples_failed_raw__lualatex](examples_failed/examples_failed_raw__lualatex.png) | ![examples_failed_raw__pdflatex](examples_failed/examples_failed_raw__pdflatex.png) | ![examples_failed_raw__xelatex](examples_failed/examples_failed_raw__xelatex.png) | ![examples_failed_raw__xelatex_xdvipdfmx](examples_failed/examples_failed_raw__xelatex_xdvipdfmx.png) |
+| ![examples_failed_raw__latexmk_pdflatex](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_failed/examples_failed_raw__latexmk_pdflatex.png) | ![examples_failed_raw__lualatex](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_failed/examples_failed_raw__lualatex.png) | ![examples_failed_raw__pdflatex](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_failed/examples_failed_raw__pdflatex.png) | ![examples_failed_raw__xelatex](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_failed/examples_failed_raw__xelatex.png) | ![examples_failed_raw__xelatex_xdvipdfmx](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_failed/examples_failed_raw__xelatex_xdvipdfmx.png) |
 
 Table: DVI-to-PDF workflow outputs
 
 | platex dvipdfmx | ptex2pdf platex | ptex2pdf uplatex | uplatex dvipdfmx |
 | :---: | :---: | :---: | :---: |
-| ![examples_failed_dvipdfmx__platex_dvipdfmx](examples_failed/examples_failed_dvipdfmx__platex_dvipdfmx.png) | ![examples_failed_dvipdfmx__ptex2pdf_platex](examples_failed/examples_failed_dvipdfmx__ptex2pdf_platex.png) | ![examples_failed_dvipdfmx__ptex2pdf_uplatex](examples_failed/examples_failed_dvipdfmx__ptex2pdf_uplatex.png) | ![examples_failed_dvipdfmx__uplatex_dvipdfmx](examples_failed/examples_failed_dvipdfmx__uplatex_dvipdfmx.png) |
+| ![examples_failed_dvipdfmx__platex_dvipdfmx](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_failed/examples_failed_dvipdfmx__platex_dvipdfmx.png) | ![examples_failed_dvipdfmx__ptex2pdf_platex](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_failed/examples_failed_dvipdfmx__ptex2pdf_platex.png) | ![examples_failed_dvipdfmx__ptex2pdf_uplatex](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_failed/examples_failed_dvipdfmx__ptex2pdf_uplatex.png) | ![examples_failed_dvipdfmx__uplatex_dvipdfmx](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_failed/examples_failed_dvipdfmx__uplatex_dvipdfmx.png) |
 
-この結果の詳細な生成方法やpdfの本体は、[私のGitHubリポジトリ](https://github.com/HirokiHamaguchi/QiitaArticles/tree/main/20260313_orcidlink)で確認できます。`pdf2png.py`というPythonスクリプトを実行すると、全ての結果が生成されます。
+Detailed reproduction steps and the PDF themselves are available in [my GitHub repository](https://github.com/HirokiHamaguchi/QiitaArticles/tree/main/20260313_orcidlink). Running the Python script `pdf2png.py` generates all the results.
 
-この結果から、確かにdvipdfmxなどでコンパイルした場合は、\XeTeXLinkBoxコマンドだけでは、対応できていない例があることがわかります。
+These results show that when compiling with dvipdfmx and related workflows, there are indeed cases that cannot be handled by `\XeTeXLinkBox` alone.
 
 ### Potential Bugs
 
-続いて、`\XeTeXLinkBox`コマンドの実装に由来する、潜在的なバグについて説明します。
+Next, I describe potential bugs derived from the implementation of `\XeTeXLinkBox`.
 
-`\XeTeXLinkBox`コマンドは空白を追加することでリンク領域を生成しているとdocumentedされていますが、この空白は1spの空白を追加することで達成されています。sp means "scaled point", and it satisfies 1sp = 1/65536 pt. しかし、この1spの空白というのが、XeTeX以外のドライバでは問題を起こし、修正の妨げになっていました。具体的には、単純な修正を実装すると、以下のようなエラーが発生していました。
+The `\XeTeXLinkBox` command is documented as generating a link area by adding spaces, and in practice this is done by inserting 1sp spaces. Here, sp means “scaled point,” with 1sp = 1/65536 pt. However, this 1sp spacing causes problems with non-XeTeX drivers and became an obstacle to a fix. Concretely, when implementing a straightforward fix, the following error occurred.
 
 ```tex
 pdfTeX error (arithmetic): divided by zero.
 <argument> ...shipout:D \box_use:N \l_shipout_box \__shipout_drop_firstpage_...
 ```
 
-また、GitHub上で、`\XeTeXLinkBox`に関するissueとして、この1spの空白に由来する問題が指摘されているものもあります。
+There are also GitHub issues related to `\XeTeXLinkBox` that appear to point out problems originating from this 1sp spacing:
 
 https://github.com/progit-ja/progit/issues/8
 
@@ -109,17 +109,17 @@ Metric (TFM) file or installed font not found.
 
 ## Proposed Solution
 
-以上の前提と問題点を基に、以下のような解決策を提案します。
+Based on the above background and issues, I propose the following solution.
 
-* `\XeTeXLinkBox`コマンドと似た機能を有する`\HyperrefLinkBox`コマンドをXeTeX以外にも定義する
-* `\XeTeXLinkBox`の実装とは違い、1spの空白ではなく、1ptの空白を追加することで、リンク領域を生成するようにする
+* Define a `\HyperrefLinkBox` command, similar to `\XeTeXLinkBox`, for non-XeTeX drivers as well.
+* Unlike the current `\XeTeXLinkBox` implementation, generate the link area by adding 1pt spacing instead of 1sp spacing.
 
-詳細は、PRのコードをご覧ください。
+Please see the PR code for details.
 
 ## Compiled Results
 
-実際に、この変更を実装して、コンパイルした結果を以下に示します。orcidlink packageでも、この変更を前提として軽微な修正を加えています。
-具体的には、以下のように変更をしています。
+Below are the compilation results after implementing this change. I also applied a minor change to the orcidlink package under the assumption that this change exists.
+Specifically, the following change was made.
 
 ```diff
 + \newcommand{\@OrcidLinkBox}[1]{%
@@ -143,53 +143,53 @@ xscale=\@OrigHeightRecip*\@curXheight,transform shape]
 }}{}}
 ```
 
-[Existing Problems](#existing-problems)のセクションで示したのと殆ど同様の方法で、コンパイルをしました。ただし、`\XeTeXLinkBox`コマンドを`\HyperrefLinkBox`コマンドに置き換えています。
+I compiled using almost the same method as shown in the [Existing Problems](#existing-problems) section, except that I replaced `\XeTeXLinkBox` with `\HyperrefLinkBox`.
 
-実際に、先ほどは生成されていなかったリンクが生成されていることがわかります。
+As you can see, links that were previously missing are now generated.
 
 Table: Raw engine outputs
 
 | latexmk pdflatex succeeded | lualatex succeeded | pdflatex succeeded | xelatex succeeded | xelatex xdvipdfmx succeeded |
 | :---: | :---: | :---: | :---: | :---: |
-| ![examples_succeeded_raw__latexmk_pdflatex_succeeded](examples_succeeded/examples_succeeded_raw__latexmk_pdflatex_succeeded.png) | ![examples_succeeded_raw__lualatex_succeeded](examples_succeeded/examples_succeeded_raw__lualatex_succeeded.png) | ![examples_succeeded_raw__pdflatex_succeeded](examples_succeeded/examples_succeeded_raw__pdflatex_succeeded.png) | ![examples_succeeded_raw__xelatex_succeeded](examples_succeeded/examples_succeeded_raw__xelatex_succeeded.png) | ![examples_succeeded_raw__xelatex_xdvipdfmx_succeeded](examples_succeeded/examples_succeeded_raw__xelatex_xdvipdfmx_succeeded.png) |
+| ![examples_succeeded_raw__latexmk_pdflatex_succeeded](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_succeeded/examples_succeeded_raw__latexmk_pdflatex_succeeded.png) | ![examples_succeeded_raw__lualatex_succeeded](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_succeeded/examples_succeeded_raw__lualatex_succeeded.png) | ![examples_succeeded_raw__pdflatex_succeeded](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_succeeded/examples_succeeded_raw__pdflatex_succeeded.png) | ![examples_succeeded_raw__xelatex_succeeded](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_succeeded/examples_succeeded_raw__xelatex_succeeded.png) | ![examples_succeeded_raw__xelatex_xdvipdfmx_succeeded](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_succeeded/examples_succeeded_raw__xelatex_xdvipdfmx_succeeded.png) |
 
 Table: DVI-to-PDF workflow outputs
 
 | platex dvipdfmx succeeded | ptex2pdf platex succeeded | ptex2pdf uplatex succeeded | uplatex dvipdfmx succeeded |
 | :---: | :---: | :---: | :---: |
-| ![examples_succeeded_dvipdfmx__platex_dvipdfmx_succeeded](examples_succeeded/examples_succeeded_dvipdfmx__platex_dvipdfmx_succeeded.png) | ![examples_succeeded_dvipdfmx__ptex2pdf_platex_succeeded](examples_succeeded/examples_succeeded_dvipdfmx__ptex2pdf_platex_succeeded.png) | ![examples_succeeded_dvipdfmx__ptex2pdf_uplatex_succeeded](examples_succeeded/examples_succeeded_dvipdfmx__ptex2pdf_uplatex_succeeded.png) | ![examples_succeeded_dvipdfmx__uplatex_dvipdfmx_succeeded](examples_succeeded/examples_succeeded_dvipdfmx__uplatex_dvipdfmx_succeeded.png) |
+| ![examples_succeeded_dvipdfmx__platex_dvipdfmx_succeeded](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_succeeded/examples_succeeded_dvipdfmx__platex_dvipdfmx_succeeded.png) | ![examples_succeeded_dvipdfmx__ptex2pdf_platex_succeeded](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_succeeded/examples_succeeded_dvipdfmx__ptex2pdf_platex_succeeded.png) | ![examples_succeeded_dvipdfmx__ptex2pdf_uplatex_succeeded](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_succeeded/examples_succeeded_dvipdfmx__ptex2pdf_uplatex_succeeded.png) | ![examples_succeeded_dvipdfmx__uplatex_dvipdfmx_succeeded](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260313_orcidlink/examples_succeeded/examples_succeeded_dvipdfmx__uplatex_dvipdfmx_succeeded.png) |
 
-## 影響範囲の調査と今後の展望
+## Impact Survey and Future Outlook
 
-### 影響範囲の調査
+### Impact Survey
 
-意図しない影響を避けるために、このコマンドなどの使用状況などは軽く調べました。
+To avoid unintended impact, I performed a lightweight survey of how this command and related functionality are used.
 
-以下のissueの存在は認識しており、今回の変更は、こちらのissueでも述べられている考えと合致する、普遍性のある変更だと考えています。
+I am aware of the following issue, and I believe this change is broadly applicable and aligned with the direction discussed there.
 
 https://github.com/latex3/hyperref/issues/240
 
-また、後方互換性の観点から、`\XeTeXLinkBox`コマンドの定義を変更することは避けました。例えば以下のサイトなどで、`\XeTeXLinkMargin`に言及があるようです。
+From a backward-compatibility perspective, I intentionally avoided changing the definition of `\XeTeXLinkBox`. For example, sites such as the following mention `\XeTeXLinkMargin`.
 
 https://tex.stackexchange.com/questions/577314/xelatex-hyperref-bounding-box
 
-ただ、個人的には、`\XeTeXLinkBox`コマンドは、`\HyperrefLinkBox`コマンドを使って実装することも可能で、可読性はこちらの方が高いと考えています。もし、後者の方が好ましいということであれば、変更することも可能です。
+That said, I personally think `\XeTeXLinkBox` could also be implemented via `\HyperrefLinkBox`, which may improve readability. If this way is preferred, I can change it.
 
-なお、`\HyperrefLinkBox`コマンドという命名は、マクロとして変数名の衝突を避けるために、あえてHyperrefという名前を入れていますが、もし、より適切な命名があれば、そちらに変更することも可能です。この名前は、少なくともGoogle検索の完全一致検索において、衝突がないことは確認しています。
+The name `\HyperrefLinkBox` intentionally includes “Hyperref” to avoid macro name collisions. If there is a more appropriate naming convention, I can adopt it. At least through an exact-match Google search, I confirmed no apparent naming conflict.
 
-### 今後の展望
+### Future Outlook
 
-まず、maintainerの方々に、このPRが必要かどうかをご判断いただきたいです。もし何かしら別の方法での実装を考えていた場合には、このPRは取り下げます。
+First, I would like maintainers to determine whether this PR is needed. If you already have another implementation direction in mind, I will withdraw this PR.
 
-また、このPRがmaintainerの方々にとって有益であると判断された場合には、**このPRは次の点で完全ではなく、議論をしたいです**。
-なお、**必要であれば、適切な指示さえいただければ、これらの変更は私の側で実装することも可能です**。
+Also, if this PR is considered useful, **it is still incomplete in the following points, and I would like to discuss them**.
+If needed, **I can implement these additional changes myself with proper guidance**.
 
-1. 先述のように、どのように`\XeTeXLinkBox`を実装すべきか、また、`\HyperrefLinkBox`の実装がこれでよいのかを議論したいです。
-2. hyperref.dtxにおけるコメント部分はどのように記すべきか? (例えば、現在のこのファイルには、`% \subsection{Link box support for XeTeX}`などの記載があるが、これがどこで使用されているか検索しても分かりませんでした。適当に推測して現在はPRを書いていますが、正しい方法があれば教えていただきたいです。)
-3. doc/hyperref-doc.texへの変更の追記 (\subsection{\textbackslash XeTeXLinkBox}の後に同様の説明と例を追加する必要があると思います)
-4. testの追加 (testがどう実行されているかどうかも、あまりよく分かりませんでした。また、他のdriverでのテストも必要かもしれません。)
-5. Changelog.txtへの変更の追記 (これは適当に書けば良さそうです)
+1. As noted above, I would like to discuss how `\XeTeXLinkBox` should be implemented, and whether the current `\HyperrefLinkBox` implementation is appropriate.
+2. How should comments be written in hyperref.dtx? (For example, this file currently has entries like `% \subsection{Link box support for XeTeX}`, but I could not determine from searching where they are consumed. I wrote the PR based on a best-effort guess; I would appreciate guidance on the correct approach.)
+3. Additional updates to doc/hyperref-doc.tex (I think we should add similar explanations and examples after `\subsection{\textbackslash XeTeXLinkBox}`).
+4. Add tests (I am not yet fully sure how tests are run in this repository. Tests for other drivers may also be necessary.)
+5. Add an entry to Changelog.txt (this seems straightforward).
 
-## まとめ
+## Conclusion
 
-お手数をおかけしますが、reviewのほど、どうぞよろしくお願いいたします。
+Thank you for your time and effort. I would greatly appreciate your review.
