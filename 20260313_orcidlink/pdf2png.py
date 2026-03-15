@@ -127,12 +127,31 @@ METHOD_SPECS = [
     ("latexmk (pdflatex)", "raw", ["latexmk (pdflatex)"]),
 ]
 
+UNNECESSARY_SUFFIXES = [
+    ".aux",
+    ".out",
+    ".log",
+    ".gz",
+    ".dvi",
+    ".xdv",
+    ".fls",
+    ".fdb_latexmk",
+    ".toc",
+    ".pdf",
+]
+
 
 @dataclass
 class CompileMethod:
     name: str
     tex_file: str
     steps: list[str]
+
+
+def cleanup_unnecessary_files() -> None:
+    for item in SCRIPT_DIR.iterdir():
+        if item.is_file() and item.suffix in UNNECESSARY_SUFFIXES:
+            item.unlink()
 
 
 def run_compile_method(method: CompileMethod) -> Path | None:
@@ -151,39 +170,42 @@ def run_compile_method(method: CompileMethod) -> Path | None:
             f"Required command(s) not found for {method.name}: {', '.join(missing_commands)}"
         )
 
-    print(f"[RUN ] {method.name}")
-    for step_name in method.steps:
-        command = [
-            token.replace("%DOC%", tex_name).replace("%DOCFILE%", tex_stem)
-            for token in TOOL_DEFINITIONS[step_name]
-        ]
-        result = subprocess.run(
-            command,
-            cwd=SCRIPT_DIR,
-            text=True,
-            capture_output=True,
-        )
-        for output in (result.stdout, result.stderr):
-            if output.strip():
-                print(output[:3000] + ("..." if len(output) > 3000 else ""))
-        if result.returncode != 0:
-            print(f"[FAIL] {method.name}: {' '.join(command)}")
+    try:
+        print(f"[RUN ] {method.name}")
+        for step_name in method.steps:
+            command = [
+                token.replace("%DOC%", tex_name).replace("%DOCFILE%", tex_stem)
+                for token in TOOL_DEFINITIONS[step_name]
+            ]
+            result = subprocess.run(
+                command,
+                cwd=SCRIPT_DIR,
+                text=True,
+                capture_output=True,
+            )
+            for output in (result.stdout, result.stderr):
+                if output.strip():
+                    print(output[:3000] + ("..." if len(output) > 3000 else ""))
+            if result.returncode != 0:
+                print(f"[FAIL] {method.name}: {' '.join(command)}")
+                return None
+
+        generated_pdf = SCRIPT_DIR / f"{tex_stem}.pdf"
+        if not generated_pdf.exists():
+            print(f"[FAIL] {method.name}: PDF not found: {tex_stem}.pdf")
             return None
 
-    generated_pdf = SCRIPT_DIR / f"{tex_stem}.pdf"
-    if not generated_pdf.exists():
-        print(f"[FAIL] {method.name}: PDF not found: {tex_stem}.pdf")
-        return None
-
-    output_dir = OUTPUT_DIRS[
-        "succeeded" if tex_stem.startswith("examples_succeeded_") else "failed"
-    ]
-    output_pdf = output_dir / (
-        f"{tex_stem}__{re.sub(r'[^a-z0-9]+', '_', method.name.lower()).strip('_')}.pdf"
-    )
-    shutil.copy2(generated_pdf, output_pdf)
-    print(f"[ OK ] saved PDF: {output_pdf}")
-    return output_pdf
+        output_dir = OUTPUT_DIRS[
+            "succeeded" if tex_stem.startswith("examples_succeeded_") else "failed"
+        ]
+        output_pdf = output_dir / (
+            f"{tex_stem}__{re.sub(r'[^a-z0-9]+', '_', method.name.lower()).strip('_')}.pdf"
+        )
+        shutil.copy2(generated_pdf, output_pdf)
+        print(f"[ OK ] saved PDF: {output_pdf}")
+        return output_pdf
+    finally:
+        cleanup_unnecessary_files()
 
 
 def annotate_and_convert_pdf_to_png(pdf_file: Path) -> Path | None:
@@ -334,22 +356,6 @@ def main() -> None:
         if pdf_path is None:
             raise RuntimeError(f"Compilation failed: {method.name}")
         generated_pdfs.append(pdf_path)
-
-    unnecessary_suffixes = [
-        ".aux",
-        ".out",
-        ".log",
-        ".gz",
-        ".dvi",
-        ".xdv",
-        ".fls",
-        ".fdb_latexmk",
-        ".toc",
-        ".pdf",
-    ]
-    for item in SCRIPT_DIR.iterdir():
-        if item.is_file() and item.suffix in unnecessary_suffixes:
-            item.unlink()
 
     generated_pngs = [
         png_path
