@@ -59,85 +59,6 @@ lemma openSegment_of_t {x y z : L} {t : ℝ}
   use t, 1 - t
   exact ⟨ht0, by linarith, by ring, hz.symm⟩
 
-lemma openSegment_split_at_point
-    {u z v w : L}
-    (hz : z ∈ openSegment ℝ u v)
-    (hw : w ∈ openSegment ℝ u v) :
-    w ∈ openSegment ℝ u z ∪ {z} ∪ openSegment ℝ z v := by
-  rcases openSegment_t hz with ⟨A, hA0, hA1, hz_eq⟩
-  rcases openSegment_t hw with ⟨c, hc0, hc1, hw_eq⟩
-
-  by_cases hcA : c = A
-  · subst hcA
-    rw [← hz_eq] at hw_eq
-    subst hw_eq
-    simp
-
-  by_cases hAc : A < c
-  · left
-    left
-    let μ : ℝ := (c - A) / (1 - A)
-
-    have hμ0 : 0 < μ := by
-      subst μ
-      exact div_pos (sub_pos.mpr hAc) (sub_pos.mpr hA1)
-
-    have hμ1 : μ < 1 := by
-      subst μ
-      have hPos : 0 < 1 - A := by linarith
-      rw [div_lt_one hPos]
-      linarith
-
-    apply openSegment_of_t hμ0 hμ1
-    rw [hw_eq, hz_eq]
-    subst μ
-    have hAne : 1 - A ≠ 0 := (sub_pos.mpr hA1).ne'
-    symm
-    calc
-      ((c - A) / (1 - A)) • u
-          + (1 - (c - A) / (1 - A)) •
-              (A • u + (1 - A) • v)
-        = (((c - A) / (1 - A))
-            + (1 - (c - A) / (1 - A)) * A) • u
-            + ((1 - (c - A) / (1 - A)) * (1 - A)) • v := by
-              module
-      _ = c • u + (1 - c) • v := by
-              ext i
-              simp
-              field_simp [hAne]
-              ring
-
-  · right
-    have hcA_lt : c < A := lt_of_le_of_ne (le_of_not_gt hAc) hcA
-
-    let μ : ℝ := c / A
-
-    have hμ0 : 0 < μ := by
-      subst μ
-      exact div_pos hc0 hA0
-
-    have hμ1 : μ < 1 := by
-      subst μ
-      rw [div_lt_one hA0]
-      exact hcA_lt
-
-    apply openSegment_of_t hμ0 hμ1
-    rw [hw_eq, hz_eq]
-    subst μ
-    have hAne : A ≠ 0 := ne_of_gt hA0
-    symm
-    calc
-      (c / A) • (A • u + (1 - A) • v)
-          + (1 - c / A) • v
-        = ((c / A) * A) • u
-            + (((c / A) * (1 - A)) + (1 - c / A)) • v := by
-              module
-      _ = c • u + (1 - c) • v := by
-              ext i
-              simp
-              field_simp [hAne]
-              ring
-
 lemma openSegment_uv_ordered
     {x y z u v : L}
     (hNegXY : x ≠ y)
@@ -223,15 +144,99 @@ lemma openSegment_uv_ordered
     ring
 
   intro w hw
-  exact openSegment_split_at_point hz_uv hw
+  rcases openSegment_t hz_uv with ⟨A, hA0, hA1, hz_eq⟩
+  rcases openSegment_t hw with ⟨c, hc0, hc1, hw_eq⟩
 
-lemma thm_4_2 {K : Set L} (hKIsOpen : IsOpen K) (hK : HasNoCrosscut K) : Convex ℝ (compl K) := by
-  -- We show the convexity by proving xy ⊆ Kᶜ
+  by_cases hcA : c = A
+  · subst hcA
+    rw [← hz_eq] at hw_eq
+    subst hw_eq
+    simp
+
+  by_cases hAc : A < c
+  · left
+    left
+    let μ : ℝ := (c - A) / (1 - A)
+
+    have hμ0 : 0 < μ := by
+      subst μ
+      exact div_pos (sub_pos.mpr hAc) (sub_pos.mpr hA1)
+
+    have hμ1 : μ < 1 := by
+      subst μ
+      have hPos : 0 < 1 - A := by linarith
+      rw [div_lt_one hPos]
+      linarith
+
+    apply openSegment_of_t hμ0 hμ1
+    rw [hw_eq, hz_eq]
+    subst μ
+    have hAne : 1 - A ≠ 0 := (sub_pos.mpr hA1).ne'
+    symm
+    calc
+      ((c - A) / (1 - A)) • u
+          + (1 - (c - A) / (1 - A)) •
+              (A • u + (1 - A) • v)
+        = (((c - A) / (1 - A))
+            + (1 - (c - A) / (1 - A)) * A) • u
+            + ((1 - (c - A) / (1 - A)) * (1 - A)) • v := by
+              module
+      _ = c • u + (1 - c) • v := by
+              ext i
+              simp
+              field_simp [hAne]
+              ring
+
+  · right
+    have hcA_lt : c < A := lt_of_le_of_ne (le_of_not_gt hAc) hcA
+
+    let μ : ℝ := c / A
+
+    have hμ0 : 0 < μ := by
+      subst μ
+      exact div_pos hc0 hA0
+
+    have hμ1 : μ < 1 := by
+      subst μ
+      rw [div_lt_one hA0]
+      exact hcA_lt
+
+    apply openSegment_of_t hμ0 hμ1
+    rw [hw_eq, hz_eq]
+    subst μ
+    have hAne : A ≠ 0 := ne_of_gt hA0
+    symm
+    calc
+      (c / A) • (A • u + (1 - A) • v)
+          + (1 - c / A) • v
+        = ((c / A) * A) • u
+            + (((c / A) * (1 - A)) + (1 - c / A)) • v := by
+              module
+      _ = c • u + (1 - c) • v := by
+              ext i
+              simp
+              field_simp [hAne]
+              ring
+
+lemma exists_frontier_point_openSegment_to_interior
+    {K : Set L} (hKIsOpen : IsOpen K)
+    {a z : L}
+    (ha : a ∈ compl K)
+    (hz : z ∈ interior K) :
+    ∃ u : L,
+      u ∈ frontier K ∧
+      u ∈ openSegment ℝ a z ∧
+      openSegment ℝ u z ⊆ interior K := by
+  sorry
+
+lemma thm_4_2 {K : Set L}
+    (hKIsOpen : IsOpen K)
+    (hK : HasNoCrosscut K) :
+    Convex ℝ (compl K) := by
   apply convex_iff_openSegment_subset.mpr
   intro x hXInKc y hYInKc
 
   rcases eq_or_ne x y with rfl | hxy
-
   · rw [openSegment_self]
     intro x xInX
     simp at xInX
@@ -244,37 +249,50 @@ lemma thm_4_2 {K : Set L} (hKIsOpen : IsOpen K) (hK : HasNoCrosscut K) : Convex 
 
     have ⟨z, hz_seg_K⟩ : ∃ z, z ∈ openSegment ℝ x y ∩ K := Set.nonempty_iff_ne_empty.mpr hNot
 
+    have hz_seg : z ∈ openSegment ℝ x y := hz_seg_K.1
+    have hz_K : z ∈ K := hz_seg_K.2
+
     have hz_KInterior : z ∈ interior K := by
-      apply Set.inter_subset_right at hz_seg_K
       rw [hKIsOpen.interior_eq]
-      exact hz_seg_K
+      exact hz_K
 
-    have hu: ∃ u: L, u ∈ frontier K ∧ u ∈ openSegment ℝ x z ∧ openSegment ℝ u z ⊆ interior K := by
-      sorry
-    have hv: ∃ v: L, v ∈ frontier K ∧ v ∈ openSegment ℝ z y ∧ openSegment ℝ z v ⊆ interior K := by
-      sorry
-    obtain ⟨u, hu_front, hu_seg, hu_int⟩ := hu
-    obtain ⟨v, hv_front, hv_seg, hv_int⟩ := hv
+    obtain ⟨u, hu_frontier, hu_xz, hu_sub⟩ :=
+      exists_frontier_point_openSegment_to_interior hKIsOpen hXInKc hz_KInterior
 
-    have hOrder :=
-      openSegment_uv_ordered hxy hz_seg_K.1 hu_seg hv_seg
+    obtain ⟨v, hv_frontier, hv_yz, hv_sub_yz⟩ :=
+      exists_frontier_point_openSegment_to_interior hKIsOpen hYInKc hz_KInterior
 
-    rcases hOrder with ⟨huv_ne, huv_subset⟩
+    have hv_zy : v ∈ openSegment ℝ z y := by
+      rw [openSegment_symm]
+      exact hv_yz
 
-    have huv_crosscut : IsCrosscut K u v := by
-      refine ⟨hu_front, hv_front, huv_ne, ?_⟩
+    have hv_sub : openSegment ℝ z v ⊆ interior K := by
       intro w hw
-      have hw' := huv_subset hw
+      apply hv_sub_yz
+      rw [openSegment_symm]
+      exact hw
+
+    have huv :
+        u ≠ v ∧
+          openSegment ℝ u v ⊆
+            openSegment ℝ u z ∪ {z} ∪ openSegment ℝ z v :=
+      openSegment_uv_ordered hxy hz_seg hu_xz hv_zy
+
+    have hCross : IsCrosscut K u v := by
+      refine ⟨hu_frontier, hv_frontier, huv.left, ?_⟩
+      intro w hw
+      have hw' := huv.right hw
       rcases hw' with hwuz_or_hwz | hwzv
       · rcases hwuz_or_hwz with hwuz | hwz
-        · exact hu_int hwuz
+        · exact hu_sub hwuz
         · rw [hwz]
           exact hz_KInterior
-      · exact hv_int hwzv
+      · exact hv_sub hwzv
 
-    exact hK u v huv_crosscut
+    exact hK u v hCross
 
   -- xy ∩ K = ∅ implies xy ⊆ Kᶜ
-  replace hXYAndKIsDisjoint := disjoint_iff_inter_eq_empty.mpr hXYCapKIsEmpty
-  rw [Set.subset_compl_iff_disjoint_right]
-  exact hXYAndKIsDisjoint
+  intro z hz_seg hz_K
+  have hz_inter : z ∈ openSegment ℝ x y ∩ K := ⟨hz_seg, hz_K⟩
+  rw [hXYCapKIsEmpty] at hz_inter
+  exact hz_inter
