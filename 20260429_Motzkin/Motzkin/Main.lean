@@ -59,6 +59,85 @@ lemma openSegment_of_t {x y z : L} {t : ℝ}
   use t, 1 - t
   exact ⟨ht0, by linarith, by ring, hz.symm⟩
 
+lemma openSegment_split_at_point
+    {u z v w : L}
+    (hz : z ∈ openSegment ℝ u v)
+    (hw : w ∈ openSegment ℝ u v) :
+    w ∈ openSegment ℝ u z ∪ {z} ∪ openSegment ℝ z v := by
+  rcases openSegment_t hz with ⟨A, hA0, hA1, hz_eq⟩
+  rcases openSegment_t hw with ⟨c, hc0, hc1, hw_eq⟩
+
+  by_cases hcA : c = A
+  · subst hcA
+    rw [← hz_eq] at hw_eq
+    subst hw_eq
+    simp
+
+  by_cases hAc : A < c
+  · left
+    left
+    let μ : ℝ := (c - A) / (1 - A)
+
+    have hμ0 : 0 < μ := by
+      subst μ
+      exact div_pos (sub_pos.mpr hAc) (sub_pos.mpr hA1)
+
+    have hμ1 : μ < 1 := by
+      subst μ
+      have hPos : 0 < 1 - A := by linarith
+      rw [div_lt_one hPos]
+      linarith
+
+    apply openSegment_of_t hμ0 hμ1
+    rw [hw_eq, hz_eq]
+    subst μ
+    have hAne : 1 - A ≠ 0 := (sub_pos.mpr hA1).ne'
+    symm
+    calc
+      ((c - A) / (1 - A)) • u
+          + (1 - (c - A) / (1 - A)) •
+              (A • u + (1 - A) • v)
+        = (((c - A) / (1 - A))
+            + (1 - (c - A) / (1 - A)) * A) • u
+            + ((1 - (c - A) / (1 - A)) * (1 - A)) • v := by
+              module
+      _ = c • u + (1 - c) • v := by
+              ext i
+              simp
+              field_simp [hAne]
+              ring
+
+  · right
+    have hcA_lt : c < A := lt_of_le_of_ne (le_of_not_gt hAc) hcA
+
+    let μ : ℝ := c / A
+
+    have hμ0 : 0 < μ := by
+      subst μ
+      exact div_pos hc0 hA0
+
+    have hμ1 : μ < 1 := by
+      subst μ
+      rw [div_lt_one hA0]
+      exact hcA_lt
+
+    apply openSegment_of_t hμ0 hμ1
+    rw [hw_eq, hz_eq]
+    subst μ
+    have hAne : A ≠ 0 := ne_of_gt hA0
+    symm
+    calc
+      (c / A) • (A • u + (1 - A) • v)
+          + (1 - c / A) • v
+        = ((c / A) * A) • u
+            + (((c / A) * (1 - A)) + (1 - c / A)) • v := by
+              module
+      _ = c • u + (1 - c) • v := by
+              ext i
+              simp
+              field_simp [hAne]
+              ring
+
 lemma openSegment_uv_ordered
     {x y z u v : L}
     (hNegXY : x ≠ y)
@@ -105,10 +184,12 @@ lemma openSegment_uv_ordered
 
   have huv_ne : u ≠ v := by
     intro huv
-    subst hu_xy hv_xy
     have hProd : (α - β) • (x - y) = (0 : L) := by
-      calc (α - β) • (x - y) = (α • x + (1 - α) • y) - (β • x + (1 - β) • y) := by module
-                           _ = 0 := by rw [huv, sub_self]
+      calc
+        (α - β) • (x - y)
+            = (α • x + (1 - α) • y)
+                - (β • x + (1 - β) • y) := by module
+        _ = 0 := by rw [← hu_xy, ← hv_xy, huv, sub_self]
     have hαβ : α - β ≠ 0 := by linarith
     have hxy : x - y = (0 : L) := by simpa [smul_eq_zero, hαβ] using hProd
     apply hNegXY
@@ -120,21 +201,20 @@ lemma openSegment_uv_ordered
   refine ⟨huv_ne, ?_⟩
   clear hNegXY hs0 hs1 hr0 hr1
 
-  let A : ℝ := (t - β) / (α - β)
+  have hz_uv : z ∈ openSegment ℝ u v := by
+    let A : ℝ := (t - β) / (α - β)
 
-  have hA0 : 0 < A := by
-    subst A
-    apply div_pos
-    · exact sub_pos_of_lt hβ_lt_t
-    · exact sub_pos_of_lt hβ_lt_α
+    have hA0 : 0 < A := by
+      subst A
+      exact div_pos (sub_pos.mpr hβ_lt_t) (sub_pos.mpr hβ_lt_α)
 
-  have hA1 : A < 1 := by
-    subst A
-    have hPos : 0 < α - β := by linarith
-    rw [div_lt_one hPos]
-    linarith
+    have hA1 : A < 1 := by
+      subst A
+      have hPos : 0 < α - β := by linarith
+      rw [div_lt_one hPos]
+      linarith
 
-  have hz_uv : z = A • u + (1 - A) • v := by
+    apply openSegment_of_t hA0 hA1
     rw [hu_xy, hv_xy, hz_xy]
     subst A
     ext i
@@ -143,79 +223,7 @@ lemma openSegment_uv_ordered
     ring
 
   intro w hw
-  rcases openSegment_t hw with ⟨c, hc0, hc1, hw_eq⟩
-  by_cases hcEq : c = A
-  · subst hcEq
-    rw [← hz_uv] at hw_eq
-    subst hw_eq
-    left
-    right
-    simp
-
-  · by_cases hcGt : A < c
-    · -- `w ∈ openSegment ℝ u z`
-      left
-      left
-      let μ : ℝ := (c - A) / (1 - A)
-
-      have hμ0 : 0 < μ := by
-        subst μ
-        apply div_pos
-        · exact sub_pos_of_lt hcGt
-        · exact sub_pos_of_lt hA1
-
-      have hμ1 : μ < 1 := by
-        subst μ
-        have hPos : 0 < 1 - A := by linarith
-        rw [div_lt_one hPos]
-        linarith
-
-      apply openSegment_of_t hμ0 hμ1
-      rw [hw_eq, hz_uv]
-      subst μ
-      have hA_ne : 1 - A ≠ 0 := (sub_pos.mpr hA1).ne'
-      symm
-      calc
-        ((c - A) / (1 - A)) • u + (1 - (c - A) / (1 - A)) • (A • u + (1 - A) • v)
-          = (((c - A) / (1 - A)) + (1 - (c - A) / (1 - A)) * A) • u + ((1 - (c - A) / (1 - A)) * (1 - A)) • v := by module
-           _ = c • u + (1 - c) • v := by
-            ext i
-            simp
-            field_simp [hA_ne]
-            ring
-    · -- `w ∈ openSegment ℝ z v`
-      have hc_lt_A : c < A := by
-        exact lt_of_le_of_ne (le_of_not_gt hcGt) hcEq
-
-      right
-
-      let μ : ℝ := c / A
-
-      have hμ0 : 0 < μ := by
-        subst μ
-        exact div_pos hc0 hA0
-
-      have hμ1 : μ < 1 := by
-        subst μ
-        rw [div_lt_one hA0]
-        exact hc_lt_A
-
-      apply openSegment_of_t hμ0 hμ1
-      rw [hw_eq, hz_uv]
-      subst μ
-      have hA_ne : A ≠ 0 := ne_of_gt hA0
-      symm
-      calc
-        (c / A) • (A • u + (1 - A) • v) + (1 - c / A) • v
-            = ((c / A) * A) • u
-                + (((c / A) * (1 - A)) + (1 - c / A)) • v := by
-              module
-        _ = c • u + (1 - c) • v := by
-            ext i
-            simp
-            field_simp [hA_ne]
-            ring
-
+  exact openSegment_split_at_point hz_uv hw
 
 lemma thm_4_2 {K : Set L} (hKIsOpen : IsOpen K) (hK : HasNoCrosscut K) : Convex ℝ (compl K) := by
   -- We show the convexity by proving xy ⊆ Kᶜ
