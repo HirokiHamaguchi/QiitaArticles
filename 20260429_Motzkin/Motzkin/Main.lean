@@ -89,26 +89,15 @@ lemma exists_frontier_point_segment_to_interior
   let γ := segmentPath x z
   let A : Set ℝ := tailSet K x z
 
-  have hxK : x ∉ K := by
-    simpa using hx
+  have hxK : x ∉ K := by simpa using hx
+  have hKint : interior K = K := hK.interior_eq
+  have hzK : z ∈ K := by simpa [hKint] using hz
+  have hγ_cont : Continuous γ := continuous_segmentPath x z
 
-  have hKint : interior K = K :=
-    hK.interior_eq
+  rcases exists_mem_tailSet_lt_one hK (x := x) hzK with ⟨t₀, ht₀A, ht₀_lt_one⟩
+  clear hzK
 
-  have hzK : z ∈ K := by
-    simpa [hKint] using hz
-
-  have hγ_cont : Continuous γ :=
-    continuous_segmentPath x z
-
-  rcases exists_mem_tailSet_lt_one hK (x := x) hzK with
-    ⟨t₀, ht₀A, ht₀_lt_one⟩
-
-  have hAne : A.Nonempty :=
-    ⟨t₀, ht₀A⟩
-
-  have hAlt : ∃ t ∈ A, t < 1 :=
-    ⟨t₀, ht₀A, ht₀_lt_one⟩
+  have hAne : A.Nonempty := ⟨t₀, ht₀A⟩
 
   let a : ℝ := sInf A
   let u : L := γ a
@@ -118,15 +107,10 @@ lemma exists_frontier_point_segment_to_interior
     intro t ht
     exact ht.1.1
 
-  have haIcc : a ∈ Icc (0 : ℝ) 1 := by
+  have haIco : a ∈ Ico (0 : ℝ) 1 := by
     constructor
     · exact le_csInf hAne fun t ht => ht.1.1
-    · rcases hAlt with ⟨t, htA, htlt⟩
-      exact le_trans (csInf_le hAbdd htA) (le_of_lt htlt)
-
-  have ha_lt_one : a < 1 := by
-    rcases hAlt with ⟨t, htA, htlt⟩
-    exact lt_of_le_of_lt (csInf_le hAbdd htA) htlt
+    · exact lt_of_le_of_lt (csInf_le hAbdd ht₀A) ht₀_lt_one
 
   have htail : ∀ s ∈ Ioc a 1, γ s ∈ K := by
     intro s hs
@@ -159,7 +143,7 @@ lemma exists_frontier_point_segment_to_interior
 
     have hδpos : 0 < δ := by
       dsimp [δ]
-      exact lt_min (by linarith) (by linarith [ha_lt_one])
+      exact lt_min (by linarith) (by linarith [haIco.2])
 
     have hat : a < t := by
       dsimp [t]
@@ -218,7 +202,7 @@ lemma exists_frontier_point_segment_to_interior
       by_contra hapos
 
       have ha0 : a = 0 :=
-        le_antisymm (le_of_not_gt hapos) haIcc.1
+        le_antisymm (le_of_not_gt hapos) haIco.1
 
       have hx_in_K : x ∈ K := by
         simpa [u, γ, segmentPath, ha0] using huK
@@ -252,9 +236,9 @@ lemma exists_frontier_point_segment_to_interior
       constructor
       · constructor
         · dsimp [b]
-          linarith [haIcc.1, hδle_a]
+          linarith [haIco.1, hδle_a]
         · dsimp [b]
-          linarith [haIcc.2, hδpos]
+          linarith [haIco.2, hδpos]
       · intro s hs
         by_cases hsa : s ≤ a
         · apply hεsub
@@ -291,8 +275,8 @@ lemma exists_frontier_point_segment_to_interior
   have hu_segment : u ∈ segment ℝ x z := by
     dsimp [u, γ, segmentPath]
     refine ⟨1 - a, a, ?_, ?_, ?_, rfl⟩
-    · linarith
-    · exact haIcc.1
+    · linarith [haIco.2]
+    · exact haIco.1
     · ring
 
   have hopen : openSegment ℝ u z ⊆ interior K := by
@@ -307,9 +291,9 @@ lemma exists_frontier_point_segment_to_interior
     have hs : s ∈ Ioc a 1 := by
       constructor
       · dsimp [s]
-        nlinarith [ht0, ht1, ha_lt_one]
+        nlinarith [ht0, ht1, haIco.2]
       · dsimp [s]
-        nlinarith [ht0, ht1, haIcc.2]
+        nlinarith [ht0, ht1, haIco.2]
 
     have hγs : (1 - t) • u + t • z = γ s := by
       ext i
@@ -329,7 +313,6 @@ lemma exists_frontier_point_segment_to_interior
 
   exact ⟨u, hu_ne_z, hu_frontier, hu_segment, hopen⟩
 
-
 lemma lineMap_mem_range_of_mem_segment_left_right
     {x y z u v : L}
     (huz : u ≠ z)
@@ -339,79 +322,51 @@ lemma lineMap_mem_range_of_mem_segment_left_right
     (hv : v ∈ segment ℝ z y) :
     z ∈ range (lineMap u v : ℝ → L) := by
   rw [openSegment_eq_image_lineMap] at hz
-  rcases hz with ⟨a, ha, rfl⟩
-
   rw [segment_eq_image_lineMap] at hu hv
-  rcases hu with ⟨b, hb, rfl⟩
-  rcases hv with ⟨c, hc, rfl⟩
 
-  have ha0 : 0 < a := ha.1
-  have ha1 : a < 1 := ha.2
-
-  have hb_lt_one : b < 1 := by
-    refine lt_of_le_of_ne hb.2 ?_
-    intro hb1
-    apply huz
-    simp [hb1]
-
-  have hc_pos : 0 < c := by
-    refine lt_of_le_of_ne hc.1 ?_
-    intro hc0
-    apply hzv
-    subst hc0
-    simp
+  rcases hz with ⟨a, ⟨ha0, ha1⟩, rfl⟩
+  rcases hu with ⟨b, ⟨hb0, hb1⟩, rfl⟩
+  rcases hv with ⟨c, ⟨hc0, hc1⟩, rfl⟩
 
   let α : ℝ := b * a
   let β : ℝ := a + c * (1 - a)
 
-  have hα_lt_a : α < a := by
-    dsimp [α]
-    nlinarith [mul_lt_mul_of_pos_right hb_lt_one ha0]
-
-  have ha_lt_β : a < β := by
-    dsimp [β]
-    nlinarith [hc_pos, ha1]
-
-  have hden_pos : 0 < β - α := by
-    linarith
-
-  have hden_ne : β - α ≠ 0 :=
-    ne_of_gt hden_pos
-
   refine ⟨(a - α) / (β - α), ?_⟩
 
-  have hu_eq :
-      lineMap x (lineMap x y a) b = lineMap x y α := by
-    dsimp [α]
-    simp [lineMap_apply]
-    module
+  have hden_ne : β - α ≠ 0 := by
+    have hb_lt_one : b < 1 := by
+      exact lt_of_le_of_ne hb1 fun hb_eq => huz (by simp [hb_eq])
 
-  have hv_eq :
-      lineMap (lineMap x y a) y c = lineMap x y β := by
-    dsimp [β]
-    simp [lineMap_apply]
-    module
+    have hc_pos : 0 < c := by
+      exact lt_of_le_of_ne hc0 fun hc_eq => hzv (by subst hc_eq; simp)
 
-  rw [hu_eq, hv_eq]
+    exact ne_of_gt <| by
+      dsimp [α, β]
+      nlinarith
 
-  have hparam :
-      (1 - (a - α) / (β - α)) * α +
-        ((a - α) / (β - α)) * β = a := by
-    field_simp [hden_ne]
-    ring
-
-  have hline :
-      lineMap (lineMap x y α) (lineMap x y β)
-          ((a - α) / (β - α))
+  calc
+    lineMap
+        (lineMap x (lineMap x y a) b)
+        (lineMap (lineMap x y a) y c)
+        ((a - α) / (β - α))
         =
-      lineMap x y
-        ((1 - (a - α) / (β - α)) * α +
-          ((a - α) / (β - α)) * β) := by
-    simp [lineMap_apply]
-    module
-
-  rw [hline, hparam]
-
+        lineMap
+          (lineMap x y α)
+          (lineMap x y β)
+          ((a - α) / (β - α)) := by
+          dsimp [α]
+          simp [lineMap_apply]
+          module
+    _ =
+        lineMap x y
+          ((1 - (a - α) / (β - α)) * α
+            + ((a - α) / (β - α)) * β) := by
+          simp [lineMap_apply]
+          module
+    _ = lineMap x y a := by
+          congr 1
+          field_simp [hden_ne]
+          ring
 
 lemma openSegment_uv_ordered
     {x y z u v : L}
