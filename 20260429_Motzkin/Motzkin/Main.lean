@@ -125,16 +125,217 @@ lemma exists_frontier_point_segment_to_interior
   let a : ℝ := sInf A
   let u : L := γ a
 
-  have hInf :
-      a ∈ Icc (0 : ℝ) 1 ∧
-      a < 1 ∧
-      (∀ s ∈ Ioc a 1, γ s ∈ K) ∧
-      u ∈ closure K ∧
-      u ∉ interior K ∧
-      u ≠ z := by
-    sorry
+  have hγ_cont : Continuous γ := by
+    dsimp [γ]
+    continuity
 
-  rcases hInf with ⟨haIcc, ha_lt_one, htail, hu_closure, hu_not_int, hu_ne_z⟩
+  have hAbdd : BddBelow A := by
+    refine ⟨0, ?_⟩
+    intro t ht
+    exact ht.1.1
+
+  have hAlt : ∃ t ∈ A, t < 1 := by
+    have hK_nhds : K ∈ 𝓝 (γ 1) := by
+      change K ∈ 𝓝 ((fun t => (1 - t) • x + t • z) 1)
+      rw [hγ1]
+      exact hKIsOpen.mem_nhds hzK
+
+    have hpre : {t : ℝ | γ t ∈ K} ∈ 𝓝 (1 : ℝ) :=
+      (hγ_cont.continuousAt (x := 1)).preimage_mem_nhds hK_nhds
+
+    rcases Metric.mem_nhds_iff.mp hpre with ⟨ε, hεpos, hεsub⟩
+
+    let δ : ℝ := min (1 / 2 : ℝ) (ε / 2)
+
+    have hδpos : 0 < δ := by
+      dsimp [δ]
+      exact lt_min (by norm_num) (by linarith)
+
+    have hδleε : δ ≤ ε := by
+      dsimp [δ]
+      calc
+        min (1 / 2 : ℝ) (ε / 2) ≤ ε / 2 := min_le_right _ _
+        _ ≤ ε := by linarith
+
+    refine ⟨1 - δ, ?_, ?_⟩
+    · constructor
+      · constructor
+        · have hδle_half : δ ≤ (1 / 2 : ℝ) := by
+            dsimp [δ]
+            exact min_le_left _ _
+          linarith
+        · linarith [hδpos]
+      · intro s hs
+        apply hεsub
+        rw [Metric.mem_ball, Real.dist_eq]
+        have hsle : s ≤ 1 := hs.2
+        have hst : 1 - δ < s := hs.1
+        have habs : |s - 1| = 1 - s := by
+          have h_nonpos : s - 1 ≤ 0 := by linarith
+          rw [abs_of_nonpos h_nonpos]
+          linarith
+        rw [habs]
+        linarith
+    · linarith [hδpos]
+
+  have haIcc : a ∈ Icc (0 : ℝ) 1 := by
+    constructor
+    · exact le_csInf hAne (by
+        intro t ht
+        exact ht.1.1)
+    · rcases hAlt with ⟨t, htA, htlt⟩
+      exact le_trans (csInf_le hAbdd htA) (le_of_lt htlt)
+
+  have ha_lt_one : a < 1 := by
+    rcases hAlt with ⟨t, htA, htlt⟩
+    exact lt_of_le_of_lt (csInf_le hAbdd htA) htlt
+
+  have htail : ∀ s ∈ Ioc a 1, γ s ∈ K := by
+    intro s hs
+    have has : a < s := hs.1
+
+    have hex : ∃ t ∈ A, t < s := by
+      by_contra hnone
+      push Not at hnone
+      have hsle : s ≤ a := le_csInf hAne (by
+        intro t ht
+        exact hnone t ht)
+      linarith
+
+    rcases hex with ⟨t, htA, hts⟩
+    exact htA.2 s ⟨hts, hs.2⟩
+
+  have hu_closure : u ∈ closure K := by
+    rw [mem_closure_iff_nhds]
+    intro V hV
+
+    have hpre : γ ⁻¹' V ∈ 𝓝 a := by
+      simpa [u] using hγ_cont.continuousAt hV
+
+    rcases Metric.mem_nhds_iff.mp hpre with ⟨ε, hεpos, hεsub⟩
+
+    let δ : ℝ := min (ε / 2) ((1 - a) / 2)
+
+    have hδpos : 0 < δ := by
+      dsimp [δ]
+      exact lt_min (by linarith) (by linarith)
+
+    let t : ℝ := a + δ
+
+    have hat : a < t := by
+      dsimp [t]
+      linarith
+
+    have ht1 : t < 1 := by
+      have hδle : δ ≤ (1 - a) / 2 := by
+        dsimp [δ]
+        exact min_le_right _ _
+      dsimp [t]
+      linarith
+
+    have ht_ball : t ∈ Metric.ball a ε := by
+      rw [Metric.mem_ball, Real.dist_eq]
+      have ht_sub : t - a = δ := by
+        dsimp [t]
+        ring
+      rw [ht_sub, abs_of_nonneg (le_of_lt hδpos)]
+      have hδle : δ ≤ ε / 2 := by
+        dsimp [δ]
+        exact min_le_left _ _
+      linarith
+
+    have htV : γ t ∈ V := hεsub ht_ball
+
+    have hsInf_lt_t : sInf A < t := by
+      simpa [a] using hat
+
+    rcases ((csInf_lt_iff hAbdd hAne).1 hsInf_lt_t) with ⟨b, hbA, hbt⟩
+
+    have hbA' :
+        b ∈ {t | t ∈ Icc 0 1 ∧ ∀ s ∈ Ioc t 1, γ s ∈ K} := by
+      simpa [A] using hbA
+
+    have htK : γ t ∈ K := by
+      exact hbA'.2 t ⟨hbt, le_of_lt ht1⟩
+
+    exact ⟨γ t, htV, htK⟩
+
+  have hu_not_int : u ∉ interior K := by
+    intro hu_int
+
+    have hInterior : interior K = K := hKIsOpen.interior_eq
+
+    have huK : u ∈ K := by
+      simpa [hInterior] using hu_int
+
+    have hprea : {t : ℝ | γ t ∈ K} ∈ 𝓝 a := by
+      have hK_nhds_u : K ∈ 𝓝 (γ a) := by
+        simpa [u] using hKIsOpen.mem_nhds huK
+      exact (hγ_cont.continuousAt (x := a)).preimage_mem_nhds hK_nhds_u
+
+    rcases Metric.mem_nhds_iff.mp hprea with ⟨ε, hεpos, hεsub⟩
+
+    have ha_pos : 0 < a := by
+      by_contra hapos
+      have ha0 : a = 0 := by
+        exact le_antisymm (le_of_not_gt hapos) haIcc.1
+      have hx_in_K : x ∈ K := by
+        simpa [u, γ, ha0] using huK
+      exact hxK hx_in_K
+
+    let δ : ℝ := min (a / 2) (ε / 2)
+    let b : ℝ := a - δ
+
+    have hδpos : 0 < δ := by
+      dsimp [δ]
+      exact lt_min (by linarith) (by linarith)
+
+    have hδle_a : δ ≤ a := by
+      dsimp [δ]
+      calc
+        min (a / 2) (ε / 2) ≤ a / 2 := min_le_left _ _
+        _ ≤ a := by linarith
+
+    have hδleε : δ ≤ ε := by
+      dsimp [δ]
+      calc
+        min (a / 2) (ε / 2) ≤ ε / 2 := min_le_right _ _
+        _ ≤ ε := by linarith
+
+    have hb_lt_a : b < a := by
+      dsimp [b]
+      linarith [hδpos]
+
+    have hbA : b ∈ A := by
+      constructor
+      · constructor
+        · dsimp [b]
+          linarith [haIcc.1, hδle_a]
+        · dsimp [b]
+          linarith [haIcc.2, hδpos]
+      · intro s hs
+        by_cases hsa : s ≤ a
+        · apply hεsub
+          rw [Metric.mem_ball, Real.dist_eq]
+          have habs : |s - a| = a - s := by
+            have h_nonpos : s - a ≤ 0 := by linarith
+            rw [abs_of_nonpos h_nonpos]
+            linarith
+          rw [habs]
+          dsimp [b] at hs
+          have h_as_lt_delta : a - s < δ := by
+            linarith [hs.1]
+          linarith [h_as_lt_delta, hδleε]
+        · have has : a < s := lt_of_not_ge hsa
+          exact htail s ⟨has, hs.2⟩
+
+    have ha_le_b : a ≤ b := csInf_le hAbdd hbA
+    linarith [hb_lt_a, ha_le_b]
+
+  have hu_ne_z : u ≠ z := by
+    intro huz
+    exact hu_not_int (by
+      simpa [huz] using hz)
 
   have hu_frontier : u ∈ frontier K := by
     rw [frontier]
@@ -143,7 +344,7 @@ lemma exists_frontier_point_segment_to_interior
   have hu_segment : u ∈ segment ℝ x z := by
     dsimp [u, γ]
     refine ⟨1 - a, a, ?_, ?_, ?_, rfl⟩
-    · linarith [haIcc.2]
+    · linarith
     · exact haIcc.1
     · ring
 
@@ -269,6 +470,8 @@ lemma lineMap_mem_range_of_mem_segment_left_right
     module
 
   rw [hline, hparam]
+
+
 
 lemma openSegment_uv_ordered
     {x y z u v : L}
