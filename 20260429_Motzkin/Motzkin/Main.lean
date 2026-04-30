@@ -1,10 +1,7 @@
-import Mathlib
 import Mathlib.Analysis.InnerProductSpace.PiL2
 import Mathlib.Analysis.Convex.Between
 
-open Set AffineMap Classical
-open Metric
-open scoped Pointwise
+open Set AffineMap Metric
 open scoped Topology
 
 variable {n : ℕ}
@@ -22,18 +19,18 @@ def IsCrosscut (S : Set L) (x y : L) : Prop :=
 def HasNoCrosscut (S : Set L) : Prop :=
   ∀ x y : L, ¬ IsCrosscut S x y
 
-private def segmentPath (x z : L) : ℝ → L :=
+def segmentPath (x z : L) : ℝ → L :=
   fun t => (1 - t) • x + t • z
 
-private def tailSet (K : Set L) (x z : L) : Set ℝ :=
+def tailSet (K : Set L) (x z : L) : Set ℝ :=
   {t : ℝ | t ∈ Icc (0 : ℝ) 1 ∧ ∀ s ∈ Ioc t 1, segmentPath x z s ∈ K}
 
-private lemma continuous_segmentPath (x z : L) :
+lemma continuous_segmentPath (x z : L) :
     Continuous (segmentPath x z) := by
   unfold segmentPath
   continuity
 
-private lemma exists_mem_tailSet_lt_one
+lemma exists_mem_tailSet_lt_one
     {K : Set L} (hK : IsOpen K) {x z : L}
     (hzK : z ∈ K) :
     ∃ t ∈ tailSet K x z, t < 1 := by
@@ -80,30 +77,6 @@ private lemma exists_mem_tailSet_lt_one
 
     rw [habs]
     linarith
-
-lemma existence_of_A
-    {K : Set L} (hK : IsOpen K) {x z : L}
-    (hx : x ∈ Kᶜ) (hz : z ∈ interior K) :
-    let γ : ℝ → L := fun t => (1 - t) • x + t • z
-    γ 0 = x ∧
-    γ 1 = z ∧
-    x ∉ K ∧
-    z ∈ K ∧
-    ({t : ℝ | t ∈ Icc (0 : ℝ) 1 ∧
-      ∀ s ∈ Ioc t 1, γ s ∈ K}).Nonempty := by
-  intro γ
-
-  have hzK : z ∈ K := by
-    simpa [hK.interior_eq] using hz
-
-  rcases exists_mem_tailSet_lt_one hK hzK with ⟨t, ht, -⟩
-
-  refine ⟨?_, ?_, ?_, ?_, ?_⟩
-  · simp [γ]
-  · simp [γ]
-  · simpa using hx
-  · exact hzK
-  · exact ⟨t, by simpa [tailSet, segmentPath, γ] using ht⟩
 
 lemma exists_frontier_point_segment_to_interior
     {K : Set L} (hK : IsOpen K) {x z : L}
@@ -459,8 +432,8 @@ lemma openSegment_uv_ordered
     simp at hZInUV
     exact hNegUZ hZInUV
 
-  · have hSubset := openSegment_subset_union u v hZInUV
-    intro w hw
+  · intro w hw
+    have hSubset := openSegment_subset_union u v hZInUV
     rcases hSubset hw with rfl | hWInUZ | hWInZV
     · simp
     · tauto
@@ -474,8 +447,7 @@ lemma thm_4_2 {K : Set L}
   intro x hx y hy z hz_seg hzK
 
   have hz_int : z ∈ interior K := by
-    rw [hKIsOpen.interior_eq]
-    exact hzK
+    simpa [hKIsOpen.interior_eq] using hzK
 
   obtain ⟨u, hNeqUZ, hu_frontier, hu_xz, hu_sub⟩ :=
     exists_frontier_point_segment_to_interior hKIsOpen hx hz_int
@@ -484,22 +456,17 @@ lemma thm_4_2 {K : Set L}
     exists_frontier_point_segment_to_interior hKIsOpen hy hz_int
 
   have hv_yz : v ∈ segment ℝ z y := by
-    rw [segment_symm]
-    exact hv_yz_symm
+    simpa [segment_symm] using hv_yz_symm
 
   obtain ⟨hNeqUV, hOpenSegUVDecomp⟩ := openSegment_uv_ordered hNeqUZ hNeqZV.symm hz_seg hu_xz hv_yz
 
-  have hCross : IsCrosscut K u v := by
-    have hOpenUVInIntK : openSegment ℝ u v ⊆ interior K := by
-      intro w hw
-      rcases hOpenSegUVDecomp hw with (hwuz | hwz) | hwzv
-      · exact hu_sub hwuz
-      · rw [hwz]
-        exact hz_int
-      · apply hv_sub_symm
-        rw [openSegment_symm]
-        exact hwzv
+  refine hK u v ⟨hu_frontier, hv_frontier, hNeqUV, ?_⟩
 
-    exact ⟨hu_frontier, hv_frontier, hNeqUV, hOpenUVInIntK⟩
-
-  exact hK u v hCross
+  intro w hw
+  rcases hOpenSegUVDecomp hw with (hwuz | hwz) | hwzv
+  · exact hu_sub hwuz
+  · rw [hwz]
+    exact hz_int
+  · apply hv_sub_symm
+    rw [openSegment_symm]
+    exact hwzv
