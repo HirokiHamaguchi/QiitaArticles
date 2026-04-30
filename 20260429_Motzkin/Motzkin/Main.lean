@@ -30,33 +30,158 @@ def IsCrosscut (S : Set L) (x y : L) : Prop :=
 def HasNoCrosscut (S : Set L) : Prop :=
   ∀ x y : L, ¬ IsCrosscut S x y
 
-lemma openSegment_self (x : L) : openSegment ℝ x x = {x} := by
-  unfold openSegment
-  ext z
-  constructor
-  · rintro ⟨a, b, ha, hb, hab, rfl⟩
-    rw [← add_smul]
-    rw [hab]
+noncomputable section
+
+open Set Metric
+open scoped Topology
+
+lemma existance_of_A {K : Set L} (hKIsOpen : IsOpen K) {x z : L}
+    (hx : x ∈ Kᶜ) (hz : z ∈ interior K) :
+    let γ : ℝ → L := fun t => (1 - t) • x + t • z
+    γ 0 = x ∧
+    γ 1 = z ∧
+    x ∉ K ∧
+    z ∈ K ∧
+    ({t : ℝ | t ∈ Icc (0 : ℝ) 1 ∧ ∀ s ∈ Ioc t 1, γ s ∈ K}).Nonempty := by
+  intro γ
+
+  have hγ0 : γ 0 = x := by
+    simp [γ]
+
+  have hγ1 : γ 1 = z := by
+    simp [γ]
+
+  have hx_not_mem : x ∉ K := by
+    simpa using hx
+
+  have hInterior : interior K = K := hKIsOpen.interior_eq
+
+  have hzK : z ∈ K := by
+    simpa [hInterior] using hz
+
+  have hγ_cont : Continuous γ := by
+    dsimp [γ]
+    continuity
+
+  have hK_nhds : K ∈ 𝓝 (γ 1) := by
+    simpa [hγ1] using hKIsOpen.mem_nhds hzK
+
+  have hpre : {t : ℝ | γ t ∈ K} ∈ 𝓝 (1 : ℝ) :=
+    (hγ_cont.continuousAt (x := 1)).preimage_mem_nhds hK_nhds
+
+  rcases Metric.mem_nhds_iff.mp hpre with ⟨ε, hεpos, hεsub⟩
+
+  let δ : ℝ := min (1 / 2 : ℝ) (ε / 2)
+
+  have hδpos : 0 < δ := by
+    dsimp [δ]
+    exact lt_min (by norm_num) (by linarith)
+
+  have hδleε : δ ≤ ε := by
+    dsimp [δ]
+    calc
+      min (1 / 2 : ℝ) (ε / 2) ≤ ε / 2 := min_le_right _ _
+      _ ≤ ε := by linarith
+
+  have hA_nonempty :
+      ({t : ℝ | t ∈ Icc (0 : ℝ) 1 ∧ ∀ s ∈ Ioc t 1, γ s ∈ K}).Nonempty := by
+    refine ⟨1 - δ, ?_⟩
+    constructor
+    · constructor
+      · have hδle_half : δ ≤ (1 / 2 : ℝ) := by
+          dsimp [δ]
+          exact min_le_left _ _
+        linarith
+      · linarith [hδpos]
+    · intro s hs
+      apply hεsub
+      rw [Metric.mem_ball, Real.dist_eq]
+      have hsle : s ≤ 1 := hs.2
+      have hst : 1 - δ < s := hs.1
+      have habs : |s - 1| = 1 - s := by
+        have h_nonpos : s - 1 ≤ 0 := by linarith
+        rw [abs_of_nonpos h_nonpos]
+        linarith
+      rw [habs]
+      linarith
+
+  exact ⟨hγ0, hγ1, hx_not_mem, hzK, hA_nonempty⟩
+
+lemma exists_frontier_point_segment_to_interior
+    {K : Set L} (hKIsOpen : IsOpen K) {x z : L}
+    (hx : x ∈ compl K) (hz : z ∈ interior K) :
+    ∃ u : L,
+      u ≠ z ∧
+      u ∈ frontier K ∧
+      u ∈ segment ℝ x z ∧
+      openSegment ℝ u z ⊆ interior K := by
+  let γ : ℝ → L := fun t => (1 - t) • x + t • z
+  let A : Set ℝ :=
+    {t : ℝ | t ∈ Icc (0 : ℝ) 1 ∧ ∀ s ∈ Ioc t 1, γ s ∈ K}
+
+  obtain ⟨hγ0, hγ1, hxK, hzK, hAne⟩ :=
+    existance_of_A (K := K) hKIsOpen hx hz
+
+  let a : ℝ := sInf A
+  let u : L := γ a
+
+  have hInf :
+      a ∈ Icc (0 : ℝ) 1 ∧
+      a < 1 ∧
+      (∀ s ∈ Ioc a 1, γ s ∈ K) ∧
+      u ∈ closure K ∧
+      u ∉ interior K ∧
+      u ≠ z := by
+    sorry
+
+  rcases hInf with ⟨haIcc, ha_lt_one, htail, hu_closure, hu_not_int, hu_ne_z⟩
+
+  have hu_frontier : u ∈ frontier K := by
+    rw [frontier]
+    exact ⟨hu_closure, hu_not_int⟩
+
+  have hu_segment : u ∈ segment ℝ x z := by
+    dsimp [u, γ]
+    refine ⟨1 - a, a, ?_, ?_, ?_, rfl⟩
+    · linarith [haIcc.2]
+    · exact haIcc.1
+    · ring
+
+  have hopen : openSegment ℝ u z ⊆ interior K := by
+    intro w hw
+
+    rw [openSegment_eq_image'] at hw
+    rcases hw with ⟨t, ⟨ht0, ht1⟩, rfl⟩
     simp
-  · intro h
-    subst h
-    -- Provide witness: for example, a = 1/2 and b = 1/2
-    use 1/2, 1/2
-    refine ⟨by norm_num, by norm_num, by norm_num, ?_⟩
-    rw [← add_smul]
-    norm_num
 
-lemma openSegment_t {x y z : L} (hz : z ∈ openSegment ℝ x y) : ∃ t : ℝ , 0 < t ∧ t < 1 ∧ z = t • x + (1-t) • y := by
-  rw [openSegment_eq_image'] at hz
-  rcases hz with ⟨θ, hθ, rfl⟩
-  exact ⟨1 - θ, by linarith [hθ.2], by linarith [hθ.1], by ext n; simp; ring⟩
+    let s : ℝ := (1-t) * a + t * 1
 
-lemma openSegment_of_t {x y z : L} {t : ℝ}
-    (ht0 : 0 < t) (ht1 : t < 1)
-    (hz : z = t • x + (1 - t) • y) :
-    z ∈ openSegment ℝ x y := by
-  use t, 1 - t
-  exact ⟨ht0, by linarith, by ring, hz.symm⟩
+    have hs : s ∈ Ioc a 1 := by
+      constructor
+      · dsimp [s]
+        nlinarith [ht0, ht1, ha_lt_one]
+      · dsimp [s]
+        nlinarith [ht0, ht1, haIcc.2]
+
+    have hγs : (1-t) • u + t • z = γ s := by
+      ext i
+      simp [u, γ, s]
+      ring
+
+    have hγsK : γ s ∈ K := htail s hs
+    have hγsInt : γ s ∈ interior K := by
+      rw [hKIsOpen.interior_eq]
+      exact hγsK
+
+    have h_eq : u + t • (z - u) = (1 - t) • u + t • z := by
+      rw [smul_sub, sub_smul, one_smul]
+      abel
+
+    rw [h_eq, hγs]
+    exact hγsInt
+
+  exact ⟨u, hu_ne_z, hu_frontier, hu_segment, hopen⟩
+
 
 lemma lineMap_mem_range_of_mem_segment_left_right
     {x y z u v : L}
@@ -180,103 +305,6 @@ lemma openSegment_uv_ordered
       · right
         exact hWInZV
 
-noncomputable section
-
-open Set Metric
-open scoped Topology
-
-example {K : Set L} (hKIsOpen : IsOpen K) {x z : L}
-    (hx : x ∈ Kᶜ) (hz : z ∈ interior K) :
-    let γ : ℝ → L := fun t => (1 - t) • x + t • z
-    γ 0 = x ∧
-    γ 1 = z ∧
-    x ∉ K ∧
-    z ∈ K ∧
-    ({t : ℝ | t ∈ Icc (0 : ℝ) 1 ∧ ∀ s ∈ Ioc t 1, γ s ∈ K}).Nonempty := by
-  intro γ
-
-  have hγ0 : γ 0 = x := by
-    simp [γ]
-
-  have hγ1 : γ 1 = z := by
-    simp [γ]
-
-  have hx_not_mem : x ∉ K := by
-    simpa using hx
-
-  have hInterior : interior K = K := hKIsOpen.interior_eq
-
-  have hzK : z ∈ K := by
-    simpa [hInterior] using hz
-
-  have hγ_cont : Continuous γ := by
-    dsimp [γ]
-    continuity
-
-  have hK_nhds : K ∈ 𝓝 (γ 1) := by
-    simpa [hγ1] using hKIsOpen.mem_nhds hzK
-
-  have hpre : {t : ℝ | γ t ∈ K} ∈ 𝓝 (1 : ℝ) :=
-    (hγ_cont.continuousAt (x := 1)).preimage_mem_nhds hK_nhds
-
-  rcases Metric.mem_nhds_iff.mp hpre with ⟨ε, hεpos, hεsub⟩
-
-  let δ : ℝ := min (1 / 2 : ℝ) (ε / 2)
-
-  have hδpos : 0 < δ := by
-    dsimp [δ]
-    exact lt_min (by norm_num) (by linarith)
-
-  have hδleε : δ ≤ ε := by
-    dsimp [δ]
-    calc
-      min (1 / 2 : ℝ) (ε / 2) ≤ ε / 2 := min_le_right _ _
-      _ ≤ ε := by linarith
-
-  have hA_nonempty :
-      ({t : ℝ | t ∈ Icc (0 : ℝ) 1 ∧ ∀ s ∈ Ioc t 1, γ s ∈ K}).Nonempty := by
-    refine ⟨1 - δ, ?_⟩
-    constructor
-    · constructor
-      · have hδle_half : δ ≤ (1 / 2 : ℝ) := by
-          dsimp [δ]
-          exact min_le_left _ _
-        linarith
-      · linarith [hδpos]
-    · intro s hs
-      apply hεsub
-      rw [Metric.mem_ball, Real.dist_eq]
-      have hsle : s ≤ 1 := hs.2
-      have hst : 1 - δ < s := hs.1
-      have habs : |s - 1| = 1 - s := by
-        have h_nonpos : s - 1 ≤ 0 := by linarith
-        rw [abs_of_nonpos h_nonpos]
-        linarith
-      rw [habs]
-      linarith
-
-  exact ⟨hγ0, hγ1, hx_not_mem, hzK, hA_nonempty⟩
-
-lemma exists_frontier_point_segment_to_interior
-    {K : Set L} (hKIsOpen : IsOpen K) {x z : L}
-    (hx : x ∈ compl K) (hz : z ∈ interior K) :
-    ∃ u : L,
-      u ≠ z ∧
-      u ∈ frontier K ∧
-      u ∈ segment ℝ x z ∧
-      openSegment ℝ u z ⊆ interior K := by
-  classical
-
-  -- Parameterize the segment from `x` to `z`.
-  let γ : ℝ → L := fun t => (1 - t) • x + t • z
-
-  sorry
-
-
--- lemma exists_frontier_point_segment_to_interior {K : Set L} (hKIsOpen : IsOpen K) {x z : L} (hx : x ∈ compl K) (hz : z ∈ interior K) : ∃ u : L, u ≠ z ∧  u ∈ frontier K ∧ u ∈ segment ℝ x z ∧ openSegment ℝ u z ⊆ interior K := by
---   classical
---   -- 「z に一番近い frontier point」を取る補題。
---   sorry
 
 lemma thm_4_2 {K : Set L}
     (hKIsOpen : IsOpen K)
