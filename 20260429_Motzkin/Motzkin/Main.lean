@@ -3,9 +3,9 @@ import Mathlib.Analysis.InnerProductSpace.PiL2
 import Mathlib.Analysis.Convex.Between
 
 open Set AffineMap Classical
+open Metric
 open scoped Pointwise
-
-namespace Crosscut
+open scoped Topology
 
 variable {n : ℕ}
 
@@ -18,14 +18,9 @@ def IsCrosscut (S : Set L) (x y : L) : Prop :=
   x ≠ y ∧
   openSegment ℝ x y ⊆ interior S
 
-/-- S has no crosscut. -/
+/-- `S` has no crosscut. -/
 def HasNoCrosscut (S : Set L) : Prop :=
   ∀ x y : L, ¬ IsCrosscut S x y
-
-noncomputable section
-
-open Set Metric
-open scoped Topology
 
 private def segmentPath (x z : L) : ℝ → L :=
   fun t => (1 - t) • x + t • z
@@ -33,33 +28,22 @@ private def segmentPath (x z : L) : ℝ → L :=
 private def tailSet (K : Set L) (x z : L) : Set ℝ :=
   {t : ℝ | t ∈ Icc (0 : ℝ) 1 ∧ ∀ s ∈ Ioc t 1, segmentPath x z s ∈ K}
 
-private lemma segmentPath_zero (x z : L) :
-    segmentPath x z 0 = x := by
-  simp [segmentPath]
-
-private lemma segmentPath_one (x z : L) :
-    segmentPath x z 1 = z := by
-  simp [segmentPath]
-
 private lemma continuous_segmentPath (x z : L) :
     Continuous (segmentPath x z) := by
-  change Continuous (fun t : ℝ => (1 - t) • x + t • z)
+  unfold segmentPath
   continuity
 
 private lemma exists_mem_tailSet_lt_one
-    {K : Set L} (hKOpen : IsOpen K) {x z : L}
+    {K : Set L} (hK : IsOpen K) {x z : L}
     (hzK : z ∈ K) :
     ∃ t ∈ tailSet K x z, t < 1 := by
   let γ := segmentPath x z
 
-  have hγ_cont : Continuous γ :=
-    continuous_segmentPath x z
-
-  have hK_nhds : K ∈ 𝓝 (γ 1) := by
-    simpa [γ, segmentPath_one] using hKOpen.mem_nhds hzK
-
-  have hpre : {t : ℝ | γ t ∈ K} ∈ 𝓝 (1 : ℝ) :=
-    (hγ_cont.continuousAt (x := 1)).preimage_mem_nhds hK_nhds
+  have hpre : {t : ℝ | γ t ∈ K} ∈ 𝓝 (1 : ℝ) := by
+    have hz : γ 1 ∈ K := by
+      simpa [γ, segmentPath] using hzK
+    exact ((continuous_segmentPath x z).continuousAt (x := 1)).preimage_mem_nhds
+      (hK.mem_nhds hz)
 
   rcases Metric.mem_nhds_iff.mp hpre with ⟨ε, hεpos, hεsub⟩
 
@@ -81,9 +65,7 @@ private lemma exists_mem_tailSet_lt_one
 
   refine ⟨1 - δ, ?_, by linarith [hδpos]⟩
   constructor
-  · constructor
-    · linarith
-    · linarith [hδpos]
+  · constructor <;> linarith [hδpos, hδle_half]
   · intro s hs
     apply hεsub
     rw [Metric.mem_ball, Real.dist_eq]
@@ -99,30 +81,32 @@ private lemma exists_mem_tailSet_lt_one
     rw [habs]
     linarith
 
-lemma existance_of_A {K : Set L} (hKIsOpen : IsOpen K) {x z : L}
+lemma existence_of_A
+    {K : Set L} (hK : IsOpen K) {x z : L}
     (hx : x ∈ Kᶜ) (hz : z ∈ interior K) :
     let γ : ℝ → L := fun t => (1 - t) • x + t • z
     γ 0 = x ∧
     γ 1 = z ∧
     x ∉ K ∧
     z ∈ K ∧
-    ({t : ℝ | t ∈ Icc (0 : ℝ) 1 ∧ ∀ s ∈ Ioc t 1, γ s ∈ K}).Nonempty := by
+    ({t : ℝ | t ∈ Icc (0 : ℝ) 1 ∧
+      ∀ s ∈ Ioc t 1, γ s ∈ K}).Nonempty := by
   intro γ
 
   have hzK : z ∈ K := by
-    simpa [hKIsOpen.interior_eq] using hz
+    simpa [hK.interior_eq] using hz
 
-  rcases exists_mem_tailSet_lt_one hKIsOpen (x := x) hzK with ⟨t, htA, _⟩
+  rcases exists_mem_tailSet_lt_one hK hzK with ⟨t, ht, -⟩
 
-  refine ⟨?_, ?_, ?_, hzK, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
   · simp [γ]
   · simp [γ]
   · simpa using hx
-  · refine ⟨t, ?_⟩
-    simpa [tailSet, segmentPath, γ] using htA
+  · exact hzK
+  · exact ⟨t, by simpa [tailSet, segmentPath, γ] using ht⟩
 
 lemma exists_frontier_point_segment_to_interior
-    {K : Set L} (hKIsOpen : IsOpen K) {x z : L}
+    {K : Set L} (hK : IsOpen K) {x z : L}
     (hx : x ∈ compl K) (hz : z ∈ interior K) :
     ∃ u : L,
       u ≠ z ∧
@@ -132,25 +116,20 @@ lemma exists_frontier_point_segment_to_interior
   let γ := segmentPath x z
   let A : Set ℝ := tailSet K x z
 
-  have hγ0 : γ 0 = x := by
-    simp [γ, segmentPath_zero]
-
-  have hγ1 : γ 1 = z := by
-    simp [γ, segmentPath_one]
-
   have hxK : x ∉ K := by
     simpa using hx
 
-  have hInterior : interior K = K :=
-    hKIsOpen.interior_eq
+  have hKint : interior K = K :=
+    hK.interior_eq
 
   have hzK : z ∈ K := by
-    simpa [hInterior] using hz
+    simpa [hKint] using hz
 
   have hγ_cont : Continuous γ :=
     continuous_segmentPath x z
 
-  rcases exists_mem_tailSet_lt_one hKIsOpen (x := x) hzK with ⟨t₀, ht₀A, ht₀_lt_one⟩
+  rcases exists_mem_tailSet_lt_one hK (x := x) hzK with
+    ⟨t₀, ht₀A, ht₀_lt_one⟩
 
   have hAne : A.Nonempty :=
     ⟨t₀, ht₀A⟩
@@ -168,9 +147,7 @@ lemma exists_frontier_point_segment_to_interior
 
   have haIcc : a ∈ Icc (0 : ℝ) 1 := by
     constructor
-    · exact le_csInf hAne (by
-        intro t ht
-        exact ht.1.1)
+    · exact le_csInf hAne fun t ht => ht.1.1
     · rcases hAlt with ⟨t, htA, htlt⟩
       exact le_trans (csInf_le hAbdd htA) (le_of_lt htlt)
 
@@ -209,7 +186,7 @@ lemma exists_frontier_point_segment_to_interior
 
     have hδpos : 0 < δ := by
       dsimp [δ]
-      exact lt_min (by linarith) (by linarith)
+      exact lt_min (by linarith) (by linarith [ha_lt_one])
 
     have hat : a < t := by
       dsimp [t]
@@ -224,9 +201,11 @@ lemma exists_frontier_point_segment_to_interior
 
     have ht_ball : t ∈ Metric.ball a ε := by
       rw [Metric.mem_ball, Real.dist_eq]
+
       have ht_sub : t - a = δ := by
         dsimp [t]
         ring
+
       rw [ht_sub, abs_of_nonneg (le_of_lt hδpos)]
 
       have hδle : δ ≤ ε / 2 := by
@@ -241,7 +220,8 @@ lemma exists_frontier_point_segment_to_interior
     have hsInf_lt_t : sInf A < t := by
       simpa [a] using hat
 
-    rcases ((csInf_lt_iff hAbdd hAne).1 hsInf_lt_t) with ⟨b, hbA, hbt⟩
+    rcases (csInf_lt_iff hAbdd hAne).1 hsInf_lt_t with
+      ⟨b, hbA, hbt⟩
 
     have htK : γ t ∈ K :=
       hbA.2 t ⟨hbt, le_of_lt ht1⟩
@@ -252,12 +232,12 @@ lemma exists_frontier_point_segment_to_interior
     intro hu_int
 
     have huK : u ∈ K := by
-      simpa [hInterior] using hu_int
+      simpa [hKint] using hu_int
 
     have hprea : {t : ℝ | γ t ∈ K} ∈ 𝓝 a := by
       have hK_nhds_u : K ∈ 𝓝 (γ a) := by
-        simpa [u] using hKIsOpen.mem_nhds huK
-      exact (hγ_cont.continuousAt (x := a)).preimage_mem_nhds hK_nhds_u
+        simpa [u] using hK.mem_nhds huK
+      exact hγ_cont.continuousAt.preimage_mem_nhds hK_nhds_u
 
     rcases Metric.mem_nhds_iff.mp hprea with ⟨ε, hεpos, hεsub⟩
 
@@ -364,7 +344,7 @@ lemma exists_frontier_point_segment_to_interior
       ring
 
     have hγsInt : γ s ∈ interior K := by
-      rw [hKIsOpen.interior_eq]
+      rw [hKint]
       exact htail s hs
 
     have h_eq : u + t • (z - u) = (1 - t) • u + t • z := by
@@ -375,6 +355,7 @@ lemma exists_frontier_point_segment_to_interior
     exact hγsInt
 
   exact ⟨u, hu_ne_z, hu_frontier, hu_segment, hopen⟩
+
 
 lemma lineMap_mem_range_of_mem_segment_left_right
     {x y z u v : L}
@@ -458,6 +439,7 @@ lemma lineMap_mem_range_of_mem_segment_left_right
 
   rw [hline, hparam]
 
+
 lemma openSegment_uv_ordered
     {x y z u v : L}
     (hNegUZ : u ≠ z)
@@ -477,17 +459,12 @@ lemma openSegment_uv_ordered
     simp at hZInUV
     exact hNegUZ hZInUV
 
-  · have hSubset := openSegment_subset_union (𝕜 := ℝ) u v hZInUV
-
+  · have hSubset := openSegment_subset_union u v hZInUV
     intro w hw
-    have hw' :
-        w ∈ insert z (openSegment ℝ u z ∪ openSegment ℝ z v) :=
-      hSubset hw
-
-    rcases hw' with rfl | hWInUZ | hWInZV
+    rcases hSubset hw with rfl | hWInUZ | hWInZV
     · simp
-    · exact Or.inl (Or.inl hWInUZ)
-    · exact Or.inr hWInZV
+    · tauto
+    · tauto
 
 lemma thm_4_2 {K : Set L}
     (hKIsOpen : IsOpen K)
@@ -526,7 +503,3 @@ lemma thm_4_2 {K : Set L}
     exact ⟨hu_frontier, hv_frontier, hNeqUV, hOpenUVInIntK⟩
 
   exact hK u v hCross
-
-end
-
-end Crosscut
