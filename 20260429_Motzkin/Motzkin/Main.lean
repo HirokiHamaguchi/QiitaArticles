@@ -11,14 +11,6 @@ variable {n : ℕ}
 
 local notation "L" => EuclideanSpace ℝ (Fin n)
 
-/-- Closed segment xy. -/
-def closedSegment (x y : L) : Set L :=
-  segment ℝ x y
-
-/-- Open segment intv xy. -/
-def intv (x y : L) : Set L :=
-  openSegment ℝ x y
-
 /-- `xy` is a crosscut of `S`. -/
 def IsCrosscut (S : Set L) (x y : L) : Prop :=
   x ∈ frontier S ∧
