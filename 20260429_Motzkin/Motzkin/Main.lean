@@ -44,38 +44,24 @@ lemma exists_mem_tailSet_lt_one
 
   rcases Metric.mem_nhds_iff.mp hpre with ⟨ε, hεpos, hεsub⟩
 
-  let δ : ℝ := min (1 / 2 : ℝ) (ε / 2)
+  let δ : ℝ := min (1 / 2 : ℝ) ε
 
   have hδpos : 0 < δ := by
-    dsimp [δ]
     exact lt_min (by norm_num) (by linarith)
 
   have hδle_half : δ ≤ (1 / 2 : ℝ) := by
-    dsimp [δ]
     exact min_le_left _ _
-
-  have hδleε : δ ≤ ε := by
-    dsimp [δ]
-    calc
-      min (1 / 2 : ℝ) (ε / 2) ≤ ε / 2 := min_le_right _ _
-      _ ≤ ε := by linarith
 
   refine ⟨1 - δ, ?_, by linarith [hδpos]⟩
   constructor
   · constructor <;> linarith [hδpos, hδle_half]
-  · intro s hs
+  · intro s ⟨hst, hsle⟩
     apply hεsub
     rw [Metric.mem_ball, Real.dist_eq]
-
-    have hsle : s ≤ 1 := hs.2
-    have hst : 1 - δ < s := hs.1
-
-    have habs : |s - 1| = 1 - s := by
-      have h_nonpos : s - 1 ≤ 0 := by linarith
-      rw [abs_of_nonpos h_nonpos]
-      linarith
-
-    rw [habs]
+    have h_nonpos : s - 1 ≤ 0 := by linarith
+    rw [abs_of_nonpos h_nonpos]
+    have hδleε : δ ≤ ε := by
+      exact min_le_right _ _
     linarith
 
 lemma exists_frontier_point_segment_to_interior
@@ -142,48 +128,29 @@ lemma exists_frontier_point_segment_to_interior
     let t : ℝ := a + δ
 
     have hδpos : 0 < δ := by
-      dsimp [δ]
       exact lt_min (by linarith) (by linarith [haIco.2])
 
-    have hat : a < t := by
-      dsimp [t]
-      linarith
+    have hat : a < t := by linarith
 
     have ht1 : t < 1 := by
       have hδle : δ ≤ (1 - a) / 2 := by
-        dsimp [δ]
         exact min_le_right _ _
       dsimp [t]
       linarith
 
     have ht_ball : t ∈ Metric.ball a ε := by
       rw [Metric.mem_ball, Real.dist_eq]
-
-      have ht_sub : t - a = δ := by
-        dsimp [t]
-        ring
-
+      have ht_sub : t - a = δ := by ring
       rw [ht_sub, abs_of_nonneg (le_of_lt hδpos)]
-
-      have hδle : δ ≤ ε / 2 := by
-        dsimp [δ]
-        exact min_le_left _ _
-
+      have hδle : δ ≤ ε / 2 := by exact min_le_left _ _
       linarith
 
-    have htV : γ t ∈ V :=
-      hεsub ht_ball
-
-    have hsInf_lt_t : sInf A < t := by
-      simpa [a] using hat
+    have hsInf_lt_t : sInf A < t := by simpa [a] using hat
 
     rcases (csInf_lt_iff hAbdd hAne).1 hsInf_lt_t with
       ⟨b, hbA, hbt⟩
 
-    have htK : γ t ∈ K :=
-      hbA.2 t ⟨hbt, le_of_lt ht1⟩
-
-    exact ⟨γ t, htV, htK⟩
+    exact ⟨γ t, hεsub ht_ball, hbA.2 t ⟨hbt, le_of_lt ht1⟩⟩
 
   have hu_not_int : u ∉ interior K := by
     intro hu_int
@@ -209,36 +176,19 @@ lemma exists_frontier_point_segment_to_interior
 
       exact hxK hx_in_K
 
-    let δ : ℝ := min (a / 2) (ε / 2)
+    let δ : ℝ := min a ε
     let b : ℝ := a - δ
 
-    have hδpos : 0 < δ := by
-      dsimp [δ]
-      exact lt_min (by linarith) (by linarith)
-
-    have hδle_a : δ ≤ a := by
-      dsimp [δ]
-      calc
-        min (a / 2) (ε / 2) ≤ a / 2 := min_le_left _ _
-        _ ≤ a := by linarith
-
-    have hδleε : δ ≤ ε := by
-      dsimp [δ]
-      calc
-        min (a / 2) (ε / 2) ≤ ε / 2 := min_le_right _ _
-        _ ≤ ε := by linarith
-
-    have hb_lt_a : b < a := by
-      dsimp [b]
-      linarith [hδpos]
+    have hδpos : 0 < δ := by exact lt_min (by linarith) hεpos
+    have hδle_a : δ ≤ a := by exact min_le_left _ _
+    have hδleε : δ ≤ ε := by exact min_le_right _ _
+    have hb_lt_a : b < a := by linarith [hδpos]
 
     have hbA : b ∈ A := by
       constructor
       · constructor
-        · dsimp [b]
-          linarith [haIco.1, hδle_a]
-        · dsimp [b]
-          linarith [haIco.2, hδpos]
+        · linarith [haIco.1, hδle_a]
+        · linarith [haIco.2, hδpos]
       · intro s hs
         by_cases hsa : s ≤ a
         · apply hεsub
@@ -265,8 +215,7 @@ lemma exists_frontier_point_segment_to_interior
 
   have hu_ne_z : u ≠ z := by
     intro huz
-    exact hu_not_int (by
-      simpa [huz] using hz)
+    exact hu_not_int (by simpa [huz] using hz)
 
   have hu_frontier : u ∈ frontier K := by
     rw [frontier]
@@ -274,10 +223,7 @@ lemma exists_frontier_point_segment_to_interior
 
   have hu_segment : u ∈ segment ℝ x z := by
     dsimp [u, γ, segmentPath]
-    refine ⟨1 - a, a, ?_, ?_, ?_, rfl⟩
-    · linarith [haIco.2]
-    · exact haIco.1
-    · ring
+    refine ⟨1 - a, a, by linarith [haIco.2], by exact haIco.1, by ring, rfl⟩
 
   have hopen : openSegment ℝ u z ⊆ interior K := by
     intro w hw
@@ -289,11 +235,7 @@ lemma exists_frontier_point_segment_to_interior
     let s : ℝ := (1 - t) * a + t * 1
 
     have hs : s ∈ Ioc a 1 := by
-      constructor
-      · dsimp [s]
-        nlinarith [ht0, ht1, haIco.2]
-      · dsimp [s]
-        nlinarith [ht0, ht1, haIco.2]
+      constructor <;> nlinarith [ht0, ht1, haIco.2]
 
     have hγs : (1 - t) • u + t • z = γ s := by
       ext i
