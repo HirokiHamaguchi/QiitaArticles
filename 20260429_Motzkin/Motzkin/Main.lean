@@ -31,8 +31,7 @@ lemma continuous_segmentPath (x z : L) :
   continuity
 
 lemma exists_mem_tailSet_lt_one
-    {K : Set L} (hK : IsOpen K) {x z : L}
-    (hzK : z ∈ K) :
+    {K : Set L} (hK : IsOpen K) {x z : L} (hzK : z ∈ K) :
     ∃ t ∈ tailSet K x z, t < 1 := by
   let γ := segmentPath x z
 
@@ -44,12 +43,12 @@ lemma exists_mem_tailSet_lt_one
 
   rcases Metric.mem_nhds_iff.mp hpre with ⟨ε, hεpos, hεsub⟩
 
-  let δ : ℝ := min (1 / 2 : ℝ) ε
+  let δ : ℝ := min (1 / 2) ε
 
   have hδpos : 0 < δ := by
     exact lt_min (by norm_num) (by linarith)
 
-  have hδle_half : δ ≤ (1 / 2 : ℝ) := by
+  have hδle_half : δ ≤ 1 / 2 := by
     exact min_le_left _ _
 
   refine ⟨1 - δ, ?_, by linarith [hδpos]⟩
@@ -60,8 +59,7 @@ lemma exists_mem_tailSet_lt_one
     rw [Metric.mem_ball, Real.dist_eq]
     have h_nonpos : s - 1 ≤ 0 := by linarith
     rw [abs_of_nonpos h_nonpos]
-    have hδleε : δ ≤ ε := by
-      exact min_le_right _ _
+    have hδleε : δ ≤ ε := by exact min_le_right _ _
     linarith
 
 lemma exists_frontier_point_segment_to_interior
@@ -130,8 +128,6 @@ lemma exists_frontier_point_segment_to_interior
     have hδpos : 0 < δ := by
       exact lt_min (by linarith) (by linarith [haIco.2])
 
-    have hat : a < t := by linarith
-
     have ht1 : t < 1 := by
       have hδle : δ ≤ (1 - a) / 2 := by
         exact min_le_right _ _
@@ -145,10 +141,10 @@ lemma exists_frontier_point_segment_to_interior
       have hδle : δ ≤ ε / 2 := by exact min_le_left _ _
       linarith
 
+    have hat : a < t := by linarith
     have hsInf_lt_t : sInf A < t := by simpa [a] using hat
 
-    rcases (csInf_lt_iff hAbdd hAne).1 hsInf_lt_t with
-      ⟨b, hbA, hbt⟩
+    rcases (csInf_lt_iff hAbdd hAne).1 hsInf_lt_t with ⟨b, hbA, hbt⟩
 
     exact ⟨γ t, hεsub ht_ball, hbA.2 t ⟨hbt, le_of_lt ht1⟩⟩
 
