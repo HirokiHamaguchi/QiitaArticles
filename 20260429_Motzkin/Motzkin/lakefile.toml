@@ -5,10 +5,6 @@ defaultTargets = ["motzkin"]
 [[lean_lib]]
 name = "Motzkin"
 
-[[lean_exe]]
-name = "motzkin"
-root = "Main"
-
 [[require]]
 name = "mathlib"
 scope = "leanprover-community"
