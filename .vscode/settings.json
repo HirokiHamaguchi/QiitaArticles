@@ -20,7 +20,7 @@
         "chatgpt",
         "停留性条件",
         "Amz-Security-Token",
-        "VSCode"
+        "Motzkin の定理"
     ],
     "latexlint.disabledRules": [
         "LLCref"
@@ -66,12 +66,14 @@
         "intv",
         "Kenjiro",
         "Kruskal",
+        "Kuznetsov",
         "latexmk",
         "leidenuniv",
         "linarith",
         "lualatex",
         "Masashi",
         "Mathlib",
+        "Motzkin",
         "Mühlemann",
         "Nagahara",
         "nlinarith",
@@ -79,6 +81,7 @@
         "Nonconvex",
         "Nonmetric",
         "nonstopmode",
+        "operatorname",
         "orcidlink",
         "orcidlinki",
         "Oron",
