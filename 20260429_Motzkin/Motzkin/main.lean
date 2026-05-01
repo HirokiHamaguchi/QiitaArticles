@@ -1,4 +1,5 @@
-import Motzkin.Basic
+import Motzkin.Crosscut
+import Motzkin.Motzkin
 
 import Mathlib.Analysis.InnerProductSpace.PiL2
 import Mathlib.Analysis.Convex.Between
@@ -10,16 +11,16 @@ variable {n : ℕ}
 
 local notation "L" => EuclideanSpace ℝ (Fin n)
 
-/-- `xy` is a crosscut of `S`. -/
-def IsCrosscut (S : Set L) (x y : L) : Prop :=
-  x ∈ frontier S ∧
-  y ∈ frontier S ∧
+/-- `xy` is a crosscut of `K`. -/
+def IsCrosscut (K : Set L) (x y : L) : Prop :=
+  x ∈ frontier K ∧
+  y ∈ frontier K ∧
   x ≠ y ∧
-  openSegment ℝ x y ⊆ interior S
+  openSegment ℝ x y ⊆ interior K
 
-/-- `S` has no crosscut. -/
-def HasNoCrosscut (S : Set L) : Prop :=
-  ∀ x y : L, ¬ IsCrosscut S x y
+/-- `K` has no crosscut. -/
+def HasNoCrosscut (K : Set L) : Prop :=
+  ∀ x y : L, ¬ IsCrosscut K x y
 
 lemma exists_frontier_point_segment_to_interior
     {K : Set L} (hK : IsOpen K) {x z : L}
@@ -47,8 +48,12 @@ lemma openSegment_uv_ordered
   exact _openSegment_uv_ordered hNegUZ hNegZV hz hu hv
 
 /--
-Main theorem: if an open set `K` has no crosscut,
-              then its complement is convex.
+Theorem 4.2 in "Convex sets"
+If an open set `K` has no crosscut, then its complement is convex.
+
+Reference:
+Valentine, F. A. (1964). Convex sets.
+McGraw-Hill series in higher mathematics. McGraw-Hill Book Company.
 -/
 lemma thm_4_2 {K : Set L}
     (hKIsOpen : IsOpen K)
