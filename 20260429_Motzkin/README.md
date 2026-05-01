@@ -1,155 +1,203 @@
-# Motzkin's theorem
+# ユークリッド射影の一意性と凸性の同値性に関する証明
 
-Def 1.1
+本記事ではユークリッド射影の一意性と凸性の同値性に関する証明を行います。
 
-topological linear space L
+## 概要
 
-For S \subseteq L,
-int S: interior of S
-bd S: boundary of S
-S^c: complement of S
+本記事が証明するのは、以下の定理です。
 
-Def 1.2
+**集合 $K$ が $\mathbb{R}^m$ の非空な閉集合であるとき、$K$ が凸集合であることと、$\mathbb{R}^m$ の任意の点に対して $K$ の最近点が一意に定まることは同値である。**
 
-x, y \in L
-line segment xy = { \alpha x + \beta y : alpha, beta >= 0, alpha + beta = 1 }
+この結果は、近年のサーベイ論文 [^Kuznetsov] や、Frederick A. Valentine による "Convex Sets" [^Valentine] において、Motzkinの定理 (Motzkin's theorem)と呼ばれています。1935年に T. Motzkin が発表した論文がこの結果に対する最初の証明であるようです。(先述のサーベイ論文内での参考文献と、Valentineによる本とでの参考文献に齟齬があり、両方とも原本を確認できなかったため、その原論文はあえて参考文献欄に載せていません。) 本記事では、Valentineの本に記載された証明を紹介します。
 
-Def 1.3
+[Theodore Motzkin](https://en.wikipedia.org/wiki/Theodore_Motzkin)はイスラエル系アメリカ人の数学者で、[Motzkin number](https://en.wikipedia.org/wiki/Motzkin_number)などに名を残した人物であり、[Motzkin–Taussky theorem](https://en.wikipedia.org/wiki/Motzkin%E2%80%93Taussky_theorem)という線形代数の定理でも有名のようですが、本記事で扱う定理の内容はそれとは異なることに注意して下さい。
 
-S \subseteq L
-S is convex iff for all x, y \in S, line segment xy \subseteq S
+ここで、ユークリッド空間上において、ユークリッド射影 (Euclidean projection) は一般に次のように定義されます:
 
-Def 1.8
+$$
+\operatorname{Proj}_K(x) = \underset{y \in K}{\operatorname{argmin}} \|x-y\|.
+$$
 
-x, y \in L
-x \neq y
-intv xy = { \alpha x + \beta y : alpha > 0, beta > 0, alpha + beta = 1 }
+これは、点 $x$ から集合 $K$ への最近点集合に対する写像に他なりません。Motzkinの定理は、$K$ が凸集合であることと、ユークリッド射影 $\operatorname{Proj}_K(x)$ の一意性に関する同値性を主張しています。特に、$K$ が閉凸集合ならば、ユークリッド射影が一意であるという事実は、最適化アルゴリズムの一つである射影勾配法 (projected gradient method) に関する解析などで重要な役割を果たします。射影勾配法に関する解説としては、例えば以下の記事が参考になり、鏡像降下法 (mirror descent) についても触れられています。
 
-Def 1.10
+https://vene.ro/blog/mirror-descent.html
 
-S \subseteq L
-S is convex body iff S is convex and has nonempty interior
+なお、余談として、Motzkinの定理の証明には、本記事で紹介する証明以外にも不動点定理を用いるものもあるようです。本記事では省略します。
 
-Def 4.1
+https://math.stackexchange.com/questions/274810/is-a-closed-set-with-the-unique-nearest-point-property-convex
 
-$S \subseteq L$
-x,y \in bd S
-closed segment xy is a crosscut of S iff intv xy \subseteq int S
+それでは、以下でMotzkinの定理の証明を行っていきます。
 
-Theorem 4.2
+## 定義
 
-K: open set
-If K has no crosscut, then K is the complement of a convex set.
+以下、$L$ を位相線型空間とします。記事の前半は一般の $L$ でも成立しますが、Motzkinの定理が主に $\mathbb{R}^n$ を対象とした定理なので、本記事では $L=\mathbb{R}^n$ としても問題ありません。
+また、集合 $S \subseteq L$ に対して、$S$ の内部を $\operatorname{int}S$、境界を $\operatorname{bd} S$、補集合を $S^c$ と表します。
 
-Proof
-x, y \in K^c, x \neq y
+### 線分
 
-If xy \cap K \neq \emptyset, exists a,b \in xy \cap bd K, a \neq b, ab is a crosscut of K, contradiction.
-    SubProof
-        exists z \in xy \cap K = xy \cap int K.
-        zx　= { tx + (1-t)z : t \in [0,1] }
-        sup { t \in [0,1] : tx + (1-t)z \in bd K } = t_0
-        a = t_0 x + (1-t_0) z (\in bd K, a \in [x,z), (a,z) \subseteq int K)
-        zy = { ty + (1-t)z : t \in [0,1] }
-        sup { t \in [0,1] : ty + (1-t)z \in bd K } = t_1
-        b = t_1 y + (1-t_1) z (\in bd K, b \in (z,y], (z,b) \subseteq int K)
-        closed segment ab can satisfy the conditions
+$x,y \in L$ に対して、閉線分 $xy$ は次のように定義されます（文献[^Valentine] Definition 1.2）。
 
-Thus, xy \cap K = \emptyset
-xy \cap K^c = xy
+$$
+xy= \left\{ \alpha x+\beta y \mathrel{\mid} \alpha, \beta \geq 0, \ \alpha+\beta=1 \right\}.
+$$
 
-Thus, K^c is convex.
+また、$x \neq y$ のとき、開線分 $\mathrm{intv}~xy$ は次のように定義されます（文献[^Valentine] Definition 1.8）。
 
-Def 7.5
+$$
+\operatorname{intv} xy = \left\{ \alpha x+\beta y \mathrel{\mid} \alpha, \beta > 0,\ \alpha+\beta=1 \right\}.
+$$
 
-smooth skip
+閉線分 $xy$ は端点 $x,y$ を含みますが、開線分 $\mathrm{intv}~xy$ は端点を含みません。
+ただし、例外として、$x=y$ のときは、閉線分 $xy$ と開線分 $\mathrm{intv}~xy$ はともに $\{x\}$ となり、端点を含みます。
 
-Def 7.6
-convex body S in L is strictly convex
-iff
-x, y \in S, x \neq y implies intv xy \subseteq int S
+### 凸集合
 
+集合 $S \subseteq L$ が凸(convex)であることは、任意の $x,y \in S$ に対して、閉線分 $xy$ が再び $S$ に含まれることと同値です（文献[^Valentine] Definition 1.3）。
 
-Thm 7.8
+$$
+x,y \in S \implies xy \subseteq S.
+$$
 
+なお、端点は自明に $S$ に含まれるので、
 
+$$
+x, y \in S \implies \operatorname{intv} xy \subseteq S
+$$
 
+も同値な条件になります。
 
+また、$S$ が凸集合であり、かつ、内部が空でないとき、$S$ を凸体(convex body)と呼びます（教科書 Definition 1.10）。
 
+$$
+S \text{ is a convex body}
+\iff
+S \text{ is convex and } \operatorname{int}S \neq \emptyset.
+$$
 
+### Crosscut
 
+集合 $S \subseteq L$ と $x,y \in \operatorname{bd} S$ に対して、閉線分 $xy$ が $S$ の crosscut であることは、開線分 $\operatorname{intv} xy$ が $S$ の内部に含まれることと同値です（教科書 Definition 4.1）。
 
+$$
+xy \text{ is a crosscut of } S
+\iff
+x,y \in \operatorname{bd} S,\ x \neq y,\ \mathrm{intv}~xy \subseteq \operatorname{int}S.
+$$
 
+つまり、crosscut とは、両端点が境界上にあり、その間の点がすべて内部に入っているような線分です。
 
+![figs/crosscut.png](figs/crosscut.png)
 
+## Crosscut を持たない集合は凸集合の補集合である
 
+Motzkinの定理を証明するのに必要な準備として、以下を示します。(文献[^Valentine] Theorem 4.2)
 
+**$K$ を開集合とする。$K$ が crosscut を持たないならば、$K$ はある凸集合の補集合である。**
 
+なお、本記事での証明は、文献[^Valentine] における行間を埋めたものになっています。
+この証明の更なる行間は、本記事末尾のLeanによる証明で埋めています。
 
+### Crosscut を持たない集合の補集合は凸集合であることの証明
 
-hz : z ∈ segment ℝ x y ∩ K
-hu_seg : u ∈ openSegment ℝ x z
-hv_seg : v ∈ openSegment ℝ z y
-heq : u = v
-⊢ False
+集合 $K$ の補集合 $K^c$ が凸であることを示します。
+定義より、任意の $x,y \in K^c$ に対して、開線分 $\operatorname{intv} xy$ が $K^c$ に含まれることを示せばよいです。
 
+背理法で示します。補集合の定義より、
+$$
+\operatorname{intv} xy \cap K \neq \emptyset
+$$
+であると仮定したときに、矛盾が導ける、つまり、$K$ が crosscut を持つことが示されることを目指します。
+まず、先ほどの条件から、
+$$
+z \in \operatorname{intv} xy \cap K
+$$
+が存在します。特に、$K$ は開集合なので、
+$$
+z \in \operatorname{int}K
+$$
+です。
+この時、ある $u,v \in \operatorname{bd} K$ が閉線分 $xy$ 上に存在して、$uv$ が $K$ のcrosscutになることを示します。
+先述の通り、そのことが示されれば、矛盾が導け主張が証明されます。
 
+![thm42](figs/thm42.png)
 
+以下では $u$ を構成する方法を説明します。$v$ も同様に構成できます。
+まず、$x$ と $z$ を結ぶ線分上の点をパラメータ $t \in [0, 1]$ を用いて表すと、$\gamma(t) = (1-t)x + tz$ と書けます。
+このとき、実数の完備性により、次のように $t_u$ および $u$ を構成できます。
+$$
+\begin{align*}
+t_u &\coloneqq \inf \{ t \in [0, 1] \mid \forall s \in (t, 1], \gamma(s) \in K \}\\
+u & \coloneqq \gamma(t_u)
+\end{align*}
+$$
 
+すると、次のことが成り立ちます:
 
+1. $u \neq z$, （$x \notin K, z \in K$ と $K$ の開集合性）
+2. $u \in \operatorname{bd} K$, （$\gamma$ の連続性と境界の定義）
+3. $u \in xz$, （$u$ は $x$ であってもよい。crosscutの節における図の2番目の例を参照）
+4. $(u, z] \subseteq \operatorname{int} K$. （$u$ の構成）
 
+同様に $v$ も構成して、二点 $u,v$ を考えると、これは次を満たします:
 
+1. $u,v \in \operatorname{bd} K$,
+2. $u \neq v$,
+3. $\mathrm{intv}~uv \subseteq \operatorname{int}K$.
 
+これは、$uv$ が $K$ の crosscut であることの定義そのものです。
+よって、確かに $K$ は crosscut を持ち、矛盾が導けました。
 
+## Motzkinの定理
 
+では、続いてMotzkinの定理を証明します。
 
-Yes. The key point: use the **last exit from the complement** along the segment, not the first entry into `K`, since `K` need not be convex.
+主張としては、
 
-Natural-language proof:
+![Motzkin](figs/IMG_5007.jpg)
 
-Let
+### Motzkinの定理の証明
 
-[
-\gamma(t) = (1-t)x + tz,\qquad t\in[0,1].
-]
 
-Then `γ 0 = x ∉ K` and `γ 1 = z ∈ interior K = K`, since `K` is open.
+以上で証明は完了となります。
 
-Consider the set of parameters near `1` for which the tail of the segment stays inside `K`:
 
-[
-A={t\in[0,1] : \forall s\in(t,1],\ \gamma(s)\in K}.
-]
+## おまけ
 
-Because `z ∈ interior K` and `γ` is continuous, `A` is nonempty:
+最後に、本記事の結びとして、少しおまけを紹介します。
 
- all `t` sufficiently close to `1` belong to `A`.
+## Lean による形式化
 
-Let
+本文中でも言及しましたが、Crosscutに関する主張の証明は、[Lean4](https://ja.wikipedia.org/wiki/Lean_(%E8%A8%BC%E6%98%8E%E3%82%A2%E3%82%B7%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88))による形式化も行っています。Lean4とは、数学の証明をコードとして記述することで、機械的に証明を検証できる「定理証明支援系」の機能を持つ純粋関数型プログラミング言語です。命題の記述が正しい限りにおいて、証明の正しさを機械的に保証できることが強みです。
 
-[
-a = \inf A.
-]
+まず、以下に証明の骨格を示します。一部の補題は、後述のファイルで示します。(詳しい説明などはあまりしていませんが、こちらだけならLean4を知らない方でもある程度理解できると思います。)
 
-Set `u = γ a`.
+<!-- PROGRAM_INSERTION: Motzkin/Motzkin.lean -->
 
-Then:
+そして、先ほど省略した補題が以下になります。ここが、正に記事の本文でも説明を省略した行間を埋める部分になります。
 
-1. For every `s ∈ (a,1]`, `γ s ∈ K`, by definition of `a` as the left endpoint of the final interval of membership in `K`.
+<!-- PROGRAM_INSERTION: Motzkin/Motzkin/Basic.lean -->
 
-2. Hence `openSegment ℝ u z ⊆ interior K`, because points of `openSegment ℝ u z` are exactly `γ s` with `s ∈ (a,1)`, and `K = interior K`.
+## Valentineの本について
 
-3. We have `u ∈ closure K`, since `γ s ∈ K` for `s > a` and `γ s → γ a`.
+本記事で参照させていただいたValentineの本は、今回東大の工学部6号館にある図書館の地下の可動式書庫を動かしてようやく読むことが出来ました。かなり古めかしい本で、ネット上に情報が少ないのも頷けます。
 
-4. We cannot have `u ∈ interior K`. If `u ∈ interior K`, then by openness and continuity of `γ`, parameters slightly less than `a` would also have their tails inside `K`, contradicting minimality of `a`.
+![IMG_5009.jpg](figs/IMG_5009.jpg)
 
-So
+本書において、先ほどのCrosscutに関する主張は、次のように証明されています。
 
-[
-u \in \overline K \setminus \operatorname{interior} K
-= \operatorname{frontier} K.
-]
+![IMG_5009.jpg](figs/IMG_5008.jpg)
 
-Also `u ∈ segment ℝ x z` because `a ∈ [0,1]`. Finally, `u ≠ z`, since otherwise `z ∈ frontier K`, contradicting `z ∈ interior K`.
+Lean4による証明と比べて、めちゃくちゃ短いですね……。
 
-So the lemma is true. A Lean proof should formalize this via the connected component of `γ ⁻¹' K` containing `1`; that avoids manually proving the infimum/interval facts for `A`.
+個人的に、これは本当にいろいろなことに対して示唆的だと思っています。
+人間がもつ数学的対象に対する直感の強さ、Lean4が持つ機械的な検証能力の豊かさ、そして一世紀近くも前に発表された数学の定理がその検証に耐えられるだけの厳密性をなお持っていることに対する衝撃を感じます。
+
+本記事を執筆した動機の一つは、このユークリッド射影の一意性に関する定理の証明が非常にネット上では限られていたり見つけにくかったりしており、かつこのような良書が誰にも知られずに朽ちていくのは非常に口惜しく感じたからでした。
+
+本記事が、その周知の一助になれば幸いです。
+
+## 参考文献
+
+[^Kuznetsov]: Kuznetsov, N. (2024). On analytic characterization of convex sets in $\mathbb{R}^m$ (a survey). arXiv [Math.AP]. http://arxiv.org/abs/2405.18013
+
+[^Valentine]: Valentine, F. A. (1964). Convex sets. McGraw-Hill series in higher mathematics. McGraw-Hill Book Company.
