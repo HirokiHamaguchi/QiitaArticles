@@ -92,6 +92,7 @@ def get_language_from_extension(filename):
         ".tex": "latex",
         ".md": "markdown",
         ".txt": "text",
+        ".lean": "lean",
     }
 
     ext = os.path.splitext(filename)[1].lower()
