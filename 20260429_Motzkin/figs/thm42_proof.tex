@@ -68,7 +68,8 @@
 \begin{tikzpicture}[
     scale=1,
     K/.style={thick, draw=black, fill=cA!18},
-    crosscut/.style={very thick, draw=cC},
+    crosscut/.style={very thick, draw=cB},
+    noncrosscut/.style={very thick, draw=cD, dashed},
     pt/.style={circle, fill=black, inner sep=1.6pt},
     lab/.style={font=\Large},
     note/.style={font=\Large, align=center}
@@ -99,8 +100,13 @@
     \coordinate (u3) at (1.21,2.6);
     \coordinate (v3) at (1.87,2.6);
 
+    \draw[noncrosscut] (x3) -- (z3);
+    \draw[noncrosscut] (z3) -- (y3);
     \draw[crosscut] (u3) -- (v3);
 
+    \node[pt,label={[lab]above left:$x$}] at (x3) {};
+    \node[pt,label={[lab]above right:$y$}] at (y3) {};
+    \node[pt,label={[lab]above:$z$}] at (z3) {};
     \node[pt,label={[lab]below left:$u$}] at (u3) {};
     \node[pt,label={[lab]below right:$v$}] at (v3) {};
 
