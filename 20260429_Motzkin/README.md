@@ -8,7 +8,7 @@
 
 **集合 $K$ が $\mathbb{R}^m$ の非空な閉集合であるとき、$K$ が凸集合であることと、$\mathbb{R}^m$ の任意の点に対して $K$ の最近点が一意に定まることは同値である。**
 
-この結果は、近年のサーベイ論文 [^Kuznetsov] や、Frederick A. Valentine による "Convex Sets" [^Valentine] において、Motzkinの定理 (Motzkin's theorem)と呼ばれています。1935年に T. Motzkin が発表した論文がこの結果に対する最初の証明であるようです。(先述のサーベイ論文内での参考文献と、Valentineによる本とでの参考文献に齟齬があり、両方とも原本を確認できなかったため、その原論文はあえて参考文献欄に載せていません。) 本記事では、Valentineの本に記載された証明を紹介します。
+この結果は、近年のサーベイ論文 [^Kuznetsov] や、Frederick A. Valentine による "Convex sets" [^Valentine] において、Motzkinの定理 (Motzkin's theorem)と呼ばれています。1935年に T. Motzkin が発表した論文がこの結果に対する最初の証明であるようです。(先述のサーベイ論文内での参考文献と、Valentineによる本とでの参考文献に齟齬があり、両方とも原本を確認できなかったため、その原論文はあえて参考文献欄に載せていません。) 本記事では、Valentineの本に記載された証明を紹介します。
 
 [Theodore Motzkin](https://en.wikipedia.org/wiki/Theodore_Motzkin)はイスラエル系アメリカ人の数学者で、[Motzkin number](https://en.wikipedia.org/wiki/Motzkin_number)などに名を残した人物であり、[Motzkin–Taussky theorem](https://en.wikipedia.org/wiki/Motzkin%E2%80%93Taussky_theorem)という線形代数の定理でも有名のようですが、本記事で扱う定理の内容はそれとは異なることに注意して下さい。
 
