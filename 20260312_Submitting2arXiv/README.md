@@ -125,7 +125,11 @@ https://arxiv.org/abs/2606.21192
 私が遭遇した問題は、REVTeXというドキュメントクラスを使っている状況で、Overleaf上では問題なくコンパイルできるのに、arXiv上ではコンパイルが通らない、というものでした。
 
 ![table_with_array](table_with_array.png)
+
 ![table_with_array_error](table_with_array_error.png)
+
+(Package array Error: <{..} at wrong position: changed to !{..}.)
+(Package array Error: Illegal pream-token (\centering): `c' used.)
 
 原因は、REVTeXと`array`パッケージの相性問題でした。TeX Live 2025環境で`array`パッケージを読み込むと、`p{30mm}`のような折り返し可能な表カラムが原因でコンパイルに失敗することがあります。
 
