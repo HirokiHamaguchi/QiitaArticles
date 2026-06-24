@@ -18,5 +18,13 @@
     {
         "src": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/debfc59e-82b9-4421-88c3-74ff8b1f3fec.png",
         "alt": "x2013"
+    },
+    {
+        "src": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/40bf8ec5-2ff8-4145-94c3-8b8b4a3bb5ee.png",
+        "alt": "table_with_array"
+    },
+    {
+        "src": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/905155/325ef8df-3f97-49b5-8d78-2bb7f740e784.png",
+        "alt": "table_with_array_error"
     }
 ]
