@@ -322,6 +322,18 @@ LaTeXで'\succ'と書く$\succ$について、発音する際はsucceedなどと
 
 suckのように発音してしまうと、俗語として非常にネガティブな意味に捉えられる可能性があり、注意が必要です。
 
+#### circumference
+
+circumference | UK səˈkʌm.fər.əns | US sɚˈkʌm.fɚ.əns | [link](https://dictionary.cambridge.org/dictionary/english/circumference)
+
+円の周、または周長を意味する。第一音節にアクセントがあるのが、個人的に意外でした。
+
+#### perimeter
+
+perimeter | UK pəˈrɪm.ɪ.tər | US pəˈrɪm.ə.t̬ɚ | [link](https://dictionary.cambridge.org/dictionary/english/perimeter)
+
+多角形の周、または周長を意味する。第一音節にアクセントがあるのが、個人的に意外でした。
+
 ### 複数の発音が許容されている用語
 
 #### dimension
