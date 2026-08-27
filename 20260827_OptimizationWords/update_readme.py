@@ -13,7 +13,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import quote, urlparse
 
-
 INDEX_MARKER = "<!-- INDEX -->"
 WORDS_MARKER = "<!-- WORDS -->"
 README_NAME = "README.md"
@@ -220,6 +219,8 @@ def load_articles(
     articles: list[Article] = []
     for path in directory.glob("*.md"):
         if path.name.casefold() == README_NAME.casefold():
+            continue
+        if path.name.casefold() == "Qiita.md".casefold():
             continue
         text = read_utf8(path)
         title = extract_title(path, text)
