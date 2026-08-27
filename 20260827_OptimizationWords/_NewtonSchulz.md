@@ -1,4 +1,4 @@
-# Newton–Schulz法の概要
+# Newton–Schulz
 
 文献:
 
@@ -14,5 +14,5 @@ https://en.wikipedia.org/wiki/Newton%27s_method#Multiplicative_inverses_of_numbe
 
 解説:
 
-Newton–Schulz法は、大雑把には行列向けのNewton法。
+Newton–Schulz法は、大雑把には行列向けのNewton法で、二次収束するのが偉い。
 具体例として、行列符号関数の計算にも用いられる。

@@ -8,13 +8,17 @@
 
 <!-- INDEX -->
 
-- [Antithetic variates](#antithetic-variates)
-- [Generalized Moment Problem](#generalized-moment-problem)
-- [Growth Condition](#growth-condition)
-- [KL property](#kl-property)
-- [Newton–Schulz法の概要](#newtonschulz法の概要)
-- [Ordinal Regression](#ordinal-regression)
-- [Wasserstein DRO](#wasserstein-dro)
+- [最適化関連の個人的用語集](#最適化関連の個人的用語集)
+  - [目次](#目次)
+  - [用語集](#用語集)
+    - [Antithetic variates](#antithetic-variates)
+    - [Generalized Moment Problem](#generalized-moment-problem)
+    - [Growth Condition](#growth-condition)
+    - [KL property](#kl-property)
+    - [Newton–Schulz](#newtonschulz)
+    - [Ordinal Regression](#ordinal-regression)
+    - [Wasserstein DRO](#wasserstein-dro)
+  - [最後に](#最後に)
 
 ## 用語集
 
@@ -34,11 +38,14 @@ https://en.wikipedia.org/wiki/Antithetic_variates
 
 解説:
 
+[負相関変量法・対称変量法](https://triadsou.hatenablog.com/entry/20100819/1282192611)とも呼ばれている。
+モンテカルロ推定量の不偏性を保ちながら分散を小さくする。
+
 ### Generalized Moment Problem
 
 文献:
 
-https://arxiv.org/pdf/2608.24184
+https://arxiv.org/abs/2608.24184
 
 https://books.google.co.jp/books?id=lFi7CgAAQBAJ
 
@@ -48,7 +55,8 @@ https://books.google.co.jp/books?id=lFi7CgAAQBAJ
 
 解説:
 
-todo
+未知の測度を変数とし、その[モーメント](https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%BC%E3%83%A1%E3%83%B3%E3%83%88_(%E6%95%B0%E5%AD%A6))に関する線形制約の下で測度の線形汎関数を最適化する無限次元線形計画問題である。
+データが多項式の場合は[the moment Sum-of-squares (SOS) hierarchy](https://arxiv.org/abs/2608.24184)による半正定値計画緩和で近似できる。
 
 ### Growth Condition
 
@@ -66,7 +74,8 @@ https://pubsonline.informs.org/doi/abs/10.1287/moor.2017.0889
 
 解説:
 
-todo
+最適値からの目的関数値の差が解集合までの距離に応じてどれだけ増えるかを下から評価する正則性条件。
+近接勾配法などの線形収束を導くために用いられる。
 
 ### KL property
 
@@ -80,7 +89,17 @@ https://doi.org/10.1007/s10107-011-0484-9
 
 解説:
 
-### Newton–Schulz法の概要
+KL Propertyは、臨界点の近傍で関数値の差と劣勾配の大きさをもとに、目的関数が過度に平坦になることを排除する性質。
+非凸非平滑な場合の収束解析などに用いられる。
+
+なお、
+
+- KL propertyのKL = Kurdyka–Łojasiewicz
+- KL divergenceのKL = Kullback–Leibler
+
+なので、人違いに注意。
+
+### Newton–Schulz
 
 文献:
 
@@ -96,7 +115,7 @@ https://en.wikipedia.org/wiki/Newton%27s_method#Multiplicative_inverses_of_numbe
 
 解説:
 
-Newton–Schulz法は、大雑把には行列向けのNewton法。
+Newton–Schulz法は、大雑把には行列向けのNewton法で、二次収束するのが偉い。
 具体例として、行列符号関数の計算にも用いられる。
 
 ### Ordinal Regression
@@ -115,6 +134,9 @@ https://arxiv.org/abs/2608.06881
 
 解説:
 
+順序回帰は順序はあるものの間隔を数量化できない目的変数と、説明変数との関係をモデル化する回帰手法である。
+アンケート、疾患の重症度、信用格付けなどの予測に用いられる。
+
 ### Wasserstein DRO
 
 文献:
@@ -123,19 +145,20 @@ https://arxiv.org/pdf/2608.18123
 
 https://doi.org/10.1007/s10107-017-1172-1
 
-
 スクショ:
 
 ![_WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1.png)
+
 ![_WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-2.png)
+
 ![_WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-3](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-3.png)
 
 ![_WassersteinDRO_Learning-the-Center-and-Radius-of-Wasserstein-Ambiguity-Sets-for-Data-Driven-Decision-Making](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_WassersteinDRO_Learning-the-Center-and-Radius-of-Wasserstein-Ambiguity-Sets-for-Data-Driven-Decision-Making.png)
 
-
 解説:
 
-DROはDistributionally Robust Optimizationの略。
+Wasserstein DROは、経験分布などを中心、Wasserstein距離を半径とする分布の曖昧性集合を考え、その中の最悪分布に対して意思決定を最適化する手法。
+頑健性があって偉い。
 
 ## 最後に
 

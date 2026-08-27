@@ -34,6 +34,13 @@ class Article:
     source: Path
 
 
+@dataclass(frozen=True)
+class OutlineHeading:
+    level: int
+    title: str
+    position: int
+
+
 def run_git(repo_root: Path, *args: str) -> str:
     completed = subprocess.run(
         ["git", "-C", str(repo_root), *args],
@@ -226,17 +233,66 @@ def load_articles(
     return articles
 
 
-def build_index(articles: list[Article]) -> str:
+def read_outline_headings(document: str) -> list[OutlineHeading]:
+    headings: list[OutlineHeading] = []
+    in_fence = False
+    position = 0
+    for line in document.splitlines(keepends=True):
+        stripped = line.lstrip()
+        if stripped.startswith(("```", "~~~")):
+            in_fence = not in_fence
+        elif not in_fence:
+            match = re.fullmatch(
+                r"(#{1,2})[ \t]+(.+?)(?:[ \t]+#+)?", line.rstrip("\r\n")
+            )
+            if match:
+                headings.append(
+                    OutlineHeading(
+                        level=len(match.group(1)),
+                        title=match.group(2).strip(),
+                        position=position,
+                    )
+                )
+        position += len(line)
+    return headings
+
+
+def build_index(document: str, articles: list[Article]) -> str:
+    headings = read_outline_headings(document)
+    top_level = [heading for heading in headings if heading.level == 1]
+    sections = [heading for heading in headings if heading.level == 2]
+    if len(top_level) != 1:
+        raise SystemExit("README.mdには # 見出しがちょうど1つ必要です。")
+
+    words_matches = list(
+        re.finditer(rf"(?m)^{re.escape(WORDS_MARKER)}[ \t]*$", document)
+    )
+    if len(words_matches) != 1:
+        raise SystemExit(f"{WORDS_MARKER} はREADME.md内にちょうど1つ必要です。")
+    words_position = words_matches[0].start()
+    words_parents = [section for section in sections if section.position < words_position]
+    if not words_parents:
+        raise SystemExit(f"{WORDS_MARKER} より前に親となる ## 見出しがありません。")
+    words_parent = words_parents[-1]
+
     counts: dict[str, int] = {}
     lines: list[str] = []
-    for article in articles:
-        base_slug = slugify(article.title)
+
+    def append_link(indent: str, title: str) -> None:
+        base_slug = slugify(title)
         if not base_slug:
-            raise SystemExit(f"見出しからリンク先を生成できません: {article.source.name}")
+            raise SystemExit(f"見出しからリンク先を生成できません: {title}")
         occurrence = counts.get(base_slug, 0)
         counts[base_slug] = occurrence + 1
         slug = base_slug if occurrence == 0 else f"{base_slug}-{occurrence}"
-        lines.append(f"- [{article.title}](#{slug})")
+        lines.append(f"{indent}- [{title}](#{slug})")
+
+    append_link("", top_level[0].title)
+    for section in sections:
+        append_link("  ", section.title)
+        if section == words_parent:
+            for article in articles:
+                append_link("    ", article.title)
     return "\n".join(lines)
 
 
@@ -264,7 +320,7 @@ def main() -> int:
     articles = load_articles(directory, repo_root, repository, args.branch)
 
     original = read_utf8(readme_path)
-    updated = replace_section(original, INDEX_MARKER, build_index(articles))
+    updated = replace_section(original, INDEX_MARKER, build_index(original, articles))
     updated = replace_section(
         updated, WORDS_MARKER, "\n\n".join(article.body for article in articles)
     )
