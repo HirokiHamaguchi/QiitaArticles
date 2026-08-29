@@ -195,7 +195,7 @@ def slugify(title: str) -> str:
             slug.append("-")
         elif category[0] not in {"P", "S", "C"} or char in {"-", "_"}:
             slug.append(char)
-    return re.sub(r"-+", "-", "".join(slug)).strip("-")
+    return "".join(slug)
 
 
 def replace_section(document: str, marker: str, generated: str) -> str:

@@ -2,11 +2,9 @@
 
 文献:
 
-https://en.wikipedia.org/wiki/Ordinal_regression
-
 https://arxiv.org/abs/2608.06881
 
-スクショ:
+https://en.wikipedia.org/wiki/Ordinal_regression
 
 ![_OrdinalRegression_Wiki-Abst](_OrdinalRegression_Wiki-Abst.png)
 
