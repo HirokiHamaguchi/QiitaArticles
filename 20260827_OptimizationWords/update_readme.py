@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Build the INDEX and WORDS sections of README.md from sibling Markdown files."""
+"""Build the INDEX and WORDS sections from article-directory README files."""
 
 from __future__ import annotations
 
 import argparse
+import html
 import os
 import re
 import subprocess
@@ -11,7 +12,7 @@ import tempfile
 import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
-from urllib.parse import quote, urlparse
+from urllib.parse import quote, unquote, urlparse
 
 INDEX_MARKER = "<!-- INDEX -->"
 WORDS_MARKER = "<!-- WORDS -->"
@@ -19,11 +20,23 @@ README_NAME = "README.md"
 DEFAULT_BRANCH = "main"
 
 ATX_HEADING_RE = re.compile(r"^(#{1,6})([ \t]+)(.*?)([ \t]+#+)?$", re.MULTILINE)
-MARKDOWN_IMAGE_RE = re.compile(r"(!\[[^\]\r\n]*\]\()([^\s()]+)(\))")
-HTML_IMAGE_RE = re.compile(
-    r"(<img\b[^>]*?\bsrc\s*=\s*['\"])([^'\"]+)(['\"])", re.IGNORECASE
+MARKDOWN_IMAGE_RE = re.compile(
+    r"(?P<prefix>!\[)(?P<alt>[^\]\r\n]*)(?P<middle>\]\()"
+    r"(?P<target>[^\s()]+)(?P<suffix>\))"
+)
+HTML_IMAGE_TAG_RE = re.compile(r"<img\b[^>]*>", re.IGNORECASE)
+HTML_IMAGE_SRC_RE = re.compile(
+    r"(?P<prefix>\bsrc\s*=\s*['\"])(?P<target>[^'\"]+)(?P<suffix>['\"])",
+    re.IGNORECASE,
+)
+HTML_ALT_RE = re.compile(
+    r"(?P<prefix>\balt\s*=\s*['\"])(?P<alt>[^'\"]*)(?P<suffix>['\"])",
+    re.IGNORECASE,
 )
 SECTION_HEADING_RE = re.compile(r"^##(?:[ \t]+|$)", re.MULTILINE)
+CAPITALIZED_WORD_DOUBLE_HYPHEN_RE = re.compile(
+    r"(?<![A-Za-z])(?P<left>[A-Z][A-Za-z]*)--(?=[A-Z][A-Za-z]*(?![A-Za-z]))"
+)
 
 
 @dataclass(frozen=True)
@@ -38,6 +51,14 @@ class OutlineHeading:
     level: int
     title: str
     position: int
+
+
+@dataclass(frozen=True)
+class UnreplacedDoubleHyphen:
+    source: Path
+    line: int
+    column: int
+    text: str
 
 
 def run_git(repo_root: Path, *args: str) -> str:
@@ -148,14 +169,51 @@ def shift_headings(text: str, path: Path) -> str:
     return "".join(output)
 
 
+def replace_name_dashes(
+    text: str, source: Path
+) -> tuple[str, list[UnreplacedDoubleHyphen]]:
+    """Replace ``--`` between capitalized English words with an en dash."""
+    converted_offsets = {
+        match.end() - 2
+        for match in CAPITALIZED_WORD_DOUBLE_HYPHEN_RE.finditer(text)
+    }
+    updated = CAPITALIZED_WORD_DOUBLE_HYPHEN_RE.sub(r"\g<left>–", text)
+    unreplaced: list[UnreplacedDoubleHyphen] = []
+    offset = 0
+    for line_number, line_with_ending in enumerate(
+        text.splitlines(keepends=True), start=1
+    ):
+        line = line_with_ending.rstrip("\r\n")
+        for match in re.finditer(r"--", line):
+            if offset + match.start() in converted_offsets:
+                continue
+            unreplaced.append(
+                UnreplacedDoubleHyphen(
+                    source=source,
+                    line=line_number,
+                    column=match.start() + 1,
+                    text=line,
+                )
+            )
+        offset += len(line_with_ending)
+    return updated, unreplaced
+
+
+def local_image_path(target: str, source: Path) -> Path | None:
+    parsed = urlparse(target)
+    if parsed.scheme or target.startswith(("//", "#", "/")):
+        return None
+    return (source.parent / unquote(parsed.path)).resolve()
+
+
 def raw_image_url(
     target: str, source: Path, repo_root: Path, repository: str, branch: str
 ) -> str:
     parsed = urlparse(target)
-    if parsed.scheme or target.startswith(("//", "#", "/")):
+    local_path = local_image_path(target, source)
+    if local_path is None:
         return target
 
-    local_path = (source.parent / parsed.path).resolve()
     try:
         relative_path = local_path.relative_to(repo_root).as_posix()
     except ValueError as exc:
@@ -174,17 +232,63 @@ def raw_image_url(
     return f"https://raw.githubusercontent.com/{repository}/{quote(branch, safe='')}/{encoded_path}{suffix}"
 
 
+def image_alt(target: str, source: Path) -> str | None:
+    image_path = local_image_path(target, source)
+    if image_path is None:
+        return None
+    return f"{source.parent.name}_{image_path.stem}"
+
+
 def rewrite_images(
     text: str, source: Path, repo_root: Path, repository: str, branch: str
 ) -> str:
-    def replace(match: re.Match[str]) -> str:
+    def replace_markdown(match: re.Match[str]) -> str:
+        original_target = match.group("target")
         target = raw_image_url(
-            match.group(2), source, repo_root, repository, branch
+            original_target, source, repo_root, repository, branch
         )
-        return match.group(1) + target + match.group(3)
+        alt = image_alt(original_target, source) or match.group("alt")
+        return (
+            match.group("prefix")
+            + alt
+            + match.group("middle")
+            + target
+            + match.group("suffix")
+        )
 
-    text = MARKDOWN_IMAGE_RE.sub(replace, text)
-    return HTML_IMAGE_RE.sub(replace, text)
+    def replace_html_tag(match: re.Match[str]) -> str:
+        tag = match.group(0)
+        src_match = HTML_IMAGE_SRC_RE.search(tag)
+        if src_match is None:
+            return tag
+
+        original_target = src_match.group("target")
+        target = raw_image_url(
+            original_target, source, repo_root, repository, branch
+        )
+        alt = image_alt(original_target, source)
+        tag = (
+            tag[: src_match.start("target")]
+            + target
+            + tag[src_match.end("target") :]
+        )
+        if alt is None:
+            return tag
+
+        escaped_alt = html.escape(alt, quote=True)
+        alt_match = HTML_ALT_RE.search(tag)
+        if alt_match is not None:
+            return (
+                tag[: alt_match.start("alt")]
+                + escaped_alt
+                + tag[alt_match.end("alt") :]
+            )
+
+        closing = "/>" if tag.endswith("/>") else ">"
+        return tag[: -len(closing)] + f' alt="{escaped_alt}"' + closing
+
+    text = MARKDOWN_IMAGE_RE.sub(replace_markdown, text)
+    return HTML_IMAGE_TAG_RE.sub(replace_html_tag, text)
 
 
 def slugify(title: str) -> str:
@@ -215,14 +319,13 @@ def replace_section(document: str, marker: str, generated: str) -> str:
 
 def load_articles(
     directory: Path, repo_root: Path, repository: str, branch: str
-) -> list[Article]:
+) -> tuple[list[Article], list[UnreplacedDoubleHyphen]]:
     articles: list[Article] = []
-    for path in directory.glob("*.md"):
-        if path.name.casefold() == README_NAME.casefold():
-            continue
-        if path.name.casefold() == "Qiita.md".casefold():
-            continue
+    unreplaced: list[UnreplacedDoubleHyphen] = []
+    for path in directory.glob("*/README.md"):
         text = read_utf8(path)
+        text, article_unreplaced = replace_name_dashes(text, path)
+        unreplaced.extend(article_unreplaced)
         title = extract_title(path, text)
         body = shift_headings(text, path)
         body = rewrite_images(body, path, repo_root, repository, branch).strip()
@@ -231,7 +334,22 @@ def load_articles(
     articles.sort(key=lambda article: (article.title.casefold(), article.source.name.casefold()))
     if not articles:
         raise SystemExit(f"用語Markdownファイルがありません: {directory}")
-    return articles
+    return articles, unreplaced
+
+
+def report_unreplaced_double_hyphens(
+    occurrences: list[UnreplacedDoubleHyphen], directory: Path
+) -> None:
+    if not occurrences:
+        return
+
+    print("大文字で始まる英単語の間ではないため、置換しなかった --:")
+    for occurrence in occurrences:
+        source = occurrence.source.relative_to(directory).as_posix()
+        print(
+            f"  {source}:{occurrence.line}:{occurrence.column}: "
+            f"{occurrence.text.strip()}"
+        )
 
 
 def read_outline_headings(document: str) -> list[OutlineHeading]:
@@ -318,7 +436,10 @@ def main() -> int:
     readme_path = directory / README_NAME
     repo_root = find_repo_root(directory)
     repository = github_repository(repo_root)
-    articles = load_articles(directory, repo_root, repository, args.branch)
+    articles, unreplaced = load_articles(
+        directory, repo_root, repository, args.branch
+    )
+    report_unreplaced_double_hyphens(unreplaced, directory)
 
     original = read_utf8(readme_path)
     updated = replace_section(original, INDEX_MARKER, build_index(original, articles))

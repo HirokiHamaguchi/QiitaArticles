@@ -12,6 +12,8 @@
   - [目次](#目次)
   - [用語集](#用語集)
     - [Antithetic variates](#antithetic-variates)
+    - [Asplund Space](#asplund-space)
+    - [Eckart–Young–Mirsky Theorem](#eckartyoungmirsky-theorem)
     - [Generalized Cauchy Point](#generalized-cauchy-point)
     - [Generalized Moment Problem](#generalized-moment-problem)
     - [Growth Condition](#growth-condition)
@@ -19,7 +21,7 @@
     - [Maximum Theorem](#maximum-theorem)
     - [Newton–Schulz](#newtonschulz)
     - [Ordinal Regression](#ordinal-regression)
-    - [Radon--Nikodym Derivative](#radon--nikodym-derivative)
+    - [Radon–Nikodym Derivative](#radonnikodym-derivative)
     - [Set-Valued Function](#set-valued-function)
     - [Sturm's Theorem](#sturms-theorem)
     - [Wasserstein DRO](#wasserstein-dro)
@@ -35,14 +37,40 @@
 
 https://en.wikipedia.org/wiki/Antithetic_variates
 
-![_AntitheticVariates_Wiki-Underlying-principle](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_AntitheticVariates_Wiki-Underlying-principle.png)
+![AntitheticVariates_Wiki-Underlying-principle](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AntitheticVariates/Wiki-Underlying-principle.png)
 
-![_AntitheticVariates_Wiki-Example2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_AntitheticVariates_Wiki-Example2.png)
+![AntitheticVariates_Wiki-Example2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AntitheticVariates/Wiki-Example2.png)
 
 解説:
 
 [負相関変量法・対称変量法](https://triadsou.hatenablog.com/entry/20100819/1282192611)とも呼ばれている。
 モンテカルロ推定量の不偏性を保ちながら分散を小さくする。
+
+### Asplund Space
+
+文献:
+
+https://arxiv.org/abs/2608.26328
+
+https://en.wikipedia.org/wiki/Asplund_space
+
+![Asplund_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Asplund/Wiki.png)
+
+解説:
+
+めちゃくちゃ大雑把に言えばフレシェ微分が自由にできる空間。todo。
+
+### Eckart–Young–Mirsky Theorem
+
+文献:
+
+![EckartYoungMirskyTheorem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/EckartYoungMirskyTheorem/Wiki.png)
+
+解説:
+
+行列の低ランク近似をフロベニウスノルムによって定式化した際、その最適解は特異値分解によって得られることを示す定理。
+定理自体は有名だが、このような名前がついていることは知名度が低いかも知れない。
+お三方とも1900年代の数学者らしい。
 
 ### Generalized Cauchy Point
 
@@ -52,17 +80,17 @@ https://doi.org/10.1007/978-0-387-40065-5
 
 Wright, Stephen J., and Jorge Nocedal. "Numerical optimization." における説明
 
-![_GeneralizedCauchyPoint_Numerical-Optimization.png](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_GeneralizedCauchyPoint_Numerical-Optimization.png)
+![GeneralizedCauchyPoint_Numerical-Optimization](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GeneralizedCauchyPoint/Numerical-Optimization.png)
 
 https://doi.org/10.1137/0916069
 
 Richard H. Byrd, Peihuang Lu, Jorge Nocedal, and Ciyou Zhu. "A Limited Memory Algorithm for Bound Constrained Optimization." における説明
 
-![_GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1.png)
+![GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GeneralizedCauchyPoint/A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1.png)
 
-![_GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-2.png)
+![GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GeneralizedCauchyPoint/A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-2.png)
 
-![_GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3.png)
+![GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GeneralizedCauchyPoint/A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3.png)
 
 解説:
 
@@ -94,7 +122,7 @@ https://arxiv.org/abs/2608.24184 (この文献の[9]が下にあたる)
 
 https://books.google.co.jp/books?id=lFi7CgAAQBAJ
 
-![_GeneralizedMomentProblem_Moments,-Positive-Polynomials-and-Their-Applications.png](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_GeneralizedMomentProblem_Moments%2C-Positive-Polynomials-and-Their-Applications.png)
+![GeneralizedMomentProblem_Moments,-Positive-Polynomials-and-Their-Applications](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GeneralizedMomentProblem/Moments%2C-Positive-Polynomials-and-Their-Applications.png)
 
 解説:
 
@@ -107,11 +135,11 @@ https://books.google.co.jp/books?id=lFi7CgAAQBAJ
 
 https://pubsonline.informs.org/doi/abs/10.1287/moor.2017.0889
 
-![_GrowthCondition_Error-Bounds,-Quadratic-Growth,-and-Linear-Convergence-of-Proximal-Methods](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_GrowthCondition_Error-Bounds%2C-Quadratic-Growth%2C-and-Linear-Convergence-of-Proximal-Methods.png)
+![GrowthCondition_Error-Bounds,-Quadratic-Growth,-and-Linear-Convergence-of-Proximal-Methods](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GrowthCondition/Error-Bounds%2C-Quadratic-Growth%2C-and-Linear-Convergence-of-Proximal-Methods.png)
 
 https://arxiv.org/pdf/2608.20642 ([12]が上の文献にあたる)
 
-![_GrowthCondition_Strong-growth-and-Goldstein-subgradients-in-piecewise-smooth-optimization](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_GrowthCondition_Strong-growth-and-Goldstein-subgradients-in-piecewise-smooth-optimization.png)
+![GrowthCondition_Strong-growth-and-Goldstein-subgradients-in-piecewise-smooth-optimization](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GrowthCondition/Strong-growth-and-Goldstein-subgradients-in-piecewise-smooth-optimization.png)
 
 解説:
 
@@ -124,7 +152,7 @@ https://arxiv.org/pdf/2608.20642 ([12]が上の文献にあたる)
 
 https://doi.org/10.1007/s10107-011-0484-9
 
-![_KLProperty_Convergence-of-descent-methods-for-semi-algebraic-and-tame-problems](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_KLProperty_Convergence-of-descent-methods-for-semi-algebraic-and-tame-problems.png)
+![KLProperty_Convergence-of-descent-methods-for-semi-algebraic-and-tame-problems](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/KLProperty/Convergence-of-descent-methods-for-semi-algebraic-and-tame-problems.png)
 
 解説:
 
@@ -144,17 +172,17 @@ KL Propertyは、臨界点の近傍で関数値の差と劣勾配の大きさを
 
 https://en.wikipedia.org/wiki/Maximum_theorem
 
-![_MaximumTheorem_Wiki-Statement](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_MaximumTheorem_Wiki-Statement.png)
+![MaximumTheorem_Wiki-Statement](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MaximumTheorem/Wiki-Statement.png)
 
-![_MaximumTheorem_Wiki-Examples](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_MaximumTheorem_Wiki-Examples.png)
+![MaximumTheorem_Wiki-Examples](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MaximumTheorem/Wiki-Examples.png)
 
-![_MaximumTheorem_Wiki-Image](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_MaximumTheorem_Wiki-Image.png)
+![MaximumTheorem_Wiki-Image](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MaximumTheorem/Wiki-Image.png)
 
 (この $f^*(\theta)$ が連続というのが主張の一つ)
 
 https://arxiv.org/abs/2608.25789
 
-![_MaximumTheorem_Sequential-Stability-of-the-Value-Function-and-the-Solution-Mapping-in-Berge's-Maximum-Theorem-via-Variational-Convergence](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_MaximumTheorem_Sequential-Stability-of-the-Value-Function-and-the-Solution-Mapping-in-Berge%27s-Maximum-Theorem-via-Variational-Convergence.png)
+![MaximumTheorem_Sequential-Stability-of-the-Value-Function-and-the-Solution-Mapping-in-Berge's-Maximum-Theorem-via-Variational-Convergence](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MaximumTheorem/Sequential-Stability-of-the-Value-Function-and-the-Solution-Mapping-in-Berge%27s-Maximum-Theorem-via-Variational-Convergence.png)
 
 解説:
 
@@ -166,11 +194,11 @@ https://arxiv.org/abs/2608.25789
 
 https://en.wikipedia.org/wiki/Newton%27s_method#Multiplicative_inverses_of_numbers_and_power_series
 
-![_NewtonSchulz_Wiki-Newton's-method](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_NewtonSchulz_Wiki-Newton%27s-method.png)
+![NewtonSchulz_Wiki-Newton's-method](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/NewtonSchulz/Wiki-Newton%27s-method.png)
 
 https://en.wikipedia.org/wiki/Matrix_sign_function#Newton%E2%80%93Schulz_iteration
 
-![_NewtonSchulz_Wiki-Matrix-sign-function](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_NewtonSchulz_Wiki-Matrix-sign-function.png)
+![NewtonSchulz_Wiki-Matrix-sign-function](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/NewtonSchulz/Wiki-Matrix-sign-function.png)
 
 解説:
 
@@ -185,28 +213,28 @@ https://arxiv.org/abs/2608.06881
 
 https://en.wikipedia.org/wiki/Ordinal_regression
 
-![_OrdinalRegression_Wiki-Abst](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_OrdinalRegression_Wiki-Abst.png)
+![OrdinalRegression_Wiki-Abst](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/OrdinalRegression/Wiki-Abst.png)
 
-![_OrdinalRegression_Wiki-Linera-models-for-ordinal-regression](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_OrdinalRegression_Wiki-Linera-models-for-ordinal-regression.png)
+![OrdinalRegression_Wiki-Linera-models-for-ordinal-regression](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/OrdinalRegression/Wiki-Linera-models-for-ordinal-regression.png)
 
 解説:
 
 順序回帰は順序はあるものの間隔を数量化できない目的変数と、説明変数との関係をモデル化する回帰手法である。
 アンケート、疾患の重症度、信用格付けなどの予測に用いられる。
 
-### Radon--Nikodym Derivative
+### Radon–Nikodym Derivative
 
 文献:
 
 https://arxiv.org/abs/2607.26562 (我々の論文)
 
-![_RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Sec2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Sec2.png)
+![RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Sec2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/RadonNikodymDerivative/Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Sec2.png)
 
-![_RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Appendix](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Appendix.png)
+![RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Appendix](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/RadonNikodymDerivative/Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Appendix.png)
 
 https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%EF%BC%9D%E3%83%8B%E3%82%B3%E3%83%87%E3%82%A3%E3%83%A0%E3%81%AE%E5%AE%9A%E7%90%86
 
-![_RadonNikodymDerivative_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_RadonNikodymDerivative_Wiki.png)
+![RadonNikodymDerivative_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/RadonNikodymDerivative/Wiki.png)
 
 解説:
 
@@ -214,9 +242,9 @@ https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%EF%BC%9D%E3%83%8B%E3%8
 
 https://peng225.hatenablog.com/entry/2025/04/04/124548
 
-ただし、少なくとも最適化の文脈でRadon--Nikodym derivativeを用いる際、確率密度関数や確率質量関数を定義することが多いと思っているので、その点はやや注意が必要。離散分布の場合、確率変数 $X$ の分布を $P_X$ とし、状態空間上の数え上げ測度（counting measure）を $\#$ とすると、$p_X(x)=\frac{\mathrm{d}P_X}{\mathrm{d}\#}(x)$ と定義できる。連続分布の場合は、数え上げ測度がLebesgue測度に置き換わる。
+ただし、少なくとも最適化の文脈でRadon–Nikodym derivativeを用いる際、確率密度関数や確率質量関数を定義することが多いと思っているので、その点はやや注意が必要。離散分布の場合、確率変数 $X$ の分布を $P_X$ とし、状態空間上の数え上げ測度（counting measure）を $\#$ とすると、$p_X(x)=\frac{\mathrm{d}P_X}{\mathrm{d}\#}(x)$ と定義できる。連続分布の場合は、数え上げ測度がLebesgue測度に置き換わる。
 
-この間とある飲み会に行って、機械学習系の会議に出した最適化の論文(上記)で、Radon--Nikodym derivativeを持ち出したという話を友人にしたら、査読者が困っちゃうよと言われました。現に私があんまり分からなくなっているので、そうかも知れません。
+この間とある飲み会に行って、機械学習系の会議に出した最適化の論文(上記)で、Radon–Nikodym derivativeを持ち出したという話を友人にしたら、査読者が困っちゃうよと言われました。現に私があんまり分からなくなっているので、そうかも知れません。
 
 ### Set-Valued Function
 
@@ -224,11 +252,11 @@ https://peng225.hatenablog.com/entry/2025/04/04/124548
 
 https://en.wikipedia.org/wiki/Set-valued_function
 
-![_SetValuedFunction_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_SetValuedFunction_Wiki.png)
+![SetValuedFunction_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/SetValuedFunction/Wiki.png)
 
 https://books.google.com.pa/books?id=tiBtC4GmuKcC
 
-![_SetValuedFunction_New-Developments-in-Contact-Problems](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_SetValuedFunction_New-Developments-in-Contact-Problems.png)
+![SetValuedFunction_New-Developments-in-Contact-Problems](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/SetValuedFunction/New-Developments-in-Contact-Problems.png)
 
 解説:
 
@@ -261,13 +289,13 @@ https://izumi-math.jp/F_Yasuda/71_1_yasuda.pdf
 
 https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%84%E3%83%AB%E3%83%A0%E3%81%AE%E5%AE%9A%E7%90%86
 
-![_Sturm'sTheorem_Wiki-Theorem](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_Sturm%27sTheorem_Wiki-Theorem.png)
+![Sturm'sTheorem_Wiki-Theorem](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Sturm%27sTheorem/Wiki-Theorem.png)
 
-![_Sturm'sTheorem_Wiki-Method](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_Sturm%27sTheorem_Wiki-Method.png)
+![Sturm'sTheorem_Wiki-Method](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Sturm%27sTheorem/Wiki-Method.png)
 
 https://www.fit.ac.jp/~h-takeda/conf/files/2015/yotsutani/02.pdf
 
-![_Sturm'sTheorem_HiroshiTakeda-Slide](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_Sturm%27sTheorem_HiroshiTakeda-Slide.png)
+![Sturm'sTheorem_HiroshiTakeda-Slide](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Sturm%27sTheorem/HiroshiTakeda-Slide.png)
 
 解説:
 
@@ -282,15 +310,15 @@ Newton法などに応用がある。
 
 https://arxiv.org/pdf/2608.18123
 
-![_WassersteinDRO_Learning-the-Center-and-Radius-of-Wasserstein-Ambiguity-Sets-for-Data-Driven-Decision-Making](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_WassersteinDRO_Learning-the-Center-and-Radius-of-Wasserstein-Ambiguity-Sets-for-Data-Driven-Decision-Making.png)
+![WassersteinDRO_Learning-the-Center-and-Radius-of-Wasserstein-Ambiguity-Sets-for-Data-Driven-Decision-Making](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/WassersteinDRO/Learning-the-Center-and-Radius-of-Wasserstein-Ambiguity-Sets-for-Data-Driven-Decision-Making.png)
 
 https://doi.org/10.1007/s10107-017-1172-1 (上記の Esfahani and Kuhn (2018) にあたる)
 
-![_WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1.png)
+![WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/WassersteinDRO/Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1.png)
 
-![_WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-2.png)
+![WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/WassersteinDRO/Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-2.png)
 
-![_WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-3](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-3.png)
+![WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-3](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/WassersteinDRO/Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-3.png)
 
 解説:
 
