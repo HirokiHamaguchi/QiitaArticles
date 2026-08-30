@@ -4,9 +4,9 @@
 
 https://en.wikipedia.org/wiki/Antithetic_variates
 
-![_AntitheticVariates_Wiki-Underlying-principle](_AntitheticVariates_Wiki-Underlying-principle.png)
+![Wiki-Underlying-principle](Wiki-Underlying-principle.png)
 
-![_AntitheticVariates_Wiki-Example2](_AntitheticVariates_Wiki-Example2.png)
+![Wiki-Example2](Wiki-Example2.png)
 
 解説:
 

@@ -6,7 +6,7 @@ https://arxiv.org/abs/2608.24184 (この文献の[9]が下にあたる)
 
 https://books.google.co.jp/books?id=lFi7CgAAQBAJ
 
-![_GeneralizedMomentProblem_Moments,-Positive-Polynomials-and-Their-Applications.png](_GeneralizedMomentProblem_Moments,-Positive-Polynomials-and-Their-Applications.png)
+![Moments,-Positive-Polynomials-and-Their-Applications.png](Moments,-Positive-Polynomials-and-Their-Applications.png)
 
 解説:
 

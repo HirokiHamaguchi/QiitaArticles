@@ -6,17 +6,17 @@ https://doi.org/10.1007/978-0-387-40065-5
 
 Wright, Stephen J., and Jorge Nocedal. "Numerical optimization." における説明
 
-![_GeneralizedCauchyPoint_Numerical-Optimization.png](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_GeneralizedCauchyPoint_Numerical-Optimization.png)
+![Numerical-Optimization.png](Numerical-Optimization.png)
 
 https://doi.org/10.1137/0916069
 
 Richard H. Byrd, Peihuang Lu, Jorge Nocedal, and Ciyou Zhu. "A Limited Memory Algorithm for Bound Constrained Optimization." における説明
 
-![_GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1.png)
+![A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1](A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1.png)
 
-![_GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-2.png)
+![A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-2](A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-2.png)
 
-![_GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/_GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3.png)
+![A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3](A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3.png)
 
 解説:
 

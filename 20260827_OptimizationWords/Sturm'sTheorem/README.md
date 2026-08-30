@@ -6,13 +6,13 @@ https://izumi-math.jp/F_Yasuda/71_1_yasuda.pdf
 
 https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%84%E3%83%AB%E3%83%A0%E3%81%AE%E5%AE%9A%E7%90%86
 
-![_Sturm'sTheorem_Wiki-Theorem](_Sturm'sTheorem_Wiki-Theorem.png)
+![Wiki-Theorem](Wiki-Theorem.png)
 
-![_Sturm'sTheorem_Wiki-Method](_Sturm'sTheorem_Wiki-Method.png)
+![Wiki-Method](Wiki-Method.png)
 
 https://www.fit.ac.jp/~h-takeda/conf/files/2015/yotsutani/02.pdf
 
-![_Sturm'sTheorem_HiroshiTakeda-Slide](_Sturm'sTheorem_HiroshiTakeda-Slide.png)
+![HiroshiTakeda-Slide](HiroshiTakeda-Slide.png)
 
 解説:
 

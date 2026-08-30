@@ -4,7 +4,7 @@
 
 https://doi.org/10.1007/s10107-011-0484-9
 
-![_KLProperty_Convergence-of-descent-methods-for-semi-algebraic-and-tame-problems](_KLProperty_Convergence-of-descent-methods-for-semi-algebraic-and-tame-problems.png)
+![Convergence-of-descent-methods-for-semi-algebraic-and-tame-problems](Convergence-of-descent-methods-for-semi-algebraic-and-tame-problems.png)
 
 解説:
 

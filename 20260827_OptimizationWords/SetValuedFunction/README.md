@@ -4,11 +4,11 @@
 
 https://en.wikipedia.org/wiki/Set-valued_function
 
-![_SetValuedFunction_Wiki](_SetValuedFunction_Wiki.png)
+![Wiki](Wiki.png)
 
 https://books.google.com.pa/books?id=tiBtC4GmuKcC
 
-![_SetValuedFunction_New-Developments-in-Contact-Problems](_SetValuedFunction_New-Developments-in-Contact-Problems.png)
+![New-Developments-in-Contact-Problems](New-Developments-in-Contact-Problems.png)
 
 解説:
 

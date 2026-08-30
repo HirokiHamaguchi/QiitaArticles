@@ -1,14 +1,14 @@
-# Newton–Schulz
+# Newton--Schulz
 
 文献:
 
 https://en.wikipedia.org/wiki/Newton%27s_method#Multiplicative_inverses_of_numbers_and_power_series
 
-![_NewtonSchulz_Wiki-Newton's-method](_NewtonSchulz_Wiki-Newton's-method.png)
+![Wiki-Newton's-method](Wiki-Newton's-method.png)
 
 https://en.wikipedia.org/wiki/Matrix_sign_function#Newton%E2%80%93Schulz_iteration
 
-![_NewtonSchulz_Wiki-Matrix-sign-function](_NewtonSchulz_Wiki-Matrix-sign-function.png)
+![Wiki-Matrix-sign-function](Wiki-Matrix-sign-function.png)
 
 解説:
 

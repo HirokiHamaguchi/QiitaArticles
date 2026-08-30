@@ -4,13 +4,13 @@
 
 https://arxiv.org/abs/2607.26562 (我々の論文)
 
-![_RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Sec2](_RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Sec2.png)
+![Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Sec2](Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Sec2.png)
 
-![_RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Appendix](_RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Appendix.png)
+![Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Appendix](Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Appendix.png)
 
 https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%EF%BC%9D%E3%83%8B%E3%82%B3%E3%83%87%E3%82%A3%E3%83%A0%E3%81%AE%E5%AE%9A%E7%90%86
 
-![_RadonNikodymDerivative_Wiki](_RadonNikodymDerivative_Wiki.png)
+![Wiki](Wiki.png)
 
 解説:
 
