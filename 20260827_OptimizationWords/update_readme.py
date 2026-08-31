@@ -173,11 +173,27 @@ def replace_name_dashes(
     text: str, source: Path
 ) -> tuple[str, list[UnreplacedDoubleHyphen]]:
     """Replace ``--`` between capitalized English words with an en dash."""
+    protected_spans = [
+        match.span()
+        for pattern in (MARKDOWN_IMAGE_RE, HTML_IMAGE_TAG_RE)
+        for match in pattern.finditer(text)
+    ]
+
+    def is_in_image(offset: int) -> bool:
+        return any(start <= offset < end for start, end in protected_spans)
+
     converted_offsets = {
         match.end() - 2
         for match in CAPITALIZED_WORD_DOUBLE_HYPHEN_RE.finditer(text)
+        if not is_in_image(match.end() - 2)
     }
-    updated = CAPITALIZED_WORD_DOUBLE_HYPHEN_RE.sub(r"\g<left>–", text)
+
+    def replace_match(match: re.Match[str]) -> str:
+        if is_in_image(match.end() - 2):
+            return match.group(0)
+        return match.group("left") + "–"
+
+    updated = CAPITALIZED_WORD_DOUBLE_HYPHEN_RE.sub(replace_match, text)
     unreplaced: list[UnreplacedDoubleHyphen] = []
     offset = 0
     for line_number, line_with_ending in enumerate(
@@ -185,7 +201,8 @@ def replace_name_dashes(
     ):
         line = line_with_ending.rstrip("\r\n")
         for match in re.finditer(r"--", line):
-            if offset + match.start() in converted_offsets:
+            absolute_offset = offset + match.start()
+            if absolute_offset in converted_offsets or is_in_image(absolute_offset):
                 continue
             unreplaced.append(
                 UnreplacedDoubleHyphen(

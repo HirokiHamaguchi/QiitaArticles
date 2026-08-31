@@ -11,8 +11,12 @@
 - [最適化関連の個人的用語集](#最適化関連の個人的用語集)
   - [目次](#目次)
   - [用語集](#用語集)
+    - [(L0, L1) Smoothness](#l0-l1-smoothness)
     - [Antithetic variates](#antithetic-variates)
     - [Asplund Space](#asplund-space)
+    - [Augmented Lagrangian Method](#augmented-lagrangian-method)
+    - [Caratheodory's Extension Theorem](#caratheodorys-extension-theorem)
+    - [Caratheodory's Theorem (Convex Hull)](#caratheodorys-theorem-convex-hull)
     - [Eckart–Young–Mirsky Theorem](#eckartyoungmirsky-theorem)
     - [Generalized Cauchy Point](#generalized-cauchy-point)
     - [Generalized Moment Problem](#generalized-moment-problem)
@@ -20,7 +24,9 @@
     - [KL property](#kl-property)
     - [Maximum Theorem](#maximum-theorem)
     - [Newton–Schulz](#newtonschulz)
+    - [Neyman–Pearson Classification](#neymanpearson-classification)
     - [Ordinal Regression](#ordinal-regression)
+    - [Radon's Theorem](#radons-theorem)
     - [Radon–Nikodym Derivative](#radonnikodym-derivative)
     - [Set-Valued Function](#set-valued-function)
     - [Sturm's Theorem](#sturms-theorem)
@@ -30,6 +36,26 @@
 ## 用語集
 
 <!-- WORDS -->
+
+### (L0, L1) Smoothness
+
+文献:
+
+https://www.researchgate.net/profile/Mohammad-Alkousa-2/publication/413568957_First-Order_Methods_for_Optimization_Problems_with_Generalized_Smoothness_and_Generalized_Inexact_Oracle/links/6a8c89c7db725f1be9602a92/First-Order-Methods-for-Optimization-Problems-with-Generalized-Smoothness-and-Generalized-Inexact-Oracle.pdf
+
+(これの[11]が以下の論文)
+
+https://arxiv.org/abs/1905.11881
+
+![L0L1Smoothness_WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/L0L1Smoothness/WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING.png)
+
+![L0L1Smoothness_WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING-Fig1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/L0L1Smoothness/WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING-Fig1.png)
+
+解説:
+
+$L$-Smoothnessの一般化。
+上記のFig.1にあるように、勾配ノルムとSmoothnessに相関があることを契機として導入されたようである。
+確かに、$L$-Smoothnessの仮定は現実的な問題と不整合だとはよく感じるので、非常に妥当で面白い。
 
 ### Antithetic variates
 
@@ -59,6 +85,48 @@ https://en.wikipedia.org/wiki/Asplund_space
 解説:
 
 めちゃくちゃ大雑把に言えばフレシェ微分が自由にできる空間。todo。
+
+### Augmented Lagrangian Method
+
+文献:
+
+https://en.wikipedia.org/wiki/Augmented_Lagrangian_method
+
+![AugmentedLagrangianMethod_Wiki-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AugmentedLagrangianMethod/Wiki-1.png)
+
+![AugmentedLagrangianMethod_Wiki-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AugmentedLagrangianMethod/Wiki-2.png)
+
+解説:
+
+日本語では拡張ラグランジュ関数法とも。ADMMはこの亜種。
+
+### Caratheodory's Extension Theorem
+
+文献:
+
+https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%83%AA%E3%81%AE%E6%8B%A1%E5%BC%B5%E5%AE%9A%E7%90%86
+
+![Caratheodory'sExtensionTheorem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Caratheodory%27sExtensionTheorem/Wiki.png)
+
+解説:
+
+最適化との馴染みはやや薄いが、Caratheodory と名のつく定理は複数存在するので、あくまで対比の為に記しておく。本題は Caratheodory's Theorem (Convex Hull) である。
+
+### Caratheodory's Theorem (Convex Hull)
+
+文献:
+
+https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%83%AA%E3%81%AE%E5%AE%9A%E7%90%86_(%E5%87%B8%E5%8C%85)#/languages
+
+![Caratheodory'sTheorem(ConvexHull)_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Caratheodory%27sTheorem%28ConvexHull%29/Wiki.png)
+
+解説:
+
+証明は[高校数学の美しい物語](https://manabitimes.jp/math/1216)さんに詳しい。
+
+todo: 書籍での例を記す
+
+ちなみに Caratheodory's Extension Theorem の[Caratheodory](https://en.wikipedia.org/wiki/Constantin_Carath%C3%A9odory)さんと同一人物。
 
 ### Eckart–Young–Mirsky Theorem
 
@@ -205,6 +273,21 @@ https://en.wikipedia.org/wiki/Matrix_sign_function#Newton%E2%80%93Schulz_iterati
 Newton–Schulz法は、大雑把には行列向けのNewton法で、二次収束するのが偉い。
 具体例として、行列符号関数の計算にも用いられる。
 
+### Neyman–Pearson Classification
+
+文献:
+
+https://www.science.org/doi/10.1126/sciadv.aao1659
+
+![NeymanPearsonClassification_Neyman--Pearson-classification-algorithms-and-NP-receiver-operating-characteristics](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/NeymanPearsonClassification/Neyman--Pearson-classification-algorithms-and-NP-receiver-operating-characteristics.png)
+
+![NeymanPearsonClassification_Neyman--Pearson-classification-algorithms-and-NP-receiver-operating-characteristics-Fig1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/NeymanPearsonClassification/Neyman--Pearson-classification-algorithms-and-NP-receiver-operating-characteristics-Fig1.png)
+
+解説:
+
+[第一種の過誤(偽陽性)](https://ja.wikipedia.org/wiki/%E7%AC%AC%E4%B8%80%E7%A8%AE%E9%81%8E%E8%AA%A4%E3%81%A8%E7%AC%AC%E4%BA%8C%E7%A8%AE%E9%81%8E%E8%AA%A4)を確実に抑えながら、第二種の過誤(偽陰性)を最小化する。
+[deterministic nonlinearly constrained optimization](https://arxiv.org/pdf/2608.27676)の応用例として挙げられていた。
+
 ### Ordinal Regression
 
 文献:
@@ -222,15 +305,30 @@ https://en.wikipedia.org/wiki/Ordinal_regression
 順序回帰は順序はあるものの間隔を数量化できない目的変数と、説明変数との関係をモデル化する回帰手法である。
 アンケート、疾患の重症度、信用格付けなどの予測に用いられる。
 
+### Radon's Theorem
+
+文献:
+
+https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%E3%81%AE%E5%AE%9A%E7%90%86
+
+![Radon'sTheorem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Radon%27sTheorem/Wiki.png)
+
+![Radon'sTheorem_Wiki-Proof](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Radon%27sTheorem/Wiki-Proof.png)
+
+解説:
+
+Radon–Nikodym Derivativeで知られる[Radon](https://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%8F%E3%83%B3%E3%83%BB%E3%83%A9%E3%83%89%E3%83%B3)さんの見つけた定理。
+凸集合に関する基本的な性質の一つ。
+
 ### Radon–Nikodym Derivative
 
 文献:
 
 https://arxiv.org/abs/2607.26562 (我々の論文)
 
-![RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Sec2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/RadonNikodymDerivative/Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Sec2.png)
+![RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction-Sec2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/RadonNikodymDerivative/Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction-Sec2.png)
 
-![RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Appendix](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/RadonNikodymDerivative/Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction_Appendix.png)
+![RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction-Appendix](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/RadonNikodymDerivative/Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction-Appendix.png)
 
 https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%EF%BC%9D%E3%83%8B%E3%82%B3%E3%83%87%E3%82%A3%E3%83%A0%E3%81%AE%E5%AE%9A%E7%90%86
 
