@@ -15,11 +15,14 @@
     - [Antithetic variates](#antithetic-variates)
     - [Asplund Space](#asplund-space)
     - [Augmented Lagrangian Method](#augmented-lagrangian-method)
+    - [Bayesian Network](#bayesian-network)
     - [Caratheodory's Extension Theorem](#caratheodorys-extension-theorem)
     - [Caratheodory's Theorem (Convex Hull)](#caratheodorys-theorem-convex-hull)
     - [Eckart–Young–Mirsky Theorem](#eckartyoungmirsky-theorem)
+    - [Fredholm Alternative](#fredholm-alternative)
     - [Generalized Cauchy Point](#generalized-cauchy-point)
     - [Generalized Moment Problem](#generalized-moment-problem)
+    - [Graphical Lasso](#graphical-lasso)
     - [Growth Condition](#growth-condition)
     - [KL property](#kl-property)
     - [Maximum Theorem](#maximum-theorem)
@@ -100,6 +103,18 @@ https://en.wikipedia.org/wiki/Augmented_Lagrangian_method
 
 日本語では拡張ラグランジュ関数法とも。ADMMはこの亜種。
 
+### Bayesian Network
+
+文献:
+
+https://ja.wikipedia.org/wiki/%E3%83%99%E3%82%A4%E3%82%B8%E3%82%A2%E3%83%B3%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF
+
+![BayesianNetwork_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/BayesianNetwork/Wiki.png)
+
+解説:
+
+[Graphical Model](https://en.wikipedia.org/wiki/Graphical_model)の特殊ケースとしてBayesian Networkが存在する。
+
 ### Caratheodory's Extension Theorem
 
 文献:
@@ -139,6 +154,23 @@ todo: 書籍での例を記す
 行列の低ランク近似をフロベニウスノルムによって定式化した際、その最適解は特異値分解によって得られることを示す定理。
 定理自体は有名だが、このような名前がついていることは知名度が低いかも知れない。
 お三方とも1900年代の数学者らしい。
+
+### Fredholm Alternative
+
+文献:
+
+https://en.wikipedia.org/wiki/Fredholm_alternative
+
+![FredholmAlternative_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/FredholmAlternative/Wiki.png)
+
+https://researchmap.jp/Tomomi_Matsui
+
+![FredholmAlternative_sscoke2026-tomomi-matsui](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/FredholmAlternative/sscoke2026-tomomi-matsui.png)
+
+解説:
+
+書いてある通りだが、$b \in \mathrm{Im}(A)$ と $b \in \mathrm{Ker}(A^\top)^\perp$ が同値ということを言っているに過ぎない。
+[Farkas's lemmaのcorollary](https://en.wikipedia.org/wiki/Farkas%27_lemma)として得られる。
 
 ### Generalized Cauchy Point
 
@@ -196,6 +228,20 @@ https://books.google.co.jp/books?id=lFi7CgAAQBAJ
 
 未知の測度を変数とし、その[モーメント](https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%BC%E3%83%A1%E3%83%B3%E3%83%88_(%E6%95%B0%E5%AD%A6))に関する線形制約の下で測度の線形汎関数を最適化する無限次元線形計画問題である。
 データが多項式の場合は[the moment Sum-of-squares (SOS) hierarchy](https://arxiv.org/abs/2608.24184)による半正定値計画緩和で近似できる。
+
+### Graphical Lasso
+
+文献:
+
+https://en.wikipedia.org/wiki/Graphical_lasso
+
+![GraphicalLasso_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GraphicalLasso/Wiki.png)
+
+![GraphicalLasso_Wiki-multivariate-normal-distribution](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GraphicalLasso/Wiki-multivariate-normal-distribution.png)
+
+解説:
+
+Graphical Lassoという名前であるが、そのグラフ要素が出てくるのはあくまで結果においてであって、本質的にやっていることは多変量正規分布の $L_1$ 正則化付きの推定に過ぎない。$L_1$ 正則化がついているから、疎行列が出てきて、それがグラフにみなせる、という話である。
 
 ### Growth Condition
 

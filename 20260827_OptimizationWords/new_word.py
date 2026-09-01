@@ -4,7 +4,10 @@
 from __future__ import annotations
 
 import argparse
+import os
 import re
+import subprocess
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -176,12 +179,21 @@ def parse_args() -> argparse.Namespace:
         "--directory",
         help="作成するディレクトリ名（省略時は見出しから空白とハイフンを除去）",
     )
+    parser.add_argument(
+        "--open-explorer",
+        action="store_true",
+        help="作成後に用語ディレクトリをExplorerで開く",
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    title = args.title.strip() if args.title else prompt_nonempty("用語の見出し: ")
+    try:
+        title = args.title.strip() if args.title else prompt_nonempty("用語の見出し: ")
+    except (EOFError, KeyboardInterrupt):
+        print("\n中断しました。ファイルは作成していません。")
+        return 130
     directory_name = args.directory or default_directory_name(title)
     try:
         directory_name = validate_windows_name(directory_name, "ディレクトリ")
@@ -203,8 +215,30 @@ def main() -> int:
         return 130
 
     print(f"作成しました: {target / 'README.md'}")
-    print("全体READMEへ反映するには update_readme.py を実行してください。")
-    return 0
+    print("全体READMEを更新します。")
+    try:
+        update_result = subprocess.run(
+            [sys.executable, str(root / "update_readme.py")],
+            check=False,
+        )
+        exit_code = update_result.returncode
+    except KeyboardInterrupt:
+        print("\n全体READMEの更新を中断しました。")
+        exit_code = 130
+
+    if exit_code == 0:
+        print("全体READMEを更新しました。")
+    else:
+        print(f"全体READMEを更新できませんでした（終了コード: {exit_code}）。")
+
+    if args.open_explorer:
+        try:
+            os.startfile(target)
+        except OSError as exc:
+            print(f"Explorerを開けませんでした: {exc}")
+            if exit_code == 0:
+                exit_code = 1
+    return exit_code
 
 
 if __name__ == "__main__":
