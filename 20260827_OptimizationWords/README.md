@@ -20,6 +20,7 @@
     - [Carathéodory's Extension Theorem](#carathéodorys-extension-theorem)
     - [Carathéodory's Theorem (Convex Hull)](#carathéodorys-theorem-convex-hull)
     - [Eckart–Young–Mirsky Theorem](#eckartyoungmirsky-theorem)
+    - [Epi-Convergence](#epi-convergence)
     - [Fredholm Alternative](#fredholm-alternative)
     - [Generalized Cauchy Point](#generalized-cauchy-point)
     - [Generalized Moment Problem](#generalized-moment-problem)
@@ -173,6 +174,18 @@ todo: 書籍での例を記す
 行列の低ランク近似をフロベニウスノルムによって定式化した際、その最適解は特異値分解によって得られることを示す定理。
 定理自体は有名だが、このような名前がついていることは知名度が低いかも知れない。
 お三方とも1900年代の数学者らしい。
+
+### Epi-Convergence
+
+文献:
+
+https://en.wikipedia.org/wiki/Epi-convergence
+
+![EpiConvergence_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/EpiConvergence/Wiki.png)
+
+![EpiConvergence_Wiki-Relation-to-minimization-problems](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/EpiConvergence/Wiki-Relation-to-minimization-problems.png)
+
+解説:
 
 ### Fredholm Alternative
 
