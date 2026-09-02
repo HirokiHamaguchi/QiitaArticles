@@ -28,6 +28,7 @@
     - [KL property](#kl-property)
     - [Maximum Theorem](#maximum-theorem)
     - [Minimax Theorem](#minimax-theorem)
+    - [Motzkin's Transposition Theorem](#motzkins-transposition-theorem)
     - [Newton–Schulz](#newtonschulz)
     - [Neyman–Pearson Classification](#neymanpearson-classification)
     - [Ordinal Regression](#ordinal-regression)
@@ -141,7 +142,8 @@ https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%8
 
 解説:
 
-最適化との馴染みはやや薄いが、Carathéodory と名のつく定理は複数存在するので、あくまで対比の為に記しておく。本題は Carathéodory's Theorem (Convex Hull) である。
+最適化との馴染みはやや薄いが、Carathéodory と名のつく定理は複数存在するので、対比の為に記しておく。
+混同に注意。
 
 ### Carathéodory's Theorem (Convex Hull)
 
@@ -333,6 +335,28 @@ https://en.wikipedia.org/wiki/Minimax_theorem
 解説:
 
 ゲーム理論が発端になっているらしい。
+
+### Motzkin's Transposition Theorem
+
+文献:
+
+https://epubs.siam.org/doi/10.1137/1030065 (以下の文献と形式的な差異があるが、証明まで載っている。ただし長い。)
+
+![Motzkin'sTranspositionTheorem_THEORY-OF-LINEAR-AND-INTEGER-PROGRAMMING](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Motzkin%27sTranspositionTheorem/THEORY-OF-LINEAR-AND-INTEGER-PROGRAMMING.png)
+
+https://www.researchgate.net/publication/2628560_Motzkin's_Transposition_Theorem_And_The_Related_Theorems_Of_Farkas_Gordan_And_Stiemke
+
+![Motzkin'sTranspositionTheorem_MOTZKIN’S-TRANSPOSITION-THEOREM,-AND-THE-RELATED-THEOREMS-OF-FARKAS,-GORDAN-AND-STIEMKE-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Motzkin%27sTranspositionTheorem/MOTZKIN%E2%80%99S-TRANSPOSITION-THEOREM%2C-AND-THE-RELATED-THEOREMS-OF-FARKAS%2C-GORDAN-AND-STIEMKE-1.png)
+
+![Motzkin'sTranspositionTheorem_MOTZKIN’S-TRANSPOSITION-THEOREM,-AND-THE-RELATED-THEOREMS-OF-FARKAS,-GORDAN-AND-STIEMKE-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Motzkin%27sTranspositionTheorem/MOTZKIN%E2%80%99S-TRANSPOSITION-THEOREM%2C-AND-THE-RELATED-THEOREMS-OF-FARKAS%2C-GORDAN-AND-STIEMKE-2.png)
+
+https://www.ism.ac.jp/~mirai/sscoke/2026/ (松井知己先生による講義の演習問題にほぼ同内容の出題)
+
+解説:
+
+出典としてやや古いものしかないが、Farkasの補題などを統一的に導けるという点で優れた一般性を持つ主張。ただし、この定理の証明自体にFarkasの補題が用いられている。
+
+定理そのものの主張ではないが、いくつかの線形システムが定理で扱っている形式、つまり(c)の形式である $Ax \leq b, Bx < c$ に帰着できるという点は、重要かつ面白い。
 
 ### Newton–Schulz
 
