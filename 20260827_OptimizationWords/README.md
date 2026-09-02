@@ -12,6 +12,7 @@
   - [目次](#目次)
   - [用語集](#用語集)
     - [(L0, L1) Smoothness](#l0-l1-smoothness)
+    - [Additive Smoothing](#additive-smoothing)
     - [Antithetic variates](#antithetic-variates)
     - [Asplund Space](#asplund-space)
     - [Augmented Lagrangian Method](#augmented-lagrangian-method)
@@ -26,9 +27,11 @@
     - [Growth Condition](#growth-condition)
     - [KL property](#kl-property)
     - [Maximum Theorem](#maximum-theorem)
+    - [Minimax Theorem](#minimax-theorem)
     - [Newton–Schulz](#newtonschulz)
     - [Neyman–Pearson Classification](#neymanpearson-classification)
     - [Ordinal Regression](#ordinal-regression)
+    - [Quasiconvex](#quasiconvex)
     - [Radon's Theorem](#radons-theorem)
     - [Radon–Nikodym Derivative](#radonnikodym-derivative)
     - [Set-Valued Function](#set-valued-function)
@@ -60,6 +63,19 @@ $L$-Smoothnessの一般化。
 上記のFig.1にあるように、勾配ノルムとSmoothnessに相関があることを契機として導入されたようである。
 確かに、$L$-Smoothnessの仮定は現実的な問題と不整合だとはよく感じるので、非常に妥当で面白い。
 
+### Additive Smoothing
+
+文献:
+
+https://en.wikipedia.org/wiki/Additive_smoothing
+
+![AdditiveSmoothing_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AdditiveSmoothing/Wiki.png)
+
+解説:
+
+Additive SmoothingはLaplace Smoothingとも呼ばれている。
+なお、[Laplacian Smoothing](https://en.wikipedia.org/wiki/Laplacian_smoothing)もあるが、そちらはグラフ理論関連の話。
+
 ### Antithetic variates
 
 文献:
@@ -87,7 +103,7 @@ https://en.wikipedia.org/wiki/Asplund_space
 
 解説:
 
-めちゃくちゃ大雑把に言えばフレシェ微分が自由にできる空間。todo。
+めちゃくちゃ大雑把に言えばフレシェ微分が自由にできる空間。
 
 ### Augmented Lagrangian Method
 
@@ -241,7 +257,9 @@ https://en.wikipedia.org/wiki/Graphical_lasso
 
 解説:
 
-Graphical Lassoという名前であるが、そのグラフ要素が出てくるのはあくまで結果においてであって、本質的にやっていることは多変量正規分布の $L_1$ 正則化付きの推定に過ぎない。$L_1$ 正則化がついているから、疎行列が出てきて、それがグラフにみなせる、という話である。
+Graphical Lassoという名前であるが、そのグラフ要素は手法自体には出てこない。本質的にやっていることは多変量正規分布の逆共分散行列(精度行列、precision matrixとも)に関する、$L_1$ 正則化付きの推定に過ぎない。この手法の導出は、確率密度関数よりほぼ自明である。
+
+$L_1$ 正則化をつけているから、逆行列に疎行列が出てきて、それがグラフにみなせて、解釈が楽になる、という話と理解している。
 
 ### Growth Condition
 
@@ -302,6 +320,20 @@ https://arxiv.org/abs/2608.25789
 
 この定理は、パラメータに依存する最適化問題が、パラメータに関して連続的な解を持つための条件を提供している。
 
+### Minimax Theorem
+
+文献:
+
+https://en.wikipedia.org/wiki/Minimax_theorem
+
+![MinimaxTheorem_Wiki-concave-convex-functions](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MinimaxTheorem/Wiki-concave-convex-functions.png)
+
+![MinimaxTheorem_Wiki-Sion's-minimax-theorem](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MinimaxTheorem/Wiki-Sion%27s-minimax-theorem.png)
+
+解説:
+
+ゲーム理論が発端になっているらしい。
+
 ### Newton–Schulz
 
 文献:
@@ -350,6 +382,18 @@ https://en.wikipedia.org/wiki/Ordinal_regression
 
 順序回帰は順序はあるものの間隔を数量化できない目的変数と、説明変数との関係をモデル化する回帰手法である。
 アンケート、疾患の重症度、信用格付けなどの予測に用いられる。
+
+### Quasiconvex
+
+文献:
+
+https://en.wikipedia.org/wiki/Quasiconvex_function
+
+![Quasiconvex_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Quasiconvex/Wiki.png)
+
+解説:
+
+[準凸関数](https://ja.wikipedia.org/wiki/%E6%BA%96%E5%87%B8%E9%96%A2%E6%95%B0)とも。
 
 ### Radon's Theorem
 
