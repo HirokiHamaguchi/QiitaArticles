@@ -99,6 +99,40 @@ def get_language_from_extension(filename):
     return ext_to_lang.get(ext, "text")
 
 
+def find_closing_delimiter(text, opening_index, opening, closing):
+    depth = 1
+    index = opening_index + 1
+    while index < len(text):
+        if text[index] == "\\":
+            index += 2
+            continue
+        if text[index] == opening:
+            depth += 1
+        elif text[index] == closing:
+            depth -= 1
+            if depth == 0:
+                return index
+        index += 1
+    raise ValueError(f"Unclosed Markdown image delimiter: {text}")
+
+
+def find_markdown_image(line, start=0):
+    start_idx = line.find("![", start)
+    if start_idx == -1:
+        return None
+
+    alt_open_idx = start_idx + 1
+    alt_close_idx = find_closing_delimiter(line, alt_open_idx, "[", "]")
+    url_open_idx = alt_close_idx + 1
+    if url_open_idx >= len(line) or line[url_open_idx] != "(":
+        raise ValueError(f"Invalid Markdown image format: {line}")
+    url_close_idx = find_closing_delimiter(line, url_open_idx, "(", ")")
+
+    alt = line[alt_open_idx + 1 : alt_close_idx]
+    url = line[url_open_idx + 1 : url_close_idx]
+    return start_idx, url_close_idx + 1, alt, url
+
+
 def process_lines(lines, links, target_dir):
     res = ["<!-- markdownlint-disable MD041 -->", ""]
     mathBlockOpen = False
@@ -140,25 +174,19 @@ def process_lines(lines, links, target_dir):
                 res.append(line)
                 nextIgnore = False
                 continue
-            cnt = line.count("![")
-            while cnt > 0:
-                cnt -= 1
-                alt = line[line.find("[") + 1 : line.find("]")]
-                url = line[line.find("(") + 1 : line.find(")")]
+            search_start = 0
+            while image := find_markdown_image(line, search_start):
+                start_idx, end_idx, alt, url = image
                 if url.startswith("http"):
                     src = url
                 elif any(alt == link["alt"] for link in links):
                     link = next(link for link in links if alt == link["alt"])
                     src = link["src"]
                 else:
-                    raise ValueError(f"Image not found: {alt}")
-                start_idx = line.find("![")
-                end_idx = line.find(")") + 1
-                line = (
-                    line[:start_idx]
-                    + f'<img width=100% src="{src}" alt="{alt}">'
-                    + line[end_idx:]
-                )
+                    raise ValueError(f"Image not found: {alt=}, {url=}")
+                image_tag = f'<img width=100% src="{src}" alt="{alt}">'
+                line = line[:start_idx] + image_tag + line[end_idx:]
+                search_start = start_idx + len(image_tag)
             res.append(line)
         elif line.strip() == "<!-- ignore -->":
             print("!")

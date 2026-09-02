@@ -14,6 +14,9 @@ from typing import Any
 
 
 WINDOWS_FORBIDDEN_RE = re.compile(r'[<>:"/\\|?*\x00-\x1f]')
+URL_REFERENCE_RE = re.compile(
+    r"^(?P<url>https?://\S+)(?:[ \t]+(?P<note>\(.+\)))?$"
+)
 WINDOWS_RESERVED_NAMES = {
     "CON",
     "PRN",
@@ -88,6 +91,25 @@ def prompt_nonempty(prompt: str) -> str:
         print("空にはできません。")
 
 
+def normalize_url_reference(value: str) -> str:
+    match = URL_REFERENCE_RE.fullmatch(value.strip())
+    if match is None:
+        raise ValueError("URL または URL (一言解説) の形式で入力してください。")
+
+    url = match.group("url")
+    note = match.group("note")
+    return url if note is None else f"{url}\n\n{note}"
+
+
+def prompt_url_reference() -> str:
+    while True:
+        value = prompt_nonempty("URL または URL (一言解説): ")
+        try:
+            return normalize_url_reference(value)
+        except ValueError as exc:
+            print(exc)
+
+
 def prompt_references() -> tuple[list[str], list[ClipboardImage]]:
     references: list[str] = []
     images: list[ClipboardImage] = []
@@ -96,12 +118,12 @@ def prompt_references() -> tuple[list[str], list[ClipboardImage]]:
     print("\n文献欄を作成します。追加する種類を選んでください。")
     while True:
         command = input(
-            "[t] テキスト/URL  [i] クリップボード画像  [d] 完了: "
+            "[t] URL/一言解説  [i] クリップボード画像  [d] 完了: "
         ).strip().lower()
         if command in {"d", "done"}:
             return references, images
         if command in {"t", "text"}:
-            references.append(prompt_nonempty("テキストまたはURL: "))
+            references.append(prompt_url_reference())
             continue
         if command not in {"i", "image"}:
             print("t、i、d のいずれかを入力してください。")
@@ -142,8 +164,25 @@ def prompt_description() -> str:
         lines.append(line)
 
 
+def is_url_reference(reference: str) -> bool:
+    return URL_REFERENCE_RE.fullmatch(reference.splitlines()[0]) is not None
+
+
+def format_references(references: list[str]) -> str:
+    formatted: list[str] = []
+    for index, reference in enumerate(references):
+        has_note = "\n\n" in reference
+        next_is_url = index + 1 < len(references) and is_url_reference(
+            references[index + 1]
+        )
+        if has_note and next_is_url:
+            reference += "\n<br>"
+        formatted.append(reference)
+    return "\n\n".join(formatted)
+
+
 def build_readme(title: str, references: list[str], description: str) -> str:
-    reference_text = "\n\n".join(references)
+    reference_text = format_references(references)
     return f"# {title}\n\n文献:\n\n{reference_text}\n\n解説:\n\n{description}\n"
 
 

@@ -51,6 +51,7 @@
 https://www.researchgate.net/profile/Mohammad-Alkousa-2/publication/413568957_First-Order_Methods_for_Optimization_Problems_with_Generalized_Smoothness_and_Generalized_Inexact_Oracle/links/6a8c89c7db725f1be9602a92/First-Order-Methods-for-Optimization-Problems-with-Generalized-Smoothness-and-Generalized-Inexact-Oracle.pdf
 
 (これの[11]が以下の論文)
+<br>
 
 https://arxiv.org/abs/1905.11881
 
@@ -181,7 +182,9 @@ https://en.wikipedia.org/wiki/Fredholm_alternative
 
 ![FredholmAlternative_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/FredholmAlternative/Wiki.png)
 
-https://researchmap.jp/Tomomi_Matsui
+https://www.ism.ac.jp/~mirai/sscoke/2026/
+
+(松井知己先生による講義資料)
 
 ![FredholmAlternative_sscoke2026-tomomi-matsui](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/FredholmAlternative/sscoke2026-tomomi-matsui.png)
 
@@ -236,7 +239,10 @@ GCPでは、Box制約に沿って折れ曲がりながら伸びていく領域�
 
 文献:
 
-https://arxiv.org/abs/2608.24184 (この文献の[9]が下にあたる)
+https://arxiv.org/abs/2608.24184
+
+(この文献の[9]が下にあたる)
+<br>
 
 https://books.google.co.jp/books?id=lFi7CgAAQBAJ
 
@@ -271,7 +277,9 @@ https://pubsonline.informs.org/doi/abs/10.1287/moor.2017.0889
 
 ![GrowthCondition_Error-Bounds,-Quadratic-Growth,-and-Linear-Convergence-of-Proximal-Methods](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GrowthCondition/Error-Bounds%2C-Quadratic-Growth%2C-and-Linear-Convergence-of-Proximal-Methods.png)
 
-https://arxiv.org/pdf/2608.20642 ([12]が上の文献にあたる)
+https://arxiv.org/pdf/2608.20642
+
+([12]が上の文献にあたる)
 
 ![GrowthCondition_Strong-growth-and-Goldstein-subgradients-in-piecewise-smooth-optimization](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GrowthCondition/Strong-growth-and-Goldstein-subgradients-in-piecewise-smooth-optimization.png)
 
@@ -340,7 +348,9 @@ https://en.wikipedia.org/wiki/Minimax_theorem
 
 文献:
 
-https://epubs.siam.org/doi/10.1137/1030065 (以下の文献と形式的な差異があるが、証明まで載っている。ただし長い。)
+https://epubs.siam.org/doi/10.1137/1030065
+
+(以下の文献と形式的な差異があるが、証明まで載っている。ただし長い。)
 
 ![Motzkin'sTranspositionTheorem_THEORY-OF-LINEAR-AND-INTEGER-PROGRAMMING](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Motzkin%27sTranspositionTheorem/THEORY-OF-LINEAR-AND-INTEGER-PROGRAMMING.png)
 
@@ -350,7 +360,9 @@ https://www.researchgate.net/publication/2628560_Motzkin's_Transposition_Theorem
 
 ![Motzkin'sTranspositionTheorem_MOTZKIN’S-TRANSPOSITION-THEOREM,-AND-THE-RELATED-THEOREMS-OF-FARKAS,-GORDAN-AND-STIEMKE-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Motzkin%27sTranspositionTheorem/MOTZKIN%E2%80%99S-TRANSPOSITION-THEOREM%2C-AND-THE-RELATED-THEOREMS-OF-FARKAS%2C-GORDAN-AND-STIEMKE-2.png)
 
-https://www.ism.ac.jp/~mirai/sscoke/2026/ (松井知己先生による講義の演習問題にほぼ同内容の出題)
+https://www.ism.ac.jp/~mirai/sscoke/2026/
+
+(松井知己先生による講義の演習問題にほぼ同内容の出題)
 
 解説:
 
@@ -438,7 +450,9 @@ Radon–Nikodym Derivativeで知られる[Radon](https://ja.wikipedia.org/wiki/%
 
 文献:
 
-https://arxiv.org/abs/2607.26562 (我々の論文)
+https://arxiv.org/abs/2607.26562
+
+(我々の論文)
 
 ![RadonNikodymDerivative_Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction-Sec2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/RadonNikodymDerivative/Adaptive-Gradient-Based-Methods-for-a-Broader-Class-of-Optimization-Problems-under-Performative-Prediction-Sec2.png)
 
@@ -454,7 +468,7 @@ https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%EF%BC%9D%E3%83%8B%E3%8
 
 https://peng225.hatenablog.com/entry/2025/04/04/124548
 
-ただし、少なくとも最適化の文脈でRadon–Nikodym derivativeを用いる際、確率密度関数や確率質量関数を定義することが多いと思っているので、その点はやや注意が必要。離散分布の場合、確率変数 $X$ の分布を $P_X$ とし、状態空間上の数え上げ測度（counting measure）を $\#$ とすると、$p_X(x)=\frac{\mathrm{d}P_X}{\mathrm{d}\#}(x)$ と定義できる。連続分布の場合は、数え上げ測度がLebesgue測度に置き換わる。
+ただし、少なくとも最適化の文脈でRadon–Nikodym derivativeを用いる際、確率密度関数や確率質量関数を定義することが多いと思っているので、その点はやや注意が必要。離散分布の場合、確率変数 $X$ の分布を $P_X$ とし、状態空間上の数え上げ測度（counting measure）を $\\\#$ とすると、$p_X(x)=\frac{\mathrm{d}P_X}{\mathrm{d}\\\#}(x)$ と定義できる。連続分布の場合は、数え上げ測度がLebesgue測度に置き換わる。
 
 この間とある飲み会に行って、機械学習系の会議に出した最適化の論文(上記)で、Radon–Nikodym derivativeを持ち出したという話を友人にしたら、査読者が困っちゃうよと言われました。現に私があんまり分からなくなっているので、そうかも知れません。
 
@@ -524,7 +538,9 @@ https://arxiv.org/pdf/2608.18123
 
 ![WassersteinDRO_Learning-the-Center-and-Radius-of-Wasserstein-Ambiguity-Sets-for-Data-Driven-Decision-Making](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/WassersteinDRO/Learning-the-Center-and-Radius-of-Wasserstein-Ambiguity-Sets-for-Data-Driven-Decision-Making.png)
 
-https://doi.org/10.1007/s10107-017-1172-1 (上記の Esfahani and Kuhn (2018) にあたる)
+https://doi.org/10.1007/s10107-017-1172-1
+
+(上記の Esfahani and Kuhn (2018) にあたる)
 
 ![WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/WassersteinDRO/Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1.png)
 

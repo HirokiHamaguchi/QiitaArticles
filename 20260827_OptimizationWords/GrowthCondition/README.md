@@ -6,7 +6,9 @@ https://pubsonline.informs.org/doi/abs/10.1287/moor.2017.0889
 
 ![Error-Bounds,-Quadratic-Growth,-and-Linear-Convergence-of-Proximal-Methods](Error-Bounds,-Quadratic-Growth,-and-Linear-Convergence-of-Proximal-Methods.png)
 
-https://arxiv.org/pdf/2608.20642 ([12]が上の文献にあたる)
+https://arxiv.org/pdf/2608.20642
+
+([12]が上の文献にあたる)
 
 ![Strong-growth-and-Goldstein-subgradients-in-piecewise-smooth-optimization](Strong-growth-and-Goldstein-subgradients-in-piecewise-smooth-optimization.png)
 

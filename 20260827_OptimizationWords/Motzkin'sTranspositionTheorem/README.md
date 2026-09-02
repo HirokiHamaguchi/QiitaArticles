@@ -2,7 +2,9 @@
 
 文献:
 
-https://epubs.siam.org/doi/10.1137/1030065 (以下の文献と形式的な差異があるが、証明まで載っている。ただし長い。)
+https://epubs.siam.org/doi/10.1137/1030065
+
+(以下の文献と形式的な差異があるが、証明まで載っている。ただし長い。)
 
 ![THEORY-OF-LINEAR-AND-INTEGER-PROGRAMMING](THEORY-OF-LINEAR-AND-INTEGER-PROGRAMMING.png)
 
@@ -12,7 +14,9 @@ https://www.researchgate.net/publication/2628560_Motzkin's_Transposition_Theorem
 
 ![MOTZKIN’S-TRANSPOSITION-THEOREM,-AND-THE-RELATED-THEOREMS-OF-FARKAS,-GORDAN-AND-STIEMKE-2](MOTZKIN’S-TRANSPOSITION-THEOREM,-AND-THE-RELATED-THEOREMS-OF-FARKAS,-GORDAN-AND-STIEMKE-2.png)
 
-https://www.ism.ac.jp/~mirai/sscoke/2026/ (松井知己先生による講義の演習問題にほぼ同内容の出題)
+https://www.ism.ac.jp/~mirai/sscoke/2026/
+
+(松井知己先生による講義の演習問題にほぼ同内容の出題)
 
 解説:
 

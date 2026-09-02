@@ -6,7 +6,9 @@ https://arxiv.org/pdf/2608.18123
 
 ![Learning-the-Center-and-Radius-of-Wasserstein-Ambiguity-Sets-for-Data-Driven-Decision-Making](Learning-the-Center-and-Radius-of-Wasserstein-Ambiguity-Sets-for-Data-Driven-Decision-Making.png)
 
-https://doi.org/10.1007/s10107-017-1172-1 (上記の Esfahani and Kuhn (2018) にあたる)
+https://doi.org/10.1007/s10107-017-1172-1
+
+(上記の Esfahani and Kuhn (2018) にあたる)
 
 ![Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1](Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1.png)
 

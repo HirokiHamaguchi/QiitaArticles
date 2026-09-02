@@ -2,7 +2,10 @@
 
 文献:
 
-https://arxiv.org/abs/2608.24184 (この文献の[9]が下にあたる)
+https://arxiv.org/abs/2608.24184
+
+(この文献の[9]が下にあたる)
+<br>
 
 https://books.google.co.jp/books?id=lFi7CgAAQBAJ
 

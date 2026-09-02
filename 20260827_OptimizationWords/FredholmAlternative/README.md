@@ -6,7 +6,9 @@ https://en.wikipedia.org/wiki/Fredholm_alternative
 
 ![Wiki](Wiki.png)
 
-https://researchmap.jp/Tomomi_Matsui
+https://www.ism.ac.jp/~mirai/sscoke/2026/
+
+(松井知己先生による講義資料)
 
 ![sscoke2026-tomomi-matsui](sscoke2026-tomomi-matsui.png)
 
