@@ -6,9 +6,9 @@ https://arxiv.org/abs/2608.06881
 
 https://en.wikipedia.org/wiki/Ordinal_regression
 
-![Wiki-Abst](Wiki-Abst.png)
+![Wiki-Abstract](Wiki-Abstract.png)
 
-![Wiki-Linera-models-for-ordinal-regression](Wiki-Linera-models-for-ordinal-regression.png)
+![Wiki-Linear-models-for-ordinal-regression](Wiki-Linear-models-for-ordinal-regression.png)
 
 解説:
 

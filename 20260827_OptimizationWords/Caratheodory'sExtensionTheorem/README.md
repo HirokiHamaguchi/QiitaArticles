@@ -1,4 +1,4 @@
-# Caratheodory's Extension Theorem
+# Carathéodory's Extension Theorem
 
 文献:
 
@@ -8,4 +8,5 @@ https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%8
 
 解説:
 
-最適化との馴染みはやや薄いが、Caratheodory と名のつく定理は複数存在するので、あくまで対比の為に記しておく。本題は Caratheodory's Theorem (Convex Hull) である。
+最適化との馴染みはやや薄いが、Carathéodory と名のつく定理は複数存在するので、対比の為に記しておく。
+混同に注意。

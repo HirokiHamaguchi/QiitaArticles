@@ -17,8 +17,8 @@
     - [Asplund Space](#asplund-space)
     - [Augmented Lagrangian Method](#augmented-lagrangian-method)
     - [Bayesian Network](#bayesian-network)
-    - [Caratheodory's Extension Theorem](#caratheodorys-extension-theorem)
-    - [Caratheodory's Theorem (Convex Hull)](#caratheodorys-theorem-convex-hull)
+    - [Carathéodory's Extension Theorem](#carathéodorys-extension-theorem)
+    - [Carathéodory's Theorem (Convex Hull)](#carathéodorys-theorem-convex-hull)
     - [Eckart–Young–Mirsky Theorem](#eckartyoungmirsky-theorem)
     - [Fredholm Alternative](#fredholm-alternative)
     - [Generalized Cauchy Point](#generalized-cauchy-point)
@@ -74,7 +74,7 @@ https://en.wikipedia.org/wiki/Additive_smoothing
 解説:
 
 Additive SmoothingはLaplace Smoothingとも呼ばれている。
-なお、[Laplacian Smoothing](https://en.wikipedia.org/wiki/Laplacian_smoothing)もあるが、そちらはグラフ理論関連の話。
+なお、[Laplacian Smoothing](https://en.wikipedia.org/wiki/Laplacian_smoothing) もあるが、そちらはグラフ理論関連の話。
 
 ### Antithetic variates
 
@@ -131,7 +131,7 @@ https://ja.wikipedia.org/wiki/%E3%83%99%E3%82%A4%E3%82%B8%E3%82%A2%E3%83%B3%E3%8
 
 [Graphical Model](https://en.wikipedia.org/wiki/Graphical_model)の特殊ケースとしてBayesian Networkが存在する。
 
-### Caratheodory's Extension Theorem
+### Carathéodory's Extension Theorem
 
 文献:
 
@@ -141,9 +141,9 @@ https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%8
 
 解説:
 
-最適化との馴染みはやや薄いが、Caratheodory と名のつく定理は複数存在するので、あくまで対比の為に記しておく。本題は Caratheodory's Theorem (Convex Hull) である。
+最適化との馴染みはやや薄いが、Carathéodory と名のつく定理は複数存在するので、あくまで対比の為に記しておく。本題は Carathéodory's Theorem (Convex Hull) である。
 
-### Caratheodory's Theorem (Convex Hull)
+### Carathéodory's Theorem (Convex Hull)
 
 文献:
 
@@ -157,7 +157,7 @@ https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%8
 
 todo: 書籍での例を記す
 
-ちなみに Caratheodory's Extension Theorem の[Caratheodory](https://en.wikipedia.org/wiki/Constantin_Carath%C3%A9odory)さんと同一人物。
+ちなみに Carathéodory's Extension Theorem の[Carathéodory](https://en.wikipedia.org/wiki/Constantin_Carath%C3%A9odory)さんと同一人物。
 
 ### Eckart–Young–Mirsky Theorem
 
@@ -186,7 +186,7 @@ https://researchmap.jp/Tomomi_Matsui
 解説:
 
 書いてある通りだが、$b \in \mathrm{Im}(A)$ と $b \in \mathrm{Ker}(A^\top)^\perp$ が同値ということを言っているに過ぎない。
-[Farkas's lemmaのcorollary](https://en.wikipedia.org/wiki/Farkas%27_lemma)として得られる。
+[Farkas' lemmaのcorollary](https://en.wikipedia.org/wiki/Farkas%27_lemma)として得られる。
 
 ### Generalized Cauchy Point
 
@@ -374,9 +374,9 @@ https://arxiv.org/abs/2608.06881
 
 https://en.wikipedia.org/wiki/Ordinal_regression
 
-![OrdinalRegression_Wiki-Abst](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/OrdinalRegression/Wiki-Abst.png)
+![OrdinalRegression_Wiki-Abstract](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/OrdinalRegression/Wiki-Abstract.png)
 
-![OrdinalRegression_Wiki-Linera-models-for-ordinal-regression](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/OrdinalRegression/Wiki-Linera-models-for-ordinal-regression.png)
+![OrdinalRegression_Wiki-Linear-models-for-ordinal-regression](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/OrdinalRegression/Wiki-Linear-models-for-ordinal-regression.png)
 
 解説:
 
