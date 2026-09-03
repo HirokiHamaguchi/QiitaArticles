@@ -16,6 +16,7 @@ dependencies = [
     "numpy>=2.3.3",
     "pymupdf>=1.27.1",
     "seaborn>=0.13.2",
+    "cvxpy>=1.9.2",
 ]
 
 [project.optional-dependencies]
