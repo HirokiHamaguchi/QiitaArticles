@@ -16,6 +16,7 @@
     - [Antithetic variates](#antithetic-variates)
     - [Asplund Space](#asplund-space)
     - [Augmented Lagrangian Method](#augmented-lagrangian-method)
+    - [Basic Linear Algebra Subprograms](#basic-linear-algebra-subprograms)
     - [Bayesian Network](#bayesian-network)
     - [Carathéodory's Extension Theorem](#carathéodorys-extension-theorem)
     - [Carathéodory's Theorem (Convex Hull)](#carathéodorys-theorem-convex-hull)
@@ -122,6 +123,18 @@ https://en.wikipedia.org/wiki/Augmented_Lagrangian_method
 
 日本語では拡張ラグランジュ関数法とも。ADMMはこの亜種。
 
+### Basic Linear Algebra Subprograms
+
+文献:
+
+https://ja.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms
+
+![BasicLinearAlgebraSubprograms_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/BasicLinearAlgebraSubprograms/Wiki.png)
+
+解説:
+
+BLASという略語の方が有名。あくまでAPIであって、実装までを定めたものではないことに注意が必要。OpenBLASが具体的な実装例。
+
 ### Bayesian Network
 
 文献:
@@ -186,6 +199,14 @@ https://en.wikipedia.org/wiki/Epi-convergence
 ![EpiConvergence_Wiki-Relation-to-minimization-problems](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/EpiConvergence/Wiki-Relation-to-minimization-problems.png)
 
 解説:
+
+具体例があまりネットになかったので、以下に簡単な例を示す。
+
+左は点ごとには収束しないにもかかわらずEpi-Convergenceが起きる例、右は極限で最小点集合が拡大し $\lim \operatorname{argmin} f_n \subsetneq \operatorname{argmin} f$ となる例を示す。
+
+![EpiConvergence_epi_convergence_examples](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/EpiConvergence/epi_convergence_examples.png)
+
+似た概念に[Gamma-Convergence](https://en.wikipedia.org/wiki/%CE%93-convergence)というのもあるらしい。
 
 ### Fredholm Alternative
 
