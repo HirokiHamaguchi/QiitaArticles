@@ -10,6 +10,6 @@ https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%8
 
 証明は[高校数学の美しい物語](https://manabitimes.jp/math/1216)さんに詳しい。
 
-todo: 書籍での例を記す
+[凸解析―理論と応用](https://www.maruzen-publishing.co.jp/book/b10123316.html)という本の8ページにも記載がある。
 
 ちなみに Carathéodory's Extension Theorem の[Carathéodory](https://en.wikipedia.org/wiki/Constantin_Carath%C3%A9odory)さんと同一人物。
