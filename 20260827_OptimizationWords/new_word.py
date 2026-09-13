@@ -114,19 +114,32 @@ def prompt_references() -> tuple[list[str], list[ClipboardImage]]:
     references: list[str] = []
     images: list[ClipboardImage] = []
     filenames: set[str] = set()
+    operations: list[str] = []
 
     print("\n文献欄を作成します。追加する種類を選んでください。")
     while True:
         command = input(
-            "[t] URL/一言解説  [i] クリップボード画像  [d] 完了: "
+            "[t] URL/一言解説  [i] クリップボード画像  [x] 取り消し  [d] 完了: "
         ).strip().lower()
         if command in {"d", "done"}:
             return references, images
+        if command in {"x", "undo"}:
+            if not operations:
+                print("取り消せる操作がありません。")
+                continue
+            operation = operations.pop()
+            references.pop()
+            if operation == "i":
+                removed_image = images.pop()
+                filenames.remove(removed_image.filename.casefold())
+            print("直前の操作を取り消しました。")
+            continue
         if command in {"t", "text"}:
             references.append(prompt_url_reference())
+            operations.append("t")
             continue
         if command not in {"i", "image"}:
-            print("t、i、d のいずれかを入力してください。")
+            print("t、i、x、d のいずれかを入力してください。")
             continue
 
         try:
@@ -151,6 +164,7 @@ def prompt_references() -> tuple[list[str], list[ClipboardImage]]:
         filenames.add(filename.casefold())
         images.append(ClipboardImage(filename=filename, image=image))
         references.append(f"![{Path(filename).stem}]({filename})")
+        operations.append("i")
         print(f"画像を取り込みました: {filename}")
 
 
