@@ -28,6 +28,7 @@
     - [Dini Derivative](#dini-derivative)
     - [Eckart–Young–Mirsky Theorem](#eckartyoungmirsky-theorem)
     - [Epi-Convergence](#epi-convergence)
+    - [Fixed Point](#fixed-point)
     - [Fredholm Alternative](#fredholm-alternative)
     - [Fully Composite](#fully-composite)
     - [Generalized Cauchy Point](#generalized-cauchy-point)
@@ -36,12 +37,14 @@
     - [Growth Condition](#growth-condition)
     - [Hadamard Manifold](#hadamard-manifold)
     - [Hausdroff Distance](#hausdroff-distance)
+    - [Heavy-Ball Method](#heavy-ball-method)
     - [Hoffman–Pereira Matrix](#hoffmanpereira-matrix)
     - [Hopf–Rinow Theorem](#hopfrinow-theorem)
     - [Inner And Outer Semicontinuity](#inner-and-outer-semicontinuity)
     - [InverseProblem](#inverseproblem)
     - [Invex Function](#invex-function)
     - [Itoh–Abe Method](#itohabe-method)
+    - [John Ellipsoid](#john-ellipsoid)
     - [KL property](#kl-property)
     - [Linear Minimization Oracle](#linear-minimization-oracle)
     - [Locus](#locus)
@@ -367,6 +370,38 @@ https://en.wikipedia.org/wiki/Epi-convergence
 
 似た概念に[Gamma-Convergence](https://en.wikipedia.org/wiki/%CE%93-convergence)というのもあるらしい。
 
+### Fixed Point
+
+文献:
+
+https://iiduka.net/intro/researches/fixedpoint
+
+(飯塚先生のHP)
+
+![FixedPoint_iiduka](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/FixedPoint/iiduka.png)
+
+https://www.ohmsha.co.jp/book/9784274230066.html
+
+(飯塚先生の著書、7章が不動点近似法で詳しい)
+
+https://www.ism.ac.jp/~mirai/sscoke/2021/
+
+(飯塚先生の講義資料)
+
+解説:
+
+上記の「連続最適化アルゴリズム」という書籍の第7章で扱われている、$T \colon C\to C$ の不動点 $x^\ast=T(x^\ast)$ を求める問題に対する、3つの代表的反復法は以下の通りである。
+
+| 手法                             | 更新式                                 |
+| :------------------------------: | :------------------------------------: |
+| Banach の不動点近似法            | $x_{k+1}=T(x_k)$                       |
+| Krasnosel'skiĭ–Mann 不動点近似法 | $x_{k+1}=x_k+\alpha_k (T(x_k)-x_k)$    |
+| Halpern 不動点近似法             | $x_{k+1}=T(x_k)+\alpha_k (x_0-T(x_k))$ |
+
+例として $n=2$ かつ $T$ を30度回転とした場合の、各反復法の挙動を比較する。([実装](https://github.com/HirokiHamaguchi/QiitaArticles/tree/main/20260827_OptimizationWords/FixedPoint/rotation.py))
+
+![FixedPoint_rotation](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/FixedPoint/rotation.png)
+
 ### Fredholm Alternative
 
 文献:
@@ -525,6 +560,26 @@ Pompeiu–Hausdorff distanceとも。簡単に言えば集合同士の一番遠�
 
 Wikiの定義において、$X$ を地球の表面、$Y$ を陸の表面とすると、[point Nemo](https://ja.wikipedia.org/wiki/%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%83%BB%E3%83%8D%E3%83%A2)、つまり、陸から最も遠い地点の、陸からの距離は、正にHausdorff distanceで表される、ということが[Wiki](https://en.wikipedia.org/wiki/Hausdorff_distance#Applications)にも書いてある。
 
+### Heavy-Ball Method
+
+文献:
+
+https://www.sciencedirect.com/science/article/pii/0041555364901375
+
+(提案論文)
+<br>
+
+https://ieeexplore.ieee.org/document/7330562
+
+![HeavyBallMethod_Global-convergence-of-the-Heavy-ball-method-for-convex-optimization-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/HeavyBallMethod/Global-convergence-of-the-Heavy-ball-method-for-convex-optimization-1.png)
+
+![HeavyBallMethod_Global-convergence-of-the-Heavy-ball-method-for-convex-optimization-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/HeavyBallMethod/Global-convergence-of-the-Heavy-ball-method-for-convex-optimization-2.png)
+
+解説:
+
+Nesterovの加速勾配法との違いに注意。
+計算量の比較などをしようとすると、流石に長くなりすぎるのでここでは省略するが、いつか書きたい。
+
 ### Hoffman–Pereira Matrix
 
 文献:
@@ -662,6 +717,31 @@ https://link.springer.com/article/10.1007/s10208-020-09489-2
 もし次の反復点が見つかれば、それは絶対に関数値が減少している。
 しかし、その次の反復点を見つけるのが、$n$ 個の等式を解くことを要求するので難しい。
 まだあまり理解できていないが、Zeroth Order Methodsよりも優れている場合もありそう。
+
+### John Ellipsoid
+
+文献:
+
+https://arxiv.org/pdf/2609.10888
+
+https://en.wikipedia.org/wiki/John_ellipsoid
+
+![JohnEllipsoid_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/JohnEllipsoid/Wiki.png)
+
+解説:
+
+以下のような整理が出来る。
+
+| 凸体を含む最小体積の楕円体 | 凸体に含まれる最大体積の楕円体 |
+| :---: | :---: |
+| 最小体積楕円体 | 最大体積楕円体 |
+| the minimal volume ellipsoid | the maximal volume ellipsoid |
+| the Löwner ellipsoid | the John ellipsoid |
+| the outer Löwner–John ellipsoid | the inner Löwner–John ellipsoid |
+
+楕円体法などに応用がある。
+
+[シュタイナーの内接楕円](https://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%A5%E3%82%BF%E3%82%A4%E3%83%8A%E3%83%BC%E3%81%AE%E5%86%85%E6%8E%A5%E6%A5%95%E5%86%86)は最大体積楕円体の特殊ケースである。
 
 ### KL property
 
@@ -926,7 +1006,6 @@ https://www.sciencedirect.com/science/article/pii/S0005109801001431
 [優先制約](https://www.jstage.jst.go.jp/article/jacc/66/0/66_638/_pdf/-char/ja)とも呼ばれているようである。
 実務寄りの要求から考えられている設定だと思われる。
 そもそも制約が破られる前提でモデリングされていると思われ、通常の意味の制約とは性質が異なる。
-面白い。
 
 ### Quasiconvex
 
