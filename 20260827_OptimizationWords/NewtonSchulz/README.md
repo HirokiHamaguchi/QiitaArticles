@@ -12,5 +12,5 @@ https://en.wikipedia.org/wiki/Matrix_sign_function#Newton%E2%80%93Schulz_iterati
 
 解説:
 
-Newton–Schulz法は、大雑把には行列向けのNewton法で、二次収束するのが偉い。
+Newton–Schulz法は、大雑把には行列向けのNewton法で、適切な条件の下で二次収束するのが偉い。
 具体例として、行列符号関数の計算にも用いられる。

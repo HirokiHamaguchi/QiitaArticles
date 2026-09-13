@@ -50,6 +50,6 @@ prob.solve()
 print(prob.status)
 ```
 
-これがinfeasibleになることからも確認できる。
+これがinfeasibleになることからも数値的に示唆される。
 
 原論文の方はextreme rayという文脈で論じており、関係性があるらしい。
