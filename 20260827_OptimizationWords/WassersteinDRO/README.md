@@ -8,11 +8,11 @@ https://arxiv.org/pdf/2608.18123
 
 https://doi.org/10.1007/s10107-017-1172-1
 
-(上記の Esfahani and Kuhn (2018) にあたる。この論文は特別にOpen Accessで引用可能)
+(上記の Esfahani and Kuhn (2018) にあたる)
 
 Mohajerin Esfahani, P., Kuhn, D. Data-driven distributionally robust optimization using the Wasserstein metric: performance guarantees and tractable reformulations. Math. Program. 171, 115–166 (2018). https://doi.org/10.1007/s10107-017-1172-1
 
-([CC BY 4.0](http://creativecommons.org/licenses/by/4.0/))
+(この論文はOpen Access、[CC BY 4.0](http://creativecommons.org/licenses/by/4.0/))
 
 ![Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1](Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1.png)
 

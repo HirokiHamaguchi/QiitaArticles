@@ -26,6 +26,4 @@ https://link.springer.com/book/10.1007/978-3-642-02431-3
 
 [このサイト](https://people.inf.ethz.ch/fukudak/polyfaq/node14.html)の説明とは少し違ったように見えるが、揺れがあるのかも知れない。
 
-todo: 同値性の確認。
-
 [Stack Exchange](https://math.stackexchange.com/questions/1335176/what-is-the-weyl-minkowski-theorem)でも言及されている。

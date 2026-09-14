@@ -341,8 +341,7 @@ def wikipedia_attribution(
 ) -> str:
     parts = [
         f"出典: [Wikipedia contributors](<{source_url}>), "
-        f"[{WIKIPEDIA_TEXT_LICENSE_NAME}]({WIKIPEDIA_TEXT_LICENSE_URL})。"
-        "スクリーンショット・切り抜き。"
+        f"[{WIKIPEDIA_TEXT_LICENSE_NAME}]({WIKIPEDIA_TEXT_LICENSE_URL})"
     ]
     notices: list[str] = []
     for item in media_items:

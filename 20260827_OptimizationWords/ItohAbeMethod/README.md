@@ -9,11 +9,9 @@ https://www.sciencedirect.com/science/article/abs/pii/0021999188901325?fr=RR-2&r
 
 https://link.springer.com/article/10.1007/s10208-020-09489-2
 
-(この論文は特別にOpen Accessで引用可能)
-
 Riis, E.S., Ehrhardt, M.J., Quispel, G.R.W. et al. A Geometric Integration Approach to Nonsmooth, Nonconvex Optimisation. Found Comput Math 22, 1351–1394 (2022). https://doi.org/10.1007/s10208-020-09489-2
 
-([CC BY 4.0](http://creativecommons.org/licenses/by/4.0/))
+(この論文はOpen Access、[CC BY 4.0](http://creativecommons.org/licenses/by/4.0/))
 
 ![A-Geometric-Integration-Approach-to-Nonsmooth,-Nonconvex-Optimisation](A-Geometric-Integration-Approach-to-Nonsmooth,-Nonconvex-Optimisation.png)
 

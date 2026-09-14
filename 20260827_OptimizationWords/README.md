@@ -74,18 +74,13 @@
 
 ## 引用について
 
-この記事では、自分の知らない用語をまとめるという性質上、非常に多数の引用・スクショが登場します。
-非営利目的ではあるものの、著作権の侵害にあたる行為をすることは私の本意ではありませんので、その運用ルールを示しておきます。
+この記事では、自分の知らない用語をまとめるという性質上、非常に多数の引用・スクショが登場します。非営利目的ではあるものの、著作権の侵害にあたる行為をすることは私の本意ではありませんので、その運用ルールを示しておきます。
 
-まず、Wikipediaに関しては、文章は[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)のライセンスで公開されているため、引用元を明示することで引用可能です。
-また、各画像についても、それぞれのライセンスを確認したうえで、適切な引用を行っています。
+まず、Wikipediaに関しては、文章は[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)のライセンスで公開されているため、引用元を明示することで引用可能です。また、各画像についても、それぞれのライセンスを確認したうえで、適切な引用を行っています。
 
-一方で、arXivの論文やジャーナルの論文などは、一般には転載を禁じていることが多く、属地主義の原則に基づき、日本の著作権法において引用として認められる範囲の利用かどうかが適法かどうかの焦点になると理解しています([出典1](https://www.bunka.go.jp/seisaku/chosakuken/seidokaisetsu/chosakukensha_fumei/index.html) [出典2](https://utelecon.adm.u-tokyo.ac.jp/articles/copyright/basic/) [出典3](https://www.bunka.go.jp/seisaku/chosakuken/seidokaisetsu/seminar/2024/pdf/94088901_01.pdf))。
+一方で、arXivの論文やジャーナルの論文などは、一般には転載を禁じていることが多いです。属地主義の原則に基づき、日本の著作権法において引用として認められる範囲の利用かどうかが適法性の焦点になると理解しています([出典1](https://www.bunka.go.jp/seisaku/chosakuken/seidokaisetsu/chosakukensha_fumei/index.html) [出典2](https://utelecon.adm.u-tokyo.ac.jp/articles/copyright/basic/) [出典3](https://www.bunka.go.jp/seisaku/chosakuken/seidokaisetsu/seminar/2024/pdf/94088901_01.pdf))。
 
-特に、今回の場合、唯一怪しい点としては、引用と私のコメントにいわゆる主従関係があるかどうかという点です。
-この点に関しては、最低限の引用で済ませたり、自分の言葉による解説を多く入れたり、実験などを手元で再現して画像を載せたり、その他の情報を追加したりすることで、引用の範囲を超えないように注意しています。
-
-一方で、流石にただの定義だと言えるようなものは、著作権法の対象外であると判断し、やや長めにスクショの形で引用しています。
+特に、今回の場合、唯一怪しい点としては、引用と私のコメントにいわゆる主従関係があるかどうかという点です。この点に関しては、最低限の引用で済ませたり、自分の言葉による解説を多く入れたり、実験などを手元で再現して画像を載せたり、その他の情報を追加したりすることで、引用の範囲を超えないように注意しています。
 
 ## 用語集
 
@@ -124,11 +119,11 @@ https://en.wikipedia.org/wiki/Additive_smoothing
 
 ![AdditiveSmoothing_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AdditiveSmoothing/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Additive_smoothing>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Additive_smoothing>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
-Additive SmoothingはLaplace Smoothingとも呼ばれている。
+Additive SmoothingはLaplace Smoothingとも呼ばれている。少しだけ値を足してから頻度を求める。
 なお、[Laplacian Smoothing](https://en.wikipedia.org/wiki/Laplacian_smoothing) もあるが、そちらはグラフ理論関連の話。
 
 ### Alexandrov Theorem
@@ -139,7 +134,7 @@ https://en.wikipedia.org/wiki/Alexandrov_theorem
 
 ![AlexandrovTheorem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AlexandrovTheorem/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Alexandrov_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Alexandrov_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -157,11 +152,11 @@ https://en.wikipedia.org/wiki/Antithetic_variates
 
 ![AntitheticVariates_Wiki-Underlying-principle](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AntitheticVariates/Wiki-Underlying-principle.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Antithetic_variates>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Antithetic_variates>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ![AntitheticVariates_Wiki-Example2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AntitheticVariates/Wiki-Example2.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Antithetic_variates>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Antithetic_variates>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -178,7 +173,7 @@ https://en.wikipedia.org/wiki/Asplund_space
 
 ![Asplund_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Asplund/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Asplund_space>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Asplund_space>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -192,11 +187,11 @@ https://en.wikipedia.org/wiki/Augmented_Lagrangian_method
 
 ![AugmentedLagrangianMethod_Wiki-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AugmentedLagrangianMethod/Wiki-1.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Augmented_Lagrangian_method>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Augmented_Lagrangian_method>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ![AugmentedLagrangianMethod_Wiki-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AugmentedLagrangianMethod/Wiki-2.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Augmented_Lagrangian_method>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Augmented_Lagrangian_method>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -210,7 +205,7 @@ https://ja.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms
 
 ![BasicLinearAlgebraSubprograms_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/BasicLinearAlgebraSubprograms/Wiki.png)
 
-出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -224,7 +219,7 @@ https://ja.wikipedia.org/wiki/%E3%83%99%E3%82%A4%E3%82%B8%E3%82%A2%E3%83%B3%E3%8
 
 ![BayesianNetwork_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/BayesianNetwork/Wiki.png)
 
-出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%83%99%E3%82%A4%E3%82%B8%E3%82%A2%E3%83%B3%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%83%99%E3%82%A4%E3%82%B8%E3%82%A2%E3%83%B3%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -238,7 +233,7 @@ https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%8
 
 ![Caratheodory'sExtensionTheorem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Caratheodory%27sExtensionTheorem/Wiki.png)
 
-出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%83%AA%E3%81%AE%E6%8B%A1%E5%BC%B5%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%83%AA%E3%81%AE%E6%8B%A1%E5%BC%B5%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -253,7 +248,7 @@ https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%8
 
 ![Caratheodory'sTheorem(ConvexHull)_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Caratheodory%27sTheorem%28ConvexHull%29/Wiki.png)
 
-出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%83%AA%E3%81%AE%E5%AE%9A%E7%90%86_(%E5%87%B8%E5%8C%85)#/languages>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Caratheodorys theorem example.svg](<https://commons.wikimedia.org/wiki/File:Caratheodorys_theorem_example.svg>) / Tom Murphy VII（SVG、DysprosiaのPNGを基に作成） / [BSD 3-Clause License](<https://opensource.org/license/bsd-3-clause>)。
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%83%AA%E3%81%AE%E5%AE%9A%E7%90%86_(%E5%87%B8%E5%8C%85)#/languages>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 画像: [Caratheodorys theorem example.svg](<https://commons.wikimedia.org/wiki/File:Caratheodorys_theorem_example.svg>) / Tom Murphy VII（SVG、DysprosiaのPNGを基に作成） / [BSD 3-Clause License](<https://opensource.org/license/bsd-3-clause>)。
 
 <details><summary>Caratheodorys theorem example.svg のライセンス告知全文</summary>
 
@@ -292,13 +287,13 @@ https://en.wikipedia.org/wiki/Cheeger_constant_(graph_theory)
 
 ![CheegerConstant_Wiki-graph](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/CheegerConstant/Wiki-graph.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Cheeger_constant_(graph_theory)>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Cheeger constant.svg](<https://commons.wikimedia.org/wiki/File:Cheeger_constant.svg>) / BagLuke / [CC0 1.0](<https://creativecommons.org/publicdomain/zero/1.0/>)。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Cheeger_constant_(graph_theory)>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 画像: [Cheeger constant.svg](<https://commons.wikimedia.org/wiki/File:Cheeger_constant.svg>) / BagLuke / [CC0 1.0](<https://creativecommons.org/publicdomain/zero/1.0/>)。
 
 https://en.wikipedia.org/wiki/Cheeger_constant
 
 ![CheegerConstant_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/CheegerConstant/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Cheeger_constant>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Cheeger_constant>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -314,7 +309,7 @@ https://en.wikipedia.org/wiki/Copositive_matrix
 
 ![CopositiveMatrix_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/CopositiveMatrix/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Copositive_matrix>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Copositive_matrix>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -352,19 +347,19 @@ https://en.wikipedia.org/wiki/Danskin%27s_theorem
 
 ![Danskin'sTheorem_Wiki-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Danskin%27sTheorem/Wiki-1.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Danskin%27s_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Danskin%27s_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ![Danskin'sTheorem_Wiki-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Danskin%27sTheorem/Wiki-2.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Danskin%27s_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Danskin%27s_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ![Danskin'sTheorem_Wiki-3](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Danskin%27sTheorem/Wiki-3.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Danskin%27s_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Danskin%27s_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ![Danskin'sTheorem_Wiki-4](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Danskin%27sTheorem/Wiki-4.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Danskin%27s_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Danskin%27s_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -380,7 +375,7 @@ https://en.wikipedia.org/wiki/Dini_derivative
 
 ![DiniDerivative_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/DiniDerivative/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Dini_derivative>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Dini_derivative>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -428,7 +423,7 @@ https://en.wikipedia.org/wiki/Low-rank_approximation
 
 ![EckartYoungMirskyTheorem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/EckartYoungMirskyTheorem/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Low-rank_approximation>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Low-rank_approximation>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -446,11 +441,11 @@ https://en.wikipedia.org/wiki/Epi-convergence
 
 ![EpiConvergence_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/EpiConvergence/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Epi-convergence>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Epi-convergence>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ![EpiConvergence_Wiki-Relation-to-minimization-problems](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/EpiConvergence/Wiki-Relation-to-minimization-problems.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Epi-convergence>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Epi-convergence>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -502,7 +497,7 @@ https://en.wikipedia.org/wiki/Fredholm_alternative
 
 ![FredholmAlternative_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/FredholmAlternative/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Fredholm_alternative>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Fredholm_alternative>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 https://www.ism.ac.jp/~mirai/sscoke/2026/
 
@@ -512,10 +507,10 @@ https://www.ism.ac.jp/~mirai/sscoke/2026/
 
 解説:
 
-任意の行列 $(A | b)$ に対し、$P: Ax = b$ か $D: y^\top A = 0^\top, y^\top b \neq 0$ のどちらか丁度1つのみが解を持つという定理。証明は簡単で、両方の解を $x^*, y^*$ として存在を仮定すると、次のように矛盾が導かれる。
+任意の行列 $(A | b)$ に対し、$P: Ax = b$ か $D: y^\top A = 0^\top, y^\top b \neq 0$ のどちらか丁度1つのみが解を持つという定理。証明は簡単で、両方の解を $x^\ast, y^\ast$ として存在を仮定すると、次のように矛盾が導かれる。
 
 $$
-0 = 0^\top x^* = (y^*)^\top A x^* = (y^*)^\top b \neq 0
+0 = 0^\top x^\ast = (y^\ast)^\top A x^\ast = (y^\ast)^\top b \neq 0
 $$
 
 これはつまり、$b \in \mathrm{Im}(A)$ と $b \in \mathrm{Ker}(A^\top)^\perp$ が同値ということを言っているに過ぎない。
@@ -528,11 +523,9 @@ $$
 
 https://epubs.siam.org/doi/abs/10.1137/21M1410063
 
-(この論文は特別にOpen Accessで引用可能)
-
 Doikov, N., & Nesterov, Y. (2022). High-order optimization methods for fully composite problems. SIAM Journal on Optimization, 32(3), 2402-2427.
 
-([CC BY 4.0](http://creativecommons.org/licenses/by/4.0/))
+(この論文はOpen Access、[CC BY 4.0](http://creativecommons.org/licenses/by/4.0/))
 
 ![FullyComposite_High-Order-Optimization-Methods-for-Fully-Composite-Problems](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/FullyComposite/High-Order-Optimization-Methods-for-Fully-Composite-Problems.png)
 
@@ -618,11 +611,11 @@ https://en.wikipedia.org/wiki/Graphical_lasso
 
 ![GraphicalLasso_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GraphicalLasso/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Graphical_lasso>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Graphical_lasso>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ![GraphicalLasso_Wiki-multivariate-normal-distribution](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GraphicalLasso/Wiki-multivariate-normal-distribution.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Graphical_lasso>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Multivariate Gaussian.png](<https://commons.wikimedia.org/wiki/File:Multivariate_Gaussian.png>) / Piotrg~commonswiki / [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0/>)。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Graphical_lasso>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 画像: [Multivariate Gaussian.png](<https://commons.wikimedia.org/wiki/File:Multivariate_Gaussian.png>) / Piotrg~commonswiki / [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0/>)。
 
 解説:
 
@@ -657,7 +650,7 @@ https://en.wikipedia.org/wiki/Hadamard_manifold
 
 ![HadamardManifold_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/HadamardManifold/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Hadamard_manifold>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Hadamard_manifold>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 https://arxiv.org/pdf/2609.00540
 
@@ -676,7 +669,7 @@ https://en.wikipedia.org/wiki/Hausdorff_distance
 
 ![HausdroffDistance_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/HausdroffDistance/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Hausdorff_distance>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Hausdorff distance sample.svg](<https://commons.wikimedia.org/wiki/File:Hausdorff_distance_sample.svg>) / Rocchini / [CC BY 3.0](<https://creativecommons.org/licenses/by/3.0/>)。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Hausdorff_distance>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 画像: [Hausdorff distance sample.svg](<https://commons.wikimedia.org/wiki/File:Hausdorff_distance_sample.svg>) / Rocchini / [CC BY 3.0](<https://creativecommons.org/licenses/by/3.0/>)。
 
 解説:
 
@@ -768,7 +761,7 @@ https://en.wikipedia.org/wiki/Hopf%E2%80%93Rinow_theorem
 
 ![HopfRinowTheorem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/HopfRinowTheorem/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Hopf%E2%80%93Rinow_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Hopf%E2%80%93Rinow_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -785,7 +778,7 @@ https://en.wikipedia.org/wiki/Semi-continuity
 
 ![InnerAndOuterSemicontinuity_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/InnerAndOuterSemicontinuity/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Semi-continuity>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Semi-continuity>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -799,7 +792,7 @@ https://ja.wikipedia.org/wiki/%E9%80%86%E5%95%8F%E9%A1%8C
 
 ![InverseProblem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/InverseProblem/Wiki.png)
 
-出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E9%80%86%E5%95%8F%E9%A1%8C>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E9%80%86%E5%95%8F%E9%A1%8C>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 https://speakerdeck.com/ssakaue/gyakusaitekika-to-kikai-gakushuu?slide=6 (坂上さんの講演資料)
 
@@ -819,7 +812,7 @@ https://en.wikipedia.org/wiki/Invex_function
 
 ![InvexFunction_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/InvexFunction/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Invex_function>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Invex_function>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -836,11 +829,9 @@ https://www.sciencedirect.com/science/article/abs/pii/0021999188901325?fr=RR-2&r
 
 https://link.springer.com/article/10.1007/s10208-020-09489-2
 
-(この論文は特別にOpen Accessで引用可能)
-
 Riis, E.S., Ehrhardt, M.J., Quispel, G.R.W. et al. A Geometric Integration Approach to Nonsmooth, Nonconvex Optimisation. Found Comput Math 22, 1351–1394 (2022). https://doi.org/10.1007/s10208-020-09489-2
 
-([CC BY 4.0](http://creativecommons.org/licenses/by/4.0/))
+(この論文はOpen Access、[CC BY 4.0](http://creativecommons.org/licenses/by/4.0/))
 
 ![ItohAbeMethod_A-Geometric-Integration-Approach-to-Nonsmooth,-Nonconvex-Optimisation](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/ItohAbeMethod/A-Geometric-Integration-Approach-to-Nonsmooth%2C-Nonconvex-Optimisation.png)
 
@@ -868,7 +859,7 @@ https://en.wikipedia.org/wiki/John_ellipsoid
 
 ![JohnEllipsoid_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/JohnEllipsoid/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/John_ellipsoid>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Lowner Ellipse.webm](<https://commons.wikimedia.org/wiki/File:Lowner_Ellipse.webm>) / Gpeyre / [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0/>)。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/John_ellipsoid>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 画像: [Lowner Ellipse.webm](<https://commons.wikimedia.org/wiki/File:Lowner_Ellipse.webm>) / Gpeyre / [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0/>)。
 
 解説:
 
@@ -929,7 +920,7 @@ https://en.wikipedia.org/wiki/Locus_(mathematics)#History_and_philosophy
 
 ![Locus_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Locus/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Locus_(mathematics)#History_and_philosophy>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Locus_(mathematics)#History_and_philosophy>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -945,15 +936,15 @@ https://en.wikipedia.org/wiki/Maximum_theorem
 
 ![MaximumTheorem_Wiki-Statement](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MaximumTheorem/Wiki-Statement.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Maximum_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Maximum_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ![MaximumTheorem_Wiki-Examples](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MaximumTheorem/Wiki-Examples.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Maximum_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Maximum_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ![MaximumTheorem_Wiki-Image](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MaximumTheorem/Wiki-Image.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Maximum_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Maximum_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 (この $f^*(\theta)$ が連続というのが主張の一つ)
 
@@ -977,11 +968,11 @@ https://en.wikipedia.org/wiki/Minimax_theorem
 
 ![MinimaxTheorem_Wiki-concave-convex-functions](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MinimaxTheorem/Wiki-concave-convex-functions.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Minimax_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Saddle point.svg](<https://commons.wikimedia.org/wiki/File:Saddle_point.svg>) / Nicoguaro / [CC BY 3.0](<https://creativecommons.org/licenses/by/3.0/>)。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Minimax_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 画像: [Saddle point.svg](<https://commons.wikimedia.org/wiki/File:Saddle_point.svg>) / Nicoguaro / [CC BY 3.0](<https://creativecommons.org/licenses/by/3.0/>)。
 
 ![MinimaxTheorem_Wiki-Sion's-minimax-theorem](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MinimaxTheorem/Wiki-Sion%27s-minimax-theorem.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Minimax_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Minimax_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -1014,8 +1005,6 @@ https://link.springer.com/book/10.1007/978-3-642-02431-3
 解説:
 
 [このサイト](https://people.inf.ethz.ch/fukudak/polyfaq/node14.html)の説明とは少し違ったように見えるが、揺れがあるのかも知れない。
-
-todo: 同値性の確認。
 
 [Stack Exchange](https://math.stackexchange.com/questions/1335176/what-is-the-weyl-minkowski-theorem)でも言及されている。
 
@@ -1095,13 +1084,13 @@ https://en.wikipedia.org/wiki/Newton%27s_method#Multiplicative_inverses_of_numbe
 
 ![NewtonSchulz_Wiki-Newton's-method](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/NewtonSchulz/Wiki-Newton%27s-method.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Newton%27s_method#Multiplicative_inverses_of_numbers_and_power_series>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Newton%27s_method#Multiplicative_inverses_of_numbers_and_power_series>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 https://en.wikipedia.org/wiki/Matrix_sign_function#Newton%E2%80%93Schulz_iteration
 
 ![NewtonSchulz_Wiki-Matrix-sign-function](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/NewtonSchulz/Wiki-Matrix-sign-function.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Matrix_sign_function#Newton%E2%80%93Schulz_iteration>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Matrix_sign_function#Newton%E2%80%93Schulz_iteration>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -1133,11 +1122,11 @@ https://en.wikipedia.org/wiki/Ordinal_regression
 
 ![OrdinalRegression_Wiki-Abstract](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/OrdinalRegression/Wiki-Abstract.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Ordinal_regression>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Ordinal_regression>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ![OrdinalRegression_Wiki-Linear-models-for-ordinal-regression](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/OrdinalRegression/Wiki-Linear-models-for-ordinal-regression.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Ordinal_regression>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Ordinal_regression>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -1152,7 +1141,7 @@ https://en.wikipedia.org/wiki/%C5%81ojasiewicz_inequality
 
 ![Polyakinequality_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Polyakinequality/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/%C5%81ojasiewicz_inequality>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/%C5%81ojasiewicz_inequality>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -1186,7 +1175,7 @@ https://en.wikipedia.org/wiki/Quasiconvex_function
 
 ![Quasiconvex_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Quasiconvex/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Quasiconvex_function>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Quasiconvex function.png](<https://commons.wikimedia.org/wiki/File:Quasiconvex_function.png>) / Oleg Alexandrov / Public domain。 画像: [Nonquasiconvex function.png](<https://commons.wikimedia.org/wiki/File:Nonquasiconvex_function.png>) / Oleg Alexandrov / Public domain。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Quasiconvex_function>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 画像: [Quasiconvex function.png](<https://commons.wikimedia.org/wiki/File:Quasiconvex_function.png>) / Oleg Alexandrov / Public domain。 画像: [Nonquasiconvex function.png](<https://commons.wikimedia.org/wiki/File:Nonquasiconvex_function.png>) / Oleg Alexandrov / Public domain。
 
 解説:
 
@@ -1200,11 +1189,11 @@ https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%E3%81%AE%E5%AE%9A%E7%9
 
 ![Radon'sTheorem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Radon%27sTheorem/Wiki.png)
 
-出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Radon coefficients.svg](<https://commons.wikimedia.org/wiki/File:Radon_coefficients.svg>) / David Eppstein / Public domain。
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 画像: [Radon coefficients.svg](<https://commons.wikimedia.org/wiki/File:Radon_coefficients.svg>) / David Eppstein / Public domain。
 
 ![Radon'sTheorem_Wiki-Proof](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Radon%27sTheorem/Wiki-Proof.png)
 
-出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -1229,7 +1218,7 @@ https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%EF%BC%9D%E3%83%8B%E3%8
 
 ![RadonNikodymDerivative_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/RadonNikodymDerivative/Wiki.png)
 
-出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%EF%BC%9D%E3%83%8B%E3%82%B3%E3%83%87%E3%82%A3%E3%83%A0%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%EF%BC%9D%E3%83%8B%E3%82%B3%E3%83%87%E3%82%A3%E3%83%A0%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -1257,7 +1246,7 @@ https://ja.wikipedia.org/wiki/%E6%AE%8B%E5%B7%AE%E3%83%8D%E3%83%83%E3%83%88%E3%8
 
 ![ResNet_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/ResNet/Wiki.png)
 
-出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E6%AE%8B%E5%B7%AE%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E6%AE%8B%E5%B7%AE%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -1272,7 +1261,7 @@ https://ja.wikipedia.org/wiki/%E5%85%85%E8%B6%B3%E5%8F%AF%E8%83%BD%E6%80%A7%E3%8
 
 ![SatisfiabilityModuloTheories_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/SatisfiabilityModuloTheories/Wiki.png)
 
-出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E5%85%85%E8%B6%B3%E5%8F%AF%E8%83%BD%E6%80%A7%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%AD%E7%90%86%E8%AB%96>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E5%85%85%E8%B6%B3%E5%8F%AF%E8%83%BD%E6%80%A7%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%AD%E7%90%86%E8%AB%96>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
@@ -1288,7 +1277,7 @@ https://en.wikipedia.org/wiki/Set-valued_function
 
 ![SetValuedFunction_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/SetValuedFunction/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Set-valued_function>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Multivalued function.svg](<https://commons.wikimedia.org/wiki/File:Multivalued_function.svg>) / Schapel / Public domain。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Set-valued_function>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 画像: [Multivalued function.svg](<https://commons.wikimedia.org/wiki/File:Multivalued_function.svg>) / Schapel / Public domain。
 
 https://books.google.com.pa/books?id=tiBtC4GmuKcC
 
@@ -1327,11 +1316,11 @@ https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%84%E3%83%AB%E3%83%A0%E3%81%AE%E5%A
 
 ![Sturm'sTheorem_Wiki-Theorem](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Sturm%27sTheorem/Wiki-Theorem.png)
 
-出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%84%E3%83%AB%E3%83%A0%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%84%E3%83%AB%E3%83%A0%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ![Sturm'sTheorem_Wiki-Method](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Sturm%27sTheorem/Wiki-Method.png)
 
-出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%84%E3%83%AB%E3%83%A0%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%84%E3%83%AB%E3%83%A0%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 https://www.fit.ac.jp/~h-takeda/conf/files/2015/yotsutani/02.pdf
 
@@ -1365,11 +1354,11 @@ https://arxiv.org/pdf/2608.18123
 
 https://doi.org/10.1007/s10107-017-1172-1
 
-(上記の Esfahani and Kuhn (2018) にあたる。この論文は特別にOpen Accessで引用可能)
+(上記の Esfahani and Kuhn (2018) にあたる)
 
 Mohajerin Esfahani, P., Kuhn, D. Data-driven distributionally robust optimization using the Wasserstein metric: performance guarantees and tractable reformulations. Math. Program. 171, 115–166 (2018). https://doi.org/10.1007/s10107-017-1172-1
 
-([CC BY 4.0](http://creativecommons.org/licenses/by/4.0/))
+(この論文はOpen Access、[CC BY 4.0](http://creativecommons.org/licenses/by/4.0/))
 
 ![WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/WassersteinDRO/Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1.png)
 
@@ -1390,7 +1379,7 @@ https://en.wikipedia.org/wiki/%C5%81ojasiewicz_inequality
 
 ![Łojasiewiczinequality_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/%C5%81ojasiewiczinequality/Wiki.png)
 
-出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/%C5%81ojasiewicz_inequality>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/%C5%81ojasiewicz_inequality>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 解説:
 
