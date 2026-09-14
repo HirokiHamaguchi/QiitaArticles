@@ -6,7 +6,7 @@ https://iiduka.net/intro/researches/fixedpoint
 
 (飯塚先生のHP)
 
-![iiduka](iiduka.png)
+<!-- ![iiduka](iiduka.png) -->
 
 https://www.ohmsha.co.jp/book/9784274230066.html
 

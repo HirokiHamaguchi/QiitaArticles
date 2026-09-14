@@ -1,0 +1,14 @@
+{
+  "images": {
+    "Wiki.png": {
+      "embedded_media": [
+        {
+          "title": "Radon coefficients.svg",
+          "author": "David Eppstein",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Radon_coefficients.svg",
+          "license": "Public domain"
+        }
+      ]
+    }
+  }
+}

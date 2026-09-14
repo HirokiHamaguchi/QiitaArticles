@@ -9,12 +9,16 @@ https://www.researchgate.net/profile/Mohammad-Alkousa-2/publication/413568957_Fi
 
 https://arxiv.org/abs/1905.11881
 
-![WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING](WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING.png)
+<!-- ![WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING](WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING.png) -->
+
+> Definition 1. A second order differentiable function $f$ is $(L_0,L_1)$-smooth if $\|\nabla^2 f(x)\| \le L_0 + L_1 \|\nabla f(x)\|$.
 
 ![WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING-Fig1](WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING-Fig1.png)
 
 解説:
 
 $L$-Smoothnessの一般化。
-上記のFig.1にあるように、勾配ノルムとSmoothnessに相関があることを契機として導入されたようである。
+
+上記のFig.1にあるように、いくつかの問題設定において、勾配ノルムとSmoothnessに相関があることを契機として導入されたようである。
+
 確かに、$L$-Smoothnessの仮定は現実的な問題と不整合だとはよく感じるので、非常に妥当で面白い。

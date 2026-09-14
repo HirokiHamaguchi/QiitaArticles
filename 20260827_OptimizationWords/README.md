@@ -10,6 +10,7 @@
 
 - [最適化関連の個人的用語集](#最適化関連の個人的用語集)
   - [目次](#目次)
+  - [引用について](#引用について)
   - [用語集](#用語集)
     - [(L0, L1) Smoothness](#l0-l1-smoothness)
     - [Additive Smoothing](#additive-smoothing)
@@ -71,6 +72,21 @@
     - [Łojasiewicz inequality](#łojasiewicz-inequality)
   - [最後に](#最後に)
 
+## 引用について
+
+この記事では、自分の知らない用語をまとめるという性質上、非常に多数の引用・スクショが登場します。
+非営利目的ではあるものの、著作権の侵害にあたる行為をすることは私の本意ではありませんので、その運用ルールを示しておきます。
+
+まず、Wikipediaに関しては、文章は[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)のライセンスで公開されているため、引用元を明示することで引用可能です。
+また、各画像についても、それぞれのライセンスを確認したうえで、適切な引用を行っています。
+
+一方で、arXivの論文やジャーナルの論文などは、一般には転載を禁じていることが多く、属地主義の原則に基づき、日本の著作権法において引用として認められる範囲の利用かどうかが適法かどうかの焦点になると理解しています([出典1](https://www.bunka.go.jp/seisaku/chosakuken/seidokaisetsu/chosakukensha_fumei/index.html) [出典2](https://utelecon.adm.u-tokyo.ac.jp/articles/copyright/basic/) [出典3](https://www.bunka.go.jp/seisaku/chosakuken/seidokaisetsu/seminar/2024/pdf/94088901_01.pdf))。
+
+特に、今回の場合、唯一怪しい点としては、引用と私のコメントにいわゆる主従関係があるかどうかという点です。
+この点に関しては、最低限の引用で済ませたり、自分の言葉による解説を多く入れたり、実験などを手元で再現して画像を載せたり、その他の情報を追加したりすることで、引用の範囲を超えないように注意しています。
+
+一方で、流石にただの定義だと言えるようなものは、著作権法の対象外であると判断し、やや長めにスクショの形で引用しています。
+
 ## 用語集
 
 <!-- WORDS -->
@@ -86,14 +102,18 @@ https://www.researchgate.net/profile/Mohammad-Alkousa-2/publication/413568957_Fi
 
 https://arxiv.org/abs/1905.11881
 
-![L0L1Smoothness_WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/L0L1Smoothness/WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING.png)
+<!-- ![L0L1Smoothness_WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/L0L1Smoothness/WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING.png) -->
+
+> Definition 1. A second order differentiable function $f$ is $(L_0,L_1)$-smooth if $\|\nabla^2 f(x)\| \le L_0 + L_1 \|\nabla f(x)\|$.
 
 ![L0L1Smoothness_WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING-Fig1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/L0L1Smoothness/WHY-GRADIENT-CLIPPING-ACCELERATES-TRAINING-Fig1.png)
 
 解説:
 
 $L$-Smoothnessの一般化。
-上記のFig.1にあるように、勾配ノルムとSmoothnessに相関があることを契機として導入されたようである。
+
+上記のFig.1にあるように、いくつかの問題設定において、勾配ノルムとSmoothnessに相関があることを契機として導入されたようである。
+
 確かに、$L$-Smoothnessの仮定は現実的な問題と不整合だとはよく感じるので、非常に妥当で面白い。
 
 ### Additive Smoothing
@@ -103,6 +123,8 @@ $L$-Smoothnessの一般化。
 https://en.wikipedia.org/wiki/Additive_smoothing
 
 ![AdditiveSmoothing_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AdditiveSmoothing/Wiki.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Additive_smoothing>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -116,6 +138,8 @@ Additive SmoothingはLaplace Smoothingとも呼ばれている。
 https://en.wikipedia.org/wiki/Alexandrov_theorem
 
 ![AlexandrovTheorem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AlexandrovTheorem/Wiki.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Alexandrov_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -133,7 +157,11 @@ https://en.wikipedia.org/wiki/Antithetic_variates
 
 ![AntitheticVariates_Wiki-Underlying-principle](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AntitheticVariates/Wiki-Underlying-principle.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Antithetic_variates>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 ![AntitheticVariates_Wiki-Example2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AntitheticVariates/Wiki-Example2.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Antithetic_variates>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -150,9 +178,11 @@ https://en.wikipedia.org/wiki/Asplund_space
 
 ![Asplund_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Asplund/Wiki.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Asplund_space>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 解説:
 
-めちゃくちゃ大雑把に言えばフレシェ微分が自由にできる空間。
+めちゃくちゃ大雑把に言えば、連続凸関数のフレシェ微分可能性について一定の保証を与えるBanach空間。
 
 ### Augmented Lagrangian Method
 
@@ -162,7 +192,11 @@ https://en.wikipedia.org/wiki/Augmented_Lagrangian_method
 
 ![AugmentedLagrangianMethod_Wiki-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AugmentedLagrangianMethod/Wiki-1.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Augmented_Lagrangian_method>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 ![AugmentedLagrangianMethod_Wiki-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AugmentedLagrangianMethod/Wiki-2.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Augmented_Lagrangian_method>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -176,6 +210,8 @@ https://ja.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms
 
 ![BasicLinearAlgebraSubprograms_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/BasicLinearAlgebraSubprograms/Wiki.png)
 
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 解説:
 
 BLASという略語の方が有名。あくまでAPIであって、実装までを定めたものではないことに注意が必要。OpenBLASが具体的な実装例。
@@ -187,6 +223,8 @@ BLASという略語の方が有名。あくまでAPIであって、実装まで�
 https://ja.wikipedia.org/wiki/%E3%83%99%E3%82%A4%E3%82%B8%E3%82%A2%E3%83%B3%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF
 
 ![BayesianNetwork_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/BayesianNetwork/Wiki.png)
+
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%83%99%E3%82%A4%E3%82%B8%E3%82%A2%E3%83%B3%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -200,6 +238,8 @@ https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%8
 
 ![Caratheodory'sExtensionTheorem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Caratheodory%27sExtensionTheorem/Wiki.png)
 
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%83%AA%E3%81%AE%E6%8B%A1%E5%BC%B5%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 解説:
 
 最適化との馴染みはやや薄いが、Carathéodory と名のつく定理は複数存在するので、対比の為に記しておく。
@@ -212,6 +252,24 @@ https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%8
 https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%83%AA%E3%81%AE%E5%AE%9A%E7%90%86_(%E5%87%B8%E5%8C%85)#/languages
 
 ![Caratheodory'sTheorem(ConvexHull)_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Caratheodory%27sTheorem%28ConvexHull%29/Wiki.png)
+
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%A9%E3%83%86%E3%82%AA%E3%83%89%E3%83%AA%E3%81%AE%E5%AE%9A%E7%90%86_(%E5%87%B8%E5%8C%85)#/languages>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Caratheodorys theorem example.svg](<https://commons.wikimedia.org/wiki/File:Caratheodorys_theorem_example.svg>) / Tom Murphy VII（SVG、DysprosiaのPNGを基に作成） / [BSD 3-Clause License](<https://opensource.org/license/bsd-3-clause>)。
+
+<details><summary>Caratheodorys theorem example.svg のライセンス告知全文</summary>
+
+```text
+Copyright © Dysprosia
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+```
+
+</details>
 
 解説:
 
@@ -234,9 +292,13 @@ https://en.wikipedia.org/wiki/Cheeger_constant_(graph_theory)
 
 ![CheegerConstant_Wiki-graph](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/CheegerConstant/Wiki-graph.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Cheeger_constant_(graph_theory)>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Cheeger constant.svg](<https://commons.wikimedia.org/wiki/File:Cheeger_constant.svg>) / BagLuke / [CC0 1.0](<https://creativecommons.org/publicdomain/zero/1.0/>)。
+
 https://en.wikipedia.org/wiki/Cheeger_constant
 
 ![CheegerConstant_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/CheegerConstant/Wiki.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Cheeger_constant>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -252,6 +314,8 @@ https://en.wikipedia.org/wiki/Copositive_matrix
 
 ![CopositiveMatrix_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/CopositiveMatrix/Wiki.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Copositive_matrix>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 解説:
 
 半正定値の概念を $x \geq 0$ だけの場合に緩和したもの。
@@ -262,15 +326,23 @@ https://en.wikipedia.org/wiki/Copositive_matrix
 
 https://link.springer.com/chapter/10.1007/978-3-642-02431-3_3
 
-![CosmicClosure_Variational-Analysis-Cones-and-Cosmic-Closure-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/CosmicClosure/Variational-Analysis-Cones-and-Cosmic-Closure-1.png)
+(p.77近辺)
+
+<!-- ![CosmicClosure_Variational-Analysis-Cones-and-Cosmic-Closure-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/CosmicClosure/Variational-Analysis-Cones-and-Cosmic-Closure-1.png)
 ![CosmicClosure_Variational-Analysis-Cones-and-Cosmic-Closure-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/CosmicClosure/Variational-Analysis-Cones-and-Cosmic-Closure-2.png)
-![CosmicClosure_Variational-Analysis-Cones-and-Cosmic-Closure-3](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/CosmicClosure/Variational-Analysis-Cones-and-Cosmic-Closure-3.png)
+![CosmicClosure_Variational-Analysis-Cones-and-Cosmic-Closure-3](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/CosmicClosure/Variational-Analysis-Cones-and-Cosmic-Closure-3.png) -->
 
 解説:
 
 大雑把には、$\mathbb{R}^n$ に「無限遠の方向」を点として付け加えてコンパクト化したものと言える。
 
-直訳すると、宇宙の閉包だろうか、意図自体は上述の3次元についての説明より汲み取れる。命名がやたら格好良い。
+直訳すると、宇宙の閉包だろうか、意図自体は3次元についての説明である、
+
+> For $n=3$, this brings to the picture of the universe as bounded by a `celestial sphere'.
+
+(上記の本、Variational Analysis より引用、celestial sphere は天球のこと)
+
+より汲み取れる。命名がやたら格好良い。
 
 ### Danskin's Theorem
 
@@ -280,11 +352,19 @@ https://en.wikipedia.org/wiki/Danskin%27s_theorem
 
 ![Danskin'sTheorem_Wiki-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Danskin%27sTheorem/Wiki-1.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Danskin%27s_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 ![Danskin'sTheorem_Wiki-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Danskin%27sTheorem/Wiki-2.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Danskin%27s_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 ![Danskin'sTheorem_Wiki-3](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Danskin%27sTheorem/Wiki-3.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Danskin%27s_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 ![Danskin'sTheorem_Wiki-4](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Danskin%27sTheorem/Wiki-4.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Danskin%27s_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -299,6 +379,8 @@ minimax問題などにおける関数の勾配や劣勾配の計算に使われ�
 https://en.wikipedia.org/wiki/Dini_derivative
 
 ![DiniDerivative_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/DiniDerivative/Wiki.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Dini_derivative>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -336,18 +418,24 @@ $$
 
 ![DiniDerivative_xsin1x](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/DiniDerivative/xsin1x.png)
 
-通常の微分が発散するということも踏まえると、中々に便利な概念で感心する。
+0に近づくにつれて通常の導関数が正負の無限大へ向かって振動することも踏まえると、中々に便利な概念で感心する。
 
 ### Eckart–Young–Mirsky Theorem
 
 文献:
 
+https://en.wikipedia.org/wiki/Low-rank_approximation
+
 ![EckartYoungMirskyTheorem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/EckartYoungMirskyTheorem/Wiki.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Low-rank_approximation>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
 行列の低ランク近似をフロベニウスノルムによって定式化した際、その最適解は特異値分解によって得られることを示す定理。
+
 定理自体は有名だが、このような名前がついていることは知名度が低いかも知れない。
+
 お三方とも1900年代の数学者らしい。
 
 ### Epi-Convergence
@@ -358,7 +446,11 @@ https://en.wikipedia.org/wiki/Epi-convergence
 
 ![EpiConvergence_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/EpiConvergence/Wiki.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Epi-convergence>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 ![EpiConvergence_Wiki-Relation-to-minimization-problems](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/EpiConvergence/Wiki-Relation-to-minimization-problems.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Epi-convergence>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -378,7 +470,7 @@ https://iiduka.net/intro/researches/fixedpoint
 
 (飯塚先生のHP)
 
-![FixedPoint_iiduka](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/FixedPoint/iiduka.png)
+<!-- ![FixedPoint_iiduka](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/FixedPoint/iiduka.png) -->
 
 https://www.ohmsha.co.jp/book/9784274230066.html
 
@@ -410,28 +502,52 @@ https://en.wikipedia.org/wiki/Fredholm_alternative
 
 ![FredholmAlternative_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/FredholmAlternative/Wiki.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Fredholm_alternative>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 https://www.ism.ac.jp/~mirai/sscoke/2026/
 
-(松井知己先生による講義資料)
+(松井先生の講義資料, 10ページ辺り)
 
-![FredholmAlternative_sscoke2026-tomomi-matsui](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/FredholmAlternative/sscoke2026-tomomi-matsui.png)
+<!-- ![FredholmAlternative_sscoke2026-tomomi-matsui](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/FredholmAlternative/sscoke2026-tomomi-matsui.png) -->
 
 解説:
 
-書いてある通りだが、$b \in \mathrm{Im}(A)$ と $b \in \mathrm{Ker}(A^\top)^\perp$ が同値ということを言っているに過ぎない。
+任意の行列 $(A | b)$ に対し、$P: Ax = b$ か $D: y^\top A = 0^\top, y^\top b \neq 0$ のどちらか丁度1つのみが解を持つという定理。証明は簡単で、両方の解を $x^*, y^*$ として存在を仮定すると、次のように矛盾が導かれる。
+
+$$
+0 = 0^\top x^* = (y^*)^\top A x^* = (y^*)^\top b \neq 0
+$$
+
+これはつまり、$b \in \mathrm{Im}(A)$ と $b \in \mathrm{Ker}(A^\top)^\perp$ が同値ということを言っているに過ぎない。
+
 [Farkas' lemmaのcorollary](https://en.wikipedia.org/wiki/Farkas%27_lemma)として得られる。
 
 ### Fully Composite
 
 文献:
 
-https://epubs.siam.org/doi/abs/10.1137/21M1410063 Nesterovの論文
+https://epubs.siam.org/doi/abs/10.1137/21M1410063
+
+(この論文は特別にOpen Accessで引用可能)
+
+Doikov, N., & Nesterov, Y. (2022). High-order optimization methods for fully composite problems. SIAM Journal on Optimization, 32(3), 2402-2427.
+
+([CC BY 4.0](http://creativecommons.org/licenses/by/4.0/))
 
 ![FullyComposite_High-Order-Optimization-Methods-for-Fully-Composite-Problems](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/FullyComposite/High-Order-Optimization-Methods-for-Fully-Composite-Problems.png)
 
 解説:
 
-例は上の画像の後にも続き、Functional composite minimization, Functional and additive composition, Composition with linear mappingなどとなっていく。
+例としては、
+
+- Optimization with functional constraints,
+- Additive composite minimization,
+- Functional composite minimization,
+- Functional and additive composition,
+- Composition with linear mapping
+
+などとなっていく。
+
 この統一性・抽象性が大事に思われる。
 
 ### Generalized Cauchy Point
@@ -440,19 +556,19 @@ https://epubs.siam.org/doi/abs/10.1137/21M1410063 Nesterovの論文
 
 https://doi.org/10.1007/978-0-387-40065-5
 
-Wright, Stephen J., and Jorge Nocedal. "Numerical optimization." における説明
+Wright, Stephen J., and Jorge Nocedal. "Numerical optimization." における説明はAlgorithm 4.4に該当。
 
-![GeneralizedCauchyPoint_Numerical-Optimization](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GeneralizedCauchyPoint/Numerical-Optimization.png)
+<!-- ![GeneralizedCauchyPoint_Numerical-Optimization](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GeneralizedCauchyPoint/Numerical-Optimization.png) -->
 
 https://doi.org/10.1137/0916069
 
-Richard H. Byrd, Peihuang Lu, Jorge Nocedal, and Ciyou Zhu. "A Limited Memory Algorithm for Bound Constrained Optimization." における説明
+Richard H. Byrd, Peihuang Lu, Jorge Nocedal, and Ciyou Zhu. "A Limited Memory Algorithm for Bound Constrained Optimization." における説明は主にSection 2に該当。
 
-![GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GeneralizedCauchyPoint/A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1.png)
+<!-- ![GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GeneralizedCauchyPoint/A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1.png)
 
 ![GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GeneralizedCauchyPoint/A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-2.png)
 
-![GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GeneralizedCauchyPoint/A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3.png)
+![GeneralizedCauchyPoint_A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GeneralizedCauchyPoint/A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3.png) -->
 
 解説:
 
@@ -502,7 +618,11 @@ https://en.wikipedia.org/wiki/Graphical_lasso
 
 ![GraphicalLasso_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GraphicalLasso/Wiki.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Graphical_lasso>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 ![GraphicalLasso_Wiki-multivariate-normal-distribution](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/GraphicalLasso/Wiki-multivariate-normal-distribution.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Graphical_lasso>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Multivariate Gaussian.png](<https://commons.wikimedia.org/wiki/File:Multivariate_Gaussian.png>) / Piotrg~commonswiki / [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0/>)。
 
 解説:
 
@@ -537,6 +657,8 @@ https://en.wikipedia.org/wiki/Hadamard_manifold
 
 ![HadamardManifold_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/HadamardManifold/Wiki.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Hadamard_manifold>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 https://arxiv.org/pdf/2609.00540
 
 (Hadamard Manifolds上の射影勾配法が調べられている)
@@ -553,6 +675,8 @@ https://arxiv.org/pdf/2609.00540
 https://en.wikipedia.org/wiki/Hausdorff_distance
 
 ![HausdroffDistance_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/HausdroffDistance/Wiki.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Hausdorff_distance>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Hausdorff distance sample.svg](<https://commons.wikimedia.org/wiki/File:Hausdorff_distance_sample.svg>) / Rocchini / [CC BY 3.0](<https://creativecommons.org/licenses/by/3.0/>)。
 
 解説:
 
@@ -597,7 +721,7 @@ https://www.sciencedirect.com/science/article/pii/009731657390006X
 
 https://www.sciencedirect.com/science/article/pii/S0024379520304171
 
-![HoffmanPereiraMatrix_Testing-copositivity-via-mixed–integer-linear-programming](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/HoffmanPereiraMatrix/Testing-copositivity-via-mixed%E2%80%93integer-linear-programming.png)
+<!-- ![HoffmanPereiraMatrix_Testing-copositivity-via-mixed–integer-linear-programming](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/HoffmanPereiraMatrix/Testing-copositivity-via-mixed%E2%80%93integer-linear-programming.png) -->
 
 解説:
 
@@ -632,7 +756,7 @@ prob.solve()
 print(prob.status)
 ```
 
-これがinfeasibleになることからも確認できる。
+これがinfeasibleになることからも数値的に示唆される。
 
 原論文の方はextreme rayという文脈で論じており、関係性があるらしい。
 
@@ -644,10 +768,12 @@ https://en.wikipedia.org/wiki/Hopf%E2%80%93Rinow_theorem
 
 ![HopfRinowTheorem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/HopfRinowTheorem/Wiki.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Hopf%E2%80%93Rinow_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 解説:
 
 大分基礎的な定理。
-ざっくり言えば、多様体における、コンパクト性と完備性の同値性を述べたうえで、任意のの2点を結ぶ最短測地線の存在を保証する。
+ざっくり言えば、連結なリーマン多様体において、距離空間としての完備性や測地完備性と、閉有界集合のコンパクト性の同値性を述べ、任意の2点を結ぶ最短測地線の存在を保証する。
 リーマン多様体上の最適化関連で出てくることもありそう。
 Hadamard Manifoldの項で出てきたので記した。
 
@@ -659,9 +785,11 @@ https://en.wikipedia.org/wiki/Semi-continuity
 
 ![InnerAndOuterSemicontinuity_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/InnerAndOuterSemicontinuity/Wiki.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Semi-continuity>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 解説:
 
-詳細はHemicontinuityを参照のこと。
+[Hemicontinuity](https://en.wikipedia.org/wiki/Hemicontinuity)も参照のこと。
 
 ### InverseProblem
 
@@ -671,9 +799,13 @@ https://ja.wikipedia.org/wiki/%E9%80%86%E5%95%8F%E9%A1%8C
 
 ![InverseProblem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/InverseProblem/Wiki.png)
 
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E9%80%86%E5%95%8F%E9%A1%8C>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 https://speakerdeck.com/ssakaue/gyakusaitekika-to-kikai-gakushuu?slide=6 (坂上さんの講演資料)
 
-![InverseProblem_orsj-2026f-symposium-Shinsaku-Sakaue](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/InverseProblem/orsj-2026f-symposium-Shinsaku-Sakaue.png)
+<!-- ![InverseProblem_orsj-2026f-symposium-Shinsaku-Sakaue](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/InverseProblem/orsj-2026f-symposium-Shinsaku-Sakaue.png) -->
+
+> 逆最適化は観測解 $x^\mathrm{obs}$ の最適性を説明する目的関数パラメータ $\hat{c}$ を探す問題
 
 解説:
 
@@ -686,6 +818,8 @@ https://speakerdeck.com/ssakaue/gyakusaitekika-to-kikai-gakushuu?slide=6 (坂上
 https://en.wikipedia.org/wiki/Invex_function
 
 ![InvexFunction_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/InvexFunction/Wiki.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Invex_function>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -702,6 +836,12 @@ https://www.sciencedirect.com/science/article/abs/pii/0021999188901325?fr=RR-2&r
 
 https://link.springer.com/article/10.1007/s10208-020-09489-2
 
+(この論文は特別にOpen Accessで引用可能)
+
+Riis, E.S., Ehrhardt, M.J., Quispel, G.R.W. et al. A Geometric Integration Approach to Nonsmooth, Nonconvex Optimisation. Found Comput Math 22, 1351–1394 (2022). https://doi.org/10.1007/s10208-020-09489-2
+
+([CC BY 4.0](http://creativecommons.org/licenses/by/4.0/))
+
 ![ItohAbeMethod_A-Geometric-Integration-Approach-to-Nonsmooth,-Nonconvex-Optimisation](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/ItohAbeMethod/A-Geometric-Integration-Approach-to-Nonsmooth%2C-Nonconvex-Optimisation.png)
 
 ![ItohAbeMethod_A-Geometric-Integration-Approach-to-Nonsmooth,-Nonconvex-Optimisation-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/ItohAbeMethod/A-Geometric-Integration-Approach-to-Nonsmooth%2C-Nonconvex-Optimisation-1.png)
@@ -716,7 +856,7 @@ https://link.springer.com/article/10.1007/s10208-020-09489-2
 考えている問題設定はZeroth Order Methodsに近いが、発想はかなり異なる。
 もし次の反復点が見つかれば、それは絶対に関数値が減少している。
 しかし、その次の反復点を見つけるのが、$n$ 個の等式を解くことを要求するので難しい。
-まだあまり理解できていないが、Zeroth Order Methodsよりも優れている場合もありそう。
+あまり理解できていないが、Zeroth Order Methodsよりも優れている場合もありそう。
 
 ### John Ellipsoid
 
@@ -727,6 +867,8 @@ https://arxiv.org/pdf/2609.10888
 https://en.wikipedia.org/wiki/John_ellipsoid
 
 ![JohnEllipsoid_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/JohnEllipsoid/Wiki.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/John_ellipsoid>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Lowner Ellipse.webm](<https://commons.wikimedia.org/wiki/File:Lowner_Ellipse.webm>) / Gpeyre / [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0/>)。
 
 解説:
 
@@ -771,11 +913,12 @@ https://arxiv.org/abs/2601.20443
 
 https://doi.org/10.1016/j.orl.2021.06.005
 
-![LinearMinimizationOracle_Complexity-of-linear-minimization-and-projection-on-some-sets](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/LinearMinimizationOracle/Complexity-of-linear-minimization-and-projection-on-some-sets.png)
+<!-- ![LinearMinimizationOracle_Complexity-of-linear-minimization-and-projection-on-some-sets](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/LinearMinimizationOracle/Complexity-of-linear-minimization-and-projection-on-some-sets.png) -->
 
 解説:
 
-射影より軽いことのあるオラクル。
+$\ell_p$-ball, Nuclear norm ball, Flow polytope, Birkhoff polytope, Permutahedronなどの集合 $\mathcal{C}$ に対して、基本的にlinear minimizationの方が射影より計算量が軽いとTable 1にまとめられている。
+
 主にFrank–Wolfe法と関連して語られる。
 
 ### Locus
@@ -786,9 +929,12 @@ https://en.wikipedia.org/wiki/Locus_(mathematics)#History_and_philosophy
 
 ![Locus_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Locus/Wiki.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Locus_(mathematics)#History_and_philosophy>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 解説:
 
 和訳は単に[軌跡](https://ja.wikipedia.org/wiki/%E8%BB%8C%E8%B7%A1_(%E6%95%B0%E5%AD%A6))。
+
 画像にあるように、Zero locusなどで零点集合を指すので、そういった用例を時々見かける。
 
 ### Maximum Theorem
@@ -799,15 +945,25 @@ https://en.wikipedia.org/wiki/Maximum_theorem
 
 ![MaximumTheorem_Wiki-Statement](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MaximumTheorem/Wiki-Statement.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Maximum_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 ![MaximumTheorem_Wiki-Examples](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MaximumTheorem/Wiki-Examples.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Maximum_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 ![MaximumTheorem_Wiki-Image](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MaximumTheorem/Wiki-Image.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Maximum_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 (この $f^*(\theta)$ が連続というのが主張の一つ)
 
 https://arxiv.org/abs/2608.25789
 
-![MaximumTheorem_Sequential-Stability-of-the-Value-Function-and-the-Solution-Mapping-in-Berge's-Maximum-Theorem-via-Variational-Convergence](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MaximumTheorem/Sequential-Stability-of-the-Value-Function-and-the-Solution-Mapping-in-Berge%27s-Maximum-Theorem-via-Variational-Convergence.png)
+<!-- ![MaximumTheorem_Sequential-Stability-of-the-Value-Function-and-the-Solution-Mapping-in-Berge's-Maximum-Theorem-via-Variational-Convergence](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MaximumTheorem/Sequential-Stability-of-the-Value-Function-and-the-Solution-Mapping-in-Berge%27s-Maximum-Theorem-via-Variational-Convergence.png) -->
+
+> Berge’s maximum theorem holds significant relevance in fields such as economic theory, optimal control, and optimization theory. For instance, in demand theory, it is concerned with an agent’s optimal consumption concerning prices and income, while in capital theory, with the optimal investment strategy based on the existing capital stock.
+
+(本論文のSection 1より引用)
 
 解説:
 
@@ -821,7 +977,11 @@ https://en.wikipedia.org/wiki/Minimax_theorem
 
 ![MinimaxTheorem_Wiki-concave-convex-functions](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MinimaxTheorem/Wiki-concave-convex-functions.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Minimax_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Saddle point.svg](<https://commons.wikimedia.org/wiki/File:Saddle_point.svg>) / Nicoguaro / [CC BY 3.0](<https://creativecommons.org/licenses/by/3.0/>)。
+
 ![MinimaxTheorem_Wiki-Sion's-minimax-theorem](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MinimaxTheorem/Wiki-Sion%27s-minimax-theorem.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Minimax_theorem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -867,13 +1027,13 @@ https://epubs.siam.org/doi/10.1137/1030065
 
 (以下の文献と形式的な差異があるが、証明まで載っている。ただし長い。)
 
-![Motzkin'sTranspositionTheorem_THEORY-OF-LINEAR-AND-INTEGER-PROGRAMMING](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Motzkin%27sTranspositionTheorem/THEORY-OF-LINEAR-AND-INTEGER-PROGRAMMING.png)
+<!-- ![Motzkin'sTranspositionTheorem_THEORY-OF-LINEAR-AND-INTEGER-PROGRAMMING](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Motzkin%27sTranspositionTheorem/THEORY-OF-LINEAR-AND-INTEGER-PROGRAMMING.png) -->
 
 https://www.researchgate.net/publication/2628560_Motzkin's_Transposition_Theorem_And_The_Related_Theorems_Of_Farkas_Gordan_And_Stiemke
 
-![Motzkin'sTranspositionTheorem_MOTZKIN’S-TRANSPOSITION-THEOREM,-AND-THE-RELATED-THEOREMS-OF-FARKAS,-GORDAN-AND-STIEMKE-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Motzkin%27sTranspositionTheorem/MOTZKIN%E2%80%99S-TRANSPOSITION-THEOREM%2C-AND-THE-RELATED-THEOREMS-OF-FARKAS%2C-GORDAN-AND-STIEMKE-1.png)
+<!-- ![Motzkin'sTranspositionTheorem_MOTZKIN’S-TRANSPOSITION-THEOREM,-AND-THE-RELATED-THEOREMS-OF-FARKAS,-GORDAN-AND-STIEMKE-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Motzkin%27sTranspositionTheorem/MOTZKIN%E2%80%99S-TRANSPOSITION-THEOREM%2C-AND-THE-RELATED-THEOREMS-OF-FARKAS%2C-GORDAN-AND-STIEMKE-1.png)
 
-![Motzkin'sTranspositionTheorem_MOTZKIN’S-TRANSPOSITION-THEOREM,-AND-THE-RELATED-THEOREMS-OF-FARKAS,-GORDAN-AND-STIEMKE-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Motzkin%27sTranspositionTheorem/MOTZKIN%E2%80%99S-TRANSPOSITION-THEOREM%2C-AND-THE-RELATED-THEOREMS-OF-FARKAS%2C-GORDAN-AND-STIEMKE-2.png)
+![Motzkin'sTranspositionTheorem_MOTZKIN’S-TRANSPOSITION-THEOREM,-AND-THE-RELATED-THEOREMS-OF-FARKAS,-GORDAN-AND-STIEMKE-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Motzkin%27sTranspositionTheorem/MOTZKIN%E2%80%99S-TRANSPOSITION-THEOREM%2C-AND-THE-RELATED-THEOREMS-OF-FARKAS%2C-GORDAN-AND-STIEMKE-2.png) -->
 
 https://www.ism.ac.jp/~mirai/sscoke/2026/
 
@@ -881,9 +1041,10 @@ https://www.ism.ac.jp/~mirai/sscoke/2026/
 
 解説:
 
-出典としてやや古いものしかないが、Farkasの補題などを統一的に導けるという点で優れた一般性を持つ主張。ただし、この定理の証明自体にFarkasの補題が用いられている。
+出典としてやや古いものしかないが、Farkasの補題などを統一的に導けるという点で優れた一般性を持つ主張。
+ただし、この定理の証明自体にFarkasの補題が用いられている。
 
-定理そのものの主張ではないが、いくつかの線形システムが定理で扱っている形式、つまり(c)の形式である $Ax \leq b, Bx < c$ に帰着できるという点は、重要かつ面白い。
+定理そのものの主張ではないが、[この論文](https://www.researchgate.net/publication/2628560_Motzkin's_Transposition_Theorem_And_The_Related_Theorems_Of_Farkas_Gordan_And_Stiemke)におけるいくつかの線形システムが、定理で扱っている形式、つまり(c)の形式である $Ax \leq b, Bx < c$ に帰着できるという点は、重要かつ面白い。
 
 ### Motzkin–Straus Formulation
 
@@ -934,13 +1095,17 @@ https://en.wikipedia.org/wiki/Newton%27s_method#Multiplicative_inverses_of_numbe
 
 ![NewtonSchulz_Wiki-Newton's-method](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/NewtonSchulz/Wiki-Newton%27s-method.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Newton%27s_method#Multiplicative_inverses_of_numbers_and_power_series>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 https://en.wikipedia.org/wiki/Matrix_sign_function#Newton%E2%80%93Schulz_iteration
 
 ![NewtonSchulz_Wiki-Matrix-sign-function](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/NewtonSchulz/Wiki-Matrix-sign-function.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Matrix_sign_function#Newton%E2%80%93Schulz_iteration>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 解説:
 
-Newton–Schulz法は、大雑把には行列向けのNewton法で、二次収束するのが偉い。
+Newton–Schulz法は、大雑把には行列向けのNewton法で、適切な条件の下で二次収束するのが偉い。
 具体例として、行列符号関数の計算にも用いられる。
 
 ### Neyman–Pearson Classification
@@ -968,7 +1133,11 @@ https://en.wikipedia.org/wiki/Ordinal_regression
 
 ![OrdinalRegression_Wiki-Abstract](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/OrdinalRegression/Wiki-Abstract.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Ordinal_regression>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 ![OrdinalRegression_Wiki-Linear-models-for-ordinal-regression](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/OrdinalRegression/Wiki-Linear-models-for-ordinal-regression.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Ordinal_regression>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -982,6 +1151,8 @@ https://en.wikipedia.org/wiki/Ordinal_regression
 https://en.wikipedia.org/wiki/%C5%81ojasiewicz_inequality
 
 ![Polyakinequality_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Polyakinequality/Wiki.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/%C5%81ojasiewicz_inequality>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -1015,6 +1186,8 @@ https://en.wikipedia.org/wiki/Quasiconvex_function
 
 ![Quasiconvex_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Quasiconvex/Wiki.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Quasiconvex_function>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Quasiconvex function.png](<https://commons.wikimedia.org/wiki/File:Quasiconvex_function.png>) / Oleg Alexandrov / Public domain。 画像: [Nonquasiconvex function.png](<https://commons.wikimedia.org/wiki/File:Nonquasiconvex_function.png>) / Oleg Alexandrov / Public domain。
+
 解説:
 
 [準凸関数](https://ja.wikipedia.org/wiki/%E6%BA%96%E5%87%B8%E9%96%A2%E6%95%B0)とも。
@@ -1027,7 +1200,11 @@ https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%E3%81%AE%E5%AE%9A%E7%9
 
 ![Radon'sTheorem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Radon%27sTheorem/Wiki.png)
 
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Radon coefficients.svg](<https://commons.wikimedia.org/wiki/File:Radon_coefficients.svg>) / David Eppstein / Public domain。
+
 ![Radon'sTheorem_Wiki-Proof](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Radon%27sTheorem/Wiki-Proof.png)
+
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -1052,13 +1229,17 @@ https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%EF%BC%9D%E3%83%8B%E3%8
 
 ![RadonNikodymDerivative_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/RadonNikodymDerivative/Wiki.png)
 
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%89%E3%83%B3%EF%BC%9D%E3%83%8B%E3%82%B3%E3%83%87%E3%82%A3%E3%83%A0%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 解説:
 
 以下の解説が具体例を用いた説明をしており、非常に参考になる(通常のサイコロを振る際の確率測度 $P$ と、456賽を振る際の確率測度 $Q$ の関係を考えている)。
 
 https://peng225.hatenablog.com/entry/2025/04/04/124548
 
-ただし、少なくとも最適化の文脈でRadon–Nikodym derivativeを用いる際、確率密度関数や確率質量関数を定義することが多いと思っているので、その点はやや注意が必要。離散分布の場合、確率変数 $X$ の分布を $P_X$ とし、状態空間上の数え上げ測度（counting measure）を $\\\#$ とすると、$p_X(x)=\frac{\mathrm{d}P_X}{\mathrm{d}\\\#}(x)$ と定義できる。連続分布の場合は、数え上げ測度がLebesgue測度に置き換わる。
+ただし、少なくとも最適化の文脈でRadon–Nikodym derivativeを用いる際、確率密度関数や確率質量関数を定義することが多いと思っているので、その点はやや注意が必要。離散分布の場合、確率変数 $X$ の分布を $P_X$ とし、状態空間上の数え上げ測度（counting measure）を $\\\#$ とすると、$p_X(x)=\frac{\mathrm{d}P_X}{\mathrm{d}\\\#}(x)$ と定義できる。
+連続分布かつその分布がLebesgue測度に対して絶対連続な場合には、基準測度としてLebesgue測度を用いる。
+<!-- to LLM: ここの $\\\#$ を直すな。これは意図的。 -->
 
 この間とある飲み会に行って、機械学習系の会議に出した最適化の論文(上記)で、Radon–Nikodym derivativeを持ち出したという話を友人にしたら、査読者が困っちゃうよと言われました。現に私があんまり分からなくなっているので、そうかも知れません。
 
@@ -1068,16 +1249,20 @@ https://peng225.hatenablog.com/entry/2025/04/04/124548
 
 https://arxiv.org/pdf/1811.12231
 
-![ResNet_IMAGENET-TRAINED-CNNS-ARE-BIASED-TOWARDS-TEXTURE](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/ResNet/IMAGENET-TRAINED-CNNS-ARE-BIASED-TOWARDS-TEXTURE.png)
+<!-- ![ResNet_IMAGENET-TRAINED-CNNS-ARE-BIASED-TOWARDS-TEXTURE](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/ResNet/IMAGENET-TRAINED-CNNS-ARE-BIASED-TOWARDS-TEXTURE.png) -->
+
+![ResNet_IMAGENET-TRAINED-CNNS-ARE-BIASED-TOWARDS-TEXTURE-2](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/ResNet/IMAGENET-TRAINED-CNNS-ARE-BIASED-TOWARDS-TEXTURE-2.png)
 
 https://ja.wikipedia.org/wiki/%E6%AE%8B%E5%B7%AE%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF
 
 ![ResNet_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/ResNet/Wiki.png)
 
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E6%AE%8B%E5%B7%AE%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 解説:
 
 現代では古典的手法なのかも知れない。
-2022年には、局所的な情報(texture)に引っ張られやすいという性質が指摘され、改善されている。
+2018年には、ImageNetで学習したCNN（ResNet-50を含む）が、大域的な形状よりも局所的な情報(texture)に引っ張られやすい傾向が指摘されている。
 
 ### Satisfiability Modulo Theories
 
@@ -1086,6 +1271,8 @@ https://ja.wikipedia.org/wiki/%E6%AE%8B%E5%B7%AE%E3%83%8D%E3%83%83%E3%83%88%E3%8
 https://ja.wikipedia.org/wiki/%E5%85%85%E8%B6%B3%E5%8F%AF%E8%83%BD%E6%80%A7%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%AD%E7%90%86%E8%AB%96
 
 ![SatisfiabilityModuloTheories_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/SatisfiabilityModuloTheories/Wiki.png)
+
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E5%85%85%E8%B6%B3%E5%8F%AF%E8%83%BD%E6%80%A7%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%AD%E7%90%86%E8%AB%96>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 解説:
 
@@ -1100,6 +1287,8 @@ Leanなどの定理証明支援系と比べると、表現能力は劣るが、�
 https://en.wikipedia.org/wiki/Set-valued_function
 
 ![SetValuedFunction_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/SetValuedFunction/Wiki.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Set-valued_function>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。 画像: [Multivalued function.svg](<https://commons.wikimedia.org/wiki/File:Multivalued_function.svg>) / Schapel / Public domain。
 
 https://books.google.com.pa/books?id=tiBtC4GmuKcC
 
@@ -1138,11 +1327,15 @@ https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%84%E3%83%AB%E3%83%A0%E3%81%AE%E5%A
 
 ![Sturm'sTheorem_Wiki-Theorem](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Sturm%27sTheorem/Wiki-Theorem.png)
 
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%84%E3%83%AB%E3%83%A0%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 ![Sturm'sTheorem_Wiki-Method](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Sturm%27sTheorem/Wiki-Method.png)
+
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%84%E3%83%AB%E3%83%A0%E3%81%AE%E5%AE%9A%E7%90%86>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
 
 https://www.fit.ac.jp/~h-takeda/conf/files/2015/yotsutani/02.pdf
 
-![Sturm'sTheorem_HiroshiTakeda-Slide](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Sturm%27sTheorem/HiroshiTakeda-Slide.png)
+<!-- ![Sturm'sTheorem_HiroshiTakeda-Slide](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Sturm%27sTheorem/HiroshiTakeda-Slide.png) -->
 
 解説:
 
@@ -1159,7 +1352,7 @@ https://en.wikipedia.org/wiki/Ursescu_theorem
 
 解説:
 
-難しい。
+難しい。set-valued mapの話。
 将来的に追記予定。
 
 ### Wasserstein DRO
@@ -1172,7 +1365,11 @@ https://arxiv.org/pdf/2608.18123
 
 https://doi.org/10.1007/s10107-017-1172-1
 
-(上記の Esfahani and Kuhn (2018) にあたる)
+(上記の Esfahani and Kuhn (2018) にあたる。この論文は特別にOpen Accessで引用可能)
+
+Mohajerin Esfahani, P., Kuhn, D. Data-driven distributionally robust optimization using the Wasserstein metric: performance guarantees and tractable reformulations. Math. Program. 171, 115–166 (2018). https://doi.org/10.1007/s10107-017-1172-1
+
+([CC BY 4.0](http://creativecommons.org/licenses/by/4.0/))
 
 ![WassersteinDRO_Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/WassersteinDRO/Data-driven-distributionally-robust-optimization-using-the-Wasserstein-metric-1.png)
 
@@ -1193,14 +1390,18 @@ https://en.wikipedia.org/wiki/%C5%81ojasiewicz_inequality
 
 ![Łojasiewiczinequality_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/%C5%81ojasiewiczinequality/Wiki.png)
 
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/%C5%81ojasiewicz_inequality>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)。スクリーンショット・切り抜き。
+
 解説:
 
 一見するとかなり別々の条件を同じ名前で呼んでいるように見える。
 前者は零点集合からの距離と関数値の関係であり、後者は関数値と勾配の関係となっている。
-しかし、式の形をざっくりと見れば、不等号、絶対値、べき乗、定数などと要素は似ているので、その辺を広く捉えたのがŁojasiewicz inequalityなのだろうと理解出来る。
+式の形をざっくりと見れば、不等号、絶対値、べき乗、定数などと要素は似ているが、仮定や指数の置き方などに複数の流儀があることには注意が必要。
+
 なお、[Stanisław Łojasiewicz](https://en.wikipedia.org/wiki/Stanis%C5%82aw_%C5%81ojasiewicz)はポーランド人で、Łは[ポーランド語](https://ja.wikipedia.org/wiki/%C5%81)のようである。
+
 PL不等式も参照のこと。
 
 ## 最後に
 
-引用の仕方が不正確で申し訳ないですが、個人的なメモなためご容赦ください。
+今後も追加予定です。

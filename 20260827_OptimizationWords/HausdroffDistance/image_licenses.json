@@ -1,0 +1,15 @@
+{
+  "images": {
+    "Wiki.png": {
+      "embedded_media": [
+        {
+          "title": "Hausdorff distance sample.svg",
+          "author": "Rocchini",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Hausdorff_distance_sample.svg",
+          "license": "CC BY 3.0",
+          "license_url": "https://creativecommons.org/licenses/by/3.0/"
+        }
+      ]
+    }
+  }
+}

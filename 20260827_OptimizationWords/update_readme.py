@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import html
+import json
 import os
 import re
 import subprocess
@@ -18,6 +19,9 @@ INDEX_MARKER = "<!-- INDEX -->"
 WORDS_MARKER = "<!-- WORDS -->"
 README_NAME = "README.md"
 DEFAULT_BRANCH = "main"
+IMAGE_LICENSES_NAME = "image_licenses.json"
+WIKIPEDIA_TEXT_LICENSE_NAME = "CC BY-SA 4.0"
+WIKIPEDIA_TEXT_LICENSE_URL = "https://creativecommons.org/licenses/by-sa/4.0/"
 
 ATX_HEADING_RE = re.compile(r"^(#{1,6})([ \t]+)(.*?)([ \t]+#+)?$", re.MULTILINE)
 MARKDOWN_IMAGE_RE = re.compile(
@@ -36,6 +40,9 @@ HTML_ALT_RE = re.compile(
 SECTION_HEADING_RE = re.compile(r"^##(?:[ \t]+|$)", re.MULTILINE)
 CAPITALIZED_WORD_DOUBLE_HYPHEN_RE = re.compile(
     r"(?<![A-Za-z])(?P<left>[A-Z][A-Za-z]*)--(?=[A-Z][A-Za-z]*(?![A-Za-z]))"
+)
+WIKIPEDIA_SOURCE_LINE_RE = re.compile(
+    r"(?m)^[ \t]*(?P<url>https?://[^\s/]+\.wikipedia\.org/wiki/\S+)[ \t]*$"
 )
 
 
@@ -59,6 +66,16 @@ class UnreplacedDoubleHyphen:
     line: int
     column: int
     text: str
+
+
+@dataclass(frozen=True)
+class LicensedMedia:
+    title: str
+    author: str
+    source_url: str
+    license_name: str
+    license_url: str | None
+    notice: str | None
 
 
 def run_git(repo_root: Path, *args: str) -> str:
@@ -256,22 +273,124 @@ def image_alt(target: str, source: Path) -> str | None:
     return f"{source.parent.name}_{image_path.stem}"
 
 
+def load_image_licenses(source: Path) -> dict[str, tuple[LicensedMedia, ...]]:
+    metadata_path = source.parent / IMAGE_LICENSES_NAME
+    if not metadata_path.is_file():
+        return {}
+
+    try:
+        document = json.loads(read_utf8(metadata_path))
+    except json.JSONDecodeError as exc:
+        raise SystemExit(f"画像ライセンスJSONが不正です: {metadata_path}: {exc}") from exc
+
+    images = document.get("images") if isinstance(document, dict) else None
+    if not isinstance(images, dict):
+        raise SystemExit(f"imagesオブジェクトがありません: {metadata_path}")
+
+    result: dict[str, tuple[LicensedMedia, ...]] = {}
+    for filename, image_data in images.items():
+        if not isinstance(filename, str) or not isinstance(image_data, dict):
+            raise SystemExit(f"画像ライセンスの項目が不正です: {metadata_path}")
+        image_path = source.parent / filename
+        if not image_path.is_file():
+            raise SystemExit(f"ライセンス対象の画像がありません: {image_path}")
+        media_items = image_data.get("embedded_media")
+        if not isinstance(media_items, list) or not media_items:
+            raise SystemExit(f"embedded_mediaがありません: {metadata_path}: {filename}")
+
+        parsed_items: list[LicensedMedia] = []
+        for item in media_items:
+            if not isinstance(item, dict):
+                raise SystemExit(f"embedded_mediaの項目が不正です: {metadata_path}: {filename}")
+            required = ("title", "author", "source_url", "license")
+            if any(not isinstance(item.get(key), str) or not item[key] for key in required):
+                raise SystemExit(f"画像ライセンスの必須値がありません: {metadata_path}: {filename}")
+            license_url = item.get("license_url")
+            if license_url is not None and not isinstance(license_url, str):
+                raise SystemExit(f"license_urlが不正です: {metadata_path}: {filename}")
+            notice = item.get("notice")
+            if notice is not None and (not isinstance(notice, str) or not notice):
+                raise SystemExit(f"noticeが不正です: {metadata_path}: {filename}")
+            parsed_items.append(
+                LicensedMedia(
+                    title=item["title"],
+                    author=item["author"],
+                    source_url=item["source_url"],
+                    license_name=item["license"],
+                    license_url=license_url,
+                    notice=notice,
+                )
+            )
+        result[filename] = tuple(parsed_items)
+    return result
+
+
+def wikipedia_source_before(text: str, offset: int, source: Path) -> str:
+    matches = list(WIKIPEDIA_SOURCE_LINE_RE.finditer(text, 0, offset))
+    if not matches:
+        raise SystemExit(f"Wikipedia画像より前に出典URLがありません: {source}")
+    return matches[-1].group("url")
+
+
+def escape_markdown_label(value: str) -> str:
+    return value.replace("\\", "\\\\").replace("[", "\\[").replace("]", "\\]")
+
+
+def wikipedia_attribution(
+    source_url: str, media_items: tuple[LicensedMedia, ...]
+) -> str:
+    parts = [
+        f"出典: [Wikipedia contributors](<{source_url}>), "
+        f"[{WIKIPEDIA_TEXT_LICENSE_NAME}]({WIKIPEDIA_TEXT_LICENSE_URL})。"
+        "スクリーンショット・切り抜き。"
+    ]
+    notices: list[str] = []
+    for item in media_items:
+        title = escape_markdown_label(item.title)
+        author = escape_markdown_label(item.author)
+        license_text = escape_markdown_label(item.license_name)
+        if item.license_url:
+            license_display = f"[{license_text}](<{item.license_url}>)"
+        else:
+            license_display = license_text
+        parts.append(
+            f"画像: [{title}](<{item.source_url}>) / {author} / {license_display}。"
+        )
+        if item.notice:
+            notices.append(
+                "\n\n<details><summary>"
+                f"{title} のライセンス告知全文"
+                "</summary>\n\n```text\n"
+                f"{item.notice.rstrip()}\n"
+                "```\n\n</details>"
+            )
+    return " ".join(parts) + "".join(notices)
+
+
 def rewrite_images(
     text: str, source: Path, repo_root: Path, repository: str, branch: str
 ) -> str:
+    image_licenses = load_image_licenses(source)
+
     def replace_markdown(match: re.Match[str]) -> str:
         original_target = match.group("target")
         target = raw_image_url(
             original_target, source, repo_root, repository, branch
         )
         alt = image_alt(original_target, source) or match.group("alt")
-        return (
+        rendered = (
             match.group("prefix")
             + alt
             + match.group("middle")
             + target
             + match.group("suffix")
         )
+        image_path = local_image_path(original_target, source)
+        if image_path is not None and image_path.stem.startswith("Wiki"):
+            wikipedia_source = wikipedia_source_before(text, match.start(), source)
+            media_items = image_licenses.get(image_path.name, ())
+            rendered += "\n\n" + wikipedia_attribution(wikipedia_source, media_items)
+        return rendered
 
     def replace_html_tag(match: re.Match[str]) -> str:
         tag = match.group(0)

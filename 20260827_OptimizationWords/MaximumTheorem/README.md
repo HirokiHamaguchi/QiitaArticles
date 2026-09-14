@@ -14,7 +14,11 @@ https://en.wikipedia.org/wiki/Maximum_theorem
 
 https://arxiv.org/abs/2608.25789
 
-![Sequential-Stability-of-the-Value-Function-and-the-Solution-Mapping-in-Berge's-Maximum-Theorem-via-Variational-Convergence](Sequential-Stability-of-the-Value-Function-and-the-Solution-Mapping-in-Berge's-Maximum-Theorem-via-Variational-Convergence.png)
+<!-- ![Sequential-Stability-of-the-Value-Function-and-the-Solution-Mapping-in-Berge's-Maximum-Theorem-via-Variational-Convergence](Sequential-Stability-of-the-Value-Function-and-the-Solution-Mapping-in-Berge's-Maximum-Theorem-via-Variational-Convergence.png) -->
+
+> Berge’s maximum theorem holds significant relevance in fields such as economic theory, optimal control, and optimization theory. For instance, in demand theory, it is concerned with an agent’s optimal consumption concerning prices and income, while in capital theory, with the optimal investment strategy based on the existing capital stock.
+
+(本論文のSection 1より引用)
 
 解説:
 

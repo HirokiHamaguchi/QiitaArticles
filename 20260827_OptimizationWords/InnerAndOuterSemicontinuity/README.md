@@ -8,4 +8,4 @@ https://en.wikipedia.org/wiki/Semi-continuity
 
 解説:
 
-詳細はHemicontinuityを参照のこと。
+[Hemicontinuity](https://en.wikipedia.org/wiki/Hemicontinuity)も参照のこと。

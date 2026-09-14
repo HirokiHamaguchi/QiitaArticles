@@ -4,19 +4,19 @@
 
 https://doi.org/10.1007/978-0-387-40065-5
 
-Wright, Stephen J., and Jorge Nocedal. "Numerical optimization." における説明
+Wright, Stephen J., and Jorge Nocedal. "Numerical optimization." における説明はAlgorithm 4.4に該当。
 
-![Numerical-Optimization.png](Numerical-Optimization.png)
+<!-- ![Numerical-Optimization.png](Numerical-Optimization.png) -->
 
 https://doi.org/10.1137/0916069
 
-Richard H. Byrd, Peihuang Lu, Jorge Nocedal, and Ciyou Zhu. "A Limited Memory Algorithm for Bound Constrained Optimization." における説明
+Richard H. Byrd, Peihuang Lu, Jorge Nocedal, and Ciyou Zhu. "A Limited Memory Algorithm for Bound Constrained Optimization." における説明は主にSection 2に該当。
 
-![A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1](A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1.png)
+<!-- ![A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1](A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-1.png)
 
 ![A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-2](A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-2.png)
 
-![A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3](A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3.png)
+![A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3](A-Limited-Memory-Algorithm-for-Bound-Constrained-Optimization-3.png) -->
 
 解説:
 

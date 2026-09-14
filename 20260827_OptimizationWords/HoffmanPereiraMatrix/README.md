@@ -15,7 +15,7 @@ https://www.sciencedirect.com/science/article/pii/009731657390006X
 
 https://www.sciencedirect.com/science/article/pii/S0024379520304171
 
-![Testing-copositivity-via-mixed–integer-linear-programming](Testing-copositivity-via-mixed–integer-linear-programming.png)
+<!-- ![Testing-copositivity-via-mixed–integer-linear-programming](Testing-copositivity-via-mixed–integer-linear-programming.png) -->
 
 解説:
 

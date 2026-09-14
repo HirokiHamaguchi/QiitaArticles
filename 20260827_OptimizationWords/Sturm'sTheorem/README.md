@@ -12,7 +12,7 @@ https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%84%E3%83%AB%E3%83%A0%E3%81%AE%E5%A
 
 https://www.fit.ac.jp/~h-takeda/conf/files/2015/yotsutani/02.pdf
 
-![HiroshiTakeda-Slide](HiroshiTakeda-Slide.png)
+<!-- ![HiroshiTakeda-Slide](HiroshiTakeda-Slide.png) -->
 
 解説:
 

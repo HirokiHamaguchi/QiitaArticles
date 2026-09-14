@@ -8,11 +8,18 @@ https://en.wikipedia.org/wiki/Fredholm_alternative
 
 https://www.ism.ac.jp/~mirai/sscoke/2026/
 
-(松井知己先生による講義資料)
+(松井先生の講義資料, 10ページ辺り)
 
-![sscoke2026-tomomi-matsui](sscoke2026-tomomi-matsui.png)
+<!-- ![sscoke2026-tomomi-matsui](sscoke2026-tomomi-matsui.png) -->
 
 解説:
 
-書いてある通りだが、$b \in \mathrm{Im}(A)$ と $b \in \mathrm{Ker}(A^\top)^\perp$ が同値ということを言っているに過ぎない。
+任意の行列 $(A | b)$ に対し、$P: Ax = b$ か $D: y^\top A = 0^\top, y^\top b \neq 0$ のどちらか丁度1つのみが解を持つという定理。証明は簡単で、両方の解を $x^*, y^*$ として存在を仮定すると、次のように矛盾が導かれる。
+
+$$
+0 = 0^\top x^* = (y^*)^\top A x^* = (y^*)^\top b \neq 0
+$$
+
+これはつまり、$b \in \mathrm{Im}(A)$ と $b \in \mathrm{Ker}(A^\top)^\perp$ が同値ということを言っているに過ぎない。
+
 [Farkas' lemmaのcorollary](https://en.wikipedia.org/wiki/Farkas%27_lemma)として得られる。

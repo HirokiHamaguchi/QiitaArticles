@@ -1,0 +1,20 @@
+{
+  "images": {
+    "Wiki.png": {
+      "embedded_media": [
+        {
+          "title": "Quasiconvex function.png",
+          "author": "Oleg Alexandrov",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Quasiconvex_function.png",
+          "license": "Public domain"
+        },
+        {
+          "title": "Nonquasiconvex function.png",
+          "author": "Oleg Alexandrov",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Nonquasiconvex_function.png",
+          "license": "Public domain"
+        }
+      ]
+    }
+  }
+}
