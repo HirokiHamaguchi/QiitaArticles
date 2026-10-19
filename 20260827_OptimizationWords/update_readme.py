@@ -22,6 +22,7 @@ DEFAULT_BRANCH = "main"
 IMAGE_LICENSES_NAME = "image_licenses.json"
 WIKIPEDIA_TEXT_LICENSE_NAME = "CC BY-SA 4.0"
 WIKIPEDIA_TEXT_LICENSE_URL = "https://creativecommons.org/licenses/by-sa/4.0/"
+SMALL_WORDS = set("a an the and but or nor as at by for from in of on to via with".split())
 
 ATX_HEADING_RE = re.compile(r"^(#{1,6})([ \t]+)(.*?)([ \t]+#+)?$", re.MULTILINE)
 MARKDOWN_IMAGE_RE = re.compile(
@@ -76,6 +77,55 @@ class LicensedMedia:
     license_name: str
     license_url: str | None
     notice: str | None
+
+
+def default_directory_name(title: str) -> str:
+    """Join capitalized words, omitting accents and word separators."""
+    if title == "(L0, L1) Smoothness":
+        return "L0L1Smoothness"
+    title = "".join(
+        char
+        for char in unicodedata.normalize("NFD", title)
+        if not unicodedata.combining(char)
+    )
+    return "".join(
+        word[:1].upper() + word[1:]
+        for word in re.split(r"[\s\-–—]+", title)
+    )
+
+
+def title_case(title: str) -> str:
+    """Check title case while preserving acronyms and internal capitals."""
+    parts = re.split(r"([\s\-–—]+)", title)
+    for index in range(0, len(parts), 2):
+        word = parts[index]
+        if 0 < index < len(parts) - 1 and word.lower() in SMALL_WORDS:
+            parts[index] = word.lower()
+        else:
+            parts[index] = word[:1].upper() + word[1:]
+    return "".join(parts)
+
+
+def check_names(directory: Path) -> list[str]:
+    """Check heading/directory formatting, not spelling or term meanings."""
+    errors = []
+    for source in sorted(directory.glob("*/README.md")):
+        label = source.relative_to(directory)
+        lines = source.read_text(encoding="utf-8").splitlines()
+        if not lines or not lines[0].startswith("# "):
+            errors.append(f"{label}:1: expected '# Title' on the first line")
+            continue
+        title = lines[0][2:].strip()
+        if not title:
+            errors.append(f"{label}:1: empty title")
+            continue
+        expected_title = title_case(title)
+        if title != expected_title:
+            errors.append(f"{label}:1: title {title!r} -> {expected_title!r}")
+        expected_directory = default_directory_name(expected_title)
+        if source.parent.name != expected_directory:
+            errors.append(f"{label}: directory -> {expected_directory!r}")
+    return errors
 
 
 def run_git(repo_root: Path, *args: str) -> str:
@@ -568,6 +618,8 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     directory = Path(__file__).resolve().parent
+    naming_errors = check_names(directory)
+    assert not naming_errors, "\n".join(naming_errors)
     readme_path = directory / README_NAME
     repo_root = find_repo_root(directory)
     repository = github_repository(repo_root)

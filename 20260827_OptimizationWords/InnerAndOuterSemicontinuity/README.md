@@ -1,4 +1,4 @@
-# Inner And Outer Semicontinuity
+# Inner and Outer Semicontinuity
 
 文献:
 

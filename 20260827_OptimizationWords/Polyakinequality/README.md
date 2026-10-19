@@ -1,4 +1,4 @@
-# Polyak inequality
+# Polyak Inequality
 
 文献:
 

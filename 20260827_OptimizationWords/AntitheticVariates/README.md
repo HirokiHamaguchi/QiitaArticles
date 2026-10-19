@@ -1,4 +1,4 @@
-# Antithetic variates
+# Antithetic Variates
 
 文献:
 

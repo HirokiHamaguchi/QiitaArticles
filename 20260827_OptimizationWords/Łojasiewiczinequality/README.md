@@ -1,4 +1,4 @@
-# Łojasiewicz inequality
+# Łojasiewicz Inequality
 
 文献:
 

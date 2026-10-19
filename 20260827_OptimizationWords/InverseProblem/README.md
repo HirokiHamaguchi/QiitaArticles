@@ -1,4 +1,4 @@
-# InverseProblem
+# Inverse Problem
 
 文献:
 

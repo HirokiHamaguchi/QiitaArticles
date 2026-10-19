@@ -12,6 +12,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from update_readme import default_directory_name
+
 
 WINDOWS_FORBIDDEN_RE = re.compile(r'[<>:"/\\|?*\x00-\x1f]')
 URL_REFERENCE_RE = re.compile(
@@ -31,11 +33,6 @@ WINDOWS_RESERVED_NAMES = {
 class ClipboardImage:
     filename: str
     image: Any
-
-
-def default_directory_name(title: str) -> str:
-    """Follow the compact directory naming style used by existing entries."""
-    return re.sub(r"[\s\-–—]+", "", title)
 
 
 def validate_windows_name(name: str, kind: str) -> str:
