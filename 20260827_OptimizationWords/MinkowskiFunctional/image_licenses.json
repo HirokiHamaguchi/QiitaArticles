@@ -1,0 +1,15 @@
+{
+  "images": {
+    "Wiki.png": {
+      "embedded_media": [
+        {
+          "title": "Minkowski functional.svg",
+          "author": "HB",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Minkowski_functional.svg",
+          "license": "CC BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+        }
+      ]
+    }
+  }
+}

@@ -1,4 +1,4 @@
-# Hausdroff Distance
+# Hausdorff Distance
 
 文献:
 
