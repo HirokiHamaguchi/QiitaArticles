@@ -558,13 +558,21 @@ https://www.ism.ac.jp/~mirai/sscoke/2026/
 
 解説:
 
-任意の行列 $(A | b)$ に対し、$P: Ax = b$ か $D: y^\top A = 0^\top, y^\top b \neq 0$ のどちらか丁度1つのみが解を持つという定理。証明は簡単で、両方の解を $x^\ast, y^\ast$ として存在を仮定すると、次のように矛盾が導かれる。
+実行列 $A \in \mathbb{R}^{m \times n}$ と $b \in \mathbb{R}^m$ に対し、$P: A x = b$ か $D: y^\top A = 0^\top, y^\top b \neq 0$ のどちらか丁度1つのみが解を持つという定理。
+まず、両方の解 $x^\ast, y^\ast$ が存在すると仮定すると、次のように矛盾が導かれる。
 
 $$
-0 = 0^\top x^\ast = (y^\ast)^\top A x^\ast = (y^\ast)^\top b \neq 0
+\begin{equation*}
+    0 = 0^\top x^\ast = (y^\ast)^\top A x^\ast = (y^\ast)^\top b \neq 0
+\end{equation*}
 $$
 
-これはつまり、$b \in \mathrm{Im}(A)$ と $b \in \mathrm{Ker}(A^\top)^\perp$ が同値ということを言っているに過ぎない。
+これで、両方が同時に解を持つことはないと分かる。
+
+一方、$P$ に解がなければ $b \notin \mathrm{Im}(A) = \ker(A^\top)^\perp$ なので、$b$ は $\ker(A^\top)$ の全ての元と直交するわけではない。
+ここで、$b$ と直交しない元 $y \in \ker(A^\top)$ を取る。
+$y \in \ker(A^\top) \iff A^\top y = 0 \iff y^\top A = 0^\top$ であり、さらに $y^\top b \neq 0$ なので、$D$ に解が存在することになる。
+よって、二者択一性が示される。
 
 [Farkas' lemmaのcorollary](https://en.wikipedia.org/wiki/Farkas%27_lemma)として得られる。
 
@@ -666,9 +674,15 @@ https://arxiv.org/abs/1604.06174
 
 Gradient Checkpointingは、誤差逆伝播法における勾配計算において、中間出力を一部のみ残して破棄し、逆伝播時に再計算することでメモリコストを削減する手法のこと。
 
-中間出力に関する $\mathcal{O}(n)$ のメモリコストを $\mathcal{O}(\sqrt{n})$ に削減することができる。計算量からも分かる通り、発想として平方分割に極めて近い。
+$n$ 層の逐次的ネットワークで、各層の中間出力サイズが $\mathcal{O}(1)$ 程度のものを考える。普通に全ての中間出力を保存する場合は、空間計算量は $\mathcal{O}(n)$ となる。
 
-一度削除した順方向の中間出力を、逆伝播時に再計算するので、30%程度の計算時間の増加は報告されているが、オーダーレベルでメモリ削減できるのが偉い。
+一方で、約 $\sqrt{n}$ 層ごとに中間出力を保存する場合、保存するチェックポイントと、再計算時に1区間内で保持する中間出力はそれぞれ $\mathcal{O}(\sqrt{n})$ 個なので、 $\mathcal{O}(\sqrt{n})$ に空間計算量を削減できる。
+発想としては平方分割に極めて近い。
+
+なお、このオーダーは一般の計算グラフで常に成立する訳ではないので、そこは注意が必要。
+
+また、一度削除した順方向の中間出力を、逆伝播時に再計算するので、計算時間は増加する。
+上記論文では、モデル構造やチェックポイントの配置によって多少変わるものの、ImageNet に対する1,000層の ResNet の実験で約30%の実行時間増加が報告されている。
 
 最適化の文脈で言えば、数値実験を回していてメモリが不足した時に検討しうる手法の一つ。
 
@@ -686,11 +700,16 @@ https://en.wikipedia.org/wiki/Graphical_lasso
 
 出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Graphical_lasso>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 画像: [Multivariate Gaussian.png](<https://commons.wikimedia.org/wiki/File:Multivariate_Gaussian.png>) / Piotrg~commonswiki / [CC BY-SA 3.0](<https://creativecommons.org/licenses/by-sa/3.0/>)。
 
+https://hastie.su.domains/Papers/graph.pdf
+
 解説:
 
-Graphical Lassoという名前であるが、そのグラフ要素は手法自体には出てこない。本質的にやっていることは多変量正規分布の逆共分散行列(精度行列、precision matrixとも)に関する、$L_1$ 正則化付きの推定に過ぎない。この手法の導出は、確率密度関数よりほぼ自明である。
+Graphical Lassoという名前であるが、グラフ要素は手法自体には出てこない。本質的にやっていることは多変量正規分布の逆共分散行列(精度行列、precision matrixとも)を、$L_1$ 正則化付きの最尤推定によって疎に推定すること。
 
-$L_1$ 正則化をつけているから、逆行列に疎行列が出てきて、それがグラフにみなせて、解釈が楽になる、という話と理解している。
+目的関数は、多変量正規分布の負の対数尤度に $L_1$ 正則化項を加えることで得られる。これで疎性が出てくる。通常の Lasso は回帰係数を疎にするのに対し、Graphical Lasso は精度行列を疎にして条件付き独立構造を推定している。
+
+共分散行列が正定値の多変量正規分布では、精度行列の $(i, j)$ 成分がゼロであること（$i \neq j$）と、変数 $X_i$ と $X_j$ が残りの全ての変数を条件として独立であることが同値になる。
+その為、変数を頂点とし、推定した精度行列の非ゼロの非対角成分に対応する辺を結んだ無向グラフは、推定されたガウス分布の条件付き依存構造を表す。
 
 ### Growth Condition
 
@@ -1050,7 +1069,10 @@ https://arxiv.org/abs/2608.25789
 
 解説:
 
-この定理は、パラメータに依存する最適化問題が、パラメータに関して連続的な解を持つための条件を提供している。
+(Berge の) Maximum Theoremは、パラメータに依存する最適化問題について、最適値関数の連続性と最適解写像（各パラメータに最適解の集合を対応させる集合値写像）の上半連続性を保証する定理。
+典型的には、目的関数が連続で、実行可能集合を与える対応が非空・コンパクト値かつ連続であることを仮定する。
+
+各パラメータで最適解が一意なら解写像の連続性も得られるが、一般には連続な最適解の選択が存在するとは限らない。
 
 ### Minimax Theorem
 
@@ -1521,7 +1543,9 @@ $$
 \end{equation*}
 $$
 
-任意の $n$ でshatteringが可能であれば、$\mathrm{VCdim}(\mathcal{H})=\infty$ となる。
+有限の正の VC 次元なら、最大値が存在する。
+任意に大きい有限集合を shatter できる場合は $\mathrm{VCdim}(\mathcal{H}) = \infty$ とする。
+以上、金森敬文『統計的学習理論』の説明に合わせて `max` を用いたが、外側の `max` を `sup` に置き換えて定義可能。
 
 最適化文脈では、計算量やオラクル数の下界の文脈で類似の概念が使われることがある。
 

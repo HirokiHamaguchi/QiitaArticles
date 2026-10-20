@@ -21,6 +21,15 @@ def get_target_directory(date_str, base_dir):
 
 
 def get_latest_modified_directory(base_dir):
+    ignored_dirs = {
+        ".git",
+        ".lake",
+        ".mypy_cache",
+        ".pytest_cache",
+        ".venv",
+        "__pycache__",
+        "node_modules",
+    }
     candidates = [
         d
         for d in os.listdir(base_dir)
@@ -31,7 +40,8 @@ def get_latest_modified_directory(base_dir):
 
     def get_dir_latest_file_mtime(dir_path):
         mtime = os.path.getmtime(dir_path)
-        for root, _, files in os.walk(dir_path):
+        for root, dirs, files in os.walk(dir_path):
+            dirs[:] = [d for d in dirs if d not in ignored_dirs]
             for file in files:
                 file_path = os.path.join(root, file)
                 mtime = max(mtime, os.path.getmtime(file_path))

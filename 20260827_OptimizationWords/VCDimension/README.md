@@ -26,6 +26,8 @@ $$
 \end{equation*}
 $$
 
-任意の $n$ でshatteringが可能であれば、$\mathrm{VCdim}(\mathcal{H})=\infty$ となる。
+有限の正の VC 次元なら、最大値が存在する。
+任意に大きい有限集合を shatter できる場合は $\mathrm{VCdim}(\mathcal{H}) = \infty$ とする。
+以上、金森敬文『統計的学習理論』の説明に合わせて `max` を用いたが、外側の `max` を `sup` に置き換えて定義可能。
 
 最適化文脈では、計算量やオラクル数の下界の文脈で類似の概念が使われることがある。
