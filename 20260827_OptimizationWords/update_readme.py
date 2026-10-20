@@ -42,6 +42,7 @@ SECTION_HEADING_RE = re.compile(r"^##(?:[ \t]+|$)", re.MULTILINE)
 CAPITALIZED_WORD_DOUBLE_HYPHEN_RE = re.compile(
     r"(?<![A-Za-z])(?P<left>[A-Z][A-Za-z]*)--(?=[A-Z][A-Za-z]*(?![A-Za-z]))"
 )
+HTML_COMMENT_RE = re.compile(r"<!--.*?(?:-->|\Z)", re.DOTALL)
 WIKIPEDIA_SOURCE_LINE_RE = re.compile(
     r"(?m)^[ \t]*(?P<url>https?://[^\s/]+\.wikipedia\.org/wiki/\S+)[ \t]*$"
 )
@@ -242,21 +243,25 @@ def replace_name_dashes(
     """Replace ``--`` between capitalized English words with an en dash."""
     protected_spans = [
         match.span()
-        for pattern in (MARKDOWN_IMAGE_RE, HTML_IMAGE_TAG_RE)
+        for pattern in (
+            MARKDOWN_IMAGE_RE,
+            HTML_IMAGE_TAG_RE,
+            HTML_COMMENT_RE,
+        )
         for match in pattern.finditer(text)
     ]
 
-    def is_in_image(offset: int) -> bool:
+    def is_protected(offset: int) -> bool:
         return any(start <= offset < end for start, end in protected_spans)
 
     converted_offsets = {
         match.end() - 2
         for match in CAPITALIZED_WORD_DOUBLE_HYPHEN_RE.finditer(text)
-        if not is_in_image(match.end() - 2)
+        if not is_protected(match.end() - 2)
     }
 
     def replace_match(match: re.Match[str]) -> str:
-        if is_in_image(match.end() - 2):
+        if is_protected(match.end() - 2):
             return match.group(0)
         return match.group("left") + "–"
 
@@ -267,9 +272,17 @@ def replace_name_dashes(
         text.splitlines(keepends=True), start=1
     ):
         line = line_with_ending.rstrip("\r\n")
+        line_chars = set(line) - {" ", "\t"}
+        is_separator = (
+            "|" in line_chars and line_chars <= {"|", ":", "-"}
+        ) or (line_chars == {"-"} and line.count("-") >= 3)
         for match in re.finditer(r"--", line):
             absolute_offset = offset + match.start()
-            if absolute_offset in converted_offsets or is_in_image(absolute_offset):
+            if (
+                is_separator
+                or absolute_offset in converted_offsets
+                or is_protected(absolute_offset)
+            ):
                 continue
             unreplaced.append(
                 UnreplacedDoubleHyphen(

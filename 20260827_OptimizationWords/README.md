@@ -15,17 +15,19 @@
     - [(L0, L1) Smoothness](#l0-l1-smoothness)
     - [Additive Smoothing](#additive-smoothing)
     - [Alexandrov Theorem](#alexandrov-theorem)
-    - [Antithetic variates](#antithetic-variates)
+    - [Antithetic Variates](#antithetic-variates)
     - [Asplund Space](#asplund-space)
     - [Augmented Lagrangian Method](#augmented-lagrangian-method)
     - [Basic Linear Algebra Subprograms](#basic-linear-algebra-subprograms)
     - [Bayesian Network](#bayesian-network)
+    - [Bellman Equation](#bellman-equation)
     - [Carathéodory's Extension Theorem](#carathéodorys-extension-theorem)
     - [Carathéodory's Theorem (Convex Hull)](#carathéodorys-theorem-convex-hull)
     - [Cheeger Constant](#cheeger-constant)
     - [Copositive Matrix](#copositive-matrix)
     - [Cosmic Closure](#cosmic-closure)
     - [Danskin's Theorem](#danskins-theorem)
+    - [Decision-Focused Learning](#decision-focused-learning)
     - [Dini Derivative](#dini-derivative)
     - [Eckart–Young–Mirsky Theorem](#eckartyoungmirsky-theorem)
     - [Epi-Convergence](#epi-convergence)
@@ -34,23 +36,26 @@
     - [Fully Composite](#fully-composite)
     - [Generalized Cauchy Point](#generalized-cauchy-point)
     - [Generalized Moment Problem](#generalized-moment-problem)
+    - [Gradient Checkpointing](#gradient-checkpointing)
     - [Graphical Lasso](#graphical-lasso)
     - [Growth Condition](#growth-condition)
     - [Hadamard Manifold](#hadamard-manifold)
-    - [Hausdroff Distance](#hausdroff-distance)
+    - [Hausdorff Distance](#hausdorff-distance)
     - [Heavy-Ball Method](#heavy-ball-method)
     - [Hoffman–Pereira Matrix](#hoffmanpereira-matrix)
     - [Hopf–Rinow Theorem](#hopfrinow-theorem)
-    - [Inner And Outer Semicontinuity](#inner-and-outer-semicontinuity)
-    - [InverseProblem](#inverseproblem)
+    - [Inner and Outer Semicontinuity](#inner-and-outer-semicontinuity)
+    - [Inverse Problem](#inverse-problem)
     - [Invex Function](#invex-function)
     - [Itoh–Abe Method](#itohabe-method)
     - [John Ellipsoid](#john-ellipsoid)
-    - [KL property](#kl-property)
+    - [KL Property](#kl-property)
     - [Linear Minimization Oracle](#linear-minimization-oracle)
     - [Locus](#locus)
+    - [Master Equation](#master-equation)
     - [Maximum Theorem](#maximum-theorem)
     - [Minimax Theorem](#minimax-theorem)
+    - [Minkowski Functional](#minkowski-functional)
     - [Minkowski–Weyl Theorem](#minkowskiweyl-theorem)
     - [Motzkin's Transposition Theorem](#motzkins-transposition-theorem)
     - [Motzkin–Straus Formulation](#motzkinstraus-formulation)
@@ -58,9 +63,11 @@
     - [Newton–Schulz](#newtonschulz)
     - [Neyman–Pearson Classification](#neymanpearson-classification)
     - [Ordinal Regression](#ordinal-regression)
-    - [Polyak inequality](#polyak-inequality)
+    - [Polyak Inequality](#polyak-inequality)
     - [Prioritized Constraints](#prioritized-constraints)
+    - [Prune and Search](#prune-and-search)
     - [Quasiconvex](#quasiconvex)
+    - [R-Convergence](#r-convergence)
     - [Radon's Theorem](#radons-theorem)
     - [Radon–Nikodym Derivative](#radonnikodym-derivative)
     - [ResNet](#resnet)
@@ -68,8 +75,10 @@
     - [Set-Valued Function](#set-valued-function)
     - [Sturm's Theorem](#sturms-theorem)
     - [Ursescu Theorem](#ursescu-theorem)
+    - [VC Dimension](#vc-dimension)
     - [Wasserstein DRO](#wasserstein-dro)
-    - [Łojasiewicz inequality](#łojasiewicz-inequality)
+    - [Weber Problem](#weber-problem)
+    - [Łojasiewicz Inequality](#łojasiewicz-inequality)
   - [最後に](#最後に)
 
 ## 引用について
@@ -144,7 +153,7 @@ https://en.wikipedia.org/wiki/Alexandrov_theorem
 
 詳細はRademacher's Theoremにて。
 
-### Antithetic variates
+### Antithetic Variates
 
 文献:
 
@@ -171,7 +180,7 @@ https://arxiv.org/abs/2608.26328
 
 https://en.wikipedia.org/wiki/Asplund_space
 
-![Asplund_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Asplund/Wiki.png)
+![AsplundSpace_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/AsplundSpace/Wiki.png)
 
 出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Asplund_space>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
@@ -224,6 +233,30 @@ https://ja.wikipedia.org/wiki/%E3%83%99%E3%82%A4%E3%82%B8%E3%82%A2%E3%83%B3%E3%8
 解説:
 
 [Graphical Model](https://en.wikipedia.org/wiki/Graphical_model)の特殊ケースとしてBayesian Networkが存在する。
+
+### Bellman Equation
+
+文献:
+
+https://ja.wikipedia.org/wiki/%E3%83%99%E3%83%AB%E3%83%9E%E3%83%B3%E6%96%B9%E7%A8%8B%E5%BC%8F
+
+![BellmanEquation_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/BellmanEquation/Wiki.png)
+
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%83%99%E3%83%AB%E3%83%9E%E3%83%B3%E6%96%B9%E7%A8%8B%E5%BC%8F>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+
+解説:
+
+動的計画法に関する最適性の必要条件を表す方程式。競プロ文脈との主要な違いは、$\beta$ が 1 未満であること。将来の価値を割り引くことで、有限時間での最適化を行うためである。
+
+現在の状態で得られる最大の価値 =「今得られる報酬」+「割り引いた将来の価値」が最大になるように行動を選んだ結果。
+
+| 記号 | 意味 |
+| --- | --- |
+| $V(x)$ | 状態 $x$ における最適な将来価値（価値関数） |
+| $\Gamma(x)$ | 状態 $x$ で選択可能な行動 $a$ の集合 |
+| $F(x,a)$ | 状態 $x$ で行動 $a$ を取った際の即時報酬 |
+| $\beta$ | 将来価値の割引係数（$0<\beta<1$） |
+| $V(T(x,a))$ | 次の状態 $T(x,a)$ における最適な将来価値 (再帰的定義) |
 
 ### Carathéodory's Extension Theorem
 
@@ -366,6 +399,24 @@ https://en.wikipedia.org/wiki/Danskin%27s_theorem
 minimax問題などにおける関数の勾配や劣勾配の計算に使われる定理。
 見れば分かる通り、もし最適解が一意でかつ(ラフな意味で)病的でなければ、これはかなり自明。
 本当に大切なのは、むしろ最適解が複数ある場合や、滑らかでない場合だろう。
+
+### Decision-Focused Learning
+
+文献:
+
+https://nttdocomo-developers.jp/entry/2025/12/17/090000_0
+
+解説:
+
+記事先の画像にある通りだが、予測誤差の最小化ではなく、意思決定の質の最適化をしましょうという話。
+
+標準的なアプローチはPFL。
+
+> まず未知のパラメータを機械学習モデルで予測し，その予測値をソルバーに入力して解を得るという Prediction-focused Learning (PFL) の枠組み
+
+一方で、ここで提案されているのは、DFL。
+
+> 単に機械学習で予測値と真値の距離を縮めるだけでは，必ずしもビジネス上のゴール（目的関数の最適化）に直結しない場合があります．そこで，予測自体の誤差ではなく，最終的な意思決定の質（コスト）を最小化するようにモデルを訓練させる Decision-Focused Learning (DFL) というアプローチが注目されています．DFLのサーベイ論文としてMandi et al. (2024)があります．
 
 ### Dini Derivative
 
@@ -603,6 +654,24 @@ https://books.google.co.jp/books?id=lFi7CgAAQBAJ
 未知の測度を変数とし、その[モーメント](https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%BC%E3%83%A1%E3%83%B3%E3%83%88_(%E6%95%B0%E5%AD%A6))に関する線形制約の下で測度の線形汎関数を最適化する無限次元線形計画問題である。
 データが多項式の場合は[the moment Sum-of-squares (SOS) hierarchy](https://arxiv.org/abs/2608.24184)による半正定値計画緩和で近似できる。
 
+### Gradient Checkpointing
+
+文献:
+
+https://zenn.dev/boh_mouse/articles/b207cf803da960
+
+https://arxiv.org/abs/1604.06174
+
+解説:
+
+Gradient Checkpointingは、誤差逆伝播法における勾配計算において、中間出力を一部のみ残して破棄し、逆伝播時に再計算することでメモリコストを削減する手法のこと。
+
+中間出力に関する $\mathcal{O}(n)$ のメモリコストを $\mathcal{O}(\sqrt{n})$ に削減することができる。計算量からも分かる通り、発想として平方分割に極めて近い。
+
+一度削除した順方向の中間出力を、逆伝播時に再計算するので、30%程度の計算時間の増加は報告されているが、オーダーレベルでメモリ削減できるのが偉い。
+
+最適化の文脈で言えば、数値実験を回していてメモリが不足した時に検討しうる手法の一つ。
+
 ### Graphical Lasso
 
 文献:
@@ -661,13 +730,13 @@ https://arxiv.org/pdf/2609.00540
 書いてある通りだが、断面曲率がどこでも0以下な、完備で単連結なリーマン多様体。
 双曲空間をイメージしておけば概ね良さそう。
 
-### Hausdroff Distance
+### Hausdorff Distance
 
 文献:
 
 https://en.wikipedia.org/wiki/Hausdorff_distance
 
-![HausdroffDistance_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/HausdroffDistance/Wiki.png)
+![HausdorffDistance_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/HausdorffDistance/Wiki.png)
 
 出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Hausdorff_distance>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 画像: [Hausdorff distance sample.svg](<https://commons.wikimedia.org/wiki/File:Hausdorff_distance_sample.svg>) / Rocchini / [CC BY 3.0](<https://creativecommons.org/licenses/by/3.0/>)。
 
@@ -770,7 +839,7 @@ https://en.wikipedia.org/wiki/Hopf%E2%80%93Rinow_theorem
 リーマン多様体上の最適化関連で出てくることもありそう。
 Hadamard Manifoldの項で出てきたので記した。
 
-### Inner And Outer Semicontinuity
+### Inner and Outer Semicontinuity
 
 文献:
 
@@ -784,7 +853,7 @@ https://en.wikipedia.org/wiki/Semi-continuity
 
 [Hemicontinuity](https://en.wikipedia.org/wiki/Hemicontinuity)も参照のこと。
 
-### InverseProblem
+### Inverse Problem
 
 文献:
 
@@ -876,7 +945,7 @@ https://en.wikipedia.org/wiki/John_ellipsoid
 
 [シュタイナーの内接楕円](https://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%A5%E3%82%BF%E3%82%A4%E3%83%8A%E3%83%BC%E3%81%AE%E5%86%85%E6%8E%A5%E6%A5%95%E5%86%86)は最大体積楕円体の特殊ケースである。
 
-### KL property
+### KL Property
 
 文献:
 
@@ -928,6 +997,28 @@ https://en.wikipedia.org/wiki/Locus_(mathematics)#History_and_philosophy
 
 画像にあるように、Zero locusなどで零点集合を指すので、そういった用例を時々見かける。
 
+### Master Equation
+
+文献:
+
+https://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC%E6%96%B9%E7%A8%8B%E5%BC%8F
+
+![MasterEquation_Wiki-ja](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MasterEquation/Wiki-ja.png)
+
+出典: [Wikipedia contributors](<https://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC%E6%96%B9%E7%A8%8B%E5%BC%8F>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+
+https://en.wikipedia.org/wiki/Master_equation
+
+![MasterEquation_Wiki-en](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MasterEquation/Wiki-en.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Master_equation>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+
+解説:
+
+どちらかというと制御の文脈。
+https://arxiv.org/abs/2609.16524
+連続版のマルコフ連鎖を記述していると捉えられる。
+
 ### Maximum Theorem
 
 文献:
@@ -977,6 +1068,23 @@ https://en.wikipedia.org/wiki/Minimax_theorem
 解説:
 
 ゲーム理論が発端になっているらしい。
+
+### Minkowski Functional
+
+文献:
+
+https://en.wikipedia.org/wiki/Minkowski_functional
+
+![MinkowskiFunctional_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/MinkowskiFunctional/Wiki.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Minkowski_functional>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 画像: [Minkowski functional.svg](<https://commons.wikimedia.org/wiki/File:Minkowski_functional.svg>) / HB / [CC BY-SA 4.0](<https://creativecommons.org/licenses/by-sa/4.0/>)。
+
+解説:
+
+Gauge Functionとも。
+$p_K(x) = \inf\{ r \in \mathbb{R} : r > 0 \text{ and } x \in r K \}$ が定義の本体。
+$rK$ というのがややトリッキーだが、$\frac{1}{r} x \in K$ と考えると、何倍伸ばしても同じ集合に入っているか、という数の逆数と捉えられる。
+[seminorm](https://en.wikipedia.org/wiki/Seminorm)と密接な関係。
 
 ### Minkowski–Weyl Theorem
 
@@ -1133,13 +1241,13 @@ https://en.wikipedia.org/wiki/Ordinal_regression
 順序回帰は順序はあるものの間隔を数量化できない目的変数と、説明変数との関係をモデル化する回帰手法である。
 アンケート、疾患の重症度、信用格付けなどの予測に用いられる。
 
-### Polyak inequality
+### Polyak Inequality
 
 文献:
 
 https://en.wikipedia.org/wiki/%C5%81ojasiewicz_inequality
 
-![Polyakinequality_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/Polyakinequality/Wiki.png)
+![PolyakInequality_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/PolyakInequality/Wiki.png)
 
 出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/%C5%81ojasiewicz_inequality>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
@@ -1167,6 +1275,24 @@ https://www.sciencedirect.com/science/article/pii/S0005109801001431
 実務寄りの要求から考えられている設定だと思われる。
 そもそも制約が破られる前提でモデリングされていると思われ、通常の意味の制約とは性質が異なる。
 
+### Prune and Search
+
+文献:
+
+https://en.wikipedia.org/wiki/Prune_and_search
+
+https://qiita.com/zhidao/items/48c07500d8cde00ba4a1
+
+解説:
+
+制約数に対して線形時間のLPソルバー。ただし、固定低次元に限る。MegiddoとDyerの名を冠することが多い。
+
+IEEEの[Low-dimensional linear programming with violations](https://ieeexplore.ieee.org/document/1181981)という論文では、次のように記述されている。
+
+> Megiddo (1984) and Dyer (1984) showed that linear programming in 2 and 3 dimensions (and subsequently, any constant number of dimensions) can be solved in linear time.
+
+2次元ということで、パッと凸包が思い出されるが、あれは未整列な $n$ 点が与えられたときに $\mathcal{O}(n \log n)$ かかっていた。これはそういう手法とは異なり、名前の通り、理論保証付きの枝刈りをしていって、重要な制約だけを残していくことに本質がある。面白い。
+
 ### Quasiconvex
 
 文献:
@@ -1180,6 +1306,28 @@ https://en.wikipedia.org/wiki/Quasiconvex_function
 解説:
 
 [準凸関数](https://ja.wikipedia.org/wiki/%E6%BA%96%E5%87%B8%E9%96%A2%E6%95%B0)とも。
+
+### R-Convergence
+
+文献:
+
+https://en.wikipedia.org/wiki/Rate_of_convergence
+
+解説:
+
+Q-convergenceよりも緩くて扱いやすい収束の概念。
+
+数列 $x_k\to L$ の誤差を $e_k=\|x_k-L\|$ とする。
+
+Q-convergence（Quotient convergence）: $\lim_{k\to\infty} e_{k+1} / e_k^q = \mu$
+
+例えば $q=1$、$0<\mu<1$ なら Q-linear convergence（Q線形収束）。
+
+R-convergence（Root convergence）: $e_k\leq\varepsilon_k$ (ただし、$\varepsilon_k$ は Q-convergence する数列)
+
+例えば、R-linear convergenceなら、$\varepsilon_k$ も Q-linear convergence する必要があり、その$k$-th rootを考えると $\limsup_{k\to\infty} e_k^{1/k} \leq \mu < 1$ となる。これがRの由来。
+
+具体例として、$x_k=4^{-\lfloor k/2\rfloor}$、すなわち、$1$, $1$, $\frac14$, $\frac14$, $\frac1{16}$, $\frac1{16}$, $\ldots$ を考えると、Q線形収束しないが、R線形収束する。
 
 ### Radon's Theorem
 
@@ -1344,6 +1492,38 @@ https://en.wikipedia.org/wiki/Ursescu_theorem
 難しい。set-valued mapの話。
 将来的に追記予定。
 
+### VC Dimension
+
+文献:
+
+https://en.wikipedia.org/wiki/Vapnik%E2%80%93Chervonenkis_dimension
+
+https://qiita.com/fuyu_quant/items/f94c51a00630deff2a80
+
+金森敬文: [統計的学習理論](https://www.kspub.co.jp/book/detail/1529052.html), 講談社 (2015) (MLP機械学習プロフェッショナルシリーズ).
+
+解説:
+
+2値判別のための仮説集合を $\mathcal{H}$、入力空間を $\mathcal{X}$、出力空間を $\mathcal{Y}$ とする。$\{0,1\}$ などのラベル集合を考えているので、$|\mathcal{Y}|=2$ である。
+
+ここで $\{x_1,\ldots,x_n\}\subset\mathcal{X}$ に対し、仮説 $h \in \mathcal{H}$ という関数によって、$\{(h(x_1),\ldots,h(x_n))\in\mathcal{Y}^n\mid h\in\mathcal{H}\}$ を考えると、これは仮説(分類器)がどのようなラベルの組み合わせを出力できるかを表している。
+
+その上で、そのような出力の要素数、つまり、分類器の表現能力を表すものとして、 $\Pi_{\mathcal{H}}(x_1,\ldots,x_n)=|\{(h(x_1),\ldots,h(x_n))\in\mathcal{Y}^n\mid h\in\mathcal{H}\}|$ を定義する。
+
+$\Pi_{\mathcal{H}}(x_1,\ldots,x_n)=2^n$ となれば、それはいかなるラベルの組み合わせも分類器が正しく分類できることを意味する。これは shattering と呼ばれる。
+
+そこで、VC次元を、このような完璧な分類が出来るかどうかの境界となる最大のデータ数として、次のように定義出来る:
+
+$$
+\begin{equation*}
+    \mathrm{VCdim}(\mathcal{H})=\max\left\{n\in\mathbb{N}\mid\max_{x_1,\ldots,x_n\in\mathcal{X}}\Pi_{\mathcal{H}}(x_1,\ldots,x_n)=2^n\right\}
+\end{equation*}
+$$
+
+任意の $n$ でshatteringが可能であれば、$\mathrm{VCdim}(\mathcal{H})=\infty$ となる。
+
+最適化文脈では、計算量やオラクル数の下界の文脈で類似の概念が使われることがある。
+
 ### Wasserstein DRO
 
 文献:
@@ -1371,13 +1551,34 @@ Mohajerin Esfahani, P., Kuhn, D. Data-driven distributionally robust optimizatio
 Wasserstein DROは、経験分布などを中心、Wasserstein距離を半径とする分布の曖昧性集合を考え、その中の最悪分布に対して意思決定を最適化する手法。
 頑健性があって偉い。
 
-### Łojasiewicz inequality
+### Weber Problem
+
+文献:
+
+https://en.wikipedia.org/wiki/Weber_problem
+
+![WeberProblem_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/WeberProblem/Wiki.png)
+
+出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Weber_problem>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+
+https://arxiv.org/abs/2609.16703
+
+![WeberProblem_Stability-Analysis-of-Generalized-Multi-Source-Weber-Problems](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/WeberProblem/Stability-Analysis-of-Generalized-Multi-Source-Weber-Problems.png)
+
+解説:
+
+Fermet–Weber Problemとも。
+[opt100](https://scmopt.github.io/opt100/39Weber.html)でも取り上げられており、「平面上のどこにでも施設を配置できるタイプの立地問題は，Weber問題(Weber problem)とよばれる．」とある。
+
+これの一般化などが研究されているようである。
+
+### Łojasiewicz Inequality
 
 文献:
 
 https://en.wikipedia.org/wiki/%C5%81ojasiewicz_inequality
 
-![Łojasiewiczinequality_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/%C5%81ojasiewiczinequality/Wiki.png)
+![ŁojasiewiczInequality_Wiki](https://raw.githubusercontent.com/HirokiHamaguchi/QiitaArticles/main/20260827_OptimizationWords/%C5%81ojasiewiczInequality/Wiki.png)
 
 出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/%C5%81ojasiewicz_inequality>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
