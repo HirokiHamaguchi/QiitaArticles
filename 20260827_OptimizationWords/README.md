@@ -1013,10 +1013,11 @@ https://en.wikipedia.org/wiki/Master_equation
 
 出典: [Wikipedia contributors](<https://en.wikipedia.org/wiki/Master_equation>), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
+https://arxiv.org/abs/2609.16524
+
 解説:
 
 どちらかというと制御の文脈。
-https://arxiv.org/abs/2609.16524
 連続版のマルコフ連鎖を記述していると捉えられる。
 
 ### Maximum Theorem
@@ -1317,7 +1318,7 @@ https://en.wikipedia.org/wiki/Rate_of_convergence
 
 Q-convergenceよりも緩くて扱いやすい収束の概念。
 
-数列 $x_k\to L$ の誤差を $e_k=\|x_k-L\|$ とする。
+数列 $x_k\to L$ の誤差を $e_k = \| x_k - L \|$ とする。
 
 Q-convergence（Quotient convergence）: $\lim_{k\to\infty} e_{k+1} / e_k^q = \mu$
 
@@ -1506,7 +1507,7 @@ https://qiita.com/fuyu_quant/items/f94c51a00630deff2a80
 
 2値判別のための仮説集合を $\mathcal{H}$、入力空間を $\mathcal{X}$、出力空間を $\mathcal{Y}$ とする。$\{0,1\}$ などのラベル集合を考えているので、$|\mathcal{Y}|=2$ である。
 
-ここで $\{x_1,\ldots,x_n\}\subset\mathcal{X}$ に対し、仮説 $h \in \mathcal{H}$ という関数によって、$\{(h(x_1),\ldots,h(x_n))\in\mathcal{Y}^n\mid h\in\mathcal{H}\}$ を考えると、これは仮説(分類器)がどのようなラベルの組み合わせを出力できるかを表している。
+ここで $\{ x_1, \ldots, x_n \} \subset \mathcal{X}$ に対し、仮説 $h \in \mathcal{H}$ という関数によって、$\{(h(x_1),\ldots,h(x_n))\in\mathcal{Y}^n\mid h\in\mathcal{H}\}$ を考えると、これは仮説(分類器)がどのようなラベルの組み合わせを出力できるかを表している。
 
 その上で、そのような出力の要素数、つまり、分類器の表現能力を表すものとして、 $\Pi_{\mathcal{H}}(x_1,\ldots,x_n)=|\{(h(x_1),\ldots,h(x_n))\in\mathcal{Y}^n\mid h\in\mathcal{H}\}|$ を定義する。
 
@@ -1516,7 +1517,7 @@ $\Pi_{\mathcal{H}}(x_1,\ldots,x_n)=2^n$ となれば、それはいかなるラ�
 
 $$
 \begin{equation*}
-    \mathrm{VCdim}(\mathcal{H})=\max\left\{n\in\mathbb{N}\mid\max_{x_1,\ldots,x_n\in\mathcal{X}}\Pi_{\mathcal{H}}(x_1,\ldots,x_n)=2^n\right\}
+    \mathrm{VCdim}(\mathcal{H})=\max\left\{ n\in\mathbb{N}\mid\max_{x_1,\ldots,x_n\in\mathcal{X}}\Pi_{\mathcal{H}}(x_1,\ldots,x_n)=2^n \right\}
 \end{equation*}
 $$
 

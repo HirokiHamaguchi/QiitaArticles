@@ -12,7 +12,7 @@ https://qiita.com/fuyu_quant/items/f94c51a00630deff2a80
 
 2値判別のための仮説集合を $\mathcal{H}$、入力空間を $\mathcal{X}$、出力空間を $\mathcal{Y}$ とする。$\{0,1\}$ などのラベル集合を考えているので、$|\mathcal{Y}|=2$ である。
 
-ここで $\{x_1,\ldots,x_n\}\subset\mathcal{X}$ に対し、仮説 $h \in \mathcal{H}$ という関数によって、$\{(h(x_1),\ldots,h(x_n))\in\mathcal{Y}^n\mid h\in\mathcal{H}\}$ を考えると、これは仮説(分類器)がどのようなラベルの組み合わせを出力できるかを表している。
+ここで $\{ x_1, \ldots, x_n \} \subset \mathcal{X}$ に対し、仮説 $h \in \mathcal{H}$ という関数によって、$\{(h(x_1),\ldots,h(x_n))\in\mathcal{Y}^n\mid h\in\mathcal{H}\}$ を考えると、これは仮説(分類器)がどのようなラベルの組み合わせを出力できるかを表している。
 
 その上で、そのような出力の要素数、つまり、分類器の表現能力を表すものとして、 $\Pi_{\mathcal{H}}(x_1,\ldots,x_n)=|\{(h(x_1),\ldots,h(x_n))\in\mathcal{Y}^n\mid h\in\mathcal{H}\}|$ を定義する。
 
@@ -22,7 +22,7 @@ $\Pi_{\mathcal{H}}(x_1,\ldots,x_n)=2^n$ となれば、それはいかなるラ�
 
 $$
 \begin{equation*}
-    \mathrm{VCdim}(\mathcal{H})=\max\left\{n\in\mathbb{N}\mid\max_{x_1,\ldots,x_n\in\mathcal{X}}\Pi_{\mathcal{H}}(x_1,\ldots,x_n)=2^n\right\}
+    \mathrm{VCdim}(\mathcal{H})=\max\left\{ n\in\mathbb{N}\mid\max_{x_1,\ldots,x_n\in\mathcal{X}}\Pi_{\mathcal{H}}(x_1,\ldots,x_n)=2^n \right\}
 \end{equation*}
 $$
 

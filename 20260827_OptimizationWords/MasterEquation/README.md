@@ -10,8 +10,9 @@ https://en.wikipedia.org/wiki/Master_equation
 
 ![Wiki-en](Wiki-en.png)
 
+https://arxiv.org/abs/2609.16524
+
 解説:
 
 どちらかというと制御の文脈。
-https://arxiv.org/abs/2609.16524
 連続版のマルコフ連鎖を記述していると捉えられる。

@@ -8,7 +8,7 @@ https://en.wikipedia.org/wiki/Rate_of_convergence
 
 Q-convergenceよりも緩くて扱いやすい収束の概念。
 
-数列 $x_k\to L$ の誤差を $e_k=\|x_k-L\|$ とする。
+数列 $x_k\to L$ の誤差を $e_k = \| x_k - L \|$ とする。
 
 Q-convergence（Quotient convergence）: $\lim_{k\to\infty} e_{k+1} / e_k^q = \mu$
 

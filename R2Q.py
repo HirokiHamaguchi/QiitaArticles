@@ -207,10 +207,7 @@ def replace_patterns(res):
     res = res.replace("\\eqcolon", "=\\mathrel{\\vcenter{:}}")
     res = res.replace("\\eqqcolon", "=\\mathrel{\\vcenter{:}}")
     res = res.replace("{dcases}", "{cases}")
-    for line in res.splitlines():
-        if re.search(r"\\{[a-zA-Z0-9]", line):
-            print(r"Warning: Add space after \{[a-zA-Z0-9] in line: " + line)
-    res = res.replace("\\{", "\\lbrace").replace("\\}", "\\rbrace")
+    res = res.replace("\\{", "\\lbrace ").replace("\\}", "\\rbrace ")
     if res.count("\\,"):
         print("Warning: \\, found. Use \\ instead.")
     return res
@@ -224,7 +221,7 @@ def replace_vertical_bars(res):
     res2 = ""
     for vertNum, resIdx in enumerate(re.finditer(r"\\\|", res)):
         res2 += res[lastIdx : resIdx.start()]
-        res2 += "\\lVert" if vertNum % 2 == 0 else "\\rVert"
+        res2 += "\\lVert " if vertNum % 2 == 0 else "\\rVert "
         lastIdx = resIdx.end()
     res2 += res[lastIdx:]
     return res2
